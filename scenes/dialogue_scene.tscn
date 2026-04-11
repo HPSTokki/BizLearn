@@ -1,0 +1,279 @@
+[gd_scene format=3 uid="uid://cu7lm0ieaueak"]
+
+[ext_resource type="Script" uid="uid://ed520cwn7uog" path="res://scripts/dialogue_scene.gd" id="1_cno1m"]
+[ext_resource type="Script" uid="uid://duqhf6x26fcr3" path="res://scripts/status_hud.gd" id="2_cno1m"]
+[ext_resource type="Script" uid="uid://bmmodwttsb3yr" path="res://scripts/dialogue_box.gd" id="3_qpcyj"]
+[ext_resource type="Script" uid="uid://balule04lw3b" path="res://scripts/choices_container.gd" id="4_bhyd5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qpcyj"]
+bg_color = Color(0.981469, 0.9817721, 0.9886672, 1)
+border_width_bottom = 2
+border_color = Color(0.78431374, 0.65882355, 0.29411766, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cno1m"]
+bg_color = Color(0.50928617, 0.5092862, 0.509286, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bhyd5"]
+bg_color = Color(0.4862745, 0.36078432, 0.5411765, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2e7es"]
+bg_color = Color(0.23921569, 0.23921569, 0.32156864, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4862745, 0.36078432, 0.5411765, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xcky8"]
+bg_color = Color(0.1764706, 0.1764706, 0.24705882, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q4mab"]
+content_margin_left = 14.0
+content_margin_top = 14.0
+content_margin_right = 14.0
+content_margin_bottom = 14.0
+bg_color = Color(0.1764706, 0.1764706, 0.24705882, 1)
+border_width_top = 3
+border_color = Color(0.78431374, 0.65882355, 0.29411766, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o6y45"]
+bg_color = Color(0.101960786, 0.101960786, 0.18039216, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.23921569, 0.23921569, 0.32156864, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w4lkc"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.78431374, 0.65882355, 0.29411766, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_18hkw"]
+bg_color = Color(0.1764706, 0.1764706, 0.24705882, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kolsc"]
+bg_color = Color(0.1764706, 0.1764706, 0.24705882, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.78431374, 0.65882355, 0.29411766, 1)
+
+[node name="DialogueScene" type="Node2D" unique_id=120209256]
+script = ExtResource("1_cno1m")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1218044838]
+
+[node name="BG" type="ColorRect" parent="CanvasLayer" unique_id=616694943]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.101960786, 0.101960786, 0.18039216, 1)
+
+[node name="Vig" type="ColorRect" parent="CanvasLayer" unique_id=516892606]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.15686275)
+
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=403292651]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -124.0
+offset_top = 20.0
+offset_right = 124.0
+offset_bottom = 43.0
+grow_horizontal = 2
+text = "Fukibuki Stop Shop Laundromat"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatusHud" type="PanelContainer" parent="CanvasLayer" unique_id=1671517035]
+offset_top = 44.0
+offset_right = 1152.0
+offset_bottom = 92.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_qpcyj")
+script = ExtResource("2_cno1m")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/StatusHud" unique_id=1587043360]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Money" type="HBoxContainer" parent="CanvasLayer/StatusHud/HBoxContainer" unique_id=1811652118]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/StatusHud/HBoxContainer/Money" unique_id=245576672]
+layout_mode = 2
+text = "$"
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/StatusHud/HBoxContainer/Money" unique_id=646842103]
+custom_minimum_size = Vector2(60, 8)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_cno1m")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bhyd5")
+value = 50.0
+show_percentage = false
+
+[node name="Reputation" type="HBoxContainer" parent="CanvasLayer/StatusHud/HBoxContainer" unique_id=462998291]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/StatusHud/HBoxContainer/Reputation" unique_id=571591996]
+layout_mode = 2
+text = "Rep"
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/StatusHud/HBoxContainer/Reputation" unique_id=851383670]
+custom_minimum_size = Vector2(60, 8)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_cno1m")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bhyd5")
+value = 50.0
+show_percentage = false
+
+[node name="Morale" type="HBoxContainer" parent="CanvasLayer/StatusHud/HBoxContainer" unique_id=1259494898]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/StatusHud/HBoxContainer/Morale" unique_id=1895791430]
+layout_mode = 2
+text = "Morale"
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/StatusHud/HBoxContainer/Morale" unique_id=471061636]
+custom_minimum_size = Vector2(60, 8)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_cno1m")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bhyd5")
+value = 50.0
+show_percentage = false
+
+[node name="Stress" type="HBoxContainer" parent="CanvasLayer/StatusHud/HBoxContainer" unique_id=1760768136]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/StatusHud/HBoxContainer/Stress" unique_id=1257893649]
+layout_mode = 2
+text = "Stress"
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/StatusHud/HBoxContainer/Stress" unique_id=1724488848]
+custom_minimum_size = Vector2(60, 8)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_cno1m")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bhyd5")
+value = 50.0
+show_percentage = false
+
+[node name="SpriteArea" type="Control" parent="CanvasLayer" unique_id=883587018]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 244.0
+offset_bottom = 552.0
+grow_horizontal = 0
+
+[node name="NPCPlaceholder" type="PanelContainer" parent="CanvasLayer/SpriteArea" unique_id=1540026865]
+custom_minimum_size = Vector2(80, 120)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -110.0
+offset_top = -120.0
+offset_right = -30.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_2e7es")
+
+[node name="Label" type="Label" parent="CanvasLayer/SpriteArea/NPCPlaceholder" unique_id=1511342725]
+layout_mode = 2
+text = "NPC"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerPlaceholder" type="PanelContainer" parent="CanvasLayer/SpriteArea" unique_id=1442275371]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = -110.0
+offset_right = 100.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xcky8")
+
+[node name="Label" type="Label" parent="CanvasLayer/SpriteArea/PlayerPlaceholder" unique_id=1969890669]
+layout_mode = 2
+text = "Player"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DialogueBox" type="PanelContainer" parent="CanvasLayer" unique_id=94112718]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -200.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_q4mab")
+script = ExtResource("3_qpcyj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/DialogueBox" unique_id=1270065946]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 8
+
+[node name="SpeakerName" type="Label" parent="CanvasLayer/DialogueBox/VBoxContainer" unique_id=789544872]
+layout_mode = 2
+text = "Mentor"
+
+[node name="DialogueText" type="RichTextLabel" parent="CanvasLayer/DialogueBox/VBoxContainer" unique_id=1559286726]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+bbcode_enabled = true
+scroll_active = false
+visible_characters = 0
+
+[node name="NextIndicator" type="Label" parent="CanvasLayer/DialogueBox/VBoxContainer" unique_id=1710039545]
+visible = false
+layout_mode = 2
+text = "▼ tap to continue"
+horizontal_alignment = 2
+
+[node name="ChoicesContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=1624843547]
+visible = false
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -200.0
+offset_bottom = -200.0
+theme_override_constants/separation = 6
+script = ExtResource("4_bhyd5")
+
+[node name="Choice" type="Button" parent="CanvasLayer/ChoicesContainer" unique_id=80157588]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_o6y45")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w4lkc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_18hkw")
+theme_override_styles/focus = SubResource("StyleBoxFlat_kolsc")
+text = "\"▸ \""

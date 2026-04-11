@@ -1,0 +1,267 @@
+{
+  "day": 2,
+  "total_events": 3,
+  "events": [
+	{ "start": "d2e1_a" },
+	{ "start": "d2e2_a" },
+	{ "start": "d2e3_a" }
+  ],
+  "nodes": {
+
+	"d2e1_a": {
+	  "speaker": "Mentor",
+	  "text": "Day 2! Your shop is getting some attention. A new employee candidate just walked in unannounced asking for a job. How do you handle it?",
+	  "choices": [],
+	  "next": "d2e1_b"
+	},
+	"d2e1_b": {
+	  "speaker": "Candidate",
+	  "text": "Hi! I heard your shop is doing well. I have experience in retail and I am a hard worker. Any openings?",
+	  "choices": [
+		{
+		  "text": "Hire them on the spot — you need the help",
+		  "effects": { "money": -15, "morale": 15, "stress": -10 },
+		  "minigame": null,
+		  "next": "d2e1_c_hire"
+		},
+		{
+		  "text": "Ask for a resume and schedule a proper interview",
+		  "effects": { "morale": 5, "stress": -5 },
+		  "minigame": null,
+		  "next": "d2e1_c_interview"
+		},
+		{
+		  "text": "Politely decline — you are not ready to hire yet",
+		  "effects": { "stress": 5 },
+		  "minigame": null,
+		  "next": "d2e1_c_decline"
+		},
+		{
+		  "text": "Ask them to work a free trial day first",
+		  "effects": { "morale": 10, "stress": -5, "reputation": 5 },
+		  "minigame": null,
+		  "next": "d2e1_c_trial"
+		}
+	  ]
+	},
+	"d2e1_c_hire": {
+	  "speaker": "Candidate",
+	  "text": "Really?! Thank you so much! I will start right away and give it my all!",
+	  "choices": [],
+	  "next": "d2e1_result_hire"
+	},
+	"d2e1_c_interview": {
+	  "speaker": "Candidate",
+	  "text": "Of course! That is very professional of you. I will send my resume right away.",
+	  "choices": [],
+	  "next": "d2e1_result_interview"
+	},
+	"d2e1_c_decline": {
+	  "speaker": "Candidate",
+	  "text": "Oh, I understand. Good luck with your business! Maybe another time.",
+	  "choices": [],
+	  "next": "d2e1_result_decline"
+	},
+	"d2e1_c_trial": {
+	  "speaker": "Candidate",
+	  "text": "A trial day? Sure, I am confident in my skills. When do I start?",
+	  "choices": [],
+	  "next": "d2e1_result_trial"
+	},
+	"d2e1_result_hire": {
+	  "speaker": "Mentor",
+	  "text": "Bold but risky! Hiring without screening can lead to mismatches. Always have a process even if simple.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2e1_result_interview": {
+	  "speaker": "Mentor",
+	  "text": "Smart move! A proper hiring process protects your business and respects the candidate.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2e1_result_decline": {
+	  "speaker": "Mentor",
+	  "text": "Knowing your limits is wisdom. Hiring before you are ready creates more problems than it solves.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2e1_result_trial": {
+	  "speaker": "Mentor",
+	  "text": "Creative approach! Trial periods let both sides assess fit before committing. Low risk, high reward.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d2e2_a": {
+	  "speaker": "Mentor",
+	  "text": "Midday! A competitor opened a shop nearby and is offering lower prices. Customers are noticing. What is your response?",
+	  "choices": [],
+	  "next": "d2e2_b"
+	},
+	"d2e2_b": {
+	  "speaker": "You",
+	  "text": "A price war could hurt my margins but doing nothing feels wrong...",
+	  "choices": [
+		{
+		  "text": "Match their prices immediately",
+		  "effects": { "money": -20, "reputation": 5, "stress": 15 },
+		  "minigame": null,
+		  "next": "d2e2_c_match"
+		},
+		{
+		  "text": "Focus on quality and service instead of price",
+		  "effects": { "reputation": 15, "morale": 10, "stress": -5 },
+		  "minigame": null,
+		  "next": "d2e2_c_quality"
+		},
+		{
+		  "text": "Launch a limited time promotion to retain customers",
+		  "effects": { "money": -10, "reputation": 10, "morale": 5 },
+		  "minigame": null,
+		  "next": "d2e2_c_promo"
+		},
+		{
+		  "text": "Ignore them and stay the course",
+		  "effects": { "reputation": -10, "money": -5 },
+		  "minigame": null,
+		  "next": "d2e2_c_ignore"
+		}
+	  ]
+	},
+	"d2e2_c_match": {
+	  "speaker": "Regular Customer",
+	  "text": "Oh nice, same price as the new place! But I still prefer coming here honestly.",
+	  "choices": [],
+	  "next": "d2e2_result_match"
+	},
+	"d2e2_c_quality": {
+	  "speaker": "Regular Customer",
+	  "text": "I tried the new place but honestly the service here is so much better. Worth every extra peso!",
+	  "choices": [],
+	  "next": "d2e2_result_quality"
+	},
+	"d2e2_c_promo": {
+	  "speaker": "Regular Customer",
+	  "text": "A promotion? Perfect timing! I was thinking of trying the new place but this keeps me here.",
+	  "choices": [],
+	  "next": "d2e2_result_promo"
+	},
+	"d2e2_c_ignore": {
+	  "speaker": "Regular Customer",
+	  "text": "Hey, the place next door is cheaper. Are you going to do anything about that?",
+	  "choices": [],
+	  "next": "d2e2_result_ignore"
+	},
+	"d2e2_result_match": {
+	  "speaker": "Mentor",
+	  "text": "Price matching is costly and unsustainable long term. Competing on value beats competing on price.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2e2_result_quality": {
+	  "speaker": "Mentor",
+	  "text": "Excellent instinct! Differentiation through quality and service is a powerful competitive advantage.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2e2_result_promo": {
+	  "speaker": "Mentor",
+	  "text": "Smart tactical move! Short term promotions can retain customers without permanently cutting margins.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2e2_result_ignore": {
+	  "speaker": "Mentor",
+	  "text": "Ignoring competition is dangerous. You must always be aware of your market and adapt accordingly.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d2e3_a": {
+	  "speaker": "Mentor",
+	  "text": "Late afternoon. Your best selling item just sold out and a customer really wants it. You could restock overnight for extra cost. What do you do?",
+	  "choices": [],
+	  "next": "d2e3_b"
+	},
+	"d2e3_b": {
+	  "speaker": "Customer",
+	  "text": "I specifically came here for that item. Is there any way you can get it for me?",
+	  "choices": [
+		{
+		  "text": "Pay for overnight restock — keep the customer happy",
+		  "effects": { "money": -15, "reputation": 20, "morale": 10 },
+		  "minigame": null,
+		  "next": "d2e3_c_restock"
+		},
+		{
+		  "text": "Offer a similar alternative item",
+		  "effects": { "reputation": 10, "morale": 5 },
+		  "minigame": null,
+		  "next": "d2e3_c_alternative"
+		},
+		{
+		  "text": "Take their contact and notify when restocked",
+		  "effects": { "reputation": 15, "morale": 10, "stress": -5 },
+		  "minigame": null,
+		  "next": "d2e3_c_notify"
+		},
+		{
+		  "text": "Apologize and send them away",
+		  "effects": { "reputation": -15, "morale": -10 },
+		  "minigame": null,
+		  "next": "d2e3_c_sendaway"
+		}
+	  ]
+	},
+	"d2e3_c_restock": {
+	  "speaker": "Customer",
+	  "text": "You would do that for me? That is incredible service! I will wait and tell everyone about this shop!",
+	  "choices": [],
+	  "next": "d2e3_result_restock"
+	},
+	"d2e3_c_alternative": {
+	  "speaker": "Customer",
+	  "text": "Hmm, it is not exactly what I wanted but it could work. Thank you for not just turning me away.",
+	  "choices": [],
+	  "next": "d2e3_result_alternative"
+	},
+	"d2e3_c_notify": {
+	  "speaker": "Customer",
+	  "text": "Oh that is so thoughtful! Yes please, here is my number. I appreciate the personal touch!",
+	  "choices": [],
+	  "next": "d2e3_result_notify"
+	},
+	"d2e3_c_sendaway": {
+	  "speaker": "Customer",
+	  "text": "Really? Just like that? I drove all the way here. Very disappointing.",
+	  "choices": [],
+	  "next": "d2e3_result_sendaway"
+	},
+	"d2e3_result_restock": {
+	  "speaker": "Mentor",
+	  "text": "Going above and beyond creates loyal customers. The cost was real but so is the word of mouth you just earned.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2e3_result_alternative": {
+	  "speaker": "Mentor",
+	  "text": "Good recovery! Suggesting alternatives shows resourcefulness and keeps the sale alive.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2e3_result_notify": {
+	  "speaker": "Mentor",
+	  "text": "Smart relationship building! Following up with customers creates trust and brings them back.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2e3_result_sendaway": {
+	  "speaker": "Mentor",
+	  "text": "A lost customer rarely returns. Even a small gesture of effort leaves a better impression than nothing.",
+	  "choices": [],
+	  "next": "end"
+	}
+
+  }
+}

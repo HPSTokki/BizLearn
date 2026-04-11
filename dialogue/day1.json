@@ -1,0 +1,231 @@
+{
+  "day": 1,
+  "total_events": 3,
+  "events": [
+	{ "start": "d1e1_a" },
+	{ "start": "d1e2_a" },
+	{ "start": "d1e3_a" }
+  ],
+  "nodes": {
+
+	"d1e1_a": {
+	  "speaker": "Mentor",
+	  "text": "Welcome to your first day! A customer just walked in looking lost. What do you do?",
+	  "choices": [],
+	  "next": "d1e1_b"
+	},
+	"d1e1_b": {
+	  "speaker": "You",
+	  "text": "I should probably do something...",
+	  "choices": [
+		{
+		  "text": "Greet them warmly and ask what they need",
+		  "effects": { "reputation": 10, "morale": 5 },
+		  "minigame": null,
+		  "next": "d1e1_c_good"
+		},
+		{
+		  "text": "Wait for them to approach you",
+		  "effects": { "reputation": -5 },
+		  "minigame": null,
+		  "next": "d1e1_c_neutral"
+		},
+		{
+		  "text": "Ignore them and keep doing paperwork",
+		  "effects": { "reputation": -15, "morale": -5 },
+		  "minigame": null,
+		  "next": "d1e1_c_bad"
+		}
+	  ]
+	},
+	"d1e1_c_good": {
+	  "speaker": "Customer",
+	  "text": "Oh how lovely! I was looking for a gift. You have great service!",
+	  "choices": [],
+	  "next": "d1e1_result_good"
+	},
+	"d1e1_c_neutral": {
+	  "speaker": "Customer",
+	  "text": "Uh... hi. Do you sell gift items? You seem busy so I will be quick.",
+	  "choices": [],
+	  "next": "d1e1_result_neutral"
+	},
+	"d1e1_c_bad": {
+	  "speaker": "Customer",
+	  "text": "Excuse me? Hello? Fine, I will take my business elsewhere.",
+	  "choices": [],
+	  "next": "d1e1_result_bad"
+	},
+	"d1e1_result_good": {
+	  "speaker": "Mentor",
+	  "text": "Great instinct! First impressions build lasting customer relationships. Reputation up!",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d1e1_result_neutral": {
+	  "speaker": "Mentor",
+	  "text": "Not bad, but proactive service goes a long way. You missed a chance to shine.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d1e1_result_bad": {
+	  "speaker": "Mentor",
+	  "text": "You just lost a customer. In business, every person who walks in is an opportunity.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d1e2_a": {
+	  "speaker": "Mentor",
+	  "text": "Your supplier just called. They are offering a bulk discount on stock but it requires a big upfront payment. What do you do?",
+	  "choices": [],
+	  "next": "d1e2_b"
+	},
+	"d1e2_b": {
+	  "speaker": "You",
+	  "text": "A bulk deal sounds good but that is a lot of cash upfront...",
+	  "choices": [
+		{
+		  "text": "Take the bulk deal — more stock, better margins",
+		  "effects": { "money": -20, "reputation": 5, "morale": 5 },
+		  "minigame": null,
+		  "next": "d1e2_c_bulk"
+		},
+		{
+		  "text": "Order just enough for now — play it safe",
+		  "effects": { "money": -5, "morale": 5 },
+		  "minigame": null,
+		  "next": "d1e2_c_safe"
+		},
+		{
+		  "text": "Skip the order entirely — save the cash",
+		  "effects": { "money": 10, "reputation": -10 },
+		  "minigame": null,
+		  "next": "d1e2_c_skip"
+		}
+	  ]
+	},
+	"d1e2_c_bulk": {
+	  "speaker": "Supplier",
+	  "text": "Excellent choice! Your shelves will be full and customers love a well stocked shop.",
+	  "choices": [],
+	  "next": "d1e2_result_bulk"
+	},
+	"d1e2_c_safe": {
+	  "speaker": "Supplier",
+	  "text": "Alright, small order coming your way. Should arrive tomorrow morning.",
+	  "choices": [],
+	  "next": "d1e2_result_safe"
+	},
+	"d1e2_c_skip": {
+	  "speaker": "Supplier",
+	  "text": "Your call. But if you run out of stock do not blame me when customers walk out empty handed.",
+	  "choices": [],
+	  "next": "d1e2_result_skip"
+	},
+	"d1e2_result_bulk": {
+	  "speaker": "Mentor",
+	  "text": "Bold move! Cash flow took a hit but a fully stocked shop signals confidence to customers.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d1e2_result_safe": {
+	  "speaker": "Mentor",
+	  "text": "Cautious but reasonable. Managing cash flow carefully is a real skill in business.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d1e2_result_skip": {
+	  "speaker": "Mentor",
+	  "text": "Saving cash is tempting but empty shelves drive customers away. Balance is key.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d1e3_a": {
+	  "speaker": "Mentor",
+	  "text": "End of your first day! A regular customer wants a discount on their usual order. How do you handle it?",
+	  "choices": [],
+	  "next": "d1e3_b"
+	},
+	"d1e3_b": {
+	  "speaker": "Customer",
+	  "text": "Hey, I come here every week. Any chance of a little loyalty discount?",
+	  "choices": [
+		{
+		  "text": "Offer a 10% loyalty discount",
+		  "effects": { "money": -10, "reputation": 15, "morale": 10 },
+		  "minigame": null,
+		  "next": "d1e3_c_discount"
+		},
+		{
+		  "text": "Politely decline but thank them for loyalty",
+		  "effects": { "reputation": 5, "morale": 5 },
+		  "minigame": null,
+		  "next": "d1e3_c_decline"
+		},
+		{
+		  "text": "Offer a free small item instead",
+		  "effects": { "money": -5, "reputation": 10, "morale": 15 },
+		  "minigame": null,
+		  "next": "d1e3_c_gift"
+		},
+		{
+		  "text": "Refuse and say prices are fixed",
+		  "effects": { "reputation": -10, "morale": -10 },
+		  "minigame": null,
+		  "next": "d1e3_c_refuse"
+		}
+	  ]
+	},
+	"d1e3_c_discount": {
+	  "speaker": "Customer",
+	  "text": "Really? Thank you so much! I will definitely keep coming back and tell my friends!",
+	  "choices": [],
+	  "next": "d1e3_result_discount"
+	},
+	"d1e3_c_decline": {
+	  "speaker": "Customer",
+	  "text": "Oh, no worries. I appreciate you being honest about it. See you next week!",
+	  "choices": [],
+	  "next": "d1e3_result_decline"
+	},
+	"d1e3_c_gift": {
+	  "speaker": "Customer",
+	  "text": "Oh wow, that is so thoughtful! You really care about your customers. Love this place!",
+	  "choices": [],
+	  "next": "d1e3_result_gift"
+	},
+	"d1e3_c_refuse": {
+	  "speaker": "Customer",
+	  "text": "Right... prices are fixed. Got it. Maybe I will look around for other options.",
+	  "choices": [],
+	  "next": "d1e3_result_refuse"
+	},
+	"d1e3_result_discount": {
+	  "speaker": "Mentor",
+	  "text": "Loyalty programs work! You took a small hit on money but gained a brand ambassador.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d1e3_result_decline": {
+	  "speaker": "Mentor",
+	  "text": "Honest and respectful. Not every loyalty ask needs a yes — how you say no matters too.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d1e3_result_gift": {
+	  "speaker": "Mentor",
+	  "text": "Creative solution! A small gesture can mean more than a discount and costs less too.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d1e3_result_refuse": {
+	  "speaker": "Mentor",
+	  "text": "Rigid pricing without warmth pushes loyal customers away. Flexibility builds relationships.",
+	  "choices": [],
+	  "next": "end"
+	}
+
+  }
+}

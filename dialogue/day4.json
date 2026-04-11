@@ -1,0 +1,249 @@
+{
+  "day": 4,
+  "total_events": 3,
+  "events": [
+	{ "start": "d4e1_a" },
+	{ "start": "d4e2_a" },
+	{ "start": "d4e3_a" }
+  ],
+  "nodes": {
+
+	"d4e1_a": {
+	  "speaker": "Mentor",
+	  "text": "Day 4! Your business is getting noticed. A local influencer walks in and offers to promote your shop online in exchange for free products. How do you handle it?",
+	  "choices": [],
+	  "next": "d4e1_b"
+	},
+	"d4e1_b": {
+	  "speaker": "Influencer",
+	  "text": "Hey! I have about 50,000 followers and I love your shop. I could feature it if you give me some free products. What do you say?",
+	  "choices": [
+		{
+		  "text": "Agree immediately — free exposure sounds great",
+		  "effects": { "money": -10, "reputation": 25, "morale": 10 },
+		  "minigame": null,
+		  "next": "d4e1_c_agree"
+		},
+		{
+		  "text": "Negotiate — offer a discount instead of free products",
+		  "effects": { "money": -5, "reputation": 15, "morale": 5 },
+		  "minigame": null,
+		  "next": "d4e1_c_negotiate"
+		},
+		{
+		  "text": "Ask to see their engagement stats first",
+		  "effects": { "reputation": 10, "stress": -5, "morale": 5 },
+		  "minigame": null,
+		  "next": "d4e1_c_verify"
+		},
+		{
+		  "text": "Decline politely — you prefer organic growth",
+		  "effects": { "reputation": -5, "morale": 5, "money": 5 },
+		  "minigame": null,
+		  "next": "d4e1_c_decline"
+		}
+	  ]
+	},
+	"d4e1_c_agree": {
+	  "speaker": "Influencer",
+	  "text": "Amazing! I will post about this today. Your shop is going to blow up online trust me!",
+	  "choices": [],
+	  "next": "d4e1_result_agree"
+	},
+	"d4e1_c_negotiate": {
+	  "speaker": "Influencer",
+	  "text": "A discount instead? Hmm, fair enough. I respect the business mindset. Deal!",
+	  "choices": [],
+	  "next": "d4e1_result_negotiate"
+	},
+	"d4e1_c_verify": {
+	  "speaker": "Influencer",
+	  "text": "Sure! Here are my analytics. Most followers are local and highly engaged. Pretty solid numbers right?",
+	  "choices": [],
+	  "next": "d4e1_result_verify"
+	},
+	"d4e1_c_decline": {
+	  "speaker": "Influencer",
+	  "text": "Oh okay, no worries. Your loss I guess. Good luck with the shop though!",
+	  "choices": [],
+	  "next": "d4e1_result_decline"
+	},
+	"d4e1_result_agree": {
+	  "speaker": "Mentor",
+	  "text": "Influencer marketing can be powerful but always set clear expectations upfront. A verbal agreement is not enough.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4e1_result_negotiate": {
+	  "speaker": "Mentor",
+	  "text": "Smart negotiation! Never give away full value when a partial deal serves both sides. Business is about mutual benefit.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4e1_result_verify": {
+	  "speaker": "Mentor",
+	  "text": "Due diligence before any deal is essential. Follower count means nothing without real engagement from the right audience.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4e1_result_decline": {
+	  "speaker": "Mentor",
+	  "text": "Organic growth is valid but do not dismiss partnerships outright. Evaluate each opportunity on its own merits.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d4e2_a": {
+	  "speaker": "Mentor",
+	  "text": "Midday. You discover one of your staff members has been giving unauthorized discounts to their friends. Sales are slightly lower because of it. What do you do?",
+	  "choices": [],
+	  "next": "d4e2_b"
+	},
+	"d4e2_b": {
+	  "speaker": "You",
+	  "text": "This is a trust issue. How I handle this will set the tone for how my team operates...",
+	  "choices": [
+		{
+		  "text": "Have a private calm conversation and set clear boundaries",
+		  "effects": { "morale": 10, "money": 5, "stress": -10 },
+		  "minigame": null,
+		  "next": "d4e2_c_talk"
+		},
+		{
+		  "text": "Issue a formal written warning",
+		  "effects": { "morale": -10, "stress": -5, "money": 5 },
+		  "minigame": null,
+		  "next": "d4e2_c_warning"
+		},
+		{
+		  "text": "Dismiss them immediately for breach of trust",
+		  "effects": { "morale": -20, "stress": 10, "money": 10 },
+		  "minigame": null,
+		  "next": "d4e2_c_dismiss"
+		},
+		{
+		  "text": "Gather more evidence before acting",
+		  "effects": { "stress": 10, "morale": -5 },
+		  "minigame": null,
+		  "next": "d4e2_c_evidence"
+		}
+	  ]
+	},
+	"d4e2_c_talk": {
+	  "speaker": "Staff",
+	  "text": "I am really sorry. I did not think it was a big deal but I understand now. It will not happen again.",
+	  "choices": [],
+	  "next": "d4e2_result_talk"
+	},
+	"d4e2_c_warning": {
+	  "speaker": "Staff",
+	  "text": "A written warning? I understand. I will make sure this never happens again.",
+	  "choices": [],
+	  "next": "d4e2_result_warning"
+	},
+	"d4e2_c_dismiss": {
+	  "speaker": "Other Staff",
+	  "text": "Wow they got fired just like that? I had no idea that was such a serious offense. Everyone is a bit shaken.",
+	  "choices": [],
+	  "next": "d4e2_result_dismiss"
+	},
+	"d4e2_c_evidence": {
+	  "speaker": "You",
+	  "text": "I need to be sure before I act. Let me review the receipts and security footage carefully.",
+	  "choices": [],
+	  "next": "d4e2_result_evidence"
+	},
+	"d4e2_result_talk": {
+	  "speaker": "Mentor",
+	  "text": "Direct honest communication resolves most workplace issues. People often make mistakes without realizing the full impact.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4e2_result_warning": {
+	  "speaker": "Mentor",
+	  "text": "Formal warnings create paper trails and signal seriousness. Good for repeat offenses but may feel heavy handed for a first incident.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4e2_result_dismiss": {
+	  "speaker": "Mentor",
+	  "text": "Immediate dismissal sends a strong message but can damage team morale. Reserve it for severe or repeated violations.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4e2_result_evidence": {
+	  "speaker": "Mentor",
+	  "text": "Never act on suspicion alone. Gathering evidence before confronting protects both you and your employee from unfair outcomes.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d4e3_a": {
+	  "speaker": "Mentor",
+	  "text": "Late afternoon. A corporate buyer approaches you with a bulk purchase order worth a lot of money but they want a 30% discount and faster delivery than you can normally manage. What do you do?",
+	  "choices": [],
+	  "next": "d4e3_b"
+	},
+	"d4e3_b": {
+	  "speaker": "Corporate Buyer",
+	  "text": "We want 200 units by Friday at a 30% discount. This could be a recurring order if you deliver. Can you make it happen?",
+	  "choices": [
+		{
+		  "text": "Accept the deal — big order is big revenue",
+		  "effects": { "money": 20, "stress": 20, "morale": -10 },
+		  "minigame": null,
+		  "next": "d4e3_c_accept"
+		},
+		{
+		  "text": "Negotiate the discount down to 15%",
+		  "effects": { "money": 25, "stress": 10, "reputation": 10 },
+		  "minigame": null,
+		  "next": "d4e3_c_negotiate"
+		},
+		{
+		  "text": "Accept the discount but push the delivery to next week",
+		  "effects": { "money": 15, "stress": -5, "reputation": 5 },
+		  "minigame": null,
+		  "next": "d4e3_c_delay"
+		},
+		{
+		  "text": "Decline — you cannot compromise quality for speed",
+		  "effects": { "reputation": 10, "morale": 10, "stress": -10 },
+		  "minigame": null,
+		  "next": "d4e3_c_decline"
+		}
+	  ]
+	},
+	"d4e3_c_accept": {
+	  "speaker": "Corporate Buyer",
+	  "text": "Excellent! We will send the contract over. Make sure you deliver on time or the deal is off.",
+	  "choices": [],
+	  "next": "d4e3_result_accept"
+	},
+	"d4e3_c_negotiate": {
+	  "speaker": "Corporate Buyer",
+	  "text": "Fifteen percent? You drive a hard bargain. But I respect that. Let us meet at 20% and call it a deal.",
+	  "choices": [],
+	  "next": "d4e3_result_negotiate"
+	},
+	"d4e3_c_delay": {
+	  "speaker": "Corporate Buyer",
+	  "text": "Next week works actually. Quality matters more than speed to us. We appreciate the honesty.",
+	  "choices": [],
+	  "next": "d4e3_result_delay"
+	},
+	"d4e3_c_decline": {
+	  "speaker": "Corporate Buyer",
+	  "text": "I understand. Perhaps we can revisit when your capacity grows. Here is my card.",
+	  "choices": [],
+	  "next": "d4e3_result_decline"
+	},
+	"d4e3_result_accept": {
+	  "speaker": "Mentor",
+	  "text": "Big orders under pressure test your operations. Overcommitting can harm quality and burn out your team even if the revenue looks good.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4e3_result_negotiate": {
+	  "speaker": "Mentor",
+	  "text": "Never accept the first off
