@@ -202,3 +202,10 @@ func _apply_effects(effects: Dictionary) -> void:
 		)
 		stats[stat_name] = new_value
 		emit_signal("stats_changed", stat_name, new_value)
+
+func get_speaker_id() -> String:
+	return current_node.get("speaker_id", "unknown")
+
+
+func get_background_id() -> String:
+	return current_node.get("background", "")

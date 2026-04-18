@@ -141,6 +141,7 @@ func _build_npc_placeholder() -> void:
 	label.add_theme_color_override("font_color", COLOR_DIM)
 	npc.add_child(label)
 	sprite_area.add_child(npc)
+	npc_placeholder = npc
 
 
 func _build_player_placeholder() -> void:
@@ -171,6 +172,7 @@ func _build_player_placeholder() -> void:
 	label.add_theme_color_override("font_color", COLOR_DIM)
 	player.add_child(label)
 	sprite_area.add_child(player)
+	player_placeholder = player
 
 
 func _build_choices_container() -> void:
@@ -276,8 +278,17 @@ func _push_first_node(node: Dictionary) -> void:
 func _on_dialogue_node_changed(speaker: String, text: String) -> void:
 	_is_transitioning = true
 
-	var node    = DialogueManager.get_current_node()
-	var choices = node.get("choices", [])
+	var node       = DialogueManager.get_current_node()
+	var choices    = node.get("choices", [])
+	var bg_id      = DialogueManager.get_background_id()
+	var speaker_id = DialogueManager.get_speaker_id()
+
+	# Swap background and NPC
+	_swap_background(bg_id)
+	_swap_npc(speaker_id)
+
+	# Update scene label with current day
+	scene_label.text = "📍 Your Shop - Day " + str(DialogueManager.get_current_day())
 
 	var cc = choices_container as VBoxContainer
 	if cc and cc.has_method("hide_choices"):
@@ -313,3 +324,104 @@ func _on_day_ended(_day: int, _stat_deltas: Dictionary) -> void:
 
 func _on_dialogue_ended() -> void:
 	pass
+
+func _load_texture_safe(path: String) -> Texture2D:
+	if not ResourceLoader.exists(path):
+		return null
+	return load(path) as Texture2D
+
+var current_bg_id: String = ""
+
+func _swap_background(bg_id: String) -> void:
+	if bg_id == "" or bg_id == current_bg_id:
+		return
+	current_bg_id = bg_id
+
+	var path    = "res://assets/backgrounds/" + bg_id + ".png"
+	var texture = _load_texture_safe(path)
+
+	if texture != null:
+		# ASSET SLOT — swap ColorRect for TextureRect when art exists
+		# For now just tint the background ColorRect differently
+		# per scene to give visual distinction without art
+		pass
+
+	# Fallback — tint background ColorRect per scene
+	match bg_id:
+		"shop_day":
+			background.color = Color("#1a1a2e")
+		"shop_evening":
+			background.color = Color("#1a0d1a")
+		"office":
+			background.color = Color("#0d1a0d")
+		"street":
+			background.color = Color("#0d1a2e")
+		_:
+			background.color = Color("#1a1a2e")
+
+var npc_placeholder: PanelContainer = null
+var player_placeholder: PanelContainer = null
+
+func _swap_npc(speaker_id: String) -> void:
+	if npc_placeholder == null:
+		return
+
+	var path    = "res://assets/characters/" + speaker_id + ".png"
+	var texture = _load_texture_safe(path)
+
+	if texture != null:
+		# ASSET SLOT — swap placeholder for Sprite2D
+		# texture exists, use it
+		pass
+
+	# Fallback — update placeholder label and color per speaker
+	var label = npc_placeholder.get_child(0) as Label
+	if label == null:
+		return
+
+	match speaker_id:
+		"mentor":
+			label.text = "🧑‍🏫"
+			_set_placeholder_border(npc_placeholder, Color("#c8a84b"))
+		"customer":
+			label.text = "🧑"
+			_set_placeholder_border(npc_placeholder, Color("#7c5c8a"))
+		"supplier":
+			label.text = "🚚"
+			_set_placeholder_border(npc_placeholder, Color("#4a7c59"))
+		"staff":
+			label.text = "👷"
+			_set_placeholder_border(npc_placeholder, Color("#3a5f8b"))
+		"candidate":
+			label.text = "🙋"
+			_set_placeholder_border(npc_placeholder, Color("#7c5c8a"))
+		"influencer":
+			label.text = "📱"
+			_set_placeholder_border(npc_placeholder, Color("#c8a84b"))
+		"inspector":
+			label.text = "📋"
+			_set_placeholder_border(npc_placeholder, Color("#8b3a3a"))
+		"corporate":
+			label.text = "💼"
+			_set_placeholder_border(npc_placeholder, Color("#3a5f8b"))
+		"player":
+			label.text = "YOU"
+			_set_placeholder_border(npc_placeholder, Color("#c8a84b"))
+		_:
+			label.text = "?"
+			_set_placeholder_border(npc_placeholder, COLOR_PANEL_MID)
+
+
+func _set_placeholder_border(panel: PanelContainer, color: Color) -> void:
+	var style = StyleBoxFlat.new()
+	style.bg_color                   = COLOR_PANEL_MID
+	style.border_width_top           = 2
+	style.border_width_bottom        = 2
+	style.border_width_left          = 2
+	style.border_width_right         = 2
+	style.border_color               = color
+	style.corner_radius_top_left     = 0
+	style.corner_radius_top_right    = 0
+	style.corner_radius_bottom_left  = 0
+	style.corner_radius_bottom_right = 0
+	panel.add_theme_stylebox_override("panel", style)
