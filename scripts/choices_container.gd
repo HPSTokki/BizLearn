@@ -15,10 +15,9 @@ const COLOR_ACCENT     = Color("#c8a84b")
 const COLOR_TEXT       = Color("#e8e0d0")
 const COLOR_DIM        = Color("#8a8a9a")
 
-const DIALOGUEBOX_H     = 160.0   # match DialogueScene
+const DIALOGUEBOX_H     = 160.0
 const BUTTON_H          = 38.0
 const BUTTON_SEPARATION = 6.0
-
 
 # =========================================
 # STATE
@@ -28,9 +27,6 @@ var _current_choices: Array = []
 # =========================================
 # LIFECYCLE
 # =========================================
-func _ready() -> void:
-	pass  # do nothing, wait for setup()
-
 func setup() -> void:
 	_apply_container_style()
 	_connect_signals()
@@ -42,7 +38,6 @@ func setup() -> void:
 # =========================================
 func _apply_container_style() -> void:
 	add_theme_constant_override("separation", int(BUTTON_SEPARATION))
-	# offset_top is set dynamically in show_choices()
 
 
 func _build_button(text: String, index: int) -> Button:
@@ -53,71 +48,64 @@ func _build_button(text: String, index: int) -> Button:
 	btn.alignment             = HORIZONTAL_ALIGNMENT_LEFT
 	btn.add_theme_font_size_override("font_size", 9)
 
-	# Font colors
 	btn.add_theme_color_override("font_color",         COLOR_DIM)
 	btn.add_theme_color_override("font_color_hover",   COLOR_TEXT)
 	btn.add_theme_color_override("font_color_pressed", COLOR_TEXT)
 	btn.add_theme_color_override("font_color_focus",   COLOR_TEXT)
 
-	# Normal style
 	var normal = StyleBoxFlat.new()
-	normal.bg_color                    = COLOR_BG
-	normal.border_width_top            = 2
-	normal.border_width_bottom         = 2
-	normal.border_width_left           = 2
-	normal.border_width_right          = 2
-	normal.border_color                = COLOR_PANEL_MID
-	normal.corner_radius_top_left      = 0
-	normal.corner_radius_top_right     = 0
-	normal.corner_radius_bottom_left   = 0
-	normal.corner_radius_bottom_right  = 0
+	normal.bg_color                   = COLOR_BG
+	normal.border_width_top           = 2
+	normal.border_width_bottom        = 2
+	normal.border_width_left          = 2
+	normal.border_width_right         = 2
+	normal.border_color               = COLOR_PANEL_MID
+	normal.corner_radius_top_left     = 0
+	normal.corner_radius_top_right    = 0
+	normal.corner_radius_bottom_left  = 0
+	normal.corner_radius_bottom_right = 0
 	btn.add_theme_stylebox_override("normal", normal)
 
-	# Hover style
 	var hover = StyleBoxFlat.new()
-	hover.bg_color                    = COLOR_PANEL_DARK
-	hover.border_width_top            = 2
-	hover.border_width_bottom         = 2
-	hover.border_width_left           = 2
-	hover.border_width_right          = 2
-	hover.border_color                = COLOR_ACCENT
-	hover.corner_radius_top_left      = 0
-	hover.corner_radius_top_right     = 0
-	hover.corner_radius_bottom_left   = 0
-	hover.corner_radius_bottom_right  = 0
+	hover.bg_color                   = COLOR_PANEL_DARK
+	hover.border_width_top           = 2
+	hover.border_width_bottom        = 2
+	hover.border_width_left          = 2
+	hover.border_width_right         = 2
+	hover.border_color               = COLOR_ACCENT
+	hover.corner_radius_top_left     = 0
+	hover.corner_radius_top_right    = 0
+	hover.corner_radius_bottom_left  = 0
+	hover.corner_radius_bottom_right = 0
 	btn.add_theme_stylebox_override("hover", hover)
 
-	# Pressed style
 	var pressed = StyleBoxFlat.new()
-	pressed.bg_color                    = COLOR_PANEL_MID
-	pressed.border_width_top            = 2
-	pressed.border_width_bottom         = 2
-	pressed.border_width_left           = 2
-	pressed.border_width_right          = 2
-	pressed.border_color                = COLOR_ACCENT
-	pressed.corner_radius_top_left      = 0
-	pressed.corner_radius_top_right     = 0
-	pressed.corner_radius_bottom_left   = 0
-	pressed.corner_radius_bottom_right  = 0
+	pressed.bg_color                   = COLOR_PANEL_MID
+	pressed.border_width_top           = 2
+	pressed.border_width_bottom        = 2
+	pressed.border_width_left          = 2
+	pressed.border_width_right         = 2
+	pressed.border_color               = COLOR_ACCENT
+	pressed.corner_radius_top_left     = 0
+	pressed.corner_radius_top_right    = 0
+	pressed.corner_radius_bottom_left  = 0
+	pressed.corner_radius_bottom_right = 0
 	btn.add_theme_stylebox_override("pressed", pressed)
 
-	# Focus style
 	var focus = StyleBoxFlat.new()
-	focus.bg_color                    = COLOR_PANEL_DARK
-	focus.border_width_top            = 2
-	focus.border_width_bottom         = 2
-	focus.border_width_left           = 2
-	focus.border_width_right          = 2
-	focus.border_color                = COLOR_ACCENT
-	focus.corner_radius_top_left      = 0
-	focus.corner_radius_top_right     = 0
-	focus.corner_radius_bottom_left   = 0
-	focus.corner_radius_bottom_right  = 0
+	focus.bg_color                   = COLOR_PANEL_DARK
+	focus.border_width_top           = 2
+	focus.border_width_bottom        = 2
+	focus.border_width_left          = 2
+	focus.border_width_right         = 2
+	focus.border_color               = COLOR_ACCENT
+	focus.corner_radius_top_left     = 0
+	focus.corner_radius_top_right    = 0
+	focus.corner_radius_bottom_left  = 0
+	focus.corner_radius_bottom_right = 0
 	btn.add_theme_stylebox_override("focus", focus)
 
-	# Connect press signal, passing index via callable bind
 	btn.pressed.connect(_on_choice_pressed.bind(index))
-
 	return btn
 
 
@@ -125,6 +113,10 @@ func _build_button(text: String, index: int) -> Button:
 # SIGNALS
 # =========================================
 func _connect_signals() -> void:
+	if DialogueManager.choices_updated.is_connected(_on_choices_updated):
+		return
+	if DialogueManager.dialogue_updated.is_connected(_on_dialogue_updated):
+		return
 	DialogueManager.choices_updated.connect(_on_choices_updated)
 	DialogueManager.dialogue_updated.connect(_on_dialogue_updated)
 
@@ -139,15 +131,11 @@ func show_choices(choices: Array) -> void:
 	var total_h = (choices.size() * BUTTON_H) + \
 				  ((choices.size() - 1) * BUTTON_SEPARATION)
 
-	# Always calculate from bottom of screen minus dialoguebox
-	# Don't use current position.y as it accumulates on repeated calls
 	position.y = get_viewport().get_visible_rect().size.y - DIALOGUEBOX_H - total_h
 	size       = Vector2(get_viewport().get_visible_rect().size.x, total_h)
 
 	for i in range(choices.size()):
-		var choice = choices[i]
-		var btn    = _build_button(choice.get("text", ""), i)
-		add_child(btn)
+		add_child(_build_button(choices[i].get("text", ""), i))
 
 	visible = true
 
@@ -162,7 +150,6 @@ func hide_choices() -> void:
 # PRIVATE
 # =========================================
 func _clear_buttons() -> void:
-	# Remove all existing button children
 	for child in get_children():
 		child.queue_free()
 
@@ -176,13 +163,9 @@ func _on_choice_pressed(index: int) -> void:
 	DialogueManager.advance(index)
 
 
-func _on_choices_updated(choices: Array) -> void:
-	# Don't show choices immediately — DialogueScene handles timing
-	# This signal is now only used as a data carrier
+func _on_choices_updated(_choices: Array) -> void:
 	pass
 
 
 func _on_dialogue_updated(_speaker: String, _text: String) -> void:
-	# Hide choices whenever a new dialogue line comes in
-	# even if it has no choices yet
 	hide_choices()

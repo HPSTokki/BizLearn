@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cie3jgomry3ve"]
+
+[ext_resource type="Script" uid="uid://5t7up8whdxjh" path="res://scenes/analytics_scene.gd" id="1_7riwa"]
+
+[node name="AnalyticsScene" type="Node2D" unique_id=2113235834]
+script = ExtResource("1_7riwa")

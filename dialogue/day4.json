@@ -246,4 +246,22 @@
 	},
 	"d4e3_result_negotiate": {
 	  "speaker": "Mentor",
-	  "text": "Never accept the first off
+	  "text": "Never accept the first offer in a negotiation! Pushing back respectfully often leads to better terms for both sides.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4e3_result_delay": {
+	  "speaker": "Mentor",
+	  "text": "Honest communication about your capacity builds long term trust. A realistic promise kept beats an ambitious one broken.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4e3_result_decline": {
+	  "speaker": "Mentor",
+	  "text": "Knowing your limits is strength not weakness. Protecting quality and team wellbeing keeps your business sustainable.",
+	  "choices": [],
+	  "next": "end"
+	}
+
+  }
+}
