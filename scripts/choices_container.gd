@@ -15,8 +15,8 @@ const COLOR_ACCENT     = Color("#c8a84b")
 const COLOR_TEXT       = Color("#e8e0d0")
 const COLOR_DIM        = Color("#8a8a9a")
 
-const DIALOGUEBOX_H     = 160.0
-const BUTTON_H          = 38.0
+const DIALOGUEBOX_H     = 180.0
+const BUTTON_H          = 44.0
 const BUTTON_SEPARATION = 6.0
 
 # =========================================
@@ -37,75 +37,16 @@ func setup() -> void:
 # BUILD
 # =========================================
 func _apply_container_style() -> void:
-	add_theme_constant_override("separation", int(BUTTON_SEPARATION))
+	add_theme_constant_override("separation", int(GameTheme.BUTTON_SEP))
 
 
-func _build_button(text: String, index: int) -> Button:
-	var btn = Button.new()
-	btn.text                  = "▸  " + text
-	btn.custom_minimum_size   = Vector2(0, BUTTON_H)
-	btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	btn.alignment             = HORIZONTAL_ALIGNMENT_LEFT
-	btn.add_theme_font_size_override("font_size", 9)
-
-	btn.add_theme_color_override("font_color",         COLOR_DIM)
-	btn.add_theme_color_override("font_color_hover",   COLOR_TEXT)
-	btn.add_theme_color_override("font_color_pressed", COLOR_TEXT)
-	btn.add_theme_color_override("font_color_focus",   COLOR_TEXT)
-
-	var normal = StyleBoxFlat.new()
-	normal.bg_color                   = COLOR_BG
-	normal.border_width_top           = 2
-	normal.border_width_bottom        = 2
-	normal.border_width_left          = 2
-	normal.border_width_right         = 2
-	normal.border_color               = COLOR_PANEL_MID
-	normal.corner_radius_top_left     = 0
-	normal.corner_radius_top_right    = 0
-	normal.corner_radius_bottom_left  = 0
-	normal.corner_radius_bottom_right = 0
-	btn.add_theme_stylebox_override("normal", normal)
-
-	var hover = StyleBoxFlat.new()
-	hover.bg_color                   = COLOR_PANEL_DARK
-	hover.border_width_top           = 2
-	hover.border_width_bottom        = 2
-	hover.border_width_left          = 2
-	hover.border_width_right         = 2
-	hover.border_color               = COLOR_ACCENT
-	hover.corner_radius_top_left     = 0
-	hover.corner_radius_top_right    = 0
-	hover.corner_radius_bottom_left  = 0
-	hover.corner_radius_bottom_right = 0
-	btn.add_theme_stylebox_override("hover", hover)
-
-	var pressed = StyleBoxFlat.new()
-	pressed.bg_color                   = COLOR_PANEL_MID
-	pressed.border_width_top           = 2
-	pressed.border_width_bottom        = 2
-	pressed.border_width_left          = 2
-	pressed.border_width_right         = 2
-	pressed.border_color               = COLOR_ACCENT
-	pressed.corner_radius_top_left     = 0
-	pressed.corner_radius_top_right    = 0
-	pressed.corner_radius_bottom_left  = 0
-	pressed.corner_radius_bottom_right = 0
-	btn.add_theme_stylebox_override("pressed", pressed)
-
-	var focus = StyleBoxFlat.new()
-	focus.bg_color                   = COLOR_PANEL_DARK
-	focus.border_width_top           = 2
-	focus.border_width_bottom        = 2
-	focus.border_width_left          = 2
-	focus.border_width_right         = 2
-	focus.border_color               = COLOR_ACCENT
-	focus.corner_radius_top_left     = 0
-	focus.corner_radius_top_right    = 0
-	focus.corner_radius_bottom_left  = 0
-	focus.corner_radius_bottom_right = 0
-	btn.add_theme_stylebox_override("focus", focus)
-
-	btn.pressed.connect(_on_choice_pressed.bind(index))
+func _build_button(text: String, index: int) -> PanelContainer:
+	var btn = GameTheme.build_button("▸  " + text, false)
+	var lbl = btn.get_child(0) as Label
+	if lbl:
+		lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+		lbl.add_theme_constant_override("margin_left", 12)
+	GameTheme.connect_button(btn, func(): _on_choice_pressed(index))
 	return btn
 
 

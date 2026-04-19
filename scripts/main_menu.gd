@@ -26,6 +26,10 @@ const PARTICLE_COUNT        = 40
 # LIFECYCLE
 # =========================================
 func _ready() -> void:
+	# Set theme based on current business
+	# For now defaults to coffee_shop
+	GameTheme.set_theme("coffee_shop")
+
 	screen_w = get_viewport().get_visible_rect().size.x
 	screen_h = get_viewport().get_visible_rect().size.y
 
@@ -47,29 +51,12 @@ func _build_canvas() -> void:
 
 
 func _build_background() -> void:
-	# ASSET SLOT — swap ColorRect for TextureRect
-	# to plug in background art later
-	var bg      = ColorRect.new()
-	bg.color    = COLOR_BG
-	bg.position = Vector2(0, 0)
-	bg.size     = Vector2(screen_w, screen_h)
+	var bg = GameTheme.get_bg_for_scene(
+		"shop_day",
+		canvas,
+		Vector2(screen_w, screen_h)
+	)
 	canvas.add_child(bg)
-
-	# Subtle gradient overlay — keep even with art
-	var overlay         = ColorRect.new()
-	overlay.color       = Color(0, 0, 0, 0.3)
-	overlay.position    = Vector2(0, 0)
-	overlay.size        = Vector2(screen_w, screen_h)
-	overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	canvas.add_child(overlay)
-
-	# Bottom fade — draws eye toward buttons
-	var fade         = ColorRect.new()
-	fade.color       = Color(COLOR_BG.r, COLOR_BG.g, COLOR_BG.b, 0.6)
-	fade.position    = Vector2(0, screen_h * 0.6)
-	fade.size        = Vector2(screen_w, screen_h * 0.4)
-	fade.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	canvas.add_child(fade)
 
 
 func _build_particles() -> void:
@@ -188,137 +175,21 @@ func _build_buttons() -> void:
 	btn_container.add_theme_constant_override("separation", 10)
 	canvas.add_child(btn_container)
 
-	# Start button — primary CTA
-	var start_btn = _build_button(
-		"▸  START BUSINESS",
-		true
-	)
-	start_btn.pressed.connect(_on_start_pressed)
+	var start_btn = GameTheme.build_button("▸  START BUSINESS", true)
+	GameTheme.connect_button(start_btn, _on_start_pressed)
 	btn_container.add_child(start_btn)
 
-	# How to play
-	var how_btn = _build_button("HOW TO PLAY", false)
-	how_btn.pressed.connect(_on_how_to_play_pressed)
+	var how_btn = GameTheme.build_button("HOW TO PLAY", false)
+	GameTheme.connect_button(how_btn, _on_how_to_play_pressed)
 	btn_container.add_child(how_btn)
 
-	# Credits
-	var credits_btn = _build_button("CREDITS", false)
-	credits_btn.pressed.connect(_on_credits_pressed)
+	var credits_btn = GameTheme.build_button("CREDITS", false)
+	GameTheme.connect_button(credits_btn, _on_credits_pressed)
 	btn_container.add_child(credits_btn)
-
-
-func _build_button(label: String, is_primary: bool) -> Button:
-	var btn                    = Button.new()
-	btn.text                   = label
-	btn.custom_minimum_size    = Vector2(0, 44)
-	btn.size_flags_horizontal  = Control.SIZE_EXPAND_FILL
-	btn.add_theme_font_size_override("font_size", 10)
-
-	if is_primary:
-		# Filled gold — main CTA
-		btn.add_theme_color_override("font_color",         COLOR_BG)
-		btn.add_theme_color_override("font_color_hover",   COLOR_TEXT)
-		btn.add_theme_color_override("font_color_pressed", COLOR_TEXT)
-
-		var normal = StyleBoxFlat.new()
-		normal.bg_color                   = COLOR_ACCENT
-		normal.corner_radius_top_left     = 0
-		normal.corner_radius_top_right    = 0
-		normal.corner_radius_bottom_left  = 0
-		normal.corner_radius_bottom_right = 0
-		btn.add_theme_stylebox_override("normal", normal)
-
-		var hover = StyleBoxFlat.new()
-		hover.bg_color                   = COLOR_PANEL_MID
-		hover.border_width_top           = 2
-		hover.border_width_bottom        = 2
-		hover.border_width_left          = 2
-		hover.border_width_right         = 2
-		hover.border_color               = COLOR_ACCENT
-		hover.corner_radius_top_left     = 0
-		hover.corner_radius_top_right    = 0
-		hover.corner_radius_bottom_left  = 0
-		hover.corner_radius_bottom_right = 0
-		btn.add_theme_stylebox_override("hover", hover)
-
-		var pressed = StyleBoxFlat.new()
-		pressed.bg_color                   = COLOR_PANEL_DARK
-		pressed.border_width_top           = 2
-		pressed.border_width_bottom        = 2
-		pressed.border_width_left          = 2
-		pressed.border_width_right         = 2
-		pressed.border_color               = COLOR_ACCENT
-		pressed.corner_radius_top_left     = 0
-		pressed.corner_radius_top_right    = 0
-		pressed.corner_radius_bottom_left  = 0
-		pressed.corner_radius_bottom_right = 0
-		btn.add_theme_stylebox_override("pressed", pressed)
-
-	else:
-		# Outline only — secondary buttons
-		btn.add_theme_color_override("font_color",         COLOR_DIM)
-		btn.add_theme_color_override("font_color_hover",   COLOR_TEXT)
-		btn.add_theme_color_override("font_color_pressed", COLOR_TEXT)
-
-		var normal = StyleBoxFlat.new()
-		normal.bg_color                   = COLOR_BG
-		normal.border_width_top           = 2
-		normal.border_width_bottom        = 2
-		normal.border_width_left          = 2
-		normal.border_width_right         = 2
-		normal.border_color               = COLOR_PANEL_MID
-		normal.corner_radius_top_left     = 0
-		normal.corner_radius_top_right    = 0
-		normal.corner_radius_bottom_left  = 0
-		normal.corner_radius_bottom_right = 0
-		btn.add_theme_stylebox_override("normal", normal)
-
-		var hover = StyleBoxFlat.new()
-		hover.bg_color                   = COLOR_PANEL_DARK
-		hover.border_width_top           = 2
-		hover.border_width_bottom        = 2
-		hover.border_width_left          = 2
-		hover.border_width_right         = 2
-		hover.border_color               = COLOR_ACCENT
-		hover.corner_radius_top_left     = 0
-		hover.corner_radius_top_right    = 0
-		hover.corner_radius_bottom_left  = 0
-		hover.corner_radius_bottom_right = 0
-		btn.add_theme_stylebox_override("hover", hover)
-
-		var pressed = StyleBoxFlat.new()
-		pressed.bg_color                   = COLOR_PANEL_MID
-		pressed.border_width_top           = 2
-		pressed.border_width_bottom        = 2
-		pressed.border_width_left          = 2
-		pressed.border_width_right         = 2
-		pressed.border_color               = COLOR_ACCENT
-		pressed.corner_radius_top_left     = 0
-		pressed.corner_radius_top_right    = 0
-		pressed.corner_radius_bottom_left  = 0
-		pressed.corner_radius_bottom_right = 0
-		btn.add_theme_stylebox_override("pressed", pressed)
-
-	# Shared focus style
-	var focus = StyleBoxFlat.new()
-	focus.bg_color                   = COLOR_PANEL_DARK
-	focus.border_width_top           = 2
-	focus.border_width_bottom        = 2
-	focus.border_width_left          = 2
-	focus.border_width_right         = 2
-	focus.border_color               = COLOR_ACCENT
-	focus.corner_radius_top_left     = 0
-	focus.corner_radius_top_right    = 0
-	focus.corner_radius_bottom_left  = 0
-	focus.corner_radius_bottom_right = 0
-	btn.add_theme_stylebox_override("focus", focus)
-
-	return btn
-
 
 func _build_version_label() -> void:
 	var version                  = Label.new()
-	version.text                 = "v0.1  —  Business 1: The Shop"
+	version.text                 = "v0.2  —  Business 1: The Shop"
 	version.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	version.position             = Vector2(0, screen_h - 20)
 	version.size                 = Vector2(screen_w, 16)
@@ -356,10 +227,8 @@ func _on_start_pressed() -> void:
 
 
 func _on_how_to_play_pressed() -> void:
-	# ASSET SLOT — wire to HowToPlayScene later
-	print("TODO: How to Play screen — Phase 2")
+	get_tree().change_scene_to_file("res://scenes/how_to_play.tscn")
 
 
 func _on_credits_pressed() -> void:
-	# ASSET SLOT — wire to CreditsScene later
-	print("TODO: Credits screen — Phase 2")
+	get_tree().change_scene_to_file("res://scenes/credits_scene.tscn")

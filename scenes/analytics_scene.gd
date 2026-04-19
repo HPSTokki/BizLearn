@@ -20,8 +20,8 @@ const TOTAL_DAYS       = 5
 # =========================================
 # REFERENCES
 # =========================================
-var canvas:      CanvasLayer = null
-var next_button: Button      = null
+var canvas:      CanvasLayer        = null
+var next_button: PanelContainer     = null
 
 # =========================================
 # STATE
@@ -82,7 +82,9 @@ func _build_ui() -> void:
 	panel_style.corner_radius_top_right    = 0
 	panel_style.corner_radius_bottom_left  = 0
 	panel_style.corner_radius_bottom_right = 0
-	panel.add_theme_stylebox_override("panel", panel_style)
+	panel.add_theme_stylebox_override("panel",
+		GameTheme.make_panel_style("dark", GameTheme.DIALOGUE_BORDER_W)
+		)
 	canvas.add_child(panel)
 
 	var vbox = VBoxContainer.new()
@@ -125,50 +127,12 @@ func _build_ui() -> void:
 	vbox.add_child(spacer)
 
 	# Next button
-	next_button                    = Button.new()
-	next_button.custom_minimum_size = Vector2(0, 48)
-	next_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	next_button.text               = "SEE FINAL RESULTS" if _current_day >= TOTAL_DAYS else "NEXT DAY  ▸"
-	next_button.add_theme_font_size_override("font_size", 11)
-	next_button.add_theme_color_override("font_color",         COLOR_BG)
-	next_button.add_theme_color_override("font_color_hover",   COLOR_TEXT)
-	next_button.add_theme_color_override("font_color_pressed", COLOR_TEXT)
-
-	var btn_normal = StyleBoxFlat.new()
-	btn_normal.bg_color                   = COLOR_ACCENT
-	btn_normal.corner_radius_top_left     = 0
-	btn_normal.corner_radius_top_right    = 0
-	btn_normal.corner_radius_bottom_left  = 0
-	btn_normal.corner_radius_bottom_right = 0
-	next_button.add_theme_stylebox_override("normal", btn_normal)
-
-	var btn_hover = StyleBoxFlat.new()
-	btn_hover.bg_color                   = COLOR_PANEL_MID
-	btn_hover.border_width_top           = 2
-	btn_hover.border_width_bottom        = 2
-	btn_hover.border_width_left          = 2
-	btn_hover.border_width_right         = 2
-	btn_hover.border_color               = COLOR_ACCENT
-	btn_hover.corner_radius_top_left     = 0
-	btn_hover.corner_radius_top_right    = 0
-	btn_hover.corner_radius_bottom_left  = 0
-	btn_hover.corner_radius_bottom_right = 0
-	next_button.add_theme_stylebox_override("hover", btn_hover)
-
-	var btn_pressed = StyleBoxFlat.new()
-	btn_pressed.bg_color                   = COLOR_PANEL_DARK
-	btn_pressed.border_width_top           = 2
-	btn_pressed.border_width_bottom        = 2
-	btn_pressed.border_width_left          = 2
-	btn_pressed.border_width_right         = 2
-	btn_pressed.border_color               = COLOR_ACCENT
-	btn_pressed.corner_radius_top_left     = 0
-	btn_pressed.corner_radius_top_right    = 0
-	btn_pressed.corner_radius_bottom_left  = 0
-	btn_pressed.corner_radius_bottom_right = 0
-	next_button.add_theme_stylebox_override("pressed", btn_pressed)
-
-	next_button.pressed.connect(_on_next_pressed)
+	next_button = GameTheme.build_button(
+		"SEE FINAL RESULTS" if _current_day >= TOTAL_DAYS else "NEXT DAY  ▸",
+		true,
+		11
+	)
+	GameTheme.connect_button(next_button, _on_next_pressed)
 	vbox.add_child(next_button)
 
 

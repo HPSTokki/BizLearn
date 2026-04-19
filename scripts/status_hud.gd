@@ -20,6 +20,10 @@ var stat_bars: Dictionary = {}
 # =========================================
 # LIFECYCLE
 # =========================================
+
+func _ready() -> void:
+	pass
+
 func setup() -> void:
 	_apply_panel_style()
 	_build_hud()
@@ -45,6 +49,11 @@ func _apply_panel_style() -> void:
 
 
 func _build_hud() -> void:
+	# Panel style from Theme
+	add_theme_stylebox_override("panel",
+		GameTheme.make_panel_style("dark", 2)
+	)
+
 	var hbox = HBoxContainer.new()
 	hbox.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	hbox.alignment             = BoxContainer.ALIGNMENT_CENTER
@@ -54,56 +63,40 @@ func _build_hud() -> void:
 	add_child(hbox)
 
 	var stat_defs = [
-		["money",      "💰", COLOR_ACCENT,  "money"],
-		["reputation", "⭐", COLOR_PURPLE,  "reputation"],
-		["morale",     "😊", COLOR_GREEN,   "morale"],
-		["stress",     "😰", COLOR_RED,     "stress"],
+		["money",      "💰", "money"],
+		["reputation", "⭐", "reputation"],
+		["morale",     "😊", "morale"],
+		["stress",     "😰", "stress"],
 	]
-
 	for stat in stat_defs:
-		hbox.add_child(_build_stat_row(stat[0], stat[1], stat[2], stat[3]))
+		hbox.add_child(_build_stat_row(stat[0], stat[1], stat[2]))
 
 
 func _build_stat_row(
 	_display_name: String,
-	icon: String,
-	bar_color: Color,
-	stat_key: String
+	icon:          String,
+	stat_key:      String
 ) -> HBoxContainer:
 	var row = HBoxContainer.new()
 	row.add_theme_constant_override("separation", 4)
 
 	var label = Label.new()
 	label.text = icon
-	label.add_theme_font_size_override("font_size", 12)
+	GameTheme.apply_font(label, 12)
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	row.add_child(label)
 
 	var bar = ProgressBar.new()
-	bar.custom_minimum_size = BAR_SIZE
+	bar.custom_minimum_size = GameTheme.BAR_SIZE
 	bar.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	bar.show_percentage     = false
 	bar.min_value           = 0.0
 	bar.max_value           = 100.0
 	bar.value               = 50.0
-
-	var fill_style = StyleBoxFlat.new()
-	fill_style.bg_color                   = bar_color
-	fill_style.corner_radius_top_left     = 0
-	fill_style.corner_radius_top_right    = 0
-	fill_style.corner_radius_bottom_left  = 0
-	fill_style.corner_radius_bottom_right = 0
-	bar.add_theme_stylebox_override("fill", fill_style)
-
-	var bg_style = StyleBoxFlat.new()
-	bg_style.bg_color                   = COLOR_WHITE_LOW
-	bg_style.corner_radius_top_left     = 0
-	bg_style.corner_radius_top_right    = 0
-	bg_style.corner_radius_bottom_left  = 0
-	bg_style.corner_radius_bottom_right = 0
-	bar.add_theme_stylebox_override("background", bg_style)
-
+	bar.add_theme_stylebox_override("fill",       GameTheme.make_bar_fill_style(stat_key))
+	bar.add_theme_stylebox_override("background", GameTheme.make_bar_bg_style())
 	row.add_child(bar)
+
 	stat_bars[stat_key] = bar
 	return row
 

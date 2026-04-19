@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="Negotium Prototype 1"
-run/main_scene="uid://cu7lm0ieaueak"
+run/main_scene="uid://cg10hr2368h27"
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
 
 DialogueManager="*uid://cmy7f30y74p3r"
+GameTheme="*uid://vxley8jd7l04"
 
 [display]
 

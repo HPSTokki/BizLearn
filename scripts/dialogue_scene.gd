@@ -3,17 +3,29 @@ extends Node2D
 # =========================================
 # CONSTANTS
 # =========================================
-const COLOR_BG         = Color("#1a1a2e")
-const COLOR_PANEL_DARK = Color("#2d2d3f")
-const COLOR_PANEL_MID  = Color("#3d3d52")
-const COLOR_ACCENT     = Color("#c8a84b")
-const COLOR_PURPLE     = Color("#7c5c8a")
-const COLOR_TEXT       = Color("#e8e0d0")
-const COLOR_DIM        = Color("#8a8a9a")
+#const COLOR_BG         = Color("#1a1a2e")
+#const COLOR_PANEL_DARK = Color("#2d2d3f")
+#const COLOR_PANEL_MID  = Color("#3d3d52")
+#const COLOR_ACCENT     = Color("#c8a84b")
+#const COLOR_PURPLE     = Color("#7c5c8a")
+#const COLOR_TEXT       = Color("#e8e0d0")
+#const COLOR_DIM        = Color("#8a8a9a")
+#
+#const HUD_HEIGHT      = 36.0
+#const HUD_Y           = 20.0
+#const DIALOGUEBOX_H   = 160.0
 
-const HUD_HEIGHT      = 36.0
-const HUD_Y           = 20.0
-const DIALOGUEBOX_H   = 160.0
+var COLOR_BG         = Color()
+var COLOR_PANEL_DARK = Color()
+var COLOR_PANEL_MID  = Color()
+var COLOR_ACCENT     = Color()
+var COLOR_PURPLE     = Color()
+var COLOR_TEXT       = Color()
+var COLOR_DIM        = Color()
+
+var HUD_HEIGHT       = 0.0
+var HUD_Y            = 0.0
+var DIALOGUEBOX_H    = 0.0
 
 # =========================================
 # REFERENCES
@@ -42,7 +54,21 @@ var _is_transitioning: bool = false
 # LIFECYCLE
 # =========================================
 func _ready() -> void:
-	SPRITE_AREA_Y = HUD_Y + HUD_HEIGHT
+	# Pull from Theme autoload
+	GameTheme.set_theme("coffee_shop")  # ← MUST be first line
+
+	COLOR_BG         = GameTheme.get_color("bg")
+	COLOR_PANEL_DARK = GameTheme.get_color("panel_dark")
+	COLOR_PANEL_MID  = GameTheme.get_color("panel_mid")
+	COLOR_ACCENT     = GameTheme.get_color("accent")
+	COLOR_PURPLE     = GameTheme.get_color("reputation")
+	COLOR_TEXT       = GameTheme.get_color("text")
+	COLOR_DIM        = GameTheme.get_color("dim")
+
+	HUD_HEIGHT    = GameTheme.HUD_HEIGHT
+	HUD_Y         = GameTheme.HUD_Y
+	DIALOGUEBOX_H = GameTheme.DIALOGUEBOX_H
+	
 	SPRITE_AREA_H = SCREEN_H - HUD_Y - HUD_HEIGHT - DIALOGUEBOX_H
 
 	_build_canvas()
@@ -67,10 +93,11 @@ func _build_canvas() -> void:
 
 
 func _build_background() -> void:
-	background          = ColorRect.new()
-	background.color    = COLOR_BG
-	background.position = Vector2(0, 0)
-	background.size     = Vector2(SCREEN_W, SCREEN_H)
+	background = GameTheme.get_bg_for_scene(
+		"shop_day",
+		canvas,
+		Vector2(SCREEN_W, SCREEN_H)
+	)
 	canvas.add_child(background)
 
 
@@ -116,7 +143,11 @@ func _build_sprite_area() -> void:
 func _build_npc_placeholder() -> void:
 	var npc      = PanelContainer.new()
 	npc.position = Vector2(SCREEN_W - 110, SPRITE_AREA_H - 120)
-	npc.size     = Vector2(80, 120)
+	npc.size     = GameTheme.NPC_SIZE
+	npc.add_theme_stylebox_override("panel",
+		GameTheme.make_panel_style("mid")
+	)
+	# rest unchanged
 
 	var style = StyleBoxFlat.new()
 	style.bg_color                   = COLOR_PANEL_MID
@@ -147,7 +178,11 @@ func _build_npc_placeholder() -> void:
 func _build_player_placeholder() -> void:
 	var player       = PanelContainer.new()
 	player.position  = Vector2(30, SPRITE_AREA_H - 110)
-	player.size      = Vector2(70, 110)
+	player.size      = GameTheme.PLAYER_SIZE
+	player.add_theme_stylebox_override("panel",
+		GameTheme.make_panel_style("dark")
+	)
+	# rest unchanged
 
 	var style = StyleBoxFlat.new()
 	style.bg_color                   = COLOR_PANEL_DARK
@@ -336,15 +371,12 @@ func _swap_background(bg_id: String) -> void:
 	if bg_id == "" or bg_id == current_bg_id:
 		return
 	current_bg_id = bg_id
-
-	var path    = "res://assets/backgrounds/" + bg_id + ".png"
-	var texture = _load_texture_safe(path)
-
-	if texture != null:
-		# ASSET SLOT — swap ColorRect for TextureRect when art exists
-		# For now just tint the background ColorRect differently
-		# per scene to give visual distinction without art
-		pass
+	background = GameTheme.swap_bg(
+		bg_id,
+		canvas,
+		background,
+		Vector2(SCREEN_W, SCREEN_H)
+	)
 
 	# Fallback — tint background ColorRect per scene
 	match bg_id:

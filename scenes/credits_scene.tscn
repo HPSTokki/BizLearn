@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cew5xl4c0wo8a"]
+
+[ext_resource type="Script" uid="uid://depvk8rqp4bjo" path="res://scripts/credits_scene.gd" id="1_ma2dp"]
+
+[node name="CreditsScene" type="Node2D" unique_id=1778304766]
+script = ExtResource("1_ma2dp")

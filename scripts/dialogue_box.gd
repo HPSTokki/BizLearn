@@ -54,18 +54,11 @@ func setup() -> void:
 # BUILD
 # =========================================
 func _apply_panel_style() -> void:
-	var style = StyleBoxFlat.new()
-	style.bg_color            = COLOR_PANEL_DARK
-	style.border_width_top    = 3
-	style.border_color        = COLOR_ACCENT
-	style.border_width_bottom = 0
-	style.border_width_left   = 0
-	style.border_width_right  = 0
-	style.corner_radius_top_left     = 0
-	style.corner_radius_top_right    = 0
-	style.corner_radius_bottom_left  = 0
-	style.corner_radius_bottom_right = 0
-	add_theme_stylebox_override("panel", style)
+	add_theme_stylebox_override("panel",
+		GameTheme.make_panel_style("dark", GameTheme.DIALOGUE_BORDER_W)
+	)
+	
+
 
 
 func _build_dialogue_box() -> void:
@@ -117,8 +110,8 @@ func _build_dialogue_box() -> void:
 	speaker_name.text                  = ""
 	speaker_name.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	speaker_name.size_flags_vertical   = Control.SIZE_SHRINK_CENTER
-	speaker_name.add_theme_font_size_override("font_size", 8)
-	speaker_name.add_theme_color_override("font_color", COLOR_ACCENT)
+	GameTheme.apply_font(speaker_name, 16)
+	speaker_name.add_theme_color_override("font_color",    GameTheme.get_color("accent"))
 	top_row.add_child(speaker_name)
 
 	# Dialogue text
@@ -128,8 +121,9 @@ func _build_dialogue_box() -> void:
 	dialogue_text.custom_minimum_size   = Vector2(0, 60)
 	dialogue_text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	dialogue_text.size_flags_vertical   = Control.SIZE_EXPAND_FILL
-	dialogue_text.add_theme_font_size_override("normal_font_size", 11)
-	dialogue_text.add_theme_color_override("default_color", COLOR_TEXT)
+	GameTheme.apply_font_rich(dialogue_text, 24)
+
+	dialogue_text.add_theme_color_override("default_color", GameTheme.get_color("text"))
 	vbox.add_child(dialogue_text)
 
 	# Next indicator
@@ -138,7 +132,7 @@ func _build_dialogue_box() -> void:
 	next_indicator.horizontal_alignment  = HORIZONTAL_ALIGNMENT_RIGHT
 	next_indicator.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	next_indicator.add_theme_font_size_override("font_size", 8)
-	next_indicator.add_theme_color_override("font_color", COLOR_ACCENT)
+	next_indicator.add_theme_color_override("font_color",  GameTheme.get_color("accent"))
 	next_indicator.visible               = false
 	next_indicator.modulate.a            = 0.0
 	vbox.add_child(next_indicator)
@@ -193,19 +187,9 @@ func update_portrait(speaker_id: String) -> void:
 
 
 func _set_portrait_color(color: Color) -> void:
-	var style = StyleBoxFlat.new()
-	style.bg_color                   = COLOR_PANEL_MID
-	style.border_width_top           = 2
-	style.border_width_bottom        = 2
-	style.border_width_left          = 2
-	style.border_width_right         = 2
-	style.border_color               = color
-	style.corner_radius_top_left     = 0
-	style.corner_radius_top_right    = 0
-	style.corner_radius_bottom_left  = 0
-	style.corner_radius_bottom_right = 0
-	portrait_box.add_theme_stylebox_override("panel", style)
-
+	portrait_box.add_theme_stylebox_override("panel",
+		GameTheme.make_panel_style("mid")
+	)
 	var label = portrait_box.get_child(0) as Label
 	if label:
 		label.add_theme_color_override("font_color", color)

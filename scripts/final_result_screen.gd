@@ -209,14 +209,9 @@ func _build_ui() -> void:
 	vbox.add_child(btn_row)
 
 	# Play Again button
-	var play_again                     = Button.new()
-	play_again.text                    = "▸  PLAY AGAIN"
-	play_again.custom_minimum_size     = Vector2(0, 48)
-	play_again.size_flags_horizontal   = Control.SIZE_EXPAND_FILL
-	play_again.add_theme_font_size_override("font_size", 10)
-	play_again.add_theme_color_override("font_color",         COLOR_BG)
-	play_again.add_theme_color_override("font_color_hover",   COLOR_TEXT)
-	play_again.add_theme_color_override("font_color_pressed", COLOR_TEXT)
+	var play_again = GameTheme.build_button("▸  PLAY AGAIN", true, 10)
+	GameTheme.connect_button(play_again, _on_play_again_pressed)
+	btn_row.add_child(play_again)
 
 	var pa_normal = StyleBoxFlat.new()
 	pa_normal.bg_color                   = COLOR_ACCENT
@@ -256,14 +251,9 @@ func _build_ui() -> void:
 	btn_row.add_child(play_again)
 
 	# Main Menu button
-	var menu_btn                     = Button.new()
-	menu_btn.text                    = "MENU"
-	menu_btn.custom_minimum_size     = Vector2(0, 48)
-	menu_btn.size_flags_horizontal   = Control.SIZE_EXPAND_FILL
-	menu_btn.add_theme_font_size_override("font_size", 10)
-	menu_btn.add_theme_color_override("font_color",         COLOR_ACCENT)
-	menu_btn.add_theme_color_override("font_color_hover",   COLOR_TEXT)
-	menu_btn.add_theme_color_override("font_color_pressed", COLOR_TEXT)
+	var menu_btn = GameTheme.build_button("MENU", false, 10)
+	GameTheme.connect_button(menu_btn, _on_menu_pressed)
+	btn_row.add_child(menu_btn)
 
 	var mb_normal = StyleBoxFlat.new()
 	mb_normal.bg_color                   = COLOR_BG
