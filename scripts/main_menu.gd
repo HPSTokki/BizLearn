@@ -170,8 +170,8 @@ func _build_character_slot() -> void:
 
 func _build_buttons() -> void:
 	var btn_container          = VBoxContainer.new()
-	btn_container.position     = Vector2(screen_w * 0.15, screen_h * 0.62)
-	btn_container.size         = Vector2(screen_w * 0.7, screen_h * 0.28)
+	btn_container.position     = Vector2(screen_w * 0.15, screen_h * 0.55)
+	btn_container.size         = Vector2(screen_w * 0.7, screen_h * 0.38)
 	btn_container.add_theme_constant_override("separation", 10)
 	canvas.add_child(btn_container)
 
@@ -183,9 +183,17 @@ func _build_buttons() -> void:
 	GameTheme.connect_button(how_btn, _on_how_to_play_pressed)
 	btn_container.add_child(how_btn)
 
+	var settings_btn = GameTheme.build_button("SETTINGS", false)
+	GameTheme.connect_button(settings_btn, _on_settings_pressed)
+	btn_container.add_child(settings_btn)
+
 	var credits_btn = GameTheme.build_button("CREDITS", false)
 	GameTheme.connect_button(credits_btn, _on_credits_pressed)
 	btn_container.add_child(credits_btn)
+
+	var exit_btn = GameTheme.build_button("EXIT", false)
+	GameTheme.connect_button(exit_btn, _on_exit_pressed)
+	btn_container.add_child(exit_btn)
 
 func _build_version_label() -> void:
 	var version                  = Label.new()
@@ -232,3 +240,9 @@ func _on_how_to_play_pressed() -> void:
 
 func _on_credits_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/credits_scene.tscn")
+
+func _on_settings_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/settings_scene.tscn")
+
+func _on_exit_pressed() -> void:
+	get_tree().quit()

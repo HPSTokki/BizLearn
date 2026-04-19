@@ -106,7 +106,7 @@ func _build_ui() -> void:
 	# Main panel
 	var panel      = PanelContainer.new()
 	panel.position = Vector2(screen_w * 0.1, screen_h * 0.06)
-	panel.size     = Vector2(screen_w * 0.8, screen_h * 0.88)
+	panel.size     = Vector2(screen_w * 0.8, screen_h * 0.90)
 	panel.custom_minimum_size = panel.size
 
 	var panel_style = StyleBoxFlat.new()
@@ -199,103 +199,28 @@ func _build_ui() -> void:
 
 	# Spacer
 	var spacer = Control.new()
-	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL - 10
 	vbox.add_child(spacer)
 
-	# Button row
-	var btn_row = HBoxContainer.new()
-	btn_row.add_theme_constant_override("separation", 12)
-	btn_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	vbox.add_child(btn_row)
-
-	# Play Again button
-	var play_again = GameTheme.build_button("▸  PLAY AGAIN", true, 10)
+	# Button row — centered with controlled width
+	var btn_center = HBoxContainer.new()
+	btn_center.alignment             = BoxContainer.ALIGNMENT_CENTER
+	btn_center.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	btn_center.add_theme_constant_override("separation", 12)
+	vbox.add_child(btn_center)
+	
+	var play_again = GameTheme.build_button("▸  PLAY AGAIN", true)
+	play_again.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	play_again.custom_minimum_size   = Vector2(screen_w * 0.35, GameTheme.BUTTON_H)
 	GameTheme.connect_button(play_again, _on_play_again_pressed)
-	btn_row.add_child(play_again)
-
-	var pa_normal = StyleBoxFlat.new()
-	pa_normal.bg_color                   = COLOR_ACCENT
-	pa_normal.corner_radius_top_left     = 0
-	pa_normal.corner_radius_top_right    = 0
-	pa_normal.corner_radius_bottom_left  = 0
-	pa_normal.corner_radius_bottom_right = 0
-	play_again.add_theme_stylebox_override("normal", pa_normal)
-
-	var pa_hover = StyleBoxFlat.new()
-	pa_hover.bg_color                   = COLOR_PANEL_MID
-	pa_hover.border_width_top           = 2
-	pa_hover.border_width_bottom        = 2
-	pa_hover.border_width_left          = 2
-	pa_hover.border_width_right         = 2
-	pa_hover.border_color               = COLOR_ACCENT
-	pa_hover.corner_radius_top_left     = 0
-	pa_hover.corner_radius_top_right    = 0
-	pa_hover.corner_radius_bottom_left  = 0
-	pa_hover.corner_radius_bottom_right = 0
-	play_again.add_theme_stylebox_override("hover", pa_hover)
-
-	var pa_pressed = StyleBoxFlat.new()
-	pa_pressed.bg_color                   = COLOR_PANEL_DARK
-	pa_pressed.border_width_top           = 2
-	pa_pressed.border_width_bottom        = 2
-	pa_pressed.border_width_left          = 2
-	pa_pressed.border_width_right         = 2
-	pa_pressed.border_color               = COLOR_ACCENT
-	pa_pressed.corner_radius_top_left     = 0
-	pa_pressed.corner_radius_top_right    = 0
-	pa_pressed.corner_radius_bottom_left  = 0
-	pa_pressed.corner_radius_bottom_right = 0
-	play_again.add_theme_stylebox_override("pressed", pa_pressed)
-
-	play_again.pressed.connect(_on_play_again_pressed)
-	btn_row.add_child(play_again)
-
-	# Main Menu button
-	var menu_btn = GameTheme.build_button("MENU", false, 10)
+	btn_center.add_child(play_again)
+	
+	var menu_btn = GameTheme.build_button("MENU", false)
+	menu_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	menu_btn.custom_minimum_size   = Vector2(screen_w * 0.2, GameTheme.BUTTON_H)
 	GameTheme.connect_button(menu_btn, _on_menu_pressed)
-	btn_row.add_child(menu_btn)
+	btn_center.add_child(menu_btn)
 
-	var mb_normal = StyleBoxFlat.new()
-	mb_normal.bg_color                   = COLOR_BG
-	mb_normal.border_width_top           = 2
-	mb_normal.border_width_bottom        = 2
-	mb_normal.border_width_left          = 2
-	mb_normal.border_width_right         = 2
-	mb_normal.border_color               = COLOR_ACCENT
-	mb_normal.corner_radius_top_left     = 0
-	mb_normal.corner_radius_top_right    = 0
-	mb_normal.corner_radius_bottom_left  = 0
-	mb_normal.corner_radius_bottom_right = 0
-	menu_btn.add_theme_stylebox_override("normal", mb_normal)
-
-	var mb_hover = StyleBoxFlat.new()
-	mb_hover.bg_color                   = COLOR_PANEL_MID
-	mb_hover.border_width_top           = 2
-	mb_hover.border_width_bottom        = 2
-	mb_hover.border_width_left          = 2
-	mb_hover.border_width_right         = 2
-	mb_hover.border_color               = COLOR_ACCENT
-	mb_hover.corner_radius_top_left     = 0
-	mb_hover.corner_radius_top_right    = 0
-	mb_hover.corner_radius_bottom_left  = 0
-	mb_hover.corner_radius_bottom_right = 0
-	menu_btn.add_theme_stylebox_override("hover", mb_hover)
-
-	var mb_pressed = StyleBoxFlat.new()
-	mb_pressed.bg_color                   = COLOR_PANEL_DARK
-	mb_pressed.border_width_top           = 2
-	mb_pressed.border_width_bottom        = 2
-	mb_pressed.border_width_left          = 2
-	mb_pressed.border_width_right         = 2
-	mb_pressed.border_color               = COLOR_ACCENT
-	mb_pressed.corner_radius_top_left     = 0
-	mb_pressed.corner_radius_top_right    = 0
-	mb_pressed.corner_radius_bottom_left  = 0
-	mb_pressed.corner_radius_bottom_right = 0
-	menu_btn.add_theme_stylebox_override("pressed", mb_pressed)
-
-	menu_btn.pressed.connect(_on_menu_pressed)
-	btn_row.add_child(menu_btn)
 
 
 func _build_stat_row(
