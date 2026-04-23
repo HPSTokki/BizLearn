@@ -46,6 +46,144 @@ var permanent_consequences: Array = []  # Phase 2D hook
 const SAVE_PATH = "user://savegame.cfg"
 
 # =========================================
+# ITEM / GOLD SYSTEM — add to STATE section
+# =========================================
+var gold:           int        = 50
+var inventory:      Array      = []  # list of item ids
+var items_data:     Array      = []  # loaded from items.json
+var items_used_today: Array    = []  # reset each day
+
+const GOLD_DAY_COMPLETE_BONUS  = 10
+const GOLD_GOOD_CHOICE         = 20
+const GOLD_NEUTRAL_CHOICE      = 10
+const GOLD_POOR_CHOICE         = 3
+
+# =========================================
+# ITEM LOADING
+# =========================================
+func load_items() -> void:
+	var path = "res://data/items.json"
+	var file = FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		push_error("DialogueManager: Could not load items.json")
+		return
+	var json  = JSON.new()
+	var error = json.parse(file.get_as_text())
+	file.close()
+	if error != OK:
+		push_error("DialogueManager: items.json parse error")
+		return
+	items_data = json.get_data().get("items", [])
+	print("DialogueManager: Loaded ", items_data.size(), " items")
+
+func get_items_data() -> Array:
+	return items_data
+
+func get_available_items() -> Array:
+	# Returns items available for current day
+	# that player has not already purchased
+	return items_data.filter(func(item):
+		return item.get("available_from_day", 1) <= current_day \
+			and not inventory.has(item.get("id", ""))
+	)
+
+func get_inventory() -> Array:
+	return inventory
+
+func get_gold() -> int:
+	return gold
+
+# =========================================
+# GOLD EARNING
+# =========================================
+func earn_gold_from_choice(choice: Dictionary) -> void:
+	var gold_earned = choice.get("gold", GOLD_NEUTRAL_CHOICE)
+	gold += gold_earned
+	print("DialogueManager: Earned ", gold_earned, " gold. Total: ", gold)
+
+func _award_day_complete_bonus() -> void:
+	gold += GOLD_DAY_COMPLETE_BONUS
+	print("DialogueManager: Day complete bonus +", GOLD_DAY_COMPLETE_BONUS, " gold")
+
+# =========================================
+# SHOP SYSTEM
+# =========================================
+func buy_item(item_id: String) -> bool:
+	# Find item
+	var item = _get_item_by_id(item_id)
+	if item.is_empty():
+		push_error("DialogueManager: Item not found " + item_id)
+		return false
+
+	# Check already owned
+	if inventory.has(item_id):
+		push_warning("DialogueManager: Already own " + item_id)
+		return false
+
+	# Check gold
+	var price = item.get("price", 0)
+	if gold < price:
+		push_warning("DialogueManager: Not enough gold")
+		return false
+
+	# Purchase
+	gold -= price
+	inventory.append(item_id)
+	save_game()
+	print("DialogueManager: Bought ", item_id, " for ", price, " gold")
+	return true
+
+
+func apply_inventory_items() -> void:
+	# Called at start of each day
+	# Applies all passive items in inventory
+	items_used_today = []
+	for item_id in inventory:
+		var item = _get_item_by_id(item_id)
+		if item.is_empty():
+			continue
+		if item.get("trigger", "passive") == "passive":
+			_apply_item_effects(item)
+			items_used_today.append(item_id)
+
+	# Remove used items from inventory
+	for used_id in items_used_today:
+		inventory.erase(used_id)
+
+	if items_used_today.size() > 0:
+		print("DialogueManager: Applied ", items_used_today.size(), " items")
+		save_game()
+
+
+func _apply_item_effects(item: Dictionary) -> void:
+	var effects = item.get("effects", {})
+	for stat_name in effects.keys():
+		if not stats.has(stat_name):
+			continue
+		var new_value = clamp(
+			stats[stat_name] + effects[stat_name],
+			STAT_MIN,
+			STAT_MAX
+		)
+		stats[stat_name] = new_value
+		emit_signal("stats_changed", stat_name, new_value)
+	print("DialogueManager: Applied item ", item.get("name", ""))
+
+
+func _get_item_by_id(item_id: String) -> Dictionary:
+	for item in items_data:
+		if item.get("id", "") == item_id:
+			return item
+	return {}
+
+# =========================================
+# READY
+# =========================================
+
+func _ready() -> void:
+	load_items()
+
+# =========================================
 # SAVE / LOAD
 # =========================================
 func save_game() -> void:
@@ -56,14 +194,13 @@ func save_game() -> void:
 		"stats":                  stats,
 		"used_random_events":     used_random_events,
 		"permanent_consequences": permanent_consequences,
+		"gold":                   gold,        # ← ADD
+		"inventory":              inventory,   # ← ADD
 	}
 	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if file:
 		file.store_string(JSON.stringify(save_data))
 		file.close()
-		print("DialogueManager: Game saved")
-	else:
-		push_error("DialogueManager: Could not save game")
 
 
 func load_game() -> bool:
@@ -92,6 +229,8 @@ func load_game() -> bool:
 		"morale":     50.0,
 		"stress":     50.0
 	})
+	gold                   = data.get("gold",                   50)
+	inventory              = data.get("inventory",              [])
 	used_random_events     = data.get("used_random_events",     [])
 	permanent_consequences = data.get("permanent_consequences", [])
 
@@ -147,6 +286,7 @@ func advance(choice_index: int = -1) -> void:
 
 		var chosen: Dictionary = choices[choice_index]
 		_apply_effects(chosen.get("effects", {}))
+		earn_gold_from_choice(chosen)
 
 		var minigame = chosen.get("minigame", null)
 		if minigame != null and minigame != "null":
@@ -194,6 +334,9 @@ func reset() -> void:
 	current_branch         = "normal"
 	used_random_events     = []
 	permanent_consequences = []
+	gold                   = 50
+	inventory              = []
+	items_used_today       = []
 	stats = {
 		"money":      50.0,
 		"reputation": 50.0,
@@ -312,6 +455,7 @@ func _on_event_end() -> void:
 
 
 func _on_day_end() -> void:
+	_award_day_complete_bonus()
 	var deltas = _calculate_stat_deltas()
 	current_branch = _decide_branch()
 	emit_signal("day_ended", current_day, deltas)

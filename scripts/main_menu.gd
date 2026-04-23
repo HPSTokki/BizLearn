@@ -186,6 +186,10 @@ func _build_buttons() -> void:
 		continue_btn = GameTheme.build_button("▸  CONTINUE", true)
 		GameTheme.connect_button(continue_btn, _on_continue_pressed)
 		top_row.add_child(continue_btn)
+	if DialogueManager.has_save():
+		var shop_btn = GameTheme.build_button("🛍  SHOP", false)
+		GameTheme.connect_button(shop_btn, _on_shop_pressed)
+		btn_container.add_child(shop_btn)
 	
 	var new_game_label = "▸  NEW GAME" if DialogueManager.has_save() \
 						 else "▸  START BUSINESS"
@@ -347,3 +351,6 @@ func _on_settings_pressed() -> void:
 
 func _on_exit_pressed() -> void:
 	get_tree().quit()
+
+func _on_shop_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/shop_scene.tscn")

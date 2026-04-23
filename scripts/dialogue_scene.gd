@@ -288,6 +288,9 @@ func _on_screen_tapped() -> void:
 # PRIVATE
 # =========================================
 func _start_dialogue() -> void:
+	# Apply inventory items at start of each day
+	DialogueManager.apply_inventory_items()
+
 	var file_name = DialogueManager.get_day_file(
 		DialogueManager.get_current_day()
 	)

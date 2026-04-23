@@ -1,0 +1,146 @@
+{
+  "items": [
+	{
+	  "id":          "double_shot",
+	  "name":        "Double Shot",
+	  "description": "Extra caffeine keeps you sharp. Start the day with boosted morale and reduced stress.",
+	  "icon":        "☕",
+	  "price":       15,
+	  "uses":        1,
+	  "trigger":     "passive",
+	  "effects": {
+		"morale": 10,
+		"stress": -15
+	  },
+	  "available_from_day": 1
+	},
+	{
+	  "id":          "staff_checklist",
+	  "name":        "Staff Checklist",
+	  "description": "A structured approach to daily operations boosts your reputation from the start.",
+	  "icon":        "📋",
+	  "price":       20,
+	  "uses":        1,
+	  "trigger":     "passive",
+	  "effects": {
+		"reputation": 10,
+		"morale":     5
+	  },
+	  "available_from_day": 1
+	},
+	{
+	  "id":          "stress_relief",
+	  "name":        "Stress Relief Kit",
+	  "description": "Take a moment to breathe. Significantly reduces accumulated stress before the day begins.",
+	  "icon":        "😌",
+	  "price":       20,
+	  "uses":        1,
+	  "trigger":     "passive",
+	  "effects": {
+		"stress": -25
+	  },
+	  "available_from_day": 1
+	},
+	{
+	  "id":          "market_report",
+	  "name":        "Market Report",
+	  "description": "Knowing the market gives you a financial edge heading into the day.",
+	  "icon":        "📊",
+	  "price":       25,
+	  "uses":        1,
+	  "trigger":     "passive",
+	  "effects": {
+		"money": 15
+	  },
+	  "available_from_day": 2
+	},
+	{
+	  "id":          "loyalty_card",
+	  "name":        "Loyalty Program",
+	  "description": "A pre-built loyalty system gives your reputation an immediate boost.",
+	  "icon":        "🤝",
+	  "price":       30,
+	  "uses":        1,
+	  "trigger":     "passive",
+	  "effects": {
+		"reputation": 15,
+		"money":      -5
+	  },
+	  "available_from_day": 2
+	},
+	{
+	  "id":          "team_lunch",
+	  "name":        "Team Lunch",
+	  "description": "Treating your team before the day starts sets an incredible tone for everyone.",
+	  "icon":        "🍱",
+	  "price":       25,
+	  "uses":        1,
+	  "trigger":     "passive",
+	  "effects": {
+		"morale": 20,
+		"stress": -10
+	  },
+	  "available_from_day": 2
+	},
+	{
+	  "id":          "business_book",
+	  "name":        "Business Strategy Book",
+	  "description": "Fresh insights from overnight reading give all your stats a small boost.",
+	  "icon":        "📖",
+	  "price":       35,
+	  "uses":        1,
+	  "trigger":     "passive",
+	  "effects": {
+		"money":      5,
+		"reputation": 5,
+		"morale":     5,
+		"stress":     -5
+	  },
+	  "available_from_day": 3
+	},
+	{
+	  "id":          "crisis_manual",
+	  "name":        "Crisis Manual",
+	  "description": "Preparation for the worst keeps stress low even when things get difficult.",
+	  "icon":        "🚨",
+	  "price":       40,
+	  "uses":        1,
+	  "trigger":     "passive",
+	  "effects": {
+		"stress":     -30,
+		"reputation": 5
+	  },
+	  "available_from_day": 3
+	},
+	{
+	  "id":          "premium_coffee",
+	  "name":        "Premium Blend",
+	  "description": "Serving premium coffee elevates your reputation significantly but costs more.",
+	  "icon":        "🫘",
+	  "price":       45,
+	  "uses":        1,
+	  "trigger":     "passive",
+	  "effects": {
+		"reputation": 20,
+		"money":      -10
+	  },
+	  "available_from_day": 4
+	},
+	{
+	  "id":          "investor_meeting",
+	  "name":        "Investor Prep Kit",
+	  "description": "Walking into day 5 fully prepared for big decisions gives every stat a meaningful boost.",
+	  "icon":        "💼",
+	  "price":       50,
+	  "uses":        1,
+	  "trigger":     "passive",
+	  "effects": {
+		"money":      10,
+		"reputation": 10,
+		"morale":     10,
+		"stress":     -10
+	  },
+	  "available_from_day": 5
+	}
+  ]
+}

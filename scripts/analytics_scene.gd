@@ -52,6 +52,7 @@ func _receive_data() -> void:
 # =========================================
 # BUILD
 # =========================================
+
 func _build_canvas() -> void:
 	canvas       = CanvasLayer.new()
 	add_child(canvas)
@@ -61,7 +62,6 @@ func _build_canvas() -> void:
 	bg.position  = Vector2(0, 0)
 	bg.size      = get_viewport().get_visible_rect().size
 	canvas.add_child(bg)
-
 
 func _build_ui() -> void:
 	var screen_w = get_viewport().get_visible_rect().size.x
@@ -127,15 +127,30 @@ func _build_ui() -> void:
 	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	vbox.add_child(spacer)
 
+	# Button row
+	var btn_center = HBoxContainer.new()
+	btn_center.alignment             = BoxContainer.ALIGNMENT_CENTER
+	btn_center.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	btn_center.add_theme_constant_override("separation", 12)
+	vbox.add_child(btn_center)
+	
+	# Shop button
+	var shop_btn = GameTheme.build_button("🛍  SHOP", false)
+	shop_btn.custom_minimum_size   = Vector2(screen_w * 0.2, GameTheme.BUTTON_H)
+	shop_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	GameTheme.connect_button(shop_btn, _on_shop_pressed)
+	btn_center.add_child(shop_btn)
+	
 	# Next button
 	next_button = GameTheme.build_button(
 		"SEE FINAL RESULTS" if _current_day >= TOTAL_DAYS else "NEXT DAY  ▸",
 		true,
 		11
 	)
+	next_button.custom_minimum_size   = Vector2(screen_w * 0.35, GameTheme.BUTTON_H)
+	next_button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	GameTheme.connect_button(next_button, _on_next_pressed)
-	vbox.add_child(next_button)
-
+	btn_center.add_child(next_button)
 
 func _build_stat_row(
 	stat_key:  String,
@@ -222,3 +237,6 @@ func _on_next_pressed() -> void:
 	else:
 		DialogueManager.load_next_day()
 		get_tree().change_scene_to_file("res://scenes/dialogue_scene.tscn")
+
+func _on_shop_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/shop_scene.tscn")

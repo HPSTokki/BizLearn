@@ -86,7 +86,6 @@ func hide_choices() -> void:
 	_current_choices = []
 	visible = false
 
-
 # =========================================
 # PRIVATE
 # =========================================
@@ -117,10 +116,8 @@ func _try_vibrate() -> void:
 			if saved.get("vibration", true):
 				Input.vibrate_handheld(50)  # 50ms short tap
 
-
 func _on_choices_updated(_choices: Array) -> void:
 	pass
-
 
 func _on_dialogue_updated(_speaker: String, _text: String) -> void:
 	hide_choices()
