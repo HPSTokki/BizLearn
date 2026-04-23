@@ -16,6 +16,8 @@ signal day_ended(day: int, stat_deltas: Dictionary)
 const STAT_MAX   = 100.0
 const STAT_MIN   = 0.0
 const TOTAL_DAYS = 5
+const BRANCH_THRESHOLD_HIGH = 60.0
+const BRANCH_THRESHOLD_LOW  = 40.0
 
 # =========================================
 # STATE
@@ -27,6 +29,8 @@ var current_day:   int = 1
 var current_event: int = 0
 var total_events:  int = 0
 
+var current_branch: String = "normal"
+
 var stats: Dictionary = {
 	"money":      50.0,
 	"reputation": 50.0,
@@ -35,6 +39,74 @@ var stats: Dictionary = {
 }
 
 var stat_snapshot: Dictionary = {}
+
+var used_random_events: Array = []
+var permanent_consequences: Array = []  # Phase 2D hook
+
+const SAVE_PATH = "user://savegame.cfg"
+
+# =========================================
+# SAVE / LOAD
+# =========================================
+func save_game() -> void:
+	var save_data = {
+		"current_day":            current_day,
+		"current_branch":         current_branch,
+		"current_event":          current_event,
+		"stats":                  stats,
+		"used_random_events":     used_random_events,
+		"permanent_consequences": permanent_consequences,
+	}
+	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	if file:
+		file.store_string(JSON.stringify(save_data))
+		file.close()
+		print("DialogueManager: Game saved")
+	else:
+		push_error("DialogueManager: Could not save game")
+
+
+func load_game() -> bool:
+	if not FileAccess.file_exists(SAVE_PATH):
+		return false
+
+	var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
+	if not file:
+		return false
+
+	var json  = JSON.new()
+	var error = json.parse(file.get_as_text())
+	file.close()
+
+	if error != OK:
+		push_error("DialogueManager: Could not parse save file")
+		return false
+
+	var data = json.get_data()
+	current_day            = data.get("current_day",            1)
+	current_branch         = data.get("current_branch",         "normal")
+	current_event          = data.get("current_event",          0)
+	stats                  = data.get("stats",                  {
+		"money":      50.0,
+		"reputation": 50.0,
+		"morale":     50.0,
+		"stress":     50.0
+	})
+	used_random_events     = data.get("used_random_events",     [])
+	permanent_consequences = data.get("permanent_consequences", [])
+
+	print("DialogueManager: Game loaded — Day ", current_day)
+	return true
+
+
+func has_save() -> bool:
+	return FileAccess.file_exists(SAVE_PATH)
+
+
+func delete_save() -> void:
+	if FileAccess.file_exists(SAVE_PATH):
+		DirAccess.remove_absolute(SAVE_PATH)
+		print("DialogueManager: Save deleted")
 
 # =========================================
 # PUBLIC
@@ -60,7 +132,6 @@ func load_dialogue(file_name: String) -> void:
 
 	_take_stat_snapshot()
 	_load_event(current_event)
-
 
 func advance(choice_index: int = -1) -> void:
 	if current_node.is_empty():
@@ -94,7 +165,8 @@ func load_next_day() -> void:
 		push_error("DialogueManager: No more days")
 		return
 	current_day += 1
-	load_dialogue("day" + str(current_day))
+	var file_name = get_day_file(current_day)
+	load_dialogue(file_name)
 
 
 func get_current_node() -> Dictionary:
@@ -113,34 +185,97 @@ func get_stat_deltas() -> Dictionary:
 	return _calculate_stat_deltas()
 
 func reset() -> void:
-	current_day   = 1
-	current_event = 0
-	total_events  = 0
-	current_node  = {}
-	dialogue_data = {}
-	stat_snapshot = {}
+	current_day            = 1
+	current_event          = 0
+	total_events           = 0
+	current_node           = {}
+	dialogue_data          = {}
+	stat_snapshot          = {}
+	current_branch         = "normal"
+	used_random_events     = []
+	permanent_consequences = []
 	stats = {
 		"money":      50.0,
 		"reputation": 50.0,
 		"morale":     50.0,
 		"stress":     50.0
 	}
+	delete_save()
+
+func get_branch() -> String:
+	return current_branch
+
 # =========================================
 # PRIVATE
 # =========================================
 func _load_event(event_index: int) -> void:
 	var events: Array = dialogue_data.get("events", [])
 	if event_index >= events.size():
-		push_error("DialogueManager: Event index out of range " + str(event_index))
+		push_error("DialogueManager: Event index out of range")
 		return
 
 	var event: Dictionary = events[event_index]
-	var start_id: String  = event.get("start", "")
-	if start_id == "":
-		push_error("DialogueManager: No start ID in event " + str(event_index))
+
+	# Check if this is a random pool event
+	if event.get("start") == "random":
+		var pool: Array = event.get("pool", [])
+		var start_id    = _pick_random_event(pool)
+		if start_id == "":
+			push_error("DialogueManager: Empty random pool")
+			return
+		_load_node(start_id)
 		return
 
+	# Normal fixed event
+	var start_id: String = event.get("start", "")
+	if start_id == "":
+		push_error("DialogueManager: No start ID in event")
+		return
 	_load_node(start_id)
+
+
+func _pick_random_event(pool: Array) -> String:
+	# Filter out already used events this run
+	var available = pool.filter(func(id): 
+		return not used_random_events.has(id)
+	)
+
+	# If all used reset the pool
+	if available.is_empty():
+		available = pool.duplicate()
+		# Clear used events for this pool
+		for id in pool:
+			used_random_events.erase(id)
+
+	# Pick random
+	var picked = available[randi() % available.size()]
+	used_random_events.append(picked)
+	return picked
+
+func get_day_file(day: int) -> String:
+	match day:
+		1:
+			return "day1"
+		2:
+			match current_branch:
+				"high_rep": return "day2_high_rep"
+				"low_rep":  return "day2_low_rep"
+				_:          return "day2_normal"
+		3:
+			match current_branch:
+				"thriving":   return "day3_thriving"
+				"struggling": return "day3_struggling"
+				_:            return "day3_stable"
+		4:
+			match current_branch:
+				"motivated": return "day4_motivated"
+				"burnout":   return "day4_burnout"
+				_:           return "day4_steady"
+		5:
+			match current_branch:
+				"crisis": return "day5_crisis"
+				_:        return "day5_strong"
+	return "day1"
 
 
 func _load_node(node_id: String) -> void:
@@ -167,6 +302,8 @@ func _load_node(node_id: String) -> void:
 func _on_event_end() -> void:
 	emit_signal("event_completed", current_event + 1, total_events)
 	current_event += 1
+	
+	save_game()
 
 	if current_event < total_events:
 		_load_event(current_event)
@@ -176,7 +313,46 @@ func _on_event_end() -> void:
 
 func _on_day_end() -> void:
 	var deltas = _calculate_stat_deltas()
+	current_branch = _decide_branch()
 	emit_signal("day_ended", current_day, deltas)
+
+func _decide_branch() -> String:
+	match current_day:
+		1:
+			# Day 1 end — check reputation
+			var rep = stats.get("reputation", 50.0)
+			if rep >= BRANCH_THRESHOLD_HIGH:
+				return "high_rep"
+			elif rep < BRANCH_THRESHOLD_LOW:
+				return "low_rep"
+			else:
+				return "normal"
+		2:
+			# Day 2 end — check money
+			var money = stats.get("money", 50.0)
+			if money >= BRANCH_THRESHOLD_HIGH:
+				return "thriving"
+			elif money < BRANCH_THRESHOLD_LOW:
+				return "struggling"
+			else:
+				return "stable"
+		3:
+			# Day 3 end — check morale
+			var morale = stats.get("morale", 50.0)
+			if morale >= BRANCH_THRESHOLD_HIGH:
+				return "motivated"
+			elif morale < BRANCH_THRESHOLD_LOW:
+				return "burnout"
+			else:
+				return "steady"
+		4:
+			# Day 4 end — check stress
+			var stress = stats.get("stress", 50.0)
+			if stress >= 70.0:
+				return "crisis"
+			else:
+				return "strong"
+	return "normal"
 
 
 func _take_stat_snapshot() -> void:

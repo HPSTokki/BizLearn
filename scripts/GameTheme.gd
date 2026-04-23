@@ -115,16 +115,39 @@ var _current:    Dictionary = {}
 var _bg_node:    Node       = null
 var _font:       Font       = null
 
+var current_text_speed: float = 0.03  # default normal
+var vibration_enabled: bool = true
+
 # =========================================
 # LIFECYCLE
 # =========================================
 func _ready() -> void:
 	_apply_theme(ACTIVE_THEME)
 
+# ========================================
+# CONSTANTS
+# ========================================
+
+const TEXT_SPEEDS = [0.06, 0.03, 0.01]
 
 # =========================================
 # PUBLIC — THEME
 # =========================================
+
+func set_text_speed(index: int) -> void:
+	if index >= 0 and index < TEXT_SPEEDS.size():
+		current_text_speed = TEXT_SPEEDS[index]
+
+func get_text_speed() -> float:
+	return current_text_speed
+
+func set_vibration(enabled: bool) -> void:
+	vibration_enabled = enabled
+
+func vibrate() -> void:
+	if vibration_enabled:
+		Input.vibrate_handheld(50)
+
 func set_theme(theme_id: String) -> void:
 	if not THEMES.has(theme_id):
 		push_warning("GameTheme: Unknown theme " + theme_id)

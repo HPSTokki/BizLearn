@@ -1,0 +1,326 @@
+{
+  "day": 4,
+  "total_events": 3,
+  "events": [
+	{ "start": "d4m_e1_a" },
+	{ "start": "d4m_e2_a" },
+	{ "start": "d4m_e3_a" }
+  ],
+  "nodes": {
+
+	"d4m_e1_a": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Day 4 and your team is on fire! High morale is infectious — customers feel it the moment they walk in. A team this motivated can achieve anything.",
+	  "choices": [],
+	  "next": "d4m_e1_b"
+	},
+	"d4m_e1_b": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_day",
+	  "text": "Boss! We have an idea. The team wants to create a signature item together — something that represents our shop's culture. Can we try it today?",
+	  "choices": [
+		{
+		  "text": "Give them full creative freedom",
+		  "effects": { "morale": 20, "reputation": 15, "money": 5 },
+		  "minigame": null,
+		  "next": "d4m_e1_c_freedom"
+		},
+		{
+		  "text": "Guide the process with some direction",
+		  "effects": { "morale": 15, "reputation": 10, "stress": -5 },
+		  "minigame": null,
+		  "next": "d4m_e1_c_guide"
+		},
+		{
+		  "text": "Let them develop it but review before launch",
+		  "effects": { "morale": 12, "reputation": 8, "stress": -8 },
+		  "minigame": null,
+		  "next": "d4m_e1_c_review"
+		},
+		{
+		  "text": "Too risky today — stick to what works",
+		  "effects": { "morale": -10, "stress": -5 },
+		  "minigame": null,
+		  "next": "d4m_e1_c_decline"
+		}
+	  ]
+	},
+	"d4m_e1_c_freedom": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_day",
+	  "text": "We created something incredible! Customers are already asking about it. This feels like it could be our most popular item ever!",
+	  "choices": [],
+	  "next": "d4m_e1_result_freedom"
+	},
+	"d4m_e1_c_guide": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_day",
+	  "text": "Your input made it even better. The combination of our creativity and your experience produced something really special.",
+	  "choices": [],
+	  "next": "d4m_e1_result_guide"
+	},
+	"d4m_e1_c_review": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_day",
+	  "text": "Your feedback refined it perfectly. It launched to amazing response. Customers love that it feels authentic to our shop.",
+	  "choices": [],
+	  "next": "d4m_e1_result_review"
+	},
+	"d4m_e1_c_decline": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_day",
+	  "text": "We understand but we are a little deflated. We had real energy behind this idea. Maybe another time.",
+	  "choices": [],
+	  "next": "d4m_e1_result_decline"
+	},
+	"d4m_e1_result_freedom": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "High morale teams given ownership produce remarkable results. Trust your people when they are motivated — it multiplies their energy.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4m_e1_result_guide": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Collaborative leadership — guiding without controlling — produces the best of both worlds. Your experience and their creativity are stronger together.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4m_e1_result_review": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Quality control without stifling creativity is excellent leadership. Empowering people while maintaining standards is a difficult balance you managed well.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4m_e1_result_decline": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Caution has its place but dismissing motivated team initiatives dampens the very energy that drives your business forward. High morale is fragile — protect it.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d4m_e2_a": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Your motivated team has attracted attention. A larger company wants to acquire your shop outright. The offer is generous but the decision is life changing.",
+	  "choices": [],
+	  "next": "d4m_e2_b"
+	},
+	"d4m_e2_b": {
+	  "speaker": "Corporate Buyer",
+	  "speaker_id": "corporate",
+	  "background": "office",
+	  "text": "Your team culture and customer loyalty make this acquisition extremely attractive to us. We are offering full market value plus 20%. This is a rare offer.",
+	  "choices": [
+		{
+		  "text": "Accept — a great offer is a great offer",
+		  "effects": { "money": 30, "morale": -10, "stress": 15 },
+		  "minigame": null,
+		  "next": "d4m_e2_c_accept"
+		},
+		{
+		  "text": "Counter with a higher price",
+		  "effects": { "money": 20, "stress": 10, "reputation": 10 },
+		  "minigame": null,
+		  "next": "d4m_e2_c_counter"
+		},
+		{
+		  "text": "Decline — you built this and you keep it",
+		  "effects": { "morale": 25, "stress": -15, "reputation": 15 },
+		  "minigame": null,
+		  "next": "d4m_e2_c_decline"
+		},
+		{
+		  "text": "Ask for a management role in the acquisition",
+		  "effects": { "money": 15, "morale": 10, "stress": 5 },
+		  "minigame": null,
+		  "next": "d4m_e2_c_manage"
+		}
+	  ]
+	},
+	"d4m_e2_c_accept": {
+	  "speaker": "Corporate Buyer",
+	  "speaker_id": "corporate",
+	  "background": "office",
+	  "text": "Excellent decision. The paperwork will be ready by end of week. You have built something genuinely impressive here.",
+	  "choices": [],
+	  "next": "d4m_e2_result_accept"
+	},
+	"d4m_e2_c_counter": {
+	  "speaker": "Corporate Buyer",
+	  "speaker_id": "corporate",
+	  "background": "office",
+	  "text": "Bold counter. We can meet you at 30% above market. Your confidence in your own value is well placed.",
+	  "choices": [],
+	  "next": "d4m_e2_result_counter"
+	},
+	"d4m_e2_c_decline": {
+	  "speaker": "Corporate Buyer",
+	  "speaker_id": "corporate",
+	  "background": "office",
+	  "text": "We respect that. The offer stands open for 30 days. What you have built here is special — protect it well.",
+	  "choices": [],
+	  "next": "d4m_e2_result_decline"
+	},
+	"d4m_e2_c_manage": {
+	  "speaker": "Corporate Buyer",
+	  "speaker_id": "corporate",
+	  "background": "office",
+	  "text": "A management role is actually appealing to us too. We want your culture preserved. Let us structure this as an acqui-hire.",
+	  "choices": [],
+	  "next": "d4m_e2_result_manage"
+	},
+	"d4m_e2_result_accept": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Knowing when to exit is as important as knowing when to persist. A successful exit funds your next venture. This is not failure — it is graduation.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4m_e2_result_counter": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Negotiating an acquisition price upward shows confidence in your own value. Motivated teams and loyal customers are worth more than any spreadsheet shows.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4m_e2_result_decline": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Choosing independence over a lucrative offer takes real conviction. Make sure the decision is strategic not just emotional. Both are valid but know which it is.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4m_e2_result_manage": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Creative deal structures often produce better outcomes than binary accept or reject decisions. Thinking beyond the standard offer shows business sophistication.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d4m_e3_a": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "What a day! Your team is buzzing. End of day and the energy is incredible. How do you channel this momentum into tomorrow?",
+	  "choices": [],
+	  "next": "d4m_e3_b"
+	},
+	"d4m_e3_b": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_evening",
+	  "text": "Boss we are all feeling it today. The team wants to do something special tomorrow to keep this energy going. What do you think we should focus on?",
+	  "choices": [
+		{
+		  "text": "Plan a customer appreciation event",
+		  "effects": { "reputation": 20, "morale": 15, "money": -10 },
+		  "minigame": null,
+		  "next": "d4m_e3_c_event"
+		},
+		{
+		  "text": "Channel energy into process improvements",
+		  "effects": { "morale": 15, "stress": -15, "money": 10 },
+		  "minigame": null,
+		  "next": "d4m_e3_c_process"
+		},
+		{
+		  "text": "Document what is working to replicate it",
+		  "effects": { "morale": 10, "stress": -10, "reputation": 10 },
+		  "minigame": null,
+		  "next": "d4m_e3_c_document"
+		},
+		{
+		  "text": "Let the team choose — it is their energy",
+		  "effects": { "morale": 20, "stress": -10, "reputation": 5 },
+		  "minigame": null,
+		  "next": "d4m_e3_c_team"
+		}
+	  ]
+	},
+	"d4m_e3_c_event": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_evening",
+	  "text": "A customer appreciation event?! This is why we love this place. You always make us feel like family here.",
+	  "choices": [],
+	  "next": "d4m_e3_result_event"
+	},
+	"d4m_e3_c_process": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_evening",
+	  "text": "Using this energy to fix our processes is brilliant. We identified three inefficiencies today that were costing us time and money every single shift.",
+	  "choices": [],
+	  "next": "d4m_e3_result_process"
+	},
+	"d4m_e3_c_document": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_evening",
+	  "text": "Writing down what makes today special is so smart. Now we have a blueprint for recreating this energy whenever we need it.",
+	  "choices": [],
+	  "next": "d4m_e3_result_document"
+	},
+	"d4m_e3_c_team": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_evening",
+	  "text": "You are giving us the decision?! That means everything. We chose to reach out personally to our top 20 customers tomorrow. Watch what happens.",
+	  "choices": [],
+	  "next": "d4m_e3_result_team"
+	},
+	"d4m_e3_result_event": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Converting internal momentum into customer experiences is powerful marketing. Your team energy became a customer memory — that is priceless.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4m_e3_result_process": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Using peak performance moments to fix systems is genius. High morale teams can tackle operational problems that feel impossible when spirits are low.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4m_e3_result_document": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Systematizing success is how businesses scale. Knowing what creates your best days means you can engineer more of them intentionally.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4m_e3_result_team": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Ultimate trust in your team creates ultimate ownership. When people choose the direction they execute with a level of commitment that cannot be mandated.",
+	  "choices": [],
+	  "next": "end"
+	}
+  }
+}

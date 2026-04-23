@@ -18,6 +18,8 @@ var canvas:     CanvasLayer = null
 var screen_w:   float       = 0.0
 var screen_h:   float       = 0.0
 
+var continue_btn: PanelContainer = null
+
 # Particle state
 var particles:  Array       = []
 const PARTICLE_COUNT        = 40
@@ -170,27 +172,47 @@ func _build_character_slot() -> void:
 
 func _build_buttons() -> void:
 	var btn_container          = VBoxContainer.new()
-	btn_container.position     = Vector2(screen_w * 0.15, screen_h * 0.55)
-	btn_container.size         = Vector2(screen_w * 0.7, screen_h * 0.38)
+	btn_container.position     = Vector2(screen_w * 0.15, screen_h * 0.50)
+	btn_container.size         = Vector2(screen_w * 0.7, screen_h * 0.45)
 	btn_container.add_theme_constant_override("separation", 10)
 	canvas.add_child(btn_container)
 
-	var start_btn = GameTheme.build_button("▸  START BUSINESS", true)
+	var top_row = HBoxContainer.new()
+	top_row.add_theme_constant_override("separation", 10)
+	top_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	btn_container.add_child(top_row)
+	
+	if DialogueManager.has_save():
+		continue_btn = GameTheme.build_button("▸  CONTINUE", true)
+		GameTheme.connect_button(continue_btn, _on_continue_pressed)
+		top_row.add_child(continue_btn)
+	
+	var new_game_label = "▸  NEW GAME" if DialogueManager.has_save() \
+						 else "▸  START BUSINESS"
+	var start_btn = GameTheme.build_button(new_game_label, not DialogueManager.has_save())
 	GameTheme.connect_button(start_btn, _on_start_pressed)
-	btn_container.add_child(start_btn)
+	top_row.add_child(start_btn)
 
+	# How to play
 	var how_btn = GameTheme.build_button("HOW TO PLAY", false)
 	GameTheme.connect_button(how_btn, _on_how_to_play_pressed)
 	btn_container.add_child(how_btn)
 
+	# Settings + Credits side by side
+	var mid_row = HBoxContainer.new()
+	mid_row.add_theme_constant_override("separation", 10)
+	mid_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	btn_container.add_child(mid_row)
+
 	var settings_btn = GameTheme.build_button("SETTINGS", false)
 	GameTheme.connect_button(settings_btn, _on_settings_pressed)
-	btn_container.add_child(settings_btn)
+	mid_row.add_child(settings_btn)
 
 	var credits_btn = GameTheme.build_button("CREDITS", false)
 	GameTheme.connect_button(credits_btn, _on_credits_pressed)
-	btn_container.add_child(credits_btn)
+	mid_row.add_child(credits_btn)
 
+	# Exit
 	var exit_btn = GameTheme.build_button("EXIT", false)
 	GameTheme.connect_button(exit_btn, _on_exit_pressed)
 	btn_container.add_child(exit_btn)
@@ -229,10 +251,89 @@ func _process(delta: float) -> void:
 # =========================================
 # CALLBACKS
 # =========================================
-func _on_start_pressed() -> void:
-	DialogueManager.reset()
-	get_tree().change_scene_to_file("res://scenes/dialogue_scene.tscn")
 
+func _on_continue_pressed() -> void:
+	if DialogueManager.load_game():
+		get_tree().change_scene_to_file("res://scenes/dialogue_scene.tscn")
+	else:
+		push_error("MainMenu: Failed to load save")
+
+
+func _on_start_pressed() -> void:
+	# If save exists confirm new game
+	if DialogueManager.has_save():
+		_show_new_game_confirm()
+	else:
+		DialogueManager.reset()
+		get_tree().change_scene_to_file("res://scenes/dialogue_scene.tscn")
+
+
+func _show_new_game_confirm() -> void:
+	# Simple confirm overlay
+	var overlay          = ColorRect.new()
+	overlay.color        = Color(0, 0, 0, 0.7)
+	overlay.position     = Vector2(0, 0)
+	overlay.size         = Vector2(screen_w, screen_h)
+	overlay.mouse_filter = Control.MOUSE_FILTER_STOP
+	canvas.add_child(overlay)
+
+	var panel          = PanelContainer.new()
+	panel.position     = Vector2(screen_w * 0.2, screen_h * 0.3)
+	panel.size         = Vector2(screen_w * 0.6, screen_h * 0.4)
+	panel.custom_minimum_size = panel.size
+	panel.add_theme_stylebox_override("panel",
+		GameTheme.make_panel_style("dark", GameTheme.DIALOGUE_BORDER_W)
+	)
+	canvas.add_child(panel)
+
+	var vbox = VBoxContainer.new()
+	vbox.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	vbox.add_theme_constant_override("separation",    12)
+	vbox.add_theme_constant_override("margin_left",   20)
+	vbox.add_theme_constant_override("margin_right",  20)
+	vbox.add_theme_constant_override("margin_top",    20)
+	vbox.add_theme_constant_override("margin_bottom", 20)
+	panel.add_child(vbox)
+
+	var warning                  = Label.new()
+	warning.text                 = "START NEW GAME?"
+	warning.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	warning.add_theme_color_override("font_color", GameTheme.get_color("accent"))
+	GameTheme.apply_font(warning, 12)
+	vbox.add_child(warning)
+
+	var desc                  = Label.new()
+	desc.text                 = "Your current progress will be lost."
+	desc.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	desc.autowrap_mode        = TextServer.AUTOWRAP_WORD_SMART
+	desc.add_theme_color_override("font_color", GameTheme.get_color("dim"))
+	GameTheme.apply_font(desc, 9)
+	vbox.add_child(desc)
+
+	var spacer = Control.new()
+	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	vbox.add_child(spacer)
+
+	var btn_row = HBoxContainer.new()
+	btn_row.add_theme_constant_override("separation", 10)
+	btn_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	vbox.add_child(btn_row)
+
+	var confirm_btn = GameTheme.build_button("YES", true)
+	GameTheme.connect_button(confirm_btn, func():
+		overlay.queue_free()
+		panel.queue_free()
+		DialogueManager.reset()
+		get_tree().change_scene_to_file("res://scenes/dialogue_scene.tscn")
+	)
+	btn_row.add_child(confirm_btn)
+
+	var cancel_btn = GameTheme.build_button("NO", false)
+	GameTheme.connect_button(cancel_btn, func():
+		overlay.queue_free()
+		panel.queue_free()
+	)
+	btn_row.add_child(cancel_btn)
 
 func _on_how_to_play_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/how_to_play.tscn")

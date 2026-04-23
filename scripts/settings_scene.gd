@@ -586,12 +586,11 @@ func _apply_setting(key: String, value) -> void:
 				)
 		"vibration":
 			# MOBILE PREP
-			# Input.vibrate_handheld(50) ← call this on choice press
-			# Stored in settings, read by ChoicesContainer later
+			GameTheme.set_vibration(value)
 			pass
 		"text_speed":
 			# Wire to DialogueManager when ready
-			# DialogueManager.set_text_speed(TEXT_SPEEDS[value])
+			GameTheme.set_text_speed(TEXT_SPEEDS[value])
 			pass
 		"notifications":
 			# MOBILE PREP

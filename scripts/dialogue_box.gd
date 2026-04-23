@@ -17,8 +17,6 @@ const COLOR_RED        = Color("#8b3a3a")   # ← ADD
 const COLOR_TEXT       = Color("#e8e0d0")
 const COLOR_DIM        = Color("#8a8a9a")   # ← ADD
 
-const TYPEWRITER_SPEED = 0.03
-
 # =========================================
 # REFERENCES
 # =========================================
@@ -58,8 +56,6 @@ func _apply_panel_style() -> void:
 		GameTheme.make_panel_style("dark", GameTheme.DIALOGUE_BORDER_W)
 	)
 	
-
-
 
 func _build_dialogue_box() -> void:
 	var vbox = VBoxContainer.new()
@@ -141,14 +137,36 @@ func update_portrait(speaker_id: String) -> void:
 	if portrait_box == null:
 		return
 
-	# Try loading portrait art
-	var path    = "res://assets/portraits/" + speaker_id + ".png"
-	if ResourceLoader.exists(path):
-		# ASSET SLOT — load portrait texture into TextureRect
-		# For now just update the fallback label
-		pass
+	var folder = "res://assets/portraits/" + GameTheme.ACTIVE_THEME + "/"
+	var path   = folder + speaker_id + ".png"
 
-	# Fallback — show first letter of speaker_id
+	if ResourceLoader.exists(path):
+		# Clear existing children
+		for child in portrait_box.get_children():
+			child.queue_free()
+
+		# Load texture
+		var texture  = load(path) as Texture2D
+		var tex_rect = TextureRect.new()
+		tex_rect.texture        = texture
+		tex_rect.stretch_mode   = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		tex_rect.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		tex_rect.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		tex_rect.mouse_filter   = Control.MOUSE_FILTER_IGNORE
+		portrait_box.add_child(tex_rect)
+		return
+
+	# Fallback — letter initial
+	# Make sure label exists, if cleared re-add it
+	if portrait_box.get_child_count() == 0:
+		var portrait_label                  = Label.new()
+		portrait_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		portrait_label.vertical_alignment   = VERTICAL_ALIGNMENT_CENTER
+		portrait_label.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		portrait_label.mouse_filter         = Control.MOUSE_FILTER_IGNORE
+		GameTheme.apply_font(portrait_label, 14)
+		portrait_box.add_child(portrait_label)
+
 	var label = portrait_box.get_child(0) as Label
 	if label == null:
 		return
@@ -156,34 +174,34 @@ func update_portrait(speaker_id: String) -> void:
 	match speaker_id:
 		"mentor":
 			label.text = "M"
-			_set_portrait_color(COLOR_ACCENT)
+			_set_portrait_color(GameTheme.get_color("accent"))
 		"player":
 			label.text = "Y"
-			_set_portrait_color(COLOR_ACCENT)
+			_set_portrait_color(GameTheme.get_color("accent"))
 		"customer":
 			label.text = "C"
-			_set_portrait_color(COLOR_PURPLE)
+			_set_portrait_color(GameTheme.get_color("reputation"))
 		"supplier":
 			label.text = "S"
-			_set_portrait_color(COLOR_GREEN)
+			_set_portrait_color(GameTheme.get_color("morale"))
 		"staff":
 			label.text = "ST"
 			_set_portrait_color(Color("#3a5f8b"))
 		"candidate":
 			label.text = "CA"
-			_set_portrait_color(COLOR_PURPLE)
+			_set_portrait_color(GameTheme.get_color("reputation"))
 		"influencer":
 			label.text = "IN"
-			_set_portrait_color(COLOR_ACCENT)
+			_set_portrait_color(GameTheme.get_color("accent"))
 		"inspector":
 			label.text = "IN"
-			_set_portrait_color(COLOR_RED)
+			_set_portrait_color(GameTheme.get_color("stress"))
 		"corporate":
 			label.text = "CO"
 			_set_portrait_color(Color("#3a5f8b"))
 		_:
 			label.text = "?"
-			_set_portrait_color(COLOR_DIM)
+			_set_portrait_color(GameTheme.get_color("dim"))
 
 
 func _set_portrait_color(color: Color) -> void:
@@ -234,7 +252,7 @@ func show_dialogue(speaker: String, text: String) -> void:
 		dialogue_text,
 		"visible_characters",
 		len(text),
-		len(text) * TYPEWRITER_SPEED
+		len(text) * GameTheme.get_text_speed()
 	).set_ease(Tween.EASE_IN_OUT)\
 	 .set_trans(Tween.TRANS_LINEAR)
 	_typewriter_tween.finished.connect(_on_typewriter_finished)

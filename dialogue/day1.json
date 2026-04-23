@@ -3,7 +3,14 @@
   "total_events": 3,
   "events": [
 	{ "start": "d1e1_a" },
-	{ "start": "d1e2_a" },
+	{
+	  "start": "random",
+	  "pool": [
+		"d1r_rush_hour",
+		"d1r_wrong_order",
+		"d1r_kind_stranger"
+	  ]
+	},
 	{ "start": "d1e3_a" }
   ],
   "nodes": {
@@ -25,18 +32,21 @@
 		{
 		  "text": "Greet them warmly and ask what they need",
 		  "effects": { "reputation": 10, "morale": 5 },
+		  "gold": 20,
 		  "minigame": null,
 		  "next": "d1e1_c_good"
 		},
 		{
 		  "text": "Wait for them to approach you",
 		  "effects": { "reputation": -5 },
+		  "gold": 8,
 		  "minigame": null,
 		  "next": "d1e1_c_neutral"
 		},
 		{
 		  "text": "Ignore them and keep doing paperwork",
 		  "effects": { "reputation": -15, "morale": -5 },
+		  "gold": 3,
 		  "minigame": null,
 		  "next": "d1e1_c_bad"
 		}
@@ -91,6 +101,333 @@
 	  "next": "end"
 	},
 
+	"d1r_rush_hour": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Unexpected rush hour! A crowd just walked in all at once. How do you handle the sudden surge?",
+	  "choices": [],
+	  "next": "d1r_rush_b"
+	},
+	"d1r_rush_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "shop_day",
+	  "text": "The shop is suddenly packed. Orders are piling up and the team is looking at me for direction.",
+	  "choices": [
+		{
+		  "text": "Jump in and help the team directly",
+		  "effects": { "morale": 15, "reputation": 10, "stress": 10 },
+		  "gold": 18,
+		  "minigame": null,
+		  "next": "d1r_rush_c_help"
+		},
+		{
+		  "text": "Assign roles clearly and coordinate",
+		  "effects": { "morale": 10, "reputation": 15, "stress": -5 },
+		  "gold": 20,
+		  "minigame": null,
+		  "next": "d1r_rush_c_coordinate"
+		},
+		{
+		  "text": "Apologize to customers for wait time",
+		  "effects": { "reputation": 10, "stress": -10, "morale": 5 },
+		  "gold": 12,
+		  "minigame": null,
+		  "next": "d1r_rush_c_apologize"
+		},
+		{
+		  "text": "Temporarily limit orders to manage quality",
+		  "effects": { "reputation": 5, "money": -5, "stress": -10 },
+		  "gold": 10,
+		  "minigame": null,
+		  "next": "d1r_rush_c_limit"
+		}
+	  ]
+	},
+	"d1r_rush_c_help": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_day",
+	  "text": "Having you in the trenches with us means everything. We pushed through and every customer was served!",
+	  "choices": [],
+	  "next": "d1r_rush_result_help"
+	},
+	"d1r_rush_c_coordinate": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_day",
+	  "text": "Clear roles made the chaos manageable. We worked like a machine. That kind of leadership under pressure is rare.",
+	  "choices": [],
+	  "next": "d1r_rush_result_coordinate"
+	},
+	"d1r_rush_c_apologize": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "We appreciate the heads up on the wait. Honest communication goes a long way. We will be back!",
+	  "choices": [],
+	  "next": "d1r_rush_result_apologize"
+	},
+	"d1r_rush_c_limit": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "I respect that you prioritize quality over quantity. That is rare and it makes me trust this place more.",
+	  "choices": [],
+	  "next": "d1r_rush_result_limit"
+	},
+	"d1r_rush_result_help": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Leading from the front builds team respect that no speech ever could. Your willingness to get your hands dirty sets the culture.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d1r_rush_result_coordinate": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Operational leadership under pressure is a rare skill. Clear role assignment turns chaos into coordinated action instantly.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d1r_rush_result_apologize": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Proactive communication during service disruption preserves customer goodwill. People forgive waits they were warned about.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d1r_rush_result_limit": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Quality over quantity is a brand positioning decision. Customers who value quality will respect it. Those who do not were never your core audience.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d1r_wrong_order": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "Excuse me, this is not what I ordered. I specifically asked for no sugar and this is clearly sweetened. I am not happy about this.",
+	  "choices": [],
+	  "next": "d1r_wrong_b"
+	},
+	"d1r_wrong_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "shop_day",
+	  "text": "A mistake was made on the order. The customer is visibly frustrated and other customers are watching to see how I handle this.",
+	  "choices": [
+		{
+		  "text": "Apologize and remake immediately at no charge",
+		  "effects": { "reputation": 15, "money": -5, "morale": 5 },
+		  "gold": 20,
+		  "minigame": null,
+		  "next": "d1r_wrong_c_remake"
+		},
+		{
+		  "text": "Apologize sincerely and offer a full refund",
+		  "effects": { "reputation": 10, "money": -8, "morale": 8 },
+		  "gold": 18,
+		  "minigame": null,
+		  "next": "d1r_wrong_c_refund"
+		},
+		{
+		  "text": "Apologize and give them a discount on next visit",
+		  "effects": { "reputation": 8, "morale": 5 },
+		  "gold": 10,
+		  "minigame": null,
+		  "next": "d1r_wrong_c_discount"
+		},
+		{
+		  "text": "Politely question if they ordered correctly",
+		  "effects": { "reputation": -15, "morale": -10, "stress": 10 },
+		  "gold": 3,
+		  "minigame": null,
+		  "next": "d1r_wrong_c_question"
+		}
+	  ]
+	},
+	"d1r_wrong_c_remake": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "Thank you for fixing it immediately. Mistakes happen but how you handle them is what matters. I am impressed.",
+	  "choices": [],
+	  "next": "d1r_wrong_result_remake"
+	},
+	"d1r_wrong_c_refund": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "A full refund is more than I expected. That is genuine customer care. I will definitely return and bring friends.",
+	  "choices": [],
+	  "next": "d1r_wrong_result_refund"
+	},
+	"d1r_wrong_c_discount": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "A next visit discount is okay I suppose. Still a bit inconvenient today but I appreciate the gesture.",
+	  "choices": [],
+	  "next": "d1r_wrong_result_discount"
+	},
+	"d1r_wrong_c_question": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "Are you seriously suggesting I made the mistake?! I am never coming back here. This is unacceptable.",
+	  "choices": [],
+	  "next": "d1r_wrong_result_question"
+	},
+	"d1r_wrong_result_remake": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Service recovery done right turns mistakes into loyalty moments. A customer who watches you handle errors well trusts you more than one who never saw a problem.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d1r_wrong_result_refund": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Generous service recovery costs money but earns loyalty that pays back multiple times over. The lifetime value of a retained customer far exceeds the refund.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d1r_wrong_result_discount": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Deferred compensation for a current problem often feels inadequate to the customer. When possible resolve the issue immediately rather than postponing the remedy.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d1r_wrong_result_question": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Blaming customers for service failures is one of the fastest ways to destroy reputation. Even if they were wrong the approach must always be gracious.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d1r_kind_stranger": {
+	  "speaker": "Stranger",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "Hi, I do not need anything today. I just wanted to say this place has a wonderful energy. You should be proud of what you are building here.",
+	  "choices": [],
+	  "next": "d1r_kind_b"
+	},
+	"d1r_kind_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "shop_day",
+	  "text": "A stranger just came in to offer encouragement with no expectation of anything in return. How do I respond?",
+	  "choices": [
+		{
+		  "text": "Thank them warmly and offer something on the house",
+		  "effects": { "morale": 20, "money": -5, "reputation": 10 },
+		  "gold": 22,
+		  "minigame": null,
+		  "next": "d1r_kind_c_gift"
+		},
+		{
+		  "text": "Thank them genuinely and ask what brought them in",
+		  "effects": { "morale": 15, "reputation": 8, "stress": -10 },
+		  "gold": 18,
+		  "minigame": null,
+		  "next": "d1r_kind_c_ask"
+		},
+		{
+		  "text": "Thank them and share your story briefly",
+		  "effects": { "morale": 18, "reputation": 5, "stress": -8 },
+		  "gold": 15,
+		  "minigame": null,
+		  "next": "d1r_kind_c_share"
+		},
+		{
+		  "text": "Thank them briefly and get back to work",
+		  "effects": { "morale": 8, "stress": -5 },
+		  "gold": 8,
+		  "minigame": null,
+		  "next": "d1r_kind_c_brief"
+		}
+	  ]
+	},
+	"d1r_kind_c_gift": {
+	  "speaker": "Stranger",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "Oh! I really did not expect anything. This is so kind. I will be telling everyone about this place. You just made my whole day.",
+	  "choices": [],
+	  "next": "d1r_kind_result_gift"
+	},
+	"d1r_kind_c_ask": {
+	  "speaker": "Stranger",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "I walked past and felt pulled in by the warmth of this place. That kind of atmosphere is rare and it is entirely your doing.",
+	  "choices": [],
+	  "next": "d1r_kind_result_ask"
+	},
+	"d1r_kind_c_share": {
+	  "speaker": "Stranger",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "I love hearing origin stories. Yours is genuinely inspiring. People need to know about this place. Can I share it on my social media?",
+	  "choices": [],
+	  "next": "d1r_kind_result_share"
+	},
+	"d1r_kind_c_brief": {
+	  "speaker": "Stranger",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "Of course, you are busy. Keep up the great work. This place deserves to thrive.",
+	  "choices": [],
+	  "next": "d1r_kind_result_brief"
+	},
+	"d1r_kind_result_gift": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Responding to kindness with generosity creates powerful word of mouth. You turned a brief encounter into a brand ambassador.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d1r_kind_result_ask": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Curiosity about people builds genuine community connections. Understanding why people are drawn to your business helps you amplify what makes it special.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d1r_kind_result_share": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Authentic stories travel further than any advertisement. Organic advocacy from genuine encounters is the most credible marketing that exists.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d1r_kind_result_brief": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Efficiency is important but moments of human connection have compounding business value. Sometimes the most productive thing you can do is slow down briefly.",
+	  "choices": [],
+	  "next": "end"
+	},
+
 	"d1e2_a": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
@@ -108,18 +445,21 @@
 		{
 		  "text": "Take the bulk deal — more stock, better margins",
 		  "effects": { "money": -20, "reputation": 5, "morale": 5 },
+		  "gold": 15,
 		  "minigame": null,
 		  "next": "d1e2_c_bulk"
 		},
 		{
 		  "text": "Order just enough for now — play it safe",
 		  "effects": { "money": -5, "morale": 5 },
+		  "gold": 10,
 		  "minigame": null,
 		  "next": "d1e2_c_safe"
 		},
 		{
 		  "text": "Skip the order entirely — save the cash",
 		  "effects": { "money": 10, "reputation": -10 },
+		  "gold": 5,
 		  "minigame": null,
 		  "next": "d1e2_c_skip"
 		}
@@ -191,24 +531,28 @@
 		{
 		  "text": "Offer a 10% loyalty discount",
 		  "effects": { "money": -10, "reputation": 15, "morale": 10 },
+		  "gold": 20,
 		  "minigame": null,
 		  "next": "d1e3_c_discount"
 		},
 		{
 		  "text": "Politely decline but thank them for loyalty",
 		  "effects": { "reputation": 5, "morale": 5 },
+		  "gold": 12,
 		  "minigame": null,
 		  "next": "d1e3_c_decline"
 		},
 		{
 		  "text": "Offer a free small item instead",
 		  "effects": { "money": -5, "reputation": 10, "morale": 15 },
+		  "gold": 18,
 		  "minigame": null,
 		  "next": "d1e3_c_gift"
 		},
 		{
 		  "text": "Refuse and say prices are fixed",
 		  "effects": { "reputation": -10, "morale": -10 },
+		  "gold": 3,
 		  "minigame": null,
 		  "next": "d1e3_c_refuse"
 		}

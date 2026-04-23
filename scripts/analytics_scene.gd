@@ -37,6 +37,7 @@ func _ready() -> void:
 	_receive_data()
 	_build_canvas()
 	_build_ui()
+	DialogueManager.save_game()
 
 
 # =========================================

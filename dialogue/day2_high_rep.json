@@ -1,0 +1,326 @@
+{
+  "day": 2,
+  "total_events": 3,
+  "events": [
+	{ "start": "d2hr_e1_a" },
+	{ "start": "d2hr_e2_a" },
+	{ "start": "d2hr_e3_a" }
+  ],
+  "nodes": {
+
+	"d2hr_e1_a": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Word is spreading fast! Your reputation is drawing attention. A food blogger just walked in wanting to feature your shop. This could be huge!",
+	  "choices": [],
+	  "next": "d2hr_e1_b"
+	},
+	"d2hr_e1_b": {
+	  "speaker": "Blogger",
+	  "speaker_id": "influencer",
+	  "background": "shop_day",
+	  "text": "I heard amazing things about this place! I would love to do a full feature. Can I spend the morning here and interview you?",
+	  "choices": [
+		{
+		  "text": "Welcome them wholeheartedly",
+		  "effects": { "reputation": 15, "morale": 10 },
+		  "minigame": null,
+		  "next": "d2hr_e1_c_welcome"
+		},
+		{
+		  "text": "Allow it but set some ground rules",
+		  "effects": { "reputation": 10, "morale": 5, "stress": -5 },
+		  "minigame": null,
+		  "next": "d2hr_e1_c_rules"
+		},
+		{
+		  "text": "Ask for editorial approval first",
+		  "effects": { "reputation": 5, "stress": -10 },
+		  "minigame": null,
+		  "next": "d2hr_e1_c_approval"
+		},
+		{
+		  "text": "Decline — too busy today",
+		  "effects": { "reputation": -5, "morale": -5 },
+		  "minigame": null,
+		  "next": "d2hr_e1_c_decline"
+		}
+	  ]
+	},
+	"d2hr_e1_c_welcome": {
+	  "speaker": "Blogger",
+	  "speaker_id": "influencer",
+	  "background": "shop_day",
+	  "text": "You are so open and genuine! This is exactly the kind of story my readers love. Your authenticity shines through everything here.",
+	  "choices": [],
+	  "next": "d2hr_e1_result_welcome"
+	},
+	"d2hr_e1_c_rules": {
+	  "speaker": "Blogger",
+	  "speaker_id": "influencer",
+	  "background": "shop_day",
+	  "text": "That is completely fair! Setting boundaries shows professionalism. I respect that. Let us make this work for both of us.",
+	  "choices": [],
+	  "next": "d2hr_e1_result_rules"
+	},
+	"d2hr_e1_c_approval": {
+	  "speaker": "Blogger",
+	  "speaker_id": "influencer",
+	  "background": "shop_day",
+	  "text": "Smart thinking! Most business owners never ask that. I am happy to share the draft before publishing.",
+	  "choices": [],
+	  "next": "d2hr_e1_result_approval"
+	},
+	"d2hr_e1_c_decline": {
+	  "speaker": "Blogger",
+	  "speaker_id": "influencer",
+	  "background": "shop_day",
+	  "text": "Oh. Okay, I understand. Maybe another time then. I hope the shop continues to do well.",
+	  "choices": [],
+	  "next": "d2hr_e1_result_decline"
+	},
+	"d2hr_e1_result_welcome": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Openness builds powerful media relationships. Your reputation earned you this opportunity — now you are amplifying it further.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2hr_e1_result_rules": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Setting boundaries with media is professional and smart. You protected your operations while still seizing the opportunity.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2hr_e1_result_approval": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Requesting editorial control protects your brand. Never let others define your story without your input.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2hr_e1_result_decline": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Missed opportunities rarely come back. Your reputation opened this door but declining closed it. Balance busyness with growth.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d2hr_e2_a": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Your growing reputation has attracted a premium supplier offering higher quality ingredients at a premium price. This could elevate your product significantly.",
+	  "choices": [],
+	  "next": "d2hr_e2_b"
+	},
+	"d2hr_e2_b": {
+	  "speaker": "Supplier",
+	  "speaker_id": "supplier",
+	  "background": "office",
+	  "text": "We only work with shops that have a strong reputation. Yours qualifies. Our ingredients cost 40% more but your customers will taste the difference immediately.",
+	  "choices": [
+		{
+		  "text": "Switch to premium ingredients fully",
+		  "effects": { "money": -25, "reputation": 20, "morale": 15 },
+		  "minigame": null,
+		  "next": "d2hr_e2_c_full"
+		},
+		{
+		  "text": "Use premium for signature items only",
+		  "effects": { "money": -10, "reputation": 10, "morale": 10 },
+		  "minigame": null,
+		  "next": "d2hr_e2_c_partial"
+		},
+		{
+		  "text": "Negotiate a trial period first",
+		  "effects": { "money": -5, "reputation": 5, "stress": -5 },
+		  "minigame": null,
+		  "next": "d2hr_e2_c_trial"
+		},
+		{
+		  "text": "Decline — current supplier is fine",
+		  "effects": { "morale": 5, "money": 5 },
+		  "minigame": null,
+		  "next": "d2hr_e2_c_decline"
+		}
+	  ]
+	},
+	"d2hr_e2_c_full": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "Oh wow this tastes completely different! So much richer. I am telling everyone about this upgrade!",
+	  "choices": [],
+	  "next": "d2hr_e2_result_full"
+	},
+	"d2hr_e2_c_partial": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "The signature items taste incredible! The quality jump is noticeable. Worth every extra peso.",
+	  "choices": [],
+	  "next": "d2hr_e2_result_partial"
+	},
+	"d2hr_e2_c_trial": {
+	  "speaker": "Supplier",
+	  "speaker_id": "supplier",
+	  "background": "office",
+	  "text": "A trial period is reasonable. Two weeks at reduced cost so you can measure customer response. Smart approach.",
+	  "choices": [],
+	  "next": "d2hr_e2_result_trial"
+	},
+	"d2hr_e2_c_decline": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Loyalty to your current setup is valid but premium opportunities at this stage are rare. Make sure you are not leaving growth on the table.",
+	  "choices": [],
+	  "next": "d2hr_e2_result_decline"
+	},
+	"d2hr_e2_result_full": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Premium positioning is a powerful strategy. Higher costs but higher perceived value — your reputation justifies the price increase.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2hr_e2_result_partial": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Selective premiumization is smart business. Flagship products carry the brand while keeping costs manageable.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2hr_e2_result_trial": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Data before commitment is always wise. A trial lets you measure real customer response before locking in higher costs.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2hr_e2_result_decline": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Comfort with the status quo can limit growth. Strong reputation creates leverage — use it while you have it.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d2hr_e3_a": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "End of a great day! A nearby business owner approaches wanting to collaborate on a joint promotion. Your reputation made you their first choice.",
+	  "choices": [],
+	  "next": "d2hr_e3_b"
+	},
+	"d2hr_e3_b": {
+	  "speaker": "Business Owner",
+	  "speaker_id": "corporate",
+	  "background": "shop_evening",
+	  "text": "Your shop has the best reputation on this street. A joint promotion between our businesses could double both our customer bases. Interested?",
+	  "choices": [
+		{
+		  "text": "Agree enthusiastically",
+		  "effects": { "reputation": 15, "money": 10, "morale": 15 },
+		  "minigame": null,
+		  "next": "d2hr_e3_c_agree"
+		},
+		{
+		  "text": "Ask for details before committing",
+		  "effects": { "reputation": 10, "stress": -10 },
+		  "minigame": null,
+		  "next": "d2hr_e3_c_details"
+		},
+		{
+		  "text": "Propose a smaller pilot first",
+		  "effects": { "reputation": 8, "money": 5, "stress": -5 },
+		  "minigame": null,
+		  "next": "d2hr_e3_c_pilot"
+		},
+		{
+		  "text": "Decline — focus on your own brand",
+		  "effects": { "morale": 5, "stress": -10 },
+		  "minigame": null,
+		  "next": "d2hr_e3_c_decline"
+		}
+	  ]
+	},
+	"d2hr_e3_c_agree": {
+	  "speaker": "Business Owner",
+	  "speaker_id": "corporate",
+	  "background": "shop_evening",
+	  "text": "Fantastic! This partnership is going to be incredible. Our customers are going to love both of us even more.",
+	  "choices": [],
+	  "next": "d2hr_e3_result_agree"
+	},
+	"d2hr_e3_c_details": {
+	  "speaker": "Business Owner",
+	  "speaker_id": "corporate",
+	  "background": "shop_evening",
+	  "text": "Of course! Due diligence is important. Let me walk you through the full plan before we shake hands on anything.",
+	  "choices": [],
+	  "next": "d2hr_e3_result_details"
+	},
+	"d2hr_e3_c_pilot": {
+	  "speaker": "Business Owner",
+	  "speaker_id": "corporate",
+	  "background": "shop_evening",
+	  "text": "A pilot is actually a brilliant idea. Test the waters before diving in. I like how you think.",
+	  "choices": [],
+	  "next": "d2hr_e3_result_pilot"
+	},
+	"d2hr_e3_c_decline": {
+	  "speaker": "Business Owner",
+	  "speaker_id": "corporate",
+	  "background": "shop_evening",
+	  "text": "I respect that. Building your own brand first is a solid strategy. The offer stands if you change your mind.",
+	  "choices": [],
+	  "next": "d2hr_e3_result_decline"
+	},
+	"d2hr_e3_result_agree": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Strategic partnerships multiply reach. Your reputation attracted this opportunity — now it is compounding through collaboration.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2hr_e3_result_details": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Never commit without understanding the full picture. Asking for details before agreeing is professional and protects your interests.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2hr_e3_result_pilot": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Pilots reduce risk in partnerships. Testing compatibility before full commitment is one of the smartest moves in collaborative business.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2hr_e3_result_decline": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Brand focus is valid but partnerships can accelerate growth significantly. Make sure independence is a strategy not just comfort.",
+	  "choices": [],
+	  "next": "end"
+	}
+  }
+}

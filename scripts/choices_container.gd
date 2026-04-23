@@ -99,9 +99,23 @@ func _clear_buttons() -> void:
 # CALLBACKS
 # =========================================
 func _on_choice_pressed(index: int) -> void:
+	GameTheme.vibrate()
 	hide_choices()
 	emit_signal("choice_selected", index)
 	DialogueManager.advance(index)
+
+
+func _try_vibrate() -> void:
+	# Read from saved settings
+	var file = FileAccess.open("user://settings.cfg", FileAccess.READ)
+	if file:
+		var json  = JSON.new()
+		var error = json.parse(file.get_as_text())
+		file.close()
+		if error == OK:
+			var saved = json.get_data()
+			if saved.get("vibration", true):
+				Input.vibrate_handheld(50)  # 50ms short tap
 
 
 func _on_choices_updated(_choices: Array) -> void:

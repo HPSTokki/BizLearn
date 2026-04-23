@@ -57,6 +57,16 @@ func _ready() -> void:
 	# Pull from Theme autoload
 	GameTheme.set_theme("coffee_shop")  # ← MUST be first line
 
+	var file = FileAccess.open("user://settings.cfg", FileAccess.READ)
+	if file:
+		var json  = JSON.new()
+		var error = json.parse(file.get_as_text())
+		file.close()
+		if error == OK:
+			var saved = json.get_data()
+			GameTheme.set_text_speed(saved.get("text_speed", 1))
+			GameTheme.set_vibration(saved.get("vibration", true))
+			
 	COLOR_BG         = GameTheme.get_color("bg")
 	COLOR_PANEL_DARK = GameTheme.get_color("panel_dark")
 	COLOR_PANEL_MID  = GameTheme.get_color("panel_mid")
@@ -278,7 +288,10 @@ func _on_screen_tapped() -> void:
 # PRIVATE
 # =========================================
 func _start_dialogue() -> void:
-	DialogueManager.load_dialogue("day" + str(DialogueManager.get_current_day()))
+	var file_name = DialogueManager.get_day_file(
+		DialogueManager.get_current_day()
+	)
+	DialogueManager.load_dialogue(file_name)
 	var node = DialogueManager.get_current_node()
 	if node.is_empty():
 		push_error("DialogueScene: current node empty after load")
@@ -318,12 +331,24 @@ func _on_dialogue_node_changed(speaker: String, text: String) -> void:
 	var bg_id      = DialogueManager.get_background_id()
 	var speaker_id = DialogueManager.get_speaker_id()
 
-	# Swap background and NPC
 	_swap_background(bg_id)
 	_swap_npc(speaker_id)
 
-	# Update scene label with current day
-	scene_label.text = "📍 Your Shop - Day " + str(DialogueManager.get_current_day())
+	# Update scene label with day and branch
+	var branch = DialogueManager.get_branch()
+	var branch_label = ""
+	match branch:
+		"high_rep":   branch_label = " ⭐"
+		"low_rep":    branch_label = " ⚠️"
+		"thriving":   branch_label = " 📈"
+		"struggling": branch_label = " 📉"
+		"motivated":  branch_label = " 💪"
+		"burnout":    branch_label = " 😓"
+		"crisis":     branch_label = " 🔥"
+		"strong":     branch_label = " ✨"
+	scene_label.text = "📍 Your Shop - Day " + \
+					   str(DialogueManager.get_current_day()) + \
+					   branch_label
 
 	var cc = choices_container as VBoxContainer
 	if cc and cc.has_method("hide_choices"):

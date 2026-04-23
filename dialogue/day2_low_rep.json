@@ -1,0 +1,326 @@
+{
+  "day": 2,
+  "total_events": 3,
+  "events": [
+	{ "start": "d2lr_e1_a" },
+	{ "start": "d2lr_e2_a" },
+	{ "start": "d2lr_e3_a" }
+  ],
+  "nodes": {
+
+	"d2lr_e1_a": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Yesterday's rough start has people talking — not in a good way. A group of customers are outside looking hesitant. Your reputation took a hit and it shows.",
+	  "choices": [],
+	  "next": "d2lr_e1_b"
+	},
+	"d2lr_e1_b": {
+	  "speaker": "Hesitant Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "My friend said the service here was not great yesterday. We were thinking of going somewhere else. Is there any reason we should give you a chance?",
+	  "choices": [
+		{
+		  "text": "Apologize sincerely and offer a welcome discount",
+		  "effects": { "reputation": 15, "money": -10, "morale": 10 },
+		  "minigame": null,
+		  "next": "d2lr_e1_c_apologize"
+		},
+		{
+		  "text": "Acknowledge the issue and promise improvement",
+		  "effects": { "reputation": 10, "morale": 5 },
+		  "minigame": null,
+		  "next": "d2lr_e1_c_promise"
+		},
+		{
+		  "text": "Defend yourself and explain what happened",
+		  "effects": { "reputation": -5, "stress": 10 },
+		  "minigame": null,
+		  "next": "d2lr_e1_c_defend"
+		},
+		{
+		  "text": "Simply invite them in and let actions speak",
+		  "effects": { "reputation": 8, "morale": 8, "stress": -5 },
+		  "minigame": null,
+		  "next": "d2lr_e1_c_invite"
+		}
+	  ]
+	},
+	"d2lr_e1_c_apologize": {
+	  "speaker": "Hesitant Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "Oh, that is actually really refreshing to hear. A discount and a genuine apology? We will give you another shot.",
+	  "choices": [],
+	  "next": "d2lr_e1_result_apologize"
+	},
+	"d2lr_e1_c_promise": {
+	  "speaker": "Hesitant Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "Okay, we appreciate the honesty. Everyone has bad days. We will come in and see.",
+	  "choices": [],
+	  "next": "d2lr_e1_result_promise"
+	},
+	"d2lr_e1_c_defend": {
+	  "speaker": "Hesitant Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "Right. So it was the customer's fault? That is not a great sign. We think we will pass today.",
+	  "choices": [],
+	  "next": "d2lr_e1_result_defend"
+	},
+	"d2lr_e1_c_invite": {
+	  "speaker": "Hesitant Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "Actions speak louder than words, that is true. Alright, let us see what you have got.",
+	  "choices": [],
+	  "next": "d2lr_e1_result_invite"
+	},
+	"d2lr_e1_result_apologize": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Genuine apologies with tangible gestures rebuild trust faster than words alone. You turned a skeptic into a potential regular.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2lr_e1_result_promise": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Acknowledging mistakes openly shows maturity. Now you must follow through — a promise without action makes things worse.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2lr_e1_result_defend": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Defensiveness when your reputation is already low accelerates the damage. Customers want accountability not excuses.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2lr_e1_result_invite": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Letting your service speak is powerful but risky when trust is already low. Make sure the experience delivers on that confidence.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d2lr_e2_a": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Your regular supplier heard about your rough start and is being difficult about your next order, demanding payment upfront instead of the usual credit terms.",
+	  "choices": [],
+	  "next": "d2lr_e2_b"
+	},
+	"d2lr_e2_b": {
+	  "speaker": "Supplier",
+	  "speaker_id": "supplier",
+	  "background": "office",
+	  "text": "Given recent reports about your shop I am no longer comfortable with credit terms. Full payment upfront or no deal. What do you say?",
+	  "choices": [
+		{
+		  "text": "Pay upfront — maintain the supply chain",
+		  "effects": { "money": -20, "stress": 10, "morale": -5 },
+		  "minigame": null,
+		  "next": "d2lr_e2_c_pay"
+		},
+		{
+		  "text": "Negotiate — offer partial upfront payment",
+		  "effects": { "money": -10, "stress": 5, "reputation": 5 },
+		  "minigame": null,
+		  "next": "d2lr_e2_c_negotiate"
+		},
+		{
+		  "text": "Find an alternative supplier",
+		  "effects": { "stress": 15, "money": -5, "morale": -10 },
+		  "minigame": null,
+		  "next": "d2lr_e2_c_alternative"
+		},
+		{
+		  "text": "Explain your improvement plan to rebuild trust",
+		  "effects": { "reputation": 10, "stress": -5, "morale": 10 },
+		  "minigame": null,
+		  "next": "d2lr_e2_c_explain"
+		}
+	  ]
+	},
+	"d2lr_e2_c_pay": {
+	  "speaker": "Supplier",
+	  "speaker_id": "supplier",
+	  "background": "office",
+	  "text": "Good. Payment received. Your order will be delivered tomorrow as usual. Keep up better performance and we can revisit the credit terms.",
+	  "choices": [],
+	  "next": "d2lr_e2_result_pay"
+	},
+	"d2lr_e2_c_negotiate": {
+	  "speaker": "Supplier",
+	  "speaker_id": "supplier",
+	  "background": "office",
+	  "text": "Half upfront is acceptable for now. Show me consistent improvement and we will return to normal terms within a month.",
+	  "choices": [],
+	  "next": "d2lr_e2_result_negotiate"
+	},
+	"d2lr_e2_c_alternative": {
+	  "speaker": "New Supplier",
+	  "speaker_id": "supplier",
+	  "background": "office",
+	  "text": "We can supply you but our rates are higher and quality is inconsistent until we establish a relationship. Starting from scratch is never easy.",
+	  "choices": [],
+	  "next": "d2lr_e2_result_alternative"
+	},
+	"d2lr_e2_c_explain": {
+	  "speaker": "Supplier",
+	  "speaker_id": "supplier",
+	  "background": "office",
+	  "text": "I appreciate you coming to me directly with a plan. That shows character. Let us keep normal terms but I will be watching closely.",
+	  "choices": [],
+	  "next": "d2lr_e2_result_explain"
+	},
+	"d2lr_e2_result_pay": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Maintaining supply chains even at cost is critical. A business without stock cannot serve customers no matter how good the recovery plan.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2lr_e2_result_negotiate": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Negotiating middle ground preserves relationships while managing cash flow. Reputation damage creates real financial consequences — remember this.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2lr_e2_result_alternative": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Switching suppliers under pressure is risky. New relationships take time to build. Sometimes fixing existing relationships is smarter than starting over.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2lr_e2_result_explain": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Transparency and a clear improvement plan can salvage damaged business relationships. People respect honesty and forward thinking over excuses.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d2lr_e3_a": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "End of a tough day. Your staff is feeling the pressure of the low reputation. Team morale is suffering and you need to address it before it gets worse.",
+	  "choices": [],
+	  "next": "d2lr_e3_b"
+	},
+	"d2lr_e3_b": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_evening",
+	  "text": "Boss, the team is really down. People are saying negative things about our shop and it is affecting how we feel coming to work. What is the plan?",
+	  "choices": [
+		{
+		  "text": "Hold a team meeting and share a recovery plan",
+		  "effects": { "morale": 20, "stress": -10, "reputation": 5 },
+		  "minigame": null,
+		  "next": "d2lr_e3_c_meeting"
+		},
+		{
+		  "text": "Acknowledge struggles and offer a team bonus",
+		  "effects": { "morale": 15, "money": -15, "stress": -5 },
+		  "minigame": null,
+		  "next": "d2lr_e3_c_bonus"
+		},
+		{
+		  "text": "Remind them that pressure builds character",
+		  "effects": { "morale": -10, "stress": 15 },
+		  "minigame": null,
+		  "next": "d2lr_e3_c_pressure"
+		},
+		{
+		  "text": "Focus on one small win to rebuild confidence",
+		  "effects": { "morale": 18, "stress": -8, "reputation": 8 },
+		  "minigame": null,
+		  "next": "d2lr_e3_c_smallwin"
+		}
+	  ]
+	},
+	"d2lr_e3_c_meeting": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_evening",
+	  "text": "Thank you for being straight with us. Knowing there is a plan makes a huge difference. We are with you on this recovery.",
+	  "choices": [],
+	  "next": "d2lr_e3_result_meeting"
+	},
+	"d2lr_e3_c_bonus": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_evening",
+	  "text": "A bonus really means a lot right now. It shows you appreciate us even when things are tough. We will push harder tomorrow.",
+	  "choices": [],
+	  "next": "d2lr_e3_result_bonus"
+	},
+	"d2lr_e3_c_pressure": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_evening",
+	  "text": "Right... pressure builds character. That is easy to say when you are the boss. The team feels unsupported right now.",
+	  "choices": [],
+	  "next": "d2lr_e3_result_pressure"
+	},
+	"d2lr_e3_c_smallwin": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_evening",
+	  "text": "Yes! We got three five star compliments today. Focusing on those instead of the negatives really helps the team's perspective.",
+	  "choices": [],
+	  "next": "d2lr_e3_result_smallwin"
+	},
+	"d2lr_e3_result_meeting": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Transparent leadership during hard times builds lasting loyalty. Your team needs direction not just sympathy when things go wrong.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2lr_e3_result_bonus": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Financial recognition during hardship shows genuine care. It costs money now but buys loyalty that carries you through the recovery.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2lr_e3_result_pressure": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Dismissing team struggles with clichés damages trust further. When morale is already low your team needs empathy and direction not platitudes.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2lr_e3_result_smallwin": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Celebrating small wins reframes adversity as progress. Good leaders find momentum in difficult moments rather than dwelling on setbacks.",
+	  "choices": [],
+	  "next": "end"
+	}
+  }
+}

@@ -1,0 +1,326 @@
+{
+  "day": 3,
+  "total_events": 3,
+  "events": [
+	{ "start": "d3s_e1_a" },
+	{ "start": "d3s_e2_a" },
+	{ "start": "d3s_e3_a" }
+  ],
+  "nodes": {
+
+	"d3s_e1_a": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Day 3 and cash is tight. You need to make smart financial decisions today or the business could be in real trouble. Every peso counts.",
+	  "choices": [],
+	  "next": "d3s_e1_b"
+	},
+	"d3s_e1_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "shop_day",
+	  "text": "Bills are piling up and revenue is lower than expected. I need to cut costs somewhere without destroying what makes this place special.",
+	  "choices": [
+		{
+		  "text": "Reduce staff hours temporarily",
+		  "effects": { "money": 15, "morale": -15, "stress": 10 },
+		  "minigame": null,
+		  "next": "d3s_e1_c_staff"
+		},
+		{
+		  "text": "Cut ingredient quality slightly to save costs",
+		  "effects": { "money": 10, "reputation": -15, "morale": -5 },
+		  "minigame": null,
+		  "next": "d3s_e1_c_quality"
+		},
+		{
+		  "text": "Launch flash sale to generate quick cash",
+		  "effects": { "money": 15, "reputation": 5, "stress": 10 },
+		  "minigame": null,
+		  "next": "d3s_e1_c_sale"
+		},
+		{
+		  "text": "Apply for a small business emergency loan",
+		  "effects": { "money": 25, "stress": 15, "morale": -5 },
+		  "minigame": null,
+		  "next": "d3s_e1_c_loan"
+		}
+	  ]
+	},
+	"d3s_e1_c_staff": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_day",
+	  "text": "Reduced hours means reduced pay. We understand the business is struggling but this puts real pressure on us personally.",
+	  "choices": [],
+	  "next": "d3s_e1_result_staff"
+	},
+	"d3s_e1_c_quality": {
+	  "speaker": "Regular Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "Something tastes different today. Not as good as usual. I hope standards are not dropping here.",
+	  "choices": [],
+	  "next": "d3s_e1_result_quality"
+	},
+	"d3s_e1_c_sale": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "A flash sale! Perfect timing. I brought three friends along. You should do these more often!",
+	  "choices": [],
+	  "next": "d3s_e1_result_sale"
+	},
+	"d3s_e1_c_loan": {
+	  "speaker": "Bank Officer",
+	  "speaker_id": "corporate",
+	  "background": "office",
+	  "text": "Given your short operating history the loan comes with higher interest. But the funds are available within 24 hours if you need them.",
+	  "choices": [],
+	  "next": "d3s_e1_result_loan"
+	},
+	"d3s_e1_result_staff": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Cost cutting through labor is a double edged sword. It preserves cash but damages the team trust that carries you through hard times.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3s_e1_result_quality": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Quality cuts are visible to loyal customers immediately. Short term savings can trigger long term reputation damage that costs far more.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3s_e1_result_sale": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Flash sales generate immediate cash flow and foot traffic. Creative revenue generation beats cost cutting when protecting culture matters.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3s_e1_result_loan": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Debt financing buys time but adds future pressure. Use borrowed capital only for revenue generating activities not just covering operating costs.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d3s_e2_a": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "A difficult conversation is needed. Your accountant has reviewed the books and the numbers are concerning. You need a plan today.",
+	  "choices": [],
+	  "next": "d3s_e2_b"
+	},
+	"d3s_e2_b": {
+	  "speaker": "Accountant",
+	  "speaker_id": "corporate",
+	  "background": "office",
+	  "text": "At the current burn rate you have about three weeks of runway left. You need to either increase revenue by 30% or cut costs by 20%. What is your plan?",
+	  "choices": [
+		{
+		  "text": "Focus entirely on revenue growth",
+		  "effects": { "stress": 15, "morale": 10, "money": 10 },
+		  "minigame": null,
+		  "next": "d3s_e2_c_revenue"
+		},
+		{
+		  "text": "Implement strict cost cutting immediately",
+		  "effects": { "money": 15, "morale": -15, "stress": 5 },
+		  "minigame": null,
+		  "next": "d3s_e2_c_costs"
+		},
+		{
+		  "text": "Do both — moderate cuts and moderate growth push",
+		  "effects": { "money": 12, "morale": -5, "stress": 10 },
+		  "minigame": null,
+		  "next": "d3s_e2_c_both"
+		},
+		{
+		  "text": "Seek a business mentor or advisor for help",
+		  "effects": { "stress": -15, "morale": 15, "reputation": 5 },
+		  "minigame": null,
+		  "next": "d3s_e2_c_mentor"
+		}
+	  ]
+	},
+	"d3s_e2_c_revenue": {
+	  "speaker": "Accountant",
+	  "speaker_id": "corporate",
+	  "background": "office",
+	  "text": "Aggressive revenue focus is high risk high reward. If it works you come out stronger. If it does not you burn through what little runway you have left.",
+	  "choices": [],
+	  "next": "d3s_e2_result_revenue"
+	},
+	"d3s_e2_c_costs": {
+	  "speaker": "Accountant",
+	  "speaker_id": "corporate",
+	  "background": "office",
+	  "text": "Cost cutting extends runway but does not solve the fundamental revenue problem. Make sure you are not cutting things that generate income.",
+	  "choices": [],
+	  "next": "d3s_e2_result_costs"
+	},
+	"d3s_e2_c_both": {
+	  "speaker": "Accountant",
+	  "speaker_id": "corporate",
+	  "background": "office",
+	  "text": "A balanced approach is pragmatic. Neither fully solves the problem but together they buy you meaningful time to find a sustainable solution.",
+	  "choices": [],
+	  "next": "d3s_e2_result_both"
+	},
+	"d3s_e2_c_mentor": {
+	  "speaker": "Business Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Smart move seeking help! I have seen this situation before. Three specific changes can turn this around within two weeks. Let me show you.",
+	  "choices": [],
+	  "next": "d3s_e2_result_mentor"
+	},
+	"d3s_e2_result_revenue": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Betting on growth during a cash crisis takes courage. It can work but requires laser focus and flawless execution under pressure.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3s_e2_result_costs": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Cost control without revenue growth is a slow decline. It buys time — use that time to build revenue not just to survive.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3s_e2_result_both": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Balance under pressure is mature financial thinking. You are not solving everything but you are moving in the right direction on multiple fronts.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3s_e2_result_mentor": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Knowing when to ask for help is one of the most underrated business skills. Pride kills more businesses than bad markets do.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d3s_e3_a": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Despite the financial pressure your team has been incredible. End of day and you need to decide how to keep morale alive without spending much.",
+	  "choices": [],
+	  "next": "d3s_e3_b"
+	},
+	"d3s_e3_b": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_evening",
+	  "text": "We know things are tight boss. We are still here and still giving our best. We just want to know you see us and appreciate what we are doing.",
+	  "choices": [
+		{
+		  "text": "Express genuine heartfelt gratitude personally",
+		  "effects": { "morale": 20, "stress": -10 },
+		  "minigame": null,
+		  "next": "d3s_e3_c_gratitude"
+		},
+		{
+		  "text": "Promise better times ahead with a specific plan",
+		  "effects": { "morale": 15, "stress": -5, "reputation": 5 },
+		  "minigame": null,
+		  "next": "d3s_e3_c_promise"
+		},
+		{
+		  "text": "Offer a small gesture — team meal on you",
+		  "effects": { "morale": 18, "money": -5, "stress": -8 },
+		  "minigame": null,
+		  "next": "d3s_e3_c_meal"
+		},
+		{
+		  "text": "Be honest about how serious the situation is",
+		  "effects": { "morale": 10, "stress": 10, "reputation": 8 },
+		  "minigame": null,
+		  "next": "d3s_e3_c_honest"
+		}
+	  ]
+	},
+	"d3s_e3_c_gratitude": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_evening",
+	  "text": "That genuinely means a lot. Sometimes just being seen and acknowledged is enough to keep going. We are with you through this.",
+	  "choices": [],
+	  "next": "d3s_e3_result_gratitude"
+	},
+	"d3s_e3_c_promise": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_evening",
+	  "text": "A specific plan gives us something to hold on to. We can handle hard times when we know there is a real path forward.",
+	  "choices": [],
+	  "next": "d3s_e3_result_promise"
+	},
+	"d3s_e3_c_meal": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_evening",
+	  "text": "A team meal during tough times! It is such a small thing but it means so much. You put us first even when money is tight.",
+	  "choices": [],
+	  "next": "d3s_e3_result_meal"
+	},
+	"d3s_e3_c_honest": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_evening",
+	  "text": "We appreciate you being straight with us. It is scary to hear but we would rather know the truth than be kept in the dark.",
+	  "choices": [],
+	  "next": "d3s_e3_result_honest"
+	},
+	"d3s_e3_result_gratitude": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Authentic appreciation costs nothing but means everything. The best leaders make their people feel valued especially when resources are scarce.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3s_e3_result_promise": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Hope with a plan is leadership. Hope without a plan is just wishful thinking. Your team needs both the vision and the roadmap.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3s_e3_result_meal": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Small gestures during hard times have disproportionate impact. The memory of being cared for in difficulty outlasts any bonus given in good times.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3s_e3_result_honest": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Radical transparency builds deep trust. Teams that face hard truths together develop resilience that carries them through any crisis.",
+	  "choices": [],
+	  "next": "end"
+	}
+  }
+}

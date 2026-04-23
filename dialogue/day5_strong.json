@@ -1,0 +1,327 @@
+{
+  "day": 5,
+  "total_events": 3,
+  "events": [
+	{ "start": "d5e1_a" },
+	{ "start": "d5e2_a" },
+	{ "start": "d5e3_a" }
+  ],
+  "nodes": {
+
+	"d5e1_a": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Day 5! Your final day. Everything you have built comes down to this. A health inspector arrives unannounced this morning. How prepared are you?",
+	  "choices": [],
+	  "next": "d5e1_b"
+	},
+	"d5e1_b": {
+	  "speaker": "Health Inspector",
+	  "speaker_id": "inspector",
+	  "background": "shop_day",
+	  "text": "Good morning. We received a complaint about your establishment. I will need to do a full inspection right now. Are you ready?",
+	  "choices": [
+		{
+		  "text": "Welcome them confidently — your shop is always inspection ready",
+		  "effects": { "reputation": 25, "morale": 15, "stress": -10 },
+		  "minigame": null,
+		  "next": "d5e1_c_ready"
+		},
+		{
+		  "text": "Ask for a few minutes to tidy up quickly",
+		  "effects": { "reputation": -5, "stress": 15, "morale": -5 },
+		  "minigame": null,
+		  "next": "d5e1_c_stall"
+		},
+		{
+		  "text": "Cooperate fully and answer all questions honestly",
+		  "effects": { "reputation": 20, "morale": 10, "stress": -5 },
+		  "minigame": null,
+		  "next": "d5e1_c_cooperate"
+		},
+		{
+		  "text": "Ask to see their credentials and complaint details first",
+		  "effects": { "reputation": 5, "stress": 5, "morale": 5 },
+		  "minigame": null,
+		  "next": "d5e1_c_verify"
+		}
+	  ]
+	},
+	"d5e1_c_ready": {
+	  "speaker": "Health Inspector",
+	  "speaker_id": "inspector",
+	  "background": "shop_day",
+	  "text": "Impressive. Everything is in order. Your standards are well above average. Consider this a passed inspection.",
+	  "choices": [],
+	  "next": "d5e1_result_ready"
+	},
+	"d5e1_c_stall": {
+	  "speaker": "Health Inspector",
+	  "speaker_id": "inspector",
+	  "background": "shop_day",
+	  "text": "A few minutes? That is highly irregular. I am noting this hesitation in my report.",
+	  "choices": [],
+	  "next": "d5e1_result_stall"
+	},
+	"d5e1_c_cooperate": {
+	  "speaker": "Health Inspector",
+	  "speaker_id": "inspector",
+	  "background": "shop_day",
+	  "text": "Thank you for your transparency. Everything checks out. You run a clean and honest operation here.",
+	  "choices": [],
+	  "next": "d5e1_result_cooperate"
+	},
+	"d5e1_c_verify": {
+	  "speaker": "Health Inspector",
+	  "speaker_id": "inspector",
+	  "background": "shop_day",
+	  "text": "Of course. Here are my credentials. The complaint was about food storage. Shall we proceed?",
+	  "choices": [],
+	  "next": "d5e1_result_verify"
+	},
+	"d5e1_result_ready": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Maintaining standards every day not just before inspections is what separates great businesses from average ones. Well done.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5e1_result_stall": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "If you need time to tidy up for an inspection your daily standards need work. Compliance should be a habit not a reaction.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5e1_result_cooperate": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Transparency with regulators builds institutional trust. Honesty during inspections protects you far more than hiding problems.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5e1_result_verify": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Knowing your rights and asking for credentials is professional and smart. Always verify authority before granting access.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d5e2_a": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Midday crisis! A social media post is going viral claiming your shop overcharged a customer. The post is spreading fast and your phone will not stop ringing. What do you do first?",
+	  "choices": [],
+	  "next": "d5e2_b"
+	},
+	"d5e2_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "office",
+	  "text": "This is a full blown PR crisis. Every second I wait makes it worse. I need to act now...",
+	  "choices": [
+		{
+		  "text": "Release a public statement immediately addressing the issue",
+		  "effects": { "reputation": 20, "stress": -10, "morale": 10 },
+		  "minigame": null,
+		  "next": "d5e2_c_statement"
+		},
+		{
+		  "text": "Investigate internally before saying anything publicly",
+		  "effects": { "reputation": -10, "stress": 15, "morale": -5 },
+		  "minigame": null,
+		  "next": "d5e2_c_investigate"
+		},
+		{
+		  "text": "Reach out directly to the customer who posted",
+		  "effects": { "reputation": 15, "stress": -5, "morale": 15 },
+		  "minigame": null,
+		  "next": "d5e2_c_direct"
+		},
+		{
+		  "text": "Have a lawyer send a cease and desist letter",
+		  "effects": { "reputation": -25, "money": -20, "stress": 20 },
+		  "minigame": null,
+		  "next": "d5e2_c_legal"
+		}
+	  ]
+	},
+	"d5e2_c_statement": {
+	  "speaker": "Follower Online",
+	  "speaker_id": "influencer",
+	  "background": "office",
+	  "text": "They addressed it immediately and took responsibility. That is actually really mature. Respect.",
+	  "choices": [],
+	  "next": "d5e2_result_statement"
+	},
+	"d5e2_c_investigate": {
+	  "speaker": "Follower Online",
+	  "speaker_id": "influencer",
+	  "background": "office",
+	  "text": "It has been hours and they have not said anything. The silence is making them look guilty.",
+	  "choices": [],
+	  "next": "d5e2_result_investigate"
+	},
+	"d5e2_c_direct": {
+	  "speaker": "Customer Who Posted",
+	  "speaker_id": "customer",
+	  "background": "office",
+	  "text": "Wow they actually messaged me personally. That took guts. I appreciate that more than a generic post.",
+	  "choices": [],
+	  "next": "d5e2_result_direct"
+	},
+	"d5e2_c_legal": {
+	  "speaker": "Follower Online",
+	  "speaker_id": "influencer",
+	  "background": "office",
+	  "text": "They sent a cease and desist to a customer?! That is insane. I am never going there. Sharing this everywhere.",
+	  "choices": [],
+	  "next": "d5e2_result_legal"
+	},
+	"d5e2_result_statement": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Swift transparent communication during a crisis preserves trust. Silence lets others control the narrative about your business.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5e2_result_investigate": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Internal investigation is important but so is acknowledging the issue publicly while you look into it. Both can happen simultaneously.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5e2_result_direct": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Direct personal outreach during a crisis shows humanity. People remember how you made them feel far longer than what you said.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5e2_result_legal": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Legal threats against customers almost always backfire catastrophically. Reserve legal action for extreme cases not PR problems.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d5e3_a": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Final event! End of Day 5. You have come so far. A long time customer approaches you with a proposal to become a business partner and co-invest in expanding the shop. This is your biggest decision yet.",
+	  "choices": [],
+	  "next": "d5e3_b"
+	},
+	"d5e3_b": {
+	  "speaker": "Long Time Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_evening",
+	  "text": "I have watched you grow this business with my own eyes. I want to invest and help you expand. I am talking a second location. What do you say?",
+	  "choices": [
+		{
+		  "text": "Accept enthusiastically — this is the opportunity you have been waiting for",
+		  "effects": { "money": 30, "reputation": 20, "stress": 20, "morale": 15 },
+		  "minigame": null,
+		  "next": "d5e3_c_accept"
+		},
+		{
+		  "text": "Ask for time to review a formal proposal first",
+		  "effects": { "money": 10, "reputation": 15, "stress": -10, "morale": 10 },
+		  "minigame": null,
+		  "next": "d5e3_c_review"
+		},
+		{
+		  "text": "Propose a smaller pilot expansion before fully committing",
+		  "effects": { "money": 15, "reputation": 10, "stress": -5, "morale": 20 },
+		  "minigame": null,
+		  "next": "d5e3_c_pilot"
+		},
+		{
+		  "text": "Decline and focus on strengthening what you already have",
+		  "effects": { "reputation": 10, "morale": 25, "stress": -20 },
+		  "minigame": null,
+		  "next": "d5e3_c_decline"
+		}
+	  ]
+	},
+	"d5e3_c_accept": {
+	  "speaker": "Long Time Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_evening",
+	  "text": "Fantastic! This is going to be incredible. Let us change the game together. The city will know your name!",
+	  "choices": [],
+	  "next": "d5e3_result_accept"
+	},
+	"d5e3_c_review": {
+	  "speaker": "Long Time Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_evening",
+	  "text": "Of course! Smart thinking. I will have my team prepare a full proposal by end of week. Looking forward to it.",
+	  "choices": [],
+	  "next": "d5e3_result_review"
+	},
+	"d5e3_c_pilot": {
+	  "speaker": "Long Time Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_evening",
+	  "text": "A pilot? I like that thinking. Test before you scale. You have learned a lot this week have you not?",
+	  "choices": [],
+	  "next": "d5e3_result_pilot"
+	},
+	"d5e3_c_decline": {
+	  "speaker": "Long Time Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_evening",
+	  "text": "I respect that. Knowing when not to expand is just as important as knowing when to grow. The offer stands whenever you are ready.",
+	  "choices": [],
+	  "next": "d5e3_result_decline"
+	},
+	"d5e3_result_accept": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Exciting times ahead! But always get everything in writing before celebrating. A handshake deal is not a business deal.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5e3_result_review": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Never let excitement override due diligence. Reviewing proposals carefully protects you from partnerships that look good but lack substance.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5e3_result_pilot": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Testing before scaling is one of the most valuable lessons in business. You have truly grown this week. This is the right instinct.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5e3_result_decline": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Sustainable growth beats reckless expansion every time. Consolidating your foundation before scaling is wisdom not fear.",
+	  "choices": [],
+	  "next": "end"
+	}
+
+  }
+}
