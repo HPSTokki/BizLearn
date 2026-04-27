@@ -145,11 +145,14 @@ func update_portrait(speaker_id: String) -> void:
 		for child in portrait_box.get_children():
 			child.queue_free()
 
-		# Load texture
+		# Load texture and scale to fit container
 		var texture  = load(path) as Texture2D
 		var tex_rect = TextureRect.new()
 		tex_rect.texture        = texture
 		tex_rect.stretch_mode   = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		tex_rect.expand_mode    = TextureRect.EXPAND_IGNORE_SIZE
+		tex_rect.custom_minimum_size = Vector2(36, 36)
+		tex_rect.size           = Vector2(36, 36)
 		tex_rect.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		tex_rect.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		tex_rect.mouse_filter   = Control.MOUSE_FILTER_IGNORE
@@ -157,7 +160,6 @@ func update_portrait(speaker_id: String) -> void:
 		return
 
 	# Fallback — letter initial
-	# Make sure label exists, if cleared re-add it
 	if portrait_box.get_child_count() == 0:
 		var portrait_label                  = Label.new()
 		portrait_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

@@ -25,6 +25,7 @@
 		{
 		  "text": "Apologize sincerely and offer a welcome discount",
 		  "effects": { "reputation": 15, "money": -10, "morale": 10 },
+		  "sets_flag": "apologized_with_discount",
 		  "minigame": null,
 		  "next": "d2lr_e1_c_apologize"
 		},
@@ -43,6 +44,7 @@
 		{
 		  "text": "Simply invite them in and let actions speak",
 		  "effects": { "reputation": 8, "morale": 8, "stress": -5 },
+		  "sets_flag": "let_actions_speak",
 		  "minigame": null,
 		  "next": "d2lr_e1_c_invite"
 		}
@@ -235,6 +237,7 @@
 		{
 		  "text": "Hold a team meeting and share a recovery plan",
 		  "effects": { "morale": 20, "stress": -10, "reputation": 5 },
+		  "sets_flag": "shared_recovery_plan",
 		  "minigame": null,
 		  "next": "d2lr_e3_c_meeting"
 		},
@@ -253,6 +256,7 @@
 		{
 		  "text": "Focus on one small win to rebuild confidence",
 		  "effects": { "morale": 18, "stress": -8, "reputation": 8 },
+		  "sets_flag": "celebrated_small_wins",
 		  "minigame": null,
 		  "next": "d2lr_e3_c_smallwin"
 		}

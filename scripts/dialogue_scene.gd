@@ -80,6 +80,7 @@ func _ready() -> void:
 	DIALOGUEBOX_H = GameTheme.DIALOGUEBOX_H
 	
 	SPRITE_AREA_H = SCREEN_H - HUD_Y - HUD_HEIGHT - DIALOGUEBOX_H
+	SPRITE_AREA_Y = HUD_Y + HUD_HEIGHT  # ← ADD THIS
 
 	_build_canvas()
 	_build_background()
@@ -288,7 +289,6 @@ func _on_screen_tapped() -> void:
 # PRIVATE
 # =========================================
 func _start_dialogue() -> void:
-	# Apply inventory items at start of each day
 	DialogueManager.apply_inventory_items()
 
 	var file_name = DialogueManager.get_day_file(
@@ -470,7 +470,6 @@ func _swap_npc(speaker_id: String) -> void:
 		_:
 			label.text = "?"
 			_set_placeholder_border(npc_placeholder, COLOR_PANEL_MID)
-
 
 func _set_placeholder_border(panel: PanelContainer, color: Color) -> void:
 	var style = StyleBoxFlat.new()

@@ -25,12 +25,14 @@
 		{
 		  "text": "Hire them on the spot — you need the help",
 		  "effects": { "money": -15, "morale": 15, "stress": -10 },
+		  "sets_flag": "hired_candidate",
 		  "minigame": null,
 		  "next": "d2e1_c_hire"
 		},
 		{
 		  "text": "Ask for a resume and schedule a proper interview",
 		  "effects": { "morale": 5, "stress": -5 },
+		  "sets_flag": "interviewed_candidate",
 		  "minigame": null,
 		  "next": "d2e1_c_interview"
 		},
@@ -112,7 +114,6 @@
 	  "choices": [],
 	  "next": "end"
 	},
-
 	"d2e2_a": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
@@ -130,12 +131,14 @@
 		{
 		  "text": "Match their prices immediately",
 		  "effects": { "money": -20, "reputation": 5, "stress": 15 },
+		  "sets_flag": "matched_competitor",
 		  "minigame": null,
 		  "next": "d2e2_c_match"
 		},
 		{
 		  "text": "Focus on quality and service instead of price",
 		  "effects": { "reputation": 15, "morale": 10, "stress": -5 },
+		  "sets_flag": "quality_over_price",
 		  "minigame": null,
 		  "next": "d2e2_c_quality"
 		},
@@ -235,6 +238,7 @@
 		{
 		  "text": "Pay for overnight restock — keep the customer happy",
 		  "effects": { "money": -15, "reputation": 20, "morale": 10 },
+		  "sets_flag": "overnight_restocked",
 		  "minigame": null,
 		  "next": "d2e3_c_restock"
 		},
@@ -247,6 +251,7 @@
 		{
 		  "text": "Take their contact and notify when restocked",
 		  "effects": { "reputation": 15, "morale": 10, "stress": -5 },
+		  "sets_flag": "built_customer_contact",
 		  "minigame": null,
 		  "next": "d2e3_c_notify"
 		},
@@ -321,7 +326,6 @@
 	  "text": "A lost customer rarely returns. Even a small gesture of effort leaves a better impression than nothing.",
 	  "choices": [],
 	  "next": "end"
-	}
-
+	},
   }
 }

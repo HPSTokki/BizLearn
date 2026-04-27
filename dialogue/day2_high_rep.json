@@ -25,6 +25,7 @@
 		{
 		  "text": "Welcome them wholeheartedly",
 		  "effects": { "reputation": 15, "morale": 10 },
+		  "sets_flag": "welcomed_blogger",
 		  "minigame": null,
 		  "next": "d2hr_e1_c_welcome"
 		},
@@ -37,6 +38,7 @@
 		{
 		  "text": "Ask for editorial approval first",
 		  "effects": { "reputation": 5, "stress": -10 },
+		  "sets_flag": "controlled_media",
 		  "minigame": null,
 		  "next": "d2hr_e1_c_approval"
 		},
@@ -235,6 +237,7 @@
 		{
 		  "text": "Agree enthusiastically",
 		  "effects": { "reputation": 15, "money": 10, "morale": 15 },
+		  "sets_flag": "formed_partnership",
 		  "minigame": null,
 		  "next": "d2hr_e3_c_agree"
 		},
@@ -253,6 +256,7 @@
 		{
 		  "text": "Decline — focus on your own brand",
 		  "effects": { "morale": 5, "stress": -10 },
+		  "sets_flag": "declined_partnership",
 		  "minigame": null,
 		  "next": "d2hr_e3_c_decline"
 		}

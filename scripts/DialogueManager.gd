@@ -288,9 +288,16 @@ func advance(choice_index: int = -1) -> void:
 		_apply_effects(chosen.get("effects", {}))
 		earn_gold_from_choice(chosen)
 
+		# ← SET FLAG IF CHOICE HAS ONE
+		var flag = chosen.get("sets_flag", "")
+		if flag != "":
+			set_flag(flag)
+
 		var minigame = chosen.get("minigame", null)
 		if minigame != null and minigame != "null":
-			emit_signal("minigame_triggered", minigame)
+			print("advance: TRIGGERING MINIGAME")
+			var next_id: String = chosen.get("next", "")
+			emit_signal("minigame_triggered", next_id)
 			return
 
 		var next_id: String = chosen.get("next", "")
@@ -359,7 +366,7 @@ func _load_event(event_index: int) -> void:
 
 	var event: Dictionary = events[event_index]
 
-	# Check if this is a random pool event
+	# Random pool check
 	if event.get("start") == "random":
 		var pool: Array = event.get("pool", [])
 		var start_id    = _pick_random_event(pool)
@@ -367,6 +374,20 @@ func _load_event(event_index: int) -> void:
 			push_error("DialogueManager: Empty random pool")
 			return
 		_load_node(start_id)
+		return
+
+	# ← FLAG REQUIREMENT CHECK
+	var requires_flag = event.get("requires_flag", "")
+	if requires_flag != "":
+		if has_flag(requires_flag):
+			var start_id: String = event.get("start", "")
+			_load_node(start_id)
+		else:
+			var fallback: String = event.get("start_fallback", "")
+			if fallback == "":
+				push_error("DialogueManager: No fallback for flag " + requires_flag)
+				return
+			_load_node(fallback)
 		return
 
 	# Normal fixed event
@@ -419,6 +440,23 @@ func get_day_file(day: int) -> String:
 				"crisis": return "day5_crisis"
 				_:        return "day5_strong"
 	return "day1"
+
+# =========================================
+# CONSEQUENCE SYSTEM
+# =========================================
+func set_flag(flag: String) -> void:
+	if not permanent_consequences.has(flag):
+		permanent_consequences.append(flag)
+		print("DialogueManager: Flag set → ", flag)
+		save_game()
+
+
+func has_flag(flag: String) -> bool:
+	return permanent_consequences.has(flag)
+
+
+func get_all_flags() -> Array:
+	return permanent_consequences.duplicate()
 
 
 func _load_node(node_id: String) -> void:

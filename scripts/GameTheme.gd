@@ -102,7 +102,7 @@ const BUTTON_H          = 44.0
 const BUTTON_SEP        = 6.0
 const PORTRAIT_SIZE     = Vector2(36, 36)
 const BAR_SIZE          = Vector2(60, 8)
-const NPC_SIZE          = Vector2(80, 120)
+const NPC_SIZE          = Vector2(32, 120)
 const PLAYER_SIZE       = Vector2(70, 110)
 const PANEL_BORDER_W    = 2
 const DIALOGUE_BORDER_W = 3
@@ -467,6 +467,29 @@ func apply_font_rich(node: RichTextLabel, size: int) -> void:
 	node.add_theme_font_size_override("bold_font_size",    size)
 	node.add_theme_font_size_override("italics_font_size", size)
 	node.add_theme_font_size_override("mono_font_size",    size)
+
+func make_asset_texture(
+	path:         String,
+	fallback_color: Color = Color("#2d1f0f")
+) -> Control:
+	# Returns TextureRect if asset exists
+	# Returns ColorRect as fallback if not
+	if ResourceLoader.exists(path):
+		var tex_rect              = TextureRect.new()
+		tex_rect.texture          = load(path) as Texture2D
+		tex_rect.stretch_mode     = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		tex_rect.expand_mode      = TextureRect.EXPAND_IGNORE_SIZE
+		tex_rect.texture_filter   = CanvasItem.TEXTURE_FILTER_NEAREST
+		tex_rect.mouse_filter     = Control.MOUSE_FILTER_IGNORE
+		tex_rect.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		return tex_rect
+
+	# Fallback
+	var rect              = ColorRect.new()
+	rect.color            = fallback_color
+	rect.mouse_filter     = Control.MOUSE_FILTER_IGNORE
+	rect.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	return rect
 
 # =========================================
 # PRIVATE

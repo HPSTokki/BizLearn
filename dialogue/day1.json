@@ -33,6 +33,7 @@
 		  "text": "Greet them warmly and ask what they need",
 		  "effects": { "reputation": 10, "morale": 5 },
 		  "gold": 20,
+		  "sets_flag": "greeted_warmly",
 		  "minigame": null,
 		  "next": "d1e1_c_good"
 		},
@@ -47,6 +48,7 @@
 		  "text": "Ignore them and keep doing paperwork",
 		  "effects": { "reputation": -15, "morale": -5 },
 		  "gold": 3,
+		  "sets_flag": "ignored_customer",
 		  "minigame": null,
 		  "next": "d1e1_c_bad"
 		}
@@ -446,6 +448,7 @@
 		  "text": "Take the bulk deal — more stock, better margins",
 		  "effects": { "money": -20, "reputation": 5, "morale": 5 },
 		  "gold": 15,
+		  "sets_flag": "bulk_ordered",
 		  "minigame": null,
 		  "next": "d1e2_c_bulk"
 		},
@@ -460,6 +463,7 @@
 		  "text": "Skip the order entirely — save the cash",
 		  "effects": { "money": 10, "reputation": -10 },
 		  "gold": 5,
+		  "sets_flag": "skipped_stock",
 		  "minigame": null,
 		  "next": "d1e2_c_skip"
 		}
@@ -532,6 +536,7 @@
 		  "text": "Offer a 10% loyalty discount",
 		  "effects": { "money": -10, "reputation": 15, "morale": 10 },
 		  "gold": 20,
+		  "sets_flag": "offered_discount",
 		  "minigame": null,
 		  "next": "d1e3_c_discount"
 		},
@@ -546,6 +551,7 @@
 		  "text": "Offer a free small item instead",
 		  "effects": { "money": -5, "reputation": 10, "morale": 15 },
 		  "gold": 18,
+		  "sets_flag": "offered_gift",
 		  "minigame": null,
 		  "next": "d1e3_c_gift"
 		},
@@ -553,6 +559,7 @@
 		  "text": "Refuse and say prices are fixed",
 		  "effects": { "reputation": -10, "morale": -10 },
 		  "gold": 3,
+		  "sets_flag": "refused_loyalty",
 		  "minigame": null,
 		  "next": "d1e3_c_refuse"
 		}

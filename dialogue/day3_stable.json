@@ -2,10 +2,25 @@
   "day": 3,
   "total_events": 3,
   "events": [
-	{ "start": "d3e1_a" },
-	{ "start": "d3e2_a" },
-	{ "start": "d3e3_a" }
-  ],
+  {
+	"start":          "d3e1_a_loyal",
+	"requires_flag":  "offered_discount",
+	"start_fallback": "d3e1_a"
+  },
+  {
+	"start": "random",
+	"pool": [
+	  "d3r_review_event",
+	  "d3r_staff_birthday",
+      "d3r_supplier_bonus"
+	]
+  },
+  {
+	"start":          "d3e3_a_stocked",
+	"requires_flag":  "bulk_ordered",
+	"start_fallback": "d3e3_a"
+  }
+],
   "nodes": {
 
 	"d3e1_a": {
@@ -112,6 +127,92 @@
 	  "choices": [],
 	  "next": "end"
 	},
+	"d3e1_a_loyal": {
+  "speaker": "Regular Customer",
+  "speaker_id": "customer",
+  "background": "shop_day",
+  "text": "You gave me a discount on Day 1 and I told everyone! I brought five friends today. This place is everything I said it was.",
+  "choices": [],
+  "next": "d3e1_loyal_b"
+},
+"d3e1_loyal_b": {
+  "speaker": "You",
+  "speaker_id": "player",
+  "background": "shop_day",
+  "text": "The loyalty discount I gave on Day 1 just brought in five new customers at once. Word of mouth is real.",
+  "choices": [
+	{
+	  "text": "Offer the whole group a welcome discount too",
+	  "effects": { "reputation": 20, "money": -10, "morale": 15 },
+	  "gold": 22,
+	  "sets_flag": "extended_loyalty",
+	  "minigame": null,
+	  "next": "d3e1_loyal_c_extend"
+	},
+	{
+	  "text": "Welcome them warmly no extra discount needed",
+	  "effects": { "reputation": 15, "morale": 10 },
+	  "gold": 18,
+	  "minigame": null,
+	  "next": "d3e1_loyal_c_welcome"
+	},
+	{
+	  "text": "Thank the regular and serve everyone normally",
+	  "effects": { "reputation": 10, "morale": 8 },
+	  "gold": 12,
+	  "minigame": null,
+	  "next": "d3e1_loyal_c_normal"
+	}
+  ]
+},
+"d3e1_loyal_c_extend": {
+  "speaker": "New Customers",
+  "speaker_id": "customer",
+  "background": "shop_day",
+  "text": "A welcome discount AND great service? We are absolutely coming back. This place is special.",
+  "choices": [],
+  "next": "d3e1_loyal_result_extend"
+},
+"d3e1_loyal_c_welcome": {
+  "speaker": "New Customers",
+  "speaker_id": "customer",
+  "background": "shop_day",
+  "text": "The warmth here is exactly what we heard about. No wonder our friend raves about this place.",
+  "choices": [],
+  "next": "d3e1_loyal_result_welcome"
+},
+"d3e1_loyal_c_normal": {
+  "speaker": "Regular Customer",
+  "speaker_id": "customer",
+  "background": "shop_day",
+  "text": "See? I told you all. Same great service every single time. Consistency is everything.",
+  "choices": [],
+  "next": "d3e1_loyal_result_normal"
+},
+"d3e1_loyal_result_extend": {
+  "speaker": "Mentor",
+  "speaker_id": "mentor",
+  "background": "shop_day",
+  "text": "Your Day 1 generosity just multiplied. One small discount became five new customers and a compounding reputation boost. This is how loyalty programs work.",
+  "choices": [],
+  "next": "end"
+},
+"d3e1_loyal_result_welcome": {
+  "speaker": "Mentor",
+  "speaker_id": "mentor",
+  "background": "shop_day",
+  "text": "Warmth without financial cost is powerful. Your Day 1 investment in loyalty is paying dividends without further expense.",
+  "choices": [],
+  "next": "end"
+},
+"d3e1_loyal_result_normal": {
+  "speaker": "Mentor",
+  "speaker_id": "mentor",
+  "background": "shop_day",
+  "text": "Consistency is its own reward. Your Day 1 decision built trust and that trust is now walking through your door in groups.",
+  "choices": [],
+  "next": "end"
+},
 
 	"d3e2_a": {
 	  "speaker": "Mentor",
@@ -321,7 +422,335 @@
 	  "text": "Saving is wise but growth requires investment. Without visibility new customers cannot find you no matter how good you are.",
 	  "choices": [],
 	  "next": "end"
+	},
+	"d3e3_a_stocked": {
+  "speaker": "Mentor",
+  "speaker_id": "mentor",
+  "background": "shop_evening",
+  "text": "Remember that bulk order you made on Day 1? It is paying off today. Your fully stocked shelves handled the Day 3 rush perfectly.",
+  "choices": [],
+  "next": "d3e3_stocked_b"
+},
+"d3e3_stocked_b": {
+  "speaker": "You",
+  "speaker_id": "player",
+  "background": "shop_evening",
+  "text": "The bulk stock from Day 1 meant we never ran out today. Now I have leftover stock and a decision to make.",
+  "choices": [
+	{
+	  "text": "Run a promotion using the extra stock",
+	  "effects": { "reputation": 15, "money": 10, "morale": 10 },
+	  "gold": 20,
+	  "minigame": null,
+	  "next": "d3e3_stocked_c_promo"
+	},
+	{
+	  "text": "Save it for tomorrow stay conservative",
+	  "effects": { "money": 5, "stress": -10 },
+	  "gold": 10,
+	  "minigame": null,
+	  "next": "d3e3_stocked_c_save"
+	},
+	{
+	  "text": "Donate excess to a local charity",
+	  "effects": { "reputation": 20, "morale": 20, "money": -5 },
+	  "gold": 22,
+	  "sets_flag": "donated_stock",
+	  "minigame": null,
+	  "next": "d3e3_stocked_c_donate"
 	}
+  ]
+},
+"d3e3_stocked_c_promo": {
+  "speaker": "Customer",
+  "speaker_id": "customer",
+  "background": "shop_evening",
+  "text": "A promotion this late in the day? Perfect timing! I was just about to leave but this kept me here.",
+  "choices": [],
+  "next": "d3e3_stocked_result_promo"
+},
+"d3e3_stocked_c_save": {
+  "speaker": "Staff",
+  "speaker_id": "staff",
+  "background": "shop_evening",
+  "text": "Smart call. Having buffer stock tomorrow means we start the day confident instead of anxious.",
+  "choices": [],
+  "next": "d3e3_stocked_result_save"
+},
+"d3e3_stocked_c_donate": {
+  "speaker": "Community Member",
+  "speaker_id": "customer",
+  "background": "shop_evening",
+  "text": "You donated your extra stock? That is incredible. This shop truly cares about the community. I am telling everyone.",
+  "choices": [],
+  "next": "d3e3_stocked_result_donate"
+},
+"d3e3_stocked_result_promo": {
+  "speaker": "Mentor",
+  "speaker_id": "mentor",
+  "background": "shop_evening",
+  "text": "Your Day 1 bulk order created an opportunity you could not have had otherwise. Forward thinking decisions compound over time.",
+  "choices": [],
+  "next": "end"
+},
+"d3e3_stocked_result_save": {
+  "speaker": "Mentor",
+  "speaker_id": "mentor",
+  "background": "shop_evening",
+  "text": "Buffer stock is a strategic asset. Your Day 1 investment in inventory is now your operational safety net.",
+  "choices": [],
+  "next": "end"
+},
+"d3e3_stocked_result_donate": {
+  "speaker": "Mentor",
+  "speaker_id": "mentor",
+  "background": "shop_evening",
+  "text": "Community generosity creates the kind of reputation that no marketing budget can buy. Your Day 1 bulk order just became a community relations win.",
+  "choices": [],
+  "next": "end"
+},
+"d3r_review_event": {
+  "speaker": "Mentor",
+  "speaker_id": "mentor",
+  "background": "office",
+  "text": "A major review site just reached out wanting to feature local businesses. This is unexpected but could be huge.",
+  "choices": [],
+  "next": "d3r_review_b"
+},
+"d3r_review_b": {
+  "speaker": "Reviewer",
+  "speaker_id": "influencer",
+  "background": "office",
+  "text": "We are featuring top local businesses this month. Your shop kept coming up in our research. Would you be open to a feature?",
+  "choices": [
+	{
+	  "text": "Absolutely say yes immediately",
+	  "effects": { "reputation": 20, "morale": 10 },
+	  "gold": 20,
+	  "minigame": null,
+	  "next": "d3r_review_c_yes"
+	},
+	{
+	  "text": "Ask what the feature involves first",
+	  "effects": { "reputation": 12, "stress": -5 },
+	  "gold": 15,
+	  "minigame": null,
+	  "next": "d3r_review_c_ask"
+	},
+	{
+	  "text": "Decline politely not ready yet",
+	  "effects": { "stress": -10, "morale": 5 },
+	  "gold": 5,
+	  "minigame": null,
+	  "next": "d3r_review_c_decline"
+	}
+  ]
+},
+"d3r_review_c_yes": {
+  "speaker": "Reviewer",
+  "speaker_id": "influencer",
+  "background": "office",
+  "text": "Wonderful! We will send a photographer tomorrow. This feature reaches 200,000 readers monthly.",
+  "choices": [],
+  "next": "d3r_review_result_yes"
+},
+"d3r_review_c_ask": {
+  "speaker": "Reviewer",
+  "speaker_id": "influencer",
+  "background": "office",
+  "text": "Smart to ask! It is a full page feature with photos and an interview. Very positive coverage guaranteed.",
+  "choices": [],
+  "next": "d3r_review_result_ask"
+},
+"d3r_review_c_decline": {
+  "speaker": "Reviewer",
+  "speaker_id": "influencer",
+  "background": "office",
+  "text": "Of course no pressure. We will check back next quarter when you feel more ready.",
+  "choices": [],
+  "next": "d3r_review_result_decline"
+},
+"d3r_review_result_yes": {
+  "speaker": "Mentor",
+  "speaker_id": "mentor",
+  "background": "office",
+  "text": "Seizing media opportunities when they come is bold and smart. Your Day 3 reputation just got a massive amplifier.",
+  "choices": [],
+  "next": "end"
+},
+"d3r_review_result_ask": {
+  "speaker": "Mentor",
+  "speaker_id": "mentor",
+  "background": "office",
+  "text": "Due diligence before committing is always wise. You got the full picture and made an informed yes. That is the right process.",
+  "choices": [],
+  "next": "end"
+},
+"d3r_review_result_decline": {
+  "speaker": "Mentor",
+  "speaker_id": "mentor",
+  "background": "office",
+  "text": "Knowing your limits is valid but readiness is sometimes a mindset not a state. Make sure you are not letting fear pose as preparation.",
+  "choices": [],
+  "next": "end"
+},
+
+"d3r_staff_birthday": {
+  "speaker": "Staff",
+  "speaker_id": "staff",
+  "background": "shop_day",
+  "text": "Boss! Today is one of our team member's birthday. The whole team is hoping we can do something small to celebrate during break.",
+  "choices": [
+	{
+	  "text": "Organize a surprise during break on you",
+	  "effects": { "morale": 25, "money": -8, "stress": -10 },
+	  "gold": 20,
+	  "sets_flag": "celebrated_birthday",
+	  "minigame": null,
+	  "next": "d3r_birthday_c_surprise"
+	},
+	{
+	  "text": "Give them the afternoon off as a gift",
+	  "effects": { "morale": 20, "money": -5, "stress": -8 },
+	  "gold": 18,
+	  "minigame": null,
+	  "next": "d3r_birthday_c_off"
+	},
+	{
+	  "text": "Wish them happy birthday and continue working",
+	  "effects": { "morale": 8 },
+	  "gold": 8,
+	  "minigame": null,
+	  "next": "d3r_birthday_c_basic"
+	}
+  ]
+},
+"d3r_birthday_c_surprise": {
+  "speaker": "Birthday Staff",
+  "speaker_id": "staff",
+  "background": "shop_day",
+  "text": "I had no idea! This is the best surprise. I love this team and this place so much. Thank you boss!",
+  "choices": [],
+  "next": "d3r_birthday_result_surprise"
+},
+"d3r_birthday_c_off": {
+  "speaker": "Birthday Staff",
+  "speaker_id": "staff",
+  "background": "shop_day",
+  "text": "An afternoon off on my birthday?! That is genuinely the best gift. You always think of us as people first.",
+  "choices": [],
+  "next": "d3r_birthday_result_off"
+},
+"d3r_birthday_c_basic": {
+  "speaker": "Birthday Staff",
+  "speaker_id": "staff",
+  "background": "shop_day",
+  "text": "Thank you boss. Appreciate it. Back to work then.",
+  "choices": [],
+  "next": "d3r_birthday_result_basic"
+},
+"d3r_birthday_result_surprise": {
+  "speaker": "Mentor",
+  "speaker_id": "mentor",
+  "background": "shop_day",
+  "text": "Celebrating your team as people not just workers creates belonging. That sense of family is what makes great teams stay together through hard times.",
+  "choices": [],
+  "next": "end"
+},
+"d3r_birthday_result_off": {
+  "speaker": "Mentor",
+  "speaker_id": "mentor",
+  "background": "shop_day",
+  "text": "Time is the most valuable gift you can give. Giving someone their time back signals you value them as a person above their productivity.",
+  "choices": [],
+  "next": "end"
+},
+"d3r_birthday_result_basic": {
+  "speaker": "Mentor",
+  "speaker_id": "mentor",
+  "background": "shop_day",
+  "text": "A simple acknowledgment is better than nothing. But small gestures on significant personal days have outsized impact on loyalty and belonging.",
+  "choices": [],
+  "next": "end"
+},
+
+"d3r_supplier_bonus": {
+  "speaker": "Supplier",
+  "speaker_id": "supplier",
+  "background": "office",
+  "text": "You have been a reliable client. As a thank you we want to offer you a bonus shipment of premium stock at no extra charge. Just say the word.",
+  "choices": [
+	{
+	  "text": "Accept gratefully",
+	  "effects": { "money": 15, "reputation": 10, "morale": 5 },
+	  "gold": 18,
+	  "minigame": null,
+	  "next": "d3r_supplier_c_accept"
+	},
+	{
+	  "text": "Accept and ask what prompted this",
+	  "effects": { "money": 15, "reputation": 8, "stress": -5 },
+	  "gold": 15,
+	  "minigame": null,
+	  "next": "d3r_supplier_c_ask"
+	},
+	{
+	  "text": "Decline to maintain independence",
+	  "effects": { "stress": -10, "morale": 5 },
+	  "gold": 8,
+	  "minigame": null,
+	  "next": "d3r_supplier_c_decline"
+	}
+  ]
+},
+"d3r_supplier_c_accept": {
+  "speaker": "Supplier",
+  "speaker_id": "supplier",
+  "background": "office",
+  "text": "It is on its way! Reliable partners deserve recognition. We hope this helps you serve your customers even better.",
+  "choices": [],
+  "next": "d3r_supplier_result_accept"
+},
+"d3r_supplier_c_ask": {
+  "speaker": "Supplier",
+  "speaker_id": "supplier",
+  "background": "office",
+  "text": "Honestly? You always pay on time and treat our delivery staff with respect. That matters more than you know in this industry.",
+  "choices": [],
+  "next": "d3r_supplier_result_ask"
+},
+"d3r_supplier_c_decline": {
+  "speaker": "Supplier",
+  "speaker_id": "supplier",
+  "background": "office",
+  "text": "I respect that. The offer stands if you ever change your mind. Just know we genuinely value this partnership.",
+  "choices": [],
+  "next": "d3r_supplier_result_decline"
+},
+"d3r_supplier_result_accept": {
+  "speaker": "Mentor",
+  "speaker_id": "mentor",
+  "background": "office",
+  "text": "Reliability pays dividends you cannot predict. Your consistent professionalism created this reward — it was not luck it was character.",
+  "choices": [],
+  "next": "end"
+},
+"d3r_supplier_result_ask": {
+  "speaker": "Mentor",
+  "speaker_id": "mentor",
+  "background": "office",
+  "text": "Understanding why good things happen is as important as appreciating them. How you treat everyone in your supply chain defines your reputation across the industry.",
+  "choices": [],
+  "next": "end"
+},
+"d3r_supplier_result_decline": {
+  "speaker": "Mentor",
+  "speaker_id": "mentor",
+  "background": "office",
+  "text": "Maintaining independence is a valid philosophy. Just make sure it is not pride preventing you from accepting genuine goodwill when offered.",
+  "choices": [],
+  "next": "end"
+}
 
   }
 }
