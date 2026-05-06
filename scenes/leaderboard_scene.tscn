@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ch12xvddu2gtr"]
+
+[ext_resource type="Script" uid="uid://qjt02ur4waf8" path="res://scripts/leaderboard_scene.gd" id="1_indre"]
+
+[node name="LeaderboardScene" type="Node" unique_id=1566105145]
+script = ExtResource("1_indre")

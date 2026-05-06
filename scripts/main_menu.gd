@@ -159,6 +159,11 @@ func _build_buttons() -> void:
 		btn.custom_minimum_size = Vector2(110, 40)
 		GameTheme.connect_button(btn, btn_data.callback)
 		secondary_row.add_child(btn)
+	
+	var leaderboard_btn = GameTheme.build_button("🏆  LEADERBOARD", false)
+	GameTheme.connect_button(leaderboard_btn, _on_leaderboard_pressed)
+	btn_container.add_child(leaderboard_btn)
+
 
 func _build_version_label() -> void:
 	var version                  = Label.new()
@@ -214,3 +219,6 @@ func _on_settings_pressed() -> void:
 
 func _on_exit_pressed() -> void:
 	get_tree().quit()
+
+func _on_leaderboard_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/leaderboard_scene.tscn")

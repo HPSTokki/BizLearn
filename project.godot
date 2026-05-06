@@ -21,11 +21,12 @@ DialogueManager="*uid://cmy7f30y74p3r"
 GameTheme="*uid://vxley8jd7l04"
 MinigameManager="*uid://ydpkdoukubto"
 SaveManager="*uid://d26b0k6kc4v5p"
+LeaderboardManager="*uid://5tvo3wixmpo8"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=854
+window/size/viewport_height=480
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/vsync/vsync_mode=0

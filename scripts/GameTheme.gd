@@ -506,43 +506,28 @@ func make_asset_texture(path: String, fallback_color: Color = Color("#2d1f0f")) 
 	rect.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	return rect
 
-func make_scene_sprite_for(business_id: String, state: String = "idle") -> AnimatedSprite2D:
+# TEMPO FIX
+func make_scene_sprite_for(business_id: String, state: String = "idle") -> Node:
+	"""Returns a TextureRect for static images (scaled to fit container)"""
 	var path := "res://assets/shops/" + business_id + "/" + state + ".png"
 	if not ResourceLoader.exists(path) and state != "idle":
 		path = "res://assets/shops/" + business_id + "/idle.png"
 	if not ResourceLoader.exists(path):
 		return null
-	
+
 	var texture := load(path) as Texture2D
-	var frame_w := int(SCENE_SPRITE_FRAME_SIZE.x)
-	var frame_h := int(SCENE_SPRITE_FRAME_SIZE.y)
-	var cols := int(texture.get_width() / frame_w)
-	var rows := int(texture.get_height() / frame_h)
-	var total := cols * rows
 	
-	var frames := SpriteFrames.new()
-	frames.add_animation("default")
-	frames.set_animation_loop("default", true)
-	frames.set_animation_speed("default", SCENE_SPRITE_FPS)
+	# For static images - use TextureRect (simpler and more reliable)
+	var tex_rect = TextureRect.new()
+	tex_rect.texture = texture
+	tex_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	tex_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	tex_rect.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	tex_rect.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	tex_rect.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST  # For pixel art
+	tex_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
-	for i in total:
-		var col := i % cols
-		var row := i / cols
-		var atlas := AtlasTexture.new()
-		atlas.atlas = texture
-		atlas.region = Rect2(col * frame_w, row * frame_h, frame_w, frame_h)
-		frames.add_frame("default", atlas)
-	
-	var sprite := AnimatedSprite2D.new()
-	sprite.sprite_frames = frames
-	sprite.animation = "default"
-	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	sprite.centered = true
-	var scale_x := SCENE_SPRITE_DISPLAY_SIZE.x / float(frame_w)
-	var scale_y := SCENE_SPRITE_DISPLAY_SIZE.y / float(frame_h)
-	sprite.scale = Vector2(scale_x, scale_y)
-	sprite.play("default")
-	return sprite
+	return tex_rect
 
 # =========================================
 # PRIVATE

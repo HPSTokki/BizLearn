@@ -34,7 +34,7 @@ var choices_container: VBoxContainer    = null
 
 # ── Shop sprite (center of sprite_area) ──────────────────────
 var shop_sprite_host:  Control          = null
-var shop_sprite:       AnimatedSprite2D = null
+var shop_sprite:       Node             = null
 var _current_business_id: String        = ""
 
 # ── Character slots ───────────────────────────────────────────
@@ -317,11 +317,15 @@ func _build_dialogue_box() -> void:
 	dialogue_box.set_script(load("res://scripts/dialogue_box.gd"))
 	dialogue_box.call("setup")
 
+# TEMPO FIX
 func _load_shop_sprite(state: String = "idle") -> void:
 	if shop_sprite_host == null:
 		return
+		
+	# Clear previous sprite properly
 	if shop_sprite != null:
-		shop_sprite.stop()
+		if shop_sprite is AnimatedSprite2D:
+			shop_sprite.stop()
 		shop_sprite.queue_free()
 		shop_sprite = null
 	
@@ -330,10 +334,20 @@ func _load_shop_sprite(state: String = "idle") -> void:
 		shop_sprite_host.visible = false
 		return
 	
-	new_sprite.position = Vector2(
-		GameTheme.SCENE_SPRITE_DISPLAY_SIZE.x * 0.5,
-		GameTheme.SCENE_SPRITE_DISPLAY_SIZE.y * 0.5
-	)
+	# Handle TextureRect (static image)
+	if new_sprite is TextureRect:
+		# Make it fill the entire host container
+		new_sprite.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		new_sprite.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	
+	# Handle AnimatedSprite2D (if you add animations later)
+	elif new_sprite is AnimatedSprite2D:
+		new_sprite.position = Vector2(
+			GameTheme.SCENE_SPRITE_DISPLAY_SIZE.x * 0.5,
+			GameTheme.SCENE_SPRITE_DISPLAY_SIZE.y * 0.5
+		)
+		new_sprite.centered = true
+	
 	shop_sprite_host.add_child(new_sprite)
 	shop_sprite = new_sprite
 	shop_sprite_host.visible = true
@@ -341,10 +355,12 @@ func _load_shop_sprite(state: String = "idle") -> void:
 func _set_shop_sprite_playing(playing: bool) -> void:
 	if shop_sprite == null:
 		return
-	if playing:
-		shop_sprite.play()
-	else:
-		shop_sprite.stop()
+	# Only animated sprites have play/stop
+	if shop_sprite is AnimatedSprite2D:
+		if playing:
+			shop_sprite.play()
+		else:
+			shop_sprite.stop()
 
 func _build_burger_button() -> void:
 	var burger_btn = PanelContainer.new()
