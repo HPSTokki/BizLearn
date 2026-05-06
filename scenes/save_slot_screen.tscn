@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bawwylui6tvwx"]
+
+[ext_resource type="Script" uid="uid://bfke37bkoc65x" path="res://scripts/save_slot_screen.gd" id="1_er2wf"]
+
+[node name="SaveSlotScreen" type="Node2D" unique_id=1630886787]
+script = ExtResource("1_er2wf")

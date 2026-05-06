@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bi2p6orj8ouak"]
+
+[ext_resource type="Script" uid="uid://ducb4cj7dmdm2" path="res://scripts/business_selector.gd" id="1_fhmgc"]
+
+[node name="BusinessSelector" type="Node2D" unique_id=176132381]
+script = ExtResource("1_fhmgc")

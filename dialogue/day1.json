@@ -128,7 +128,7 @@
 		  "text": "Assign roles clearly and coordinate",
 		  "effects": { "morale": 10, "reputation": 15, "stress": -5 },
 		  "gold": 20,
-		  "minigame": null,
+		  "minigame": "resource_allocation",
 		  "next": "d1r_rush_c_coordinate"
 		},
 		{
@@ -230,7 +230,7 @@
 		  "text": "Apologize and remake immediately at no charge",
 		  "effects": { "reputation": 15, "money": -5, "morale": 5 },
 		  "gold": 20,
-		  "minigame": null,
+		  "minigame": "card_decisions",
 		  "next": "d1r_wrong_c_remake"
 		},
 		{
@@ -339,7 +339,7 @@
 		  "text": "Thank them warmly and offer something on the house",
 		  "effects": { "morale": 20, "money": -5, "reputation": 10 },
 		  "gold": 22,
-		  "minigame": null,
+		  "minigame": "card_decisions",
 		  "next": "d1r_kind_c_gift"
 		},
 		{
@@ -449,7 +449,7 @@
 		  "effects": { "money": -20, "reputation": 5, "morale": 5 },
 		  "gold": 15,
 		  "sets_flag": "bulk_ordered",
-		  "minigame": null,
+		  "minigame": "budget_puzzle",
 		  "next": "d1e2_c_bulk"
 		},
 		{
@@ -537,7 +537,7 @@
 		  "effects": { "money": -10, "reputation": 15, "morale": 10 },
 		  "gold": 20,
 		  "sets_flag": "offered_discount",
-		  "minigame": null,
+		  "minigame": "card_decisions",
 		  "next": "d1e3_c_discount"
 		},
 		{

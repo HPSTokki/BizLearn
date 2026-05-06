@@ -8,6 +8,8 @@ var screen_w:     float         = 0.0
 var screen_h:     float         = 0.0
 var items_grid:   GridContainer = null
 var gold_label:   Label         = null
+var pause_menu:   Node          = null
+var burger_btn:   PanelContainer = null
 
 # =========================================
 # STATE
@@ -151,6 +153,8 @@ func _build_ui() -> void:
 	var back_btn = GameTheme.build_button("◂  BACK", true)
 	GameTheme.connect_button(back_btn, _on_back_pressed)
 	vbox.add_child(back_btn)
+
+	_build_pause_menu()
 
 
 func _build_item_cards() -> void:
@@ -333,6 +337,43 @@ func _stat_icon(stat: String) -> String:
 		"morale":     return "😊"
 		"stress":     return "😰"
 	return "?"
+
+
+func _build_pause_menu() -> void:
+	burger_btn          = PanelContainer.new()
+	burger_btn.position = Vector2(screen_w - 36, 8)
+	burger_btn.size     = Vector2(28, 20)
+	burger_btn.mouse_filter = Control.MOUSE_FILTER_STOP
+	var btn_style                             = StyleBoxFlat.new()
+	btn_style.bg_color                        = GameTheme.get_color("panel_dark")
+	btn_style.border_width_top                = 1
+	btn_style.border_width_bottom             = 1
+	btn_style.border_width_left               = 1
+	btn_style.border_width_right              = 1
+	btn_style.border_color                    = GameTheme.get_color("accent")
+	btn_style.corner_radius_top_left          = 3
+	btn_style.corner_radius_top_right         = 3
+	btn_style.corner_radius_bottom_left       = 3
+	btn_style.corner_radius_bottom_right      = 3
+	burger_btn.add_theme_stylebox_override("panel", btn_style)
+	var btn_lbl                      = Label.new()
+	btn_lbl.text                     = "☰"
+	btn_lbl.horizontal_alignment     = HORIZONTAL_ALIGNMENT_CENTER
+	btn_lbl.vertical_alignment       = VERTICAL_ALIGNMENT_CENTER
+	btn_lbl.position                 = Vector2(0, 0)
+	btn_lbl.size                     = Vector2(28, 20)
+	btn_lbl.add_theme_font_size_override("font_size", 10)
+	btn_lbl.add_theme_color_override("font_color", GameTheme.get_color("accent"))
+	burger_btn.add_child(btn_lbl)
+	canvas.add_child(burger_btn)
+	GameTheme.connect_button(burger_btn, _on_burger_pressed)
+
+	pause_menu = load("res://scenes/pause_menu.tscn").instantiate()
+	add_child(pause_menu)
+
+
+func _on_burger_pressed() -> void:
+	pause_menu.toggle()
 
 
 # =========================================

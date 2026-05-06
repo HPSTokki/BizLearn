@@ -8,16 +8,8 @@ signal choice_selected(choice_index: int)
 # =========================================
 # CONSTANTS
 # =========================================
-const COLOR_BG         = Color("#1a1a2e")
-const COLOR_PANEL_DARK = Color("#2d2d3f")
-const COLOR_PANEL_MID  = Color("#3d3d52")
-const COLOR_ACCENT     = Color("#c8a84b")
-const COLOR_TEXT       = Color("#e8e0d0")
-const COLOR_DIM        = Color("#8a8a9a")
-
-const DIALOGUEBOX_H     = 180.0
-const BUTTON_H          = 44.0
-const BUTTON_SEPARATION = 6.0
+const CHOICE_BUTTON_H = 44.0
+const CHOICE_SEPARATION = 8.0
 
 # =========================================
 # STATE
@@ -32,23 +24,35 @@ func setup() -> void:
 	_connect_signals()
 	visible = false
 
-
 # =========================================
 # BUILD
 # =========================================
 func _apply_container_style() -> void:
-	add_theme_constant_override("separation", int(GameTheme.BUTTON_SEP))
-
+	add_theme_constant_override("separation", CHOICE_SEPARATION)
+	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 
 func _build_button(text: String, index: int) -> PanelContainer:
-	var btn = GameTheme.build_button("▸  " + text, false)
+	# Use secondary button style for choices (more subtle)
+	var btn = GameTheme.build_button("▸  " + text, false, 14)
+	
+	# Left-align text
 	var lbl = btn.get_child(0) as Label
 	if lbl:
 		lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 		lbl.add_theme_constant_override("margin_left", 12)
+	
+	# Add hover scale effect
+	btn.mouse_entered.connect(func():
+		var tween = create_tween()
+		tween.tween_property(btn, "scale", Vector2(1.01, 1.01), 0.1)
+	)
+	btn.mouse_exited.connect(func():
+		var tween = create_tween()
+		tween.tween_property(btn, "scale", Vector2(1.0, 1.0), 0.1)
+	)
+	
 	GameTheme.connect_button(btn, func(): _on_choice_pressed(index))
 	return btn
-
 
 # =========================================
 # SIGNALS
@@ -61,7 +65,6 @@ func _connect_signals() -> void:
 	DialogueManager.choices_updated.connect(_on_choices_updated)
 	DialogueManager.dialogue_updated.connect(_on_dialogue_updated)
 
-
 # =========================================
 # PUBLIC
 # =========================================
@@ -69,19 +72,43 @@ func show_choices(choices: Array) -> void:
 	_current_choices = choices
 	_clear_buttons()
 
-	var total_h = (choices.size() * BUTTON_H) + \
-				  ((choices.size() - 1) * BUTTON_SEPARATION)
+	# Skip if no choices
+	if choices.is_empty():
+		return
 
-	position.y = get_viewport().get_visible_rect().size.y - DIALOGUEBOX_H - total_h
-	size       = Vector2(get_viewport().get_visible_rect().size.x, total_h)
-
+	var total_h = (choices.size() * CHOICE_BUTTON_H) + \
+				  ((choices.size() - 1) * CHOICE_SEPARATION) + 10
+	
+	var viewport_h = get_viewport().get_visible_rect().size.y
+	var dialogue_h = GameTheme.DIALOGUEBOX_H
+	
+	position.y = viewport_h - dialogue_h - total_h - 8
+	size = Vector2(get_viewport().get_visible_rect().size.x - 40, total_h)
+	size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	
+	# Add choices with staggered fade-in
 	for i in range(choices.size()):
-		add_child(_build_button(choices[i].get("text", ""), i))
+		var btn = _build_button(choices[i].get("text", ""), i)
+		btn.modulate = Color(1, 1, 1, 0)
+		add_child(btn)
+		
+		# Staggered appear animation
+		var tween = create_tween()
+		tween.tween_property(btn, "modulate", Color(1, 1, 1, 1), 0.15).set_delay(i * 0.05)
 
 	visible = true
 
-
 func hide_choices() -> void:
+	if get_child_count() == 0:
+		visible = false
+		return
+		
+	# Fade out animation before clearing
+	var tween = create_tween()
+	for child in get_children():
+		tween.tween_property(child, "modulate", Color(1, 1, 1, 0), 0.1)
+	
+	await tween.finished
 	_clear_buttons()
 	_current_choices = []
 	visible = false
@@ -93,7 +120,6 @@ func _clear_buttons() -> void:
 	for child in get_children():
 		child.queue_free()
 
-
 # =========================================
 # CALLBACKS
 # =========================================
@@ -102,19 +128,6 @@ func _on_choice_pressed(index: int) -> void:
 	hide_choices()
 	emit_signal("choice_selected", index)
 	DialogueManager.advance(index)
-
-
-func _try_vibrate() -> void:
-	# Read from saved settings
-	var file = FileAccess.open("user://settings.cfg", FileAccess.READ)
-	if file:
-		var json  = JSON.new()
-		var error = json.parse(file.get_as_text())
-		file.close()
-		if error == OK:
-			var saved = json.get_data()
-			if saved.get("vibration", true):
-				Input.vibrate_handheld(50)  # 50ms short tap
 
 func _on_choices_updated(_choices: Array) -> void:
 	pass
