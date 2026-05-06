@@ -182,8 +182,8 @@ func _build_ui() -> void:
 
 	# Main panel - floating, elegant
 	var panel = PanelContainer.new()
-	panel.position = Vector2(screen_w * 0.08, screen_h * 0.08)
-	panel.size = Vector2(screen_w * 0.84, screen_h * 0.84)
+	panel.position = Vector2(screen_w * 0.05, screen_h * 0.04)
+	panel.size = Vector2(screen_w * 0.9, screen_h * 0.92)
 	panel.custom_minimum_size = panel.size
 	
 	var panel_style = StyleBoxFlat.new()
@@ -203,10 +203,10 @@ func _build_ui() -> void:
 	var vbox = VBoxContainer.new()
 	vbox.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	vbox.add_theme_constant_override("separation", 16)
-	vbox.add_theme_constant_override("margin_left", 28)
-	vbox.add_theme_constant_override("margin_right", 28)
-	vbox.add_theme_constant_override("margin_top", 24)
-	vbox.add_theme_constant_override("margin_bottom", 24)
+	vbox.add_theme_constant_override("margin_left", 16)
+	vbox.add_theme_constant_override("margin_right", 16)
+	vbox.add_theme_constant_override("margin_top", 12)
+	vbox.add_theme_constant_override("margin_bottom", 12)
 	panel.add_child(vbox)
 
 	# === HEADER WITH TROPHY ===
@@ -261,13 +261,13 @@ func _build_ui() -> void:
 	vbox.add_child(btn_center)
 	
 	var play_again = GameTheme.build_button("🔄  PLAY AGAIN", true, 14)
-	play_again.custom_minimum_size = Vector2(screen_w * 0.35, 50)
+	play_again.custom_minimum_size = Vector2(screen_w * 0.4, 48)
 	play_again.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	GameTheme.connect_button(play_again, _on_play_again_pressed)
 	btn_center.add_child(play_again)
 	
 	var menu_btn = GameTheme.build_button("🏠  MAIN MENU", false, 14)
-	menu_btn.custom_minimum_size = Vector2(screen_w * 0.3, 50)
+	menu_btn.custom_minimum_size = Vector2(screen_w * 0.35, 48)
 	menu_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	GameTheme.connect_button(menu_btn, _on_menu_pressed)
 	btn_center.add_child(menu_btn)
@@ -324,7 +324,7 @@ func _build_grade_section(vbox: VBoxContainer) -> void:
 	grade_letter.add_theme_constant_override("shadow_offset_x", 3)
 	grade_letter.add_theme_constant_override("shadow_offset_y", 3)
 	grade_letter.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.5))
-	GameTheme.apply_font(grade_letter, 72)
+	GameTheme.apply_font(grade_letter, 64)
 	grade_container.add_child(grade_letter)
 	
 	# Grade title
@@ -333,7 +333,7 @@ func _build_grade_section(vbox: VBoxContainer) -> void:
 	grade_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	grade_title.add_theme_font_size_override("font_size", 14)
 	grade_title.add_theme_color_override("font_color", _get_grade_color())
-	GameTheme.apply_font(grade_title, 14)
+	GameTheme.apply_font(grade_title, 20)
 	grade_container.add_child(grade_title)
 	
 	# Score
@@ -355,7 +355,7 @@ func _build_grade_section(vbox: VBoxContainer) -> void:
 
 func _build_stat_card(stat_key: String, icon: String, label: String, bar_color: Color) -> PanelContainer:
 	var card = PanelContainer.new()
-	card.custom_minimum_size = Vector2(0, 100)
+	card.custom_minimum_size = Vector2(0, 85)  # Was 100
 	card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	card.add_theme_stylebox_override("panel",
 		GameTheme.make_panel_style("mid", 2)

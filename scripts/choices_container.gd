@@ -8,8 +8,9 @@ signal choice_selected(choice_index: int)
 # =========================================
 # CONSTANTS
 # =========================================
-const CHOICE_BUTTON_H = 44.0
-const CHOICE_SEPARATION = 8.0
+const CHOICE_BUTTON_H = 52.0  # Increased from 44
+const CHOICE_SEPARATION = 10.0  # Increased from 8
+const CHOICE_WIDTH_PERCENT = 0.75  # 75% of screen width
 
 # =========================================
 # STATE
@@ -29,22 +30,29 @@ func setup() -> void:
 # =========================================
 func _apply_container_style() -> void:
 	add_theme_constant_override("separation", CHOICE_SEPARATION)
-	size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	size_flags_horizontal = Control.SIZE_SHRINK_CENTER  # Center the container
+	alignment = BoxContainer.ALIGNMENT_CENTER  # Center children
 
 func _build_button(text: String, index: int) -> PanelContainer:
-	# Use secondary button style for choices (more subtle)
-	var btn = GameTheme.build_button("▸  " + text, false, 14)
+	# Use secondary button style - LARGER font
+	var btn = GameTheme.build_button("▶  " + text, false, 16)  # Increased from 14
 	
-	# Left-align text
+	# Customize button appearance
+	btn.custom_minimum_size = Vector2(0, CHOICE_BUTTON_H)
+	
+	# Left-align text with more padding
 	var lbl = btn.get_child(0) as Label
 	if lbl:
 		lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
-		lbl.add_theme_constant_override("margin_left", 12)
+		lbl.add_theme_constant_override("margin_left", 16)
+		lbl.add_theme_constant_override("margin_right", 8)
+		lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART  # Wrap long text
+		lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	
 	# Add hover scale effect
 	btn.mouse_entered.connect(func():
 		var tween = create_tween()
-		tween.tween_property(btn, "scale", Vector2(1.01, 1.01), 0.1)
+		tween.tween_property(btn, "scale", Vector2(1.02, 1.02), 0.1)
 	)
 	btn.mouse_exited.connect(func():
 		var tween = create_tween()
@@ -76,19 +84,30 @@ func show_choices(choices: Array) -> void:
 	if choices.is_empty():
 		return
 
-	var total_h = (choices.size() * CHOICE_BUTTON_H) + \
-				  ((choices.size() - 1) * CHOICE_SEPARATION) + 10
-	
+	var viewport_w = get_viewport().get_visible_rect().size.x
 	var viewport_h = get_viewport().get_visible_rect().size.y
 	var dialogue_h = GameTheme.DIALOGUEBOX_H
 	
-	position.y = viewport_h - dialogue_h - total_h - 8
-	size = Vector2(get_viewport().get_visible_rect().size.x - 40, total_h)
+	# Calculate total height
+	var total_h = (choices.size() * CHOICE_BUTTON_H) + \
+				  ((choices.size() - 1) * CHOICE_SEPARATION) + 16
+	
+	# Set width to 75% of screen, centered
+	var button_width = viewport_w * CHOICE_WIDTH_PERCENT
+	
+	# Position above dialogue box
+	position.y = viewport_h - dialogue_h - total_h - 12
+	position.x = (viewport_w - button_width) / 2  # Center horizontally
+	
+	size = Vector2(button_width, total_h)
+	custom_minimum_size = Vector2(button_width, total_h)
 	size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	
 	# Add choices with staggered fade-in
 	for i in range(choices.size()):
 		var btn = _build_button(choices[i].get("text", ""), i)
+		btn.custom_minimum_size = Vector2(button_width, CHOICE_BUTTON_H)  # Match container width
+		btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		btn.modulate = Color(1, 1, 1, 0)
 		add_child(btn)
 		

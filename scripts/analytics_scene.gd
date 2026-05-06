@@ -50,7 +50,6 @@ func _build_canvas() -> void:
 	bg.size = get_viewport().get_visible_rect().size
 	canvas.add_child(bg)
 	
-	# Add subtle particle effect
 	_add_ambient_particles()
 
 func _add_ambient_particles() -> void:
@@ -85,10 +84,10 @@ func _build_ui() -> void:
 	var screen_w = get_viewport().get_visible_rect().size.x
 	var screen_h = get_viewport().get_visible_rect().size.y
 
-	# Main panel - centered, elegant
+	# Main panel - slightly smaller to ensure everything fits
 	var panel = PanelContainer.new()
-	panel.position = Vector2(screen_w * 0.08, screen_h * 0.06)
-	panel.size = Vector2(screen_w * 0.84, screen_h * 0.88)
+	panel.position = Vector2(screen_w * 0.05, screen_h * 0.04)
+	panel.size = Vector2(screen_w * 0.9, screen_h * 0.92)
 	panel.custom_minimum_size = panel.size
 	panel.add_theme_stylebox_override("panel",
 		GameTheme.make_panel_style("dark", GameTheme.DIALOGUE_BORDER_W)
@@ -97,11 +96,11 @@ func _build_ui() -> void:
 
 	var vbox = VBoxContainer.new()
 	vbox.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	vbox.add_theme_constant_override("separation", 12)
-	vbox.add_theme_constant_override("margin_left", 24)
-	vbox.add_theme_constant_override("margin_right", 24)
-	vbox.add_theme_constant_override("margin_top", 20)
-	vbox.add_theme_constant_override("margin_bottom", 20)
+	vbox.add_theme_constant_override("separation", 10)  # Reduced from 12
+	vbox.add_theme_constant_override("margin_left", 16)
+	vbox.add_theme_constant_override("margin_right", 16)
+	vbox.add_theme_constant_override("margin_top", 16)
+	vbox.add_theme_constant_override("margin_bottom", 16)
 	panel.add_child(vbox)
 
 	# === HEADER SECTION ===
@@ -114,39 +113,39 @@ func _build_ui() -> void:
 	divider.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	vbox.add_child(divider)
 
-	# === STAT CARDS ===
+	# === STAT CARDS (2x2 grid) ===
 	var stat_grid = GridContainer.new()
 	stat_grid.columns = 2
-	stat_grid.add_theme_constant_override("h_separation", 16)
-	stat_grid.add_theme_constant_override("v_separation", 12)
+	stat_grid.add_theme_constant_override("h_separation", 12)
+	stat_grid.add_theme_constant_override("v_separation", 10)
 	stat_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	vbox.add_child(stat_grid)
 
 	var stat_defs = [
-		["money",      "💰", "CAPITAL", GameTheme.get_color("money")],
+		["money", "💰", "CAPITAL", GameTheme.get_color("money")],
 		["reputation", "⭐", "REPUTATION", GameTheme.get_color("reputation")],
-		["morale",     "😊", "MORALE", GameTheme.get_color("morale")],
-		["stress",     "😰", "STRESS", GameTheme.get_color("stress")],
+		["morale", "😊", "MORALE", GameTheme.get_color("morale")],
+		["stress", "😰", "STRESS", GameTheme.get_color("stress")],
 	]
 	
 	for stat in stat_defs:
 		stat_grid.add_child(_build_stat_card(stat[0], stat[1], stat[2], stat[3]))
 
-	# Spacer
+	# Spacer - smaller
 	var spacer = Control.new()
-	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	spacer.custom_minimum_size = Vector2(0, 8)
 	vbox.add_child(spacer)
 
 	# === DAY PROGRESS ===
 	var progress_container = VBoxContainer.new()
-	progress_container.add_theme_constant_override("separation", 6)
+	progress_container.add_theme_constant_override("separation", 4)
 	vbox.add_child(progress_container)
 	
 	var progress_label = Label.new()
 	progress_label.text = "DAY PROGRESS"
 	progress_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	progress_label.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(progress_label, 8)
+	GameTheme.apply_font(progress_label, 10)  # Increased from 8
 	progress_container.add_child(progress_label)
 	
 	var progress_bar = ProgressBar.new()
@@ -154,22 +153,22 @@ func _build_ui() -> void:
 	progress_bar.max_value = TOTAL_DAYS
 	progress_bar.value = _current_day
 	progress_bar.show_percentage = false
-	progress_bar.custom_minimum_size = Vector2(0, 12)
+	progress_bar.custom_minimum_size = Vector2(0, 10)  # Thicker bar
 	
 	var fill_style = StyleBoxFlat.new()
 	fill_style.bg_color = GameTheme.get_color("accent")
-	fill_style.corner_radius_top_left = 6
-	fill_style.corner_radius_top_right = 6
-	fill_style.corner_radius_bottom_left = 6
-	fill_style.corner_radius_bottom_right = 6
+	fill_style.corner_radius_top_left = 5
+	fill_style.corner_radius_top_right = 5
+	fill_style.corner_radius_bottom_left = 5
+	fill_style.corner_radius_bottom_right = 5
 	progress_bar.add_theme_stylebox_override("fill", fill_style)
 	
 	var bg_style = StyleBoxFlat.new()
 	bg_style.bg_color = Color(1, 1, 1, 0.1)
-	bg_style.corner_radius_top_left = 6
-	bg_style.corner_radius_top_right = 6
-	bg_style.corner_radius_bottom_left = 6
-	bg_style.corner_radius_bottom_right = 6
+	bg_style.corner_radius_top_left = 5
+	bg_style.corner_radius_top_right = 5
+	bg_style.corner_radius_bottom_left = 5
+	bg_style.corner_radius_bottom_right = 5
 	progress_bar.add_theme_stylebox_override("background", bg_style)
 	progress_container.add_child(progress_bar)
 	
@@ -177,10 +176,10 @@ func _build_ui() -> void:
 	day_counter.text = "Day " + str(_current_day) + " of " + str(TOTAL_DAYS)
 	day_counter.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	day_counter.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(day_counter, 8)
+	GameTheme.apply_font(day_counter, 10)  # Increased from 8
 	progress_container.add_child(day_counter)
 
-	# Spacer
+	# Spacer - smaller
 	var spacer2 = Control.new()
 	spacer2.custom_minimum_size = Vector2(0, 8)
 	vbox.add_child(spacer2)
@@ -189,21 +188,21 @@ func _build_ui() -> void:
 	var btn_center = HBoxContainer.new()
 	btn_center.alignment = BoxContainer.ALIGNMENT_CENTER
 	btn_center.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	btn_center.add_theme_constant_override("separation", 16)
+	btn_center.add_theme_constant_override("separation", 12)
 	vbox.add_child(btn_center)
 	
 	# Shop button
 	var shop_btn = GameTheme.build_button("🛒  SHOP", false, 12)
-	shop_btn.custom_minimum_size = Vector2(screen_w * 0.22, 44)
+	shop_btn.custom_minimum_size = Vector2(screen_w * 0.25, 40)
 	shop_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	GameTheme.connect_button(shop_btn, _on_shop_pressed)
 	btn_center.add_child(shop_btn)
 	
 	# Next button
 	var is_last_day = (_current_day >= TOTAL_DAYS)
-	var next_text = "🏆  VIEW FINAL RESULTS" if is_last_day else "▶  NEXT DAY"
+	var next_text = "🏆  FINAL RESULTS" if is_last_day else "▶  NEXT DAY"
 	next_button = GameTheme.build_button(next_text, true, 12)
-	next_button.custom_minimum_size = Vector2(screen_w * 0.35, 44)
+	next_button.custom_minimum_size = Vector2(screen_w * 0.4, 40)
 	next_button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	GameTheme.connect_button(next_button, _on_next_pressed)
 	btn_center.add_child(next_button)
@@ -213,7 +212,7 @@ func _build_ui() -> void:
 func _build_header(vbox: VBoxContainer, screen_w: float) -> void:
 	# Day badge
 	var day_badge = PanelContainer.new()
-	day_badge.custom_minimum_size = Vector2(120, 36)
+	day_badge.custom_minimum_size = Vector2(140, 36)
 	day_badge.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	day_badge.add_theme_stylebox_override("panel",
 		GameTheme.make_pill_style("accent")
@@ -225,18 +224,18 @@ func _build_header(vbox: VBoxContainer, screen_w: float) -> void:
 	day_text.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	day_text.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	day_text.add_theme_color_override("font_color", GameTheme.get_color("bg"))
-	GameTheme.apply_font(day_text, 14)
+	GameTheme.apply_font(day_text, 16)  # Increased from 14
 	day_badge.add_child(day_text)
 	vbox.add_child(day_badge)
 	
-	# Congratulatory message based on performance
+	# Congratulatory message
 	var message = _get_day_message()
 	var msg_label = Label.new()
 	msg_label.text = message
 	msg_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	msg_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	msg_label.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(msg_label, 10)
+	GameTheme.apply_font(msg_label, 11)  # Increased from 10
 	vbox.add_child(msg_label)
 
 func _get_day_message() -> String:
@@ -267,7 +266,7 @@ func _get_day_message() -> String:
 
 func _build_stat_card(stat_key: String, icon: String, label: String, bar_color: Color) -> PanelContainer:
 	var card = PanelContainer.new()
-	card.custom_minimum_size = Vector2(0, 100)
+	card.custom_minimum_size = Vector2(0, 90)  # Slightly shorter
 	card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	card.add_theme_stylebox_override("panel",
 		GameTheme.make_panel_style("mid", 2)
@@ -275,28 +274,28 @@ func _build_stat_card(stat_key: String, icon: String, label: String, bar_color: 
 	
 	var vbox = VBoxContainer.new()
 	vbox.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	vbox.add_theme_constant_override("separation", 6)
-	vbox.add_theme_constant_override("margin_left", 12)
-	vbox.add_theme_constant_override("margin_right", 12)
-	vbox.add_theme_constant_override("margin_top", 12)
-	vbox.add_theme_constant_override("margin_bottom", 12)
+	vbox.add_theme_constant_override("separation", 5)
+	vbox.add_theme_constant_override("margin_left", 10)
+	vbox.add_theme_constant_override("margin_right", 10)
+	vbox.add_theme_constant_override("margin_top", 10)
+	vbox.add_theme_constant_override("margin_bottom", 10)
 	card.add_child(vbox)
 	
 	# Top row: icon + label + delta
 	var top_row = HBoxContainer.new()
-	top_row.add_theme_constant_override("separation", 8)
+	top_row.add_theme_constant_override("separation", 6)
 	vbox.add_child(top_row)
 	
 	# Icon (asset or emoji)
-	var icon_node = _load_or_create_icon(stat_key + "_stat", icon, 24)
-	icon_node.custom_minimum_size = Vector2(32, 32)
+	var icon_node = _load_or_create_icon(stat_key + "_stat", icon, 20)  # Larger icon
+	icon_node.custom_minimum_size = Vector2(28, 28)
 	top_row.add_child(icon_node)
 	
 	var label_label = Label.new()
 	label_label.text = label
 	label_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	label_label.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(label_label, 9)
+	GameTheme.apply_font(label_label, 10)  # Increased
 	top_row.add_child(label_label)
 	
 	var delta = _stat_deltas.get(stat_key, 0.0)
@@ -305,7 +304,7 @@ func _build_stat_card(stat_key: String, icon: String, label: String, bar_color: 
 	delta_label.add_theme_color_override("font_color",
 		GameTheme.get_color("positive") if delta >= 0 else GameTheme.get_color("negative")
 	)
-	GameTheme.apply_font(delta_label, 10)
+	GameTheme.apply_font(delta_label, 11)  # Increased
 	top_row.add_child(delta_label)
 	
 	# Progress bar
@@ -315,22 +314,22 @@ func _build_stat_card(stat_key: String, icon: String, label: String, bar_color: 
 	bar.value = _current_stats.get(stat_key, 50.0)
 	bar.show_percentage = false
 	bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	bar.custom_minimum_size = Vector2(0, 10)
+	bar.custom_minimum_size = Vector2(0, 8)
 	
 	var fill = StyleBoxFlat.new()
 	fill.bg_color = bar_color
-	fill.corner_radius_top_left = 5
-	fill.corner_radius_top_right = 5
-	fill.corner_radius_bottom_left = 5
-	fill.corner_radius_bottom_right = 5
+	fill.corner_radius_top_left = 4
+	fill.corner_radius_top_right = 4
+	fill.corner_radius_bottom_left = 4
+	fill.corner_radius_bottom_right = 4
 	bar.add_theme_stylebox_override("fill", fill)
 	
 	var bg = StyleBoxFlat.new()
 	bg.bg_color = Color(1, 1, 1, 0.1)
-	bg.corner_radius_top_left = 5
-	bg.corner_radius_top_right = 5
-	bg.corner_radius_bottom_left = 5
-	bg.corner_radius_bottom_right = 5
+	bg.corner_radius_top_left = 4
+	bg.corner_radius_top_right = 4
+	bg.corner_radius_bottom_left = 4
+	bg.corner_radius_bottom_right = 4
 	bar.add_theme_stylebox_override("background", bg)
 	vbox.add_child(bar)
 	
@@ -340,17 +339,11 @@ func _build_stat_card(stat_key: String, icon: String, label: String, bar_color: 
 	value_row.add_theme_constant_override("separation", 4)
 	vbox.add_child(value_row)
 	
-	var current_label = Label.new()
-	current_label.text = "Current"
-	current_label.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(current_label, 7)
-	value_row.add_child(current_label)
-	
 	var value = int(_current_stats.get(stat_key, 50.0))
 	var value_label = Label.new()
-	value_label.text = str(value) + "/100"
+	value_label.text = str(value) + " / 100"
 	value_label.add_theme_color_override("font_color", GameTheme.get_color("text"))
-	GameTheme.apply_font(value_label, 11)
+	GameTheme.apply_font(value_label, 11)  # Increased
 	value_row.add_child(value_label)
 	
 	return card

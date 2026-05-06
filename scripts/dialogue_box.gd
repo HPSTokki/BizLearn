@@ -47,42 +47,42 @@ func _apply_panel_style() -> void:
 func _build_dialogue_box() -> void:
 	var vbox = VBoxContainer.new()
 	vbox.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	vbox.add_theme_constant_override("separation", 4)
-	vbox.add_theme_constant_override("margin_left",   12)
-	vbox.add_theme_constant_override("margin_right",  12)
-	vbox.add_theme_constant_override("margin_top",    8)
-	vbox.add_theme_constant_override("margin_bottom", 8)
+	vbox.add_theme_constant_override("separation", 6)  # Slightly more breathing room
+	vbox.add_theme_constant_override("margin_left",   14)  # Slightly more padding
+	vbox.add_theme_constant_override("margin_right",  14)
+	vbox.add_theme_constant_override("margin_top",    10)
+	vbox.add_theme_constant_override("margin_bottom", 10)
 	add_child(vbox)
 
-	# Speaker name only (no portrait box anymore)
+	# Speaker name - LARGER
 	speaker_name = Label.new()
 	speaker_name.text = ""
 	speaker_name.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	speaker_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	speaker_name.add_theme_font_size_override("font_size", 14)
+	speaker_name.add_theme_font_size_override("font_size", 18)  # Increased from 14
 	speaker_name.add_theme_color_override("font_color", GameTheme.get_color("accent"))
-	GameTheme.apply_font(speaker_name, 14)
+	GameTheme.apply_font(speaker_name, 18)
 	vbox.add_child(speaker_name)
 
-	# Dialogue text area
+	# Dialogue text area - LARGER
 	dialogue_text = RichTextLabel.new()
 	dialogue_text.bbcode_enabled = true
 	dialogue_text.scroll_active = false
 	dialogue_text.fit_content = true
 	dialogue_text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	dialogue_text.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	dialogue_text.custom_minimum_size = Vector2(0, 50)
-	dialogue_text.add_theme_font_size_override("normal_font_size", 16)
+	dialogue_text.custom_minimum_size = Vector2(0, 60)  # Increased from 50
+	dialogue_text.add_theme_font_size_override("normal_font_size", 20)  # Increased from 16
 	dialogue_text.add_theme_color_override("default_color", GameTheme.get_color("text"))
-	GameTheme.apply_font_rich(dialogue_text, 16)
+	GameTheme.apply_font_rich(dialogue_text, 20)
 	vbox.add_child(dialogue_text)
 
-	# Next indicator
+	# Next indicator - slightly larger
 	next_indicator = Label.new()
 	next_indicator.text = "▼"
 	next_indicator.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	next_indicator.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	next_indicator.add_theme_font_size_override("font_size", 8)
+	next_indicator.add_theme_font_size_override("font_size", 10)  # Increased from 8
 	next_indicator.add_theme_color_override("font_color", GameTheme.get_color("accent"))
 	next_indicator.visible = false
 	next_indicator.modulate.a = 0.0
@@ -124,11 +124,13 @@ func show_dialogue(speaker: String, text: String) -> void:
 
 	_typewriter_tween = create_tween()
 	var duration = len(text) * GameTheme.get_text_speed()
+	# Ensure minimum duration so text doesn't fly by too fast
+	var min_duration = 0.5  # Minimum 0.5 seconds even for short text
 	_typewriter_tween.tween_property(
 		dialogue_text,
 		"visible_characters",
 		len(text),
-		max(duration, 0.1)
+		max(duration, min_duration)
 	).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_LINEAR)
 	_typewriter_tween.finished.connect(_on_typewriter_finished)
 
