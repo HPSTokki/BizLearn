@@ -8,9 +8,10 @@ signal choice_selected(choice_index: int)
 # =========================================
 # CONSTANTS
 # =========================================
-const CHOICE_BUTTON_H = 52.0  # Increased from 44
-const CHOICE_SEPARATION = 10.0  # Increased from 8
-const CHOICE_WIDTH_PERCENT = 0.75  # 75% of screen width
+const CHOICE_BUTTON_H = 52.0
+const CHOICE_SEPARATION = 10.0
+const CHOICE_WIDTH_PERCENT = 0.85  # Slightly wider
+const BOTTOM_PADDING = 16  # Padding from dialogue box
 
 # =========================================
 # STATE
@@ -30,29 +31,25 @@ func setup() -> void:
 # =========================================
 func _apply_container_style() -> void:
 	add_theme_constant_override("separation", CHOICE_SEPARATION)
-	size_flags_horizontal = Control.SIZE_SHRINK_CENTER  # Center the container
-	alignment = BoxContainer.ALIGNMENT_CENTER  # Center children
+	size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	alignment = BoxContainer.ALIGNMENT_CENTER
 
 func _build_button(text: String, index: int) -> PanelContainer:
-	# Use secondary button style - LARGER font
-	var btn = GameTheme.build_button("▶  " + text, false, 16)  # Increased from 14
+	var btn = GameTheme.build_button("▶  " + text, false, 16)
 	
-	# Customize button appearance
 	btn.custom_minimum_size = Vector2(0, CHOICE_BUTTON_H)
 	
-	# Left-align text with more padding
 	var lbl = btn.get_child(0) as Label
 	if lbl:
 		lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 		lbl.add_theme_constant_override("margin_left", 16)
 		lbl.add_theme_constant_override("margin_right", 8)
-		lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART  # Wrap long text
+		lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	
-	# Add hover scale effect
 	btn.mouse_entered.connect(func():
 		var tween = create_tween()
-		tween.tween_property(btn, "scale", Vector2(1.02, 1.02), 0.1)
+		tween.tween_property(btn, "scale", Vector2(1.01, 1.01), 0.1)
 	)
 	btn.mouse_exited.connect(func():
 		var tween = create_tween()
@@ -80,7 +77,6 @@ func show_choices(choices: Array) -> void:
 	_current_choices = choices
 	_clear_buttons()
 
-	# Skip if no choices
 	if choices.is_empty():
 		return
 
@@ -88,30 +84,31 @@ func show_choices(choices: Array) -> void:
 	var viewport_h = get_viewport().get_visible_rect().size.y
 	var dialogue_h = GameTheme.DIALOGUEBOX_H
 	
-	# Calculate total height
+	# Calculate total height of choices
 	var total_h = (choices.size() * CHOICE_BUTTON_H) + \
-				  ((choices.size() - 1) * CHOICE_SEPARATION) + 16
+				  ((choices.size() - 1) * CHOICE_SEPARATION)
 	
-	# Set width to 75% of screen, centered
+	# Position choices ABOVE the dialogue box
+	# Bottom edge of choices sits above dialogue box with padding
 	var button_width = viewport_w * CHOICE_WIDTH_PERCENT
 	
-	# Position above dialogue box
-	position.y = viewport_h - dialogue_h - total_h - 12
-	position.x = (viewport_w - button_width) / 2  # Center horizontally
+	# Position from bottom: dialogue box starts at viewport_h - dialogue_h
+	# So choices go right above it
+	var bottom_y = viewport_h - dialogue_h - BOTTOM_PADDING
+	position.y = bottom_y - total_h
+	position.x = (viewport_w - button_width) / 2
 	
 	size = Vector2(button_width, total_h)
 	custom_minimum_size = Vector2(button_width, total_h)
-	size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	
 	# Add choices with staggered fade-in
 	for i in range(choices.size()):
 		var btn = _build_button(choices[i].get("text", ""), i)
-		btn.custom_minimum_size = Vector2(button_width, CHOICE_BUTTON_H)  # Match container width
+		btn.custom_minimum_size = Vector2(button_width, CHOICE_BUTTON_H)
 		btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		btn.modulate = Color(1, 1, 1, 0)
 		add_child(btn)
 		
-		# Staggered appear animation
 		var tween = create_tween()
 		tween.tween_property(btn, "modulate", Color(1, 1, 1, 1), 0.15).set_delay(i * 0.05)
 
@@ -122,7 +119,6 @@ func hide_choices() -> void:
 		visible = false
 		return
 		
-	# Fade out animation before clearing
 	var tween = create_tween()
 	for child in get_children():
 		tween.tween_property(child, "modulate", Color(1, 1, 1, 0), 0.1)

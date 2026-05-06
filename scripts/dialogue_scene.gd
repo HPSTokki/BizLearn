@@ -201,6 +201,7 @@ func _build_sprite_area() -> void:
 	sprite_area.position = Vector2(0, SPRITE_AREA_Y)
 	sprite_area.size = Vector2(SCREEN_W, SPRITE_AREA_H)
 	sprite_area.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	sprite_area.modulate = Color(1, 1, 1, 1)
 	canvas.add_child(sprite_area)
 	_build_shop_sprite_host()
 	_build_npc_placeholder()
@@ -300,6 +301,7 @@ func _build_choices_container() -> void:
 	canvas.add_child(choices_container)
 	choices_container.set_script(load("res://scripts/choices_container.gd"))
 	choices_container.call("setup")
+	
 
 func _build_dialogue_box() -> void:
 	dialogue_box = PanelContainer.new()
@@ -312,6 +314,7 @@ func _build_dialogue_box() -> void:
 	dialogue_box.add_theme_stylebox_override("panel",
 		GameTheme.make_panel_style("dark", GameTheme.DIALOGUE_BORDER_W)
 	)
+	dialogue_box.modulate = Color(1, 1, 1, 1 )
 	
 	canvas.add_child(dialogue_box)
 	dialogue_box.set_script(load("res://scripts/dialogue_box.gd"))
