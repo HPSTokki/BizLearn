@@ -27,6 +27,7 @@ func _ready() -> void:
 	_receive_data()
 	_build_canvas()
 	_build_ui()
+	AudioManager.play_sfx("day_end")
 	DialogueManager.save_game()
 
 # =========================================

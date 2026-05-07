@@ -38,7 +38,7 @@ func play_music(music_name: String, fade_in: float = 0.0) -> void:
 		music_player.play()
 
 func play_sfx(sfx_name: String) -> void:
-	var path = "res://assets/audio/sfx/" + sfx_name + ".ogg"
+	var path = "res://assets/audio/sfx/" + sfx_name + ".wav"
 	if not ResourceLoader.exists(path):
 		# Silent fail - no sound is fine
 		return

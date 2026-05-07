@@ -248,6 +248,7 @@ func _process(delta: float) -> void:
 # CALLBACKS
 # =========================================
 func _on_new_game_pressed() -> void:
+	AudioManager.play_sfx("click")
 	var scene = load("res://scenes/save_slot_screen.tscn").instantiate()
 	scene.mode = "new_game"
 	get_tree().root.add_child(scene)
@@ -255,6 +256,7 @@ func _on_new_game_pressed() -> void:
 	get_tree().current_scene = scene
 
 func _on_continue_pressed() -> void:
+	AudioManager.play_sfx("click")
 	var scene = load("res://scenes/save_slot_screen.tscn").instantiate()
 	scene.mode = "continue"
 	get_tree().root.add_child(scene)
@@ -262,16 +264,21 @@ func _on_continue_pressed() -> void:
 	get_tree().current_scene = scene
 
 func _on_how_to_play_pressed() -> void:
+	AudioManager.play_sfx("click")
 	get_tree().change_scene_to_file("res://scenes/how_to_play.tscn")
 
 func _on_credits_pressed() -> void:
+	AudioManager.play_sfx("click")
 	get_tree().change_scene_to_file("res://scenes/credits_scene.tscn")
 
 func _on_settings_pressed() -> void:
+	AudioManager.play_sfx("click")
 	get_tree().change_scene_to_file("res://scenes/settings_scene.tscn")
 
 func _on_exit_pressed() -> void:
+	AudioManager.play_sfx("click")
 	get_tree().quit()
 
 func _on_leaderboard_pressed() -> void:
+	AudioManager.play_sfx("click")
 	get_tree().change_scene_to_file("res://scenes/leaderboard_scene.tscn")

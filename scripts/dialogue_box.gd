@@ -161,6 +161,7 @@ func on_screen_tapped() -> void:
 	else:
 		if _skip_cooldown:
 			return
+		AudioManager.play_sfx("click")
 		DialogueManager.advance()
 
 # =========================================

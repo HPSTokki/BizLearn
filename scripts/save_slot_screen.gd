@@ -515,6 +515,7 @@ func _get_grade_color(grade: String) -> Color:
 # LOGIC
 # =========================================
 func _on_slot_selected(slot_index: int, occupied: bool) -> void:
+	AudioManager.play_sfx("click")
 	SaveManager.set_active_slot(slot_index)
 
 	if mode == "continue":

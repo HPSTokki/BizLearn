@@ -156,6 +156,8 @@ func _on_choice_pressed(index: int) -> void:
 	if index < _current_choices.size():
 		print("Choice text: ", _current_choices[index].get("text", ""))
 	
+	AudioManager.play_sfx("click")
+	
 	GameTheme.vibrate()
 	hide_choices()
 	emit_signal("choice_selected", index)

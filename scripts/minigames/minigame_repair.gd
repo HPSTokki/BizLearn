@@ -7,44 +7,17 @@ extends Node
 
 const TIME_LIMIT = 45.0
 
-const TILE_TYPES = {
-	"straight_ud":   5,
-	"straight_rl":   10,
-	"corner_ur":     3,
-	"corner_rd":     6,
-	"corner_dl":     12,
-	"corner_lu":     9,
-	"tee_u":         7,
-	"tee_r":         14,
-	"tee_d":         13,
-	"tee_l":         11,
-	"cross":         15,
-}
-
-const TILE_SPRITES = {
-	"straight_ud": "║",
-	"straight_rl": "═",
-	"corner_ur":   "╚",
-	"corner_rd":   "╔",
-	"corner_dl":   "╗",
-	"corner_lu":   "╝",
-	"tee_u":       "╩",
-	"tee_r":       "╠",
-	"tee_d":       "╦",
-	"tee_l":       "╣",
-	"cross":       "╬",
-}
-
 const SRC_ICON = "⚡"
 const TGT_ICON = "🔧"
 
+# Connection values: 1=Up, 2=Right, 4=Down, 8=Left
 const PUZZLES = {
 	"easy": {
 		"grid": [
-			[10, 3, 5, 0],
-			[6, 10, 6, 0],
-			[0, 9, 10, 3],
-			[0, 5, 5, 4],
+			[2, 3, 1, 0],
+			[1, 2, 6, 0],
+			[0, 9, 2, 3],
+			[0, 1, 5, 4],
 		],
 		"source": Vector2i(0, 0),
 		"target": Vector2i(3, 3),
@@ -52,11 +25,11 @@ const PUZZLES = {
 	},
 	"medium": {
 		"grid": [
-			[10, 3, 5, 6, 3],
-			[6, 10, 0, 10, 5],
+			[2, 3, 1, 6, 3],
+			[1, 2, 0, 2, 1],
 			[0, 9, 0, 0, 12],
-			[9, 5, 0, 10, 3],
-			[5, 0, 6, 3, 4],
+			[9, 1, 0, 2, 3],
+			[1, 0, 6, 3, 4],
 		],
 		"source": Vector2i(0, 0),
 		"target": Vector2i(4, 4),
@@ -64,18 +37,59 @@ const PUZZLES = {
 	},
 	"hard": {
 		"grid": [
-			[10, 3, 5, 6, 3, 5],
-			[6, 10, 6, 10, 5, 6],
+			[2, 3, 1, 6, 3, 1],
+			[1, 2, 6, 2, 1, 6],
 			[0, 9, 0, 0, 12, 0],
-			[9, 5, 0, 10, 3, 0],
-			[5, 0, 6, 3, 5, 6],
-			[0, 5, 0, 6, 3, 4],
+			[9, 1, 0, 2, 3, 0],
+			[1, 0, 6, 3, 1, 6],
+			[0, 1, 0, 6, 3, 4],
 		],
 		"source": Vector2i(0, 0),
 		"target": Vector2i(5, 5),
 		"size": 6,
 	},
 }
+
+func _get_connections(value: int) -> Dictionary:
+	return {
+		"up": (value & 1) != 0,
+		"right": (value & 2) != 0,
+		"down": (value & 4) != 0,
+		"left": (value & 8) != 0,
+	}
+
+func _rotate_value(value: int) -> int:
+	var rotated = 0
+	if value & 1: rotated |= 2
+	if value & 2: rotated |= 4
+	if value & 4: rotated |= 8
+	if value & 8: rotated |= 1
+	return rotated
+
+func _get_display(value: int) -> String:
+	var conn = _get_connections(value)
+	var up = conn["up"]
+	var right = conn["right"]
+	var down = conn["down"]
+	var left = conn["left"]
+	
+	var count = (1 if up else 0) + (1 if right else 0) + (1 if down else 0) + (1 if left else 0)
+	
+	if count == 2:
+		if up and down: return "│"
+		if left and right: return "─"
+		if up and right: return "└"
+		if right and down: return "┌"
+		if down and left: return "┐"
+		if left and up: return "┘"
+	elif count == 3:
+		if not up: return "┬"
+		if not right: return "├"
+		if not down: return "┴"
+		if not left: return "┤"
+	elif count == 4:
+		return "┼"
+	return "·"
 
 var canvas: CanvasLayer = null
 var grid_container: GridContainer = null
@@ -175,7 +189,7 @@ func _build_ui() -> void:
 	vbox.add_theme_constant_override("margin_bottom", 8)
 	panel.add_child(vbox)
 
-	# Header row
+	# Header
 	var header_row = HBoxContainer.new()
 	header_row.add_theme_constant_override("separation", 8)
 	vbox.add_child(header_row)
@@ -193,7 +207,7 @@ func _build_ui() -> void:
 	GameTheme.apply_font(timer_label, 16)
 	header_row.add_child(timer_label)
 
-	# Info row
+	# Info
 	var info_row = HBoxContainer.new()
 	info_row.add_theme_constant_override("separation", 12)
 	vbox.add_child(info_row)
@@ -217,7 +231,7 @@ func _build_ui() -> void:
 	divider.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	vbox.add_child(divider)
 
-	# Grid container with scroll
+	# Grid area
 	grid_scroll = ScrollContainer.new()
 	grid_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	grid_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -225,13 +239,15 @@ func _build_ui() -> void:
 	grid_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
 	vbox.add_child(grid_scroll)
 
+	var grid_center = CenterContainer.new()
+	grid_scroll.add_child(grid_center)
+
 	grid_container = GridContainer.new()
-	grid_container.columns = grid_size
 	grid_container.add_theme_constant_override("h_separation", 4)
 	grid_container.add_theme_constant_override("v_separation", 4)
-	grid_scroll.add_child(grid_container)
+	grid_center.add_child(grid_container)
 
-	# Button row
+	# Buttons
 	var btn_row = HBoxContainer.new()
 	btn_row.alignment = BoxContainer.ALIGNMENT_CENTER
 	btn_row.add_theme_constant_override("separation", 12)
@@ -256,9 +272,11 @@ func _refresh_grid() -> void:
 	for child in grid_container.get_children():
 		child.queue_free()
 	
-	var tile_size = 48
+	var tile_size = 50
 	if screen_w < 400:
 		tile_size = 40
+	elif screen_w > 600:
+		tile_size = 55
 	
 	grid_container.columns = grid_size
 	
@@ -267,15 +285,16 @@ func _refresh_grid() -> void:
 			var tile_value = current_grid[row][col]
 			var is_source = (row == source_pos.x and col == source_pos.y)
 			var is_target = (row == target_pos.x and col == target_pos.y)
-			
-			var btn = _make_tile_button(tile_value, is_source, is_target, row, col, tile_size)
+			var btn = _make_tile(tile_value, is_source, is_target, tile_size, row, col)
 			grid_container.add_child(btn)
 
-func _make_tile_button(tile_value: int, is_source: bool, is_target: bool, row: int, col: int, size: int) -> PanelContainer:
+func _make_tile(value: int, is_source: bool, is_target: bool, size: int, row: int, col: int) -> PanelContainer:
 	var container = PanelContainer.new()
 	container.custom_minimum_size = Vector2(size, size)
 	container.size = Vector2(size, size)
 	container.mouse_filter = Control.MOUSE_FILTER_STOP
+	container.set_meta("row", row)
+	container.set_meta("col", col)
 	
 	var style = StyleBoxFlat.new()
 	if is_source or is_target:
@@ -297,29 +316,20 @@ func _make_tile_button(tile_value: int, is_source: bool, is_target: bool, row: i
 	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	container.add_child(center)
 	
-	var content = HBoxContainer.new()
-	content.alignment = BoxContainer.ALIGNMENT_CENTER
-	
+	var label = Label.new()
 	if is_source:
-		var label = Label.new()
 		label.text = SRC_ICON
-		label.add_theme_font_size_override("font_size", int(size * 0.5))
-		content.add_child(label)
 	elif is_target:
-		var label = Label.new()
 		label.text = TGT_ICON
-		label.add_theme_font_size_override("font_size", int(size * 0.5))
-		content.add_child(label)
 	else:
-		var tile_type = _get_tile_type_from_value(tile_value)
-		var symbol = TILE_SPRITES.get(tile_type, "?")
-		var label = Label.new()
-		label.text = symbol
-		label.add_theme_font_size_override("font_size", int(size * 0.45))
-		label.add_theme_color_override("font_color", GameTheme.get_color("accent"))
-		content.add_child(label)
+		label.text = _get_display(value)
 	
-	center.add_child(content)
+	label.add_theme_font_size_override("font_size", int(size * 0.45))
+	if is_source or is_target:
+		label.add_theme_color_override("font_color", GameTheme.get_color("accent"))
+	else:
+		label.add_theme_color_override("font_color", GameTheme.get_color("text"))
+	center.add_child(label)
 	
 	container.gui_input.connect(func(event: InputEvent):
 		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed and not _done:
@@ -327,12 +337,6 @@ func _make_tile_button(tile_value: int, is_source: bool, is_target: bool, row: i
 	)
 	
 	return container
-
-func _get_tile_type_from_value(value: int) -> String:
-	for type_name in TILE_TYPES:
-		if TILE_TYPES[type_name] == value:
-			return type_name
-	return "straight_ud"
 
 func _rotate_tile(row: int, col: int) -> void:
 	if _done:
@@ -345,9 +349,7 @@ func _rotate_tile(row: int, col: int) -> void:
 		return
 	
 	var current = current_grid[row][col]
-	var rotated = _get_rotated_value(current)
-	
-	print("Tile at [", row, "][", col, "] ", current, " -> ", rotated)
+	var rotated = _rotate_value(current)
 	
 	current_grid[row][col] = rotated
 	moves_used += 1
@@ -357,62 +359,67 @@ func _rotate_tile(row: int, col: int) -> void:
 	if _check_connection():
 		_finish(true)
 
-func _get_rotated_value(value: int) -> int:
-	var rotated = 0
-	if value & 1: rotated |= 2
-	if value & 2: rotated |= 4
-	if value & 4: rotated |= 8
-	if value & 8: rotated |= 1
-	return rotated
-
 func _check_connection() -> bool:
-	var visited = []
-	for i in range(grid_size):
-		visited.append([])
-		for j in range(grid_size):
-			visited[i].append(false)
+	# BFS to check if source connects to target
+	var queue = []
+	var visited = {}
 	
-	return _dfs(source_pos.x, source_pos.y, visited, -1)
-
-func _dfs(row: int, col: int, visited: Array, came_from: int) -> bool:
-	if row < 0 or row >= grid_size or col < 0 or col >= grid_size:
-		return false
-	if visited[row][col]:
-		return false
+	var start_key = source_pos.x * grid_size + source_pos.y
+	queue.append(source_pos)
+	visited[start_key] = true
 	
-	visited[row][col] = true
-	
-	if row == target_pos.x and col == target_pos.y:
-		return true
-	
-	var tile = current_grid[row][col]
-	var connections = []
-	
-	if tile & 1 and came_from != 4:
-		connections.append(Vector2i(row - 1, col))
-	if tile & 2 and came_from != 8:
-		connections.append(Vector2i(row, col + 1))
-	if tile & 4 and came_from != 1:
-		connections.append(Vector2i(row + 1, col))
-	if tile & 8 and came_from != 2:
-		connections.append(Vector2i(row, col - 1))
-	
-	for next_pos in connections:
-		var nr = next_pos.x
-		var nc = next_pos.y
-		if nr < 0 or nr >= grid_size or nc < 0 or nc >= grid_size:
-			continue
+	while queue.size() > 0:
+		var pos = queue.pop_front()
 		
-		var opposite_dir = 0
-		if nr == row - 1: opposite_dir = 4
-		elif nr == row + 1: opposite_dir = 1
-		elif nc == col - 1: opposite_dir = 2
-		elif nc == col + 1: opposite_dir = 8
+		if pos.x == target_pos.x and pos.y == target_pos.y:
+			return true
 		
-		var next_tile = current_grid[nr][nc]
-		if next_tile & opposite_dir:
-			if _dfs(nr, nc, visited, opposite_dir):
-				return true
+		var value = current_grid[pos.x][pos.y]
+		var conn = _get_connections(value)
+		
+		# Check up
+		if conn["up"] and pos.x > 0:
+			var next_pos = Vector2i(pos.x - 1, pos.y)
+			var next_key = next_pos.x * grid_size + next_pos.y
+			if not visited.has(next_key):
+				var next_value = current_grid[next_pos.x][next_pos.y]
+				var next_conn = _get_connections(next_value)
+				if next_conn["down"]:
+					visited[next_key] = true
+					queue.append(next_pos)
+		
+		# Check right
+		if conn["right"] and pos.y < grid_size - 1:
+			var next_pos = Vector2i(pos.x, pos.y + 1)
+			var next_key = next_pos.x * grid_size + next_pos.y
+			if not visited.has(next_key):
+				var next_value = current_grid[next_pos.x][next_pos.y]
+				var next_conn = _get_connections(next_value)
+				if next_conn["left"]:
+					visited[next_key] = true
+					queue.append(next_pos)
+		
+		# Check down
+		if conn["down"] and pos.x < grid_size - 1:
+			var next_pos = Vector2i(pos.x + 1, pos.y)
+			var next_key = next_pos.x * grid_size + next_pos.y
+			if not visited.has(next_key):
+				var next_value = current_grid[next_pos.x][next_pos.y]
+				var next_conn = _get_connections(next_value)
+				if next_conn["up"]:
+					visited[next_key] = true
+					queue.append(next_pos)
+		
+		# Check left
+		if conn["left"] and pos.y > 0:
+			var next_pos = Vector2i(pos.x, pos.y - 1)
+			var next_key = next_pos.x * grid_size + next_pos.y
+			if not visited.has(next_key):
+				var next_value = current_grid[next_pos.x][next_pos.y]
+				var next_conn = _get_connections(next_value)
+				if next_conn["right"]:
+					visited[next_key] = true
+					queue.append(next_pos)
 	
 	return false
 
