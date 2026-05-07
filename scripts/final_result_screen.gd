@@ -197,7 +197,7 @@ func _build_ui() -> void:
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_font_size_override("font_size", 16)
 	title.add_theme_color_override("font_color", _get_grade_color())
-	GameTheme.apply_font(title, 16)
+	GameTheme.apply_font(title, 18)
 	header_row.add_child(title)
 	
 	var right_star = Label.new()
@@ -216,7 +216,7 @@ func _build_ui() -> void:
 	grade_header.text = "FINAL GRADE"
 	grade_header.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	grade_header.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(grade_header, 9)
+	GameTheme.apply_font(grade_header, 14)
 	grade_container.add_child(grade_header)
 	
 	var grade_letter = Label.new()
@@ -224,7 +224,7 @@ func _build_ui() -> void:
 	grade_letter.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	grade_letter.add_theme_font_size_override("font_size", 56)
 	grade_letter.add_theme_color_override("font_color", _get_grade_color())
-	GameTheme.apply_font(grade_letter, 56)
+	GameTheme.apply_font(grade_letter, 58)
 	grade_container.add_child(grade_letter)
 	
 	var grade_title = Label.new()
@@ -232,14 +232,14 @@ func _build_ui() -> void:
 	grade_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	grade_title.add_theme_font_size_override("font_size", 11)
 	grade_title.add_theme_color_override("font_color", _get_grade_color())
-	GameTheme.apply_font(grade_title, 11)
+	GameTheme.apply_font(grade_title, 17)
 	grade_container.add_child(grade_title)
 	
 	var score_text = Label.new()
 	score_text.text = "Score: " + str(int(_score)) + " / 100"
 	score_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	score_text.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(score_text, 9)
+	GameTheme.apply_font(score_text, 12)
 	grade_container.add_child(score_text)
 
 	var divider = ColorRect.new()
@@ -277,13 +277,13 @@ func _build_ui() -> void:
 	btn_center.add_theme_constant_override("separation", 12)
 	vbox.add_child(btn_center)
 	
-	var play_again = GameTheme.build_button("🔄  PLAY AGAIN", true, 12)
+	var play_again = GameTheme.build_button("🔄  PLAY AGAIN", true)
 	play_again.custom_minimum_size = Vector2(screen_w * 0.35, 40)
 	play_again.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	GameTheme.connect_button(play_again, _on_play_again_pressed)
 	btn_center.add_child(play_again)
 	
-	var menu_btn = GameTheme.build_button("🏠  MENU", false, 12)
+	var menu_btn = GameTheme.build_button("🏠  MENU", false)
 	menu_btn.custom_minimum_size = Vector2(screen_w * 0.3, 40)
 	menu_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	GameTheme.connect_button(menu_btn, _on_menu_pressed)
@@ -318,7 +318,7 @@ func _build_stat_card(stat_key: String, icon: String, label: String, bar_color: 
 	var label_label = Label.new()
 	label_label.text = label
 	label_label.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(label_label, 8)
+	GameTheme.apply_font(label_label, 14)
 	info_vbox.add_child(label_label)
 	
 	var bar = ProgressBar.new()
@@ -351,7 +351,7 @@ func _build_stat_card(stat_key: String, icon: String, label: String, bar_color: 
 	value_label.text = str(value)
 	value_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	value_label.add_theme_color_override("font_color", bar_color)
-	GameTheme.apply_font(value_label, 10)
+	GameTheme.apply_font(value_label, 16)
 	hbox.add_child(value_label)
 	
 	return card
