@@ -61,9 +61,9 @@ func _build_dialogue_box() -> void:
 	speaker_name.text = ""
 	speaker_name.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	speaker_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	speaker_name.add_theme_font_size_override("font_size", 18)  # Increased from 14
+	speaker_name.add_theme_font_size_override("font_size", 20)  # Increased from 14
 	speaker_name.add_theme_color_override("font_color", GameTheme.get_color("accent"))
-	GameTheme.apply_font(speaker_name, 18)
+	GameTheme.apply_font(speaker_name, 20)
 	vbox.add_child(speaker_name)
 
 	# Dialogue text area - LARGER
@@ -75,8 +75,8 @@ func _build_dialogue_box() -> void:
 	dialogue_text.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	dialogue_text.custom_minimum_size = Vector2(0, 60)  # Increased from 50
 	dialogue_text.add_theme_font_size_override("normal_font_size", 20)  # Increased from 16
-	dialogue_text.add_theme_color_override("default_color", GameTheme.get_color("text"))
-	GameTheme.apply_font_rich(dialogue_text, 20)
+	dialogue_text.add_theme_color_override("default_color", "#f2f2f2")
+	GameTheme.apply_font_rich(dialogue_text, 24)
 	vbox.add_child(dialogue_text)
 
 	# Next indicator - slightly larger
@@ -190,5 +190,9 @@ func _on_typewriter_finished() -> void:
 	_start_pulse()
 	emit_signal("dialogue_finished")
 
-func _on_dialogue_updated(speaker: String, text: String) -> void:
+func _on_dialogue_updated(speaker: String, text: String, voice_id: String = "") -> void:
+	# Play mentor voice if voice_id exists
+	if voice_id != "" and DialogueManager.get_speaker_id() == "mentor":
+		AudioManager.play_mentor_voice(voice_id)
+	
 	show_dialogue(speaker, text)

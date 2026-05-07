@@ -27,6 +27,7 @@ MinigameManager="*uid://ydpkdoukubto"
 SaveManager="*uid://d26b0k6kc4v5p"
 LeaderboardManager="*uid://5tvo3wixmpo8"
 AudioManager="*uid://cwmow3waepyrk"
+AgeManager="*uid://df2228icfh1v7"
 
 [display]
 

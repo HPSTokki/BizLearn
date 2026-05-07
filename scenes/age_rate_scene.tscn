@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dxmwn7vh5dlk4"]
+
+[ext_resource type="Script" uid="uid://co6agtj5erlm8" path="res://scripts/age_rate_scene.gd" id="1_xb7uq"]
+
+[node name="AgeRateScene" type="Node2D" unique_id=105556837]
+script = ExtResource("1_xb7uq")

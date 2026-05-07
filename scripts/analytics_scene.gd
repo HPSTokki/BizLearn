@@ -110,15 +110,15 @@ func _build_ui() -> void:
 	# Divider
 	var divider = ColorRect.new()
 	divider.color = GameTheme.get_color("accent")
-	divider.custom_minimum_size = Vector2(0, 2)
+	divider.custom_minimum_size = Vector2(0, 1.5)
 	divider.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	vbox.add_child(divider)
 
 	# === STAT CARDS (2x2 grid) ===
 	var stat_grid = GridContainer.new()
 	stat_grid.columns = 2
-	stat_grid.add_theme_constant_override("h_separation", 12)
-	stat_grid.add_theme_constant_override("v_separation", 10)
+	stat_grid.add_theme_constant_override("h_separation", 10)
+	stat_grid.add_theme_constant_override("v_separation", 8)
 	stat_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	vbox.add_child(stat_grid)
 
@@ -225,7 +225,7 @@ func _build_header(vbox: VBoxContainer, screen_w: float) -> void:
 	day_text.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	day_text.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	day_text.add_theme_color_override("font_color", GameTheme.get_color("bg"))
-	GameTheme.apply_font(day_text, 18)  # Increased from 14
+	GameTheme.apply_font(day_text, 20)  # Increased from 14
 	day_badge.add_child(day_text)
 	vbox.add_child(day_badge)
 	
@@ -236,7 +236,7 @@ func _build_header(vbox: VBoxContainer, screen_w: float) -> void:
 	msg_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	msg_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	msg_label.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(msg_label, 13)  # Increased from 10
+	GameTheme.apply_font(msg_label, 15)  # Increased from 10
 	vbox.add_child(msg_label)
 
 func _get_day_message() -> String:
@@ -296,7 +296,7 @@ func _build_stat_card(stat_key: String, icon: String, label: String, bar_color: 
 	label_label.text = label
 	label_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	label_label.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(label_label, 12)  # Increased
+	GameTheme.apply_font(label_label, 14)  # Increased
 	top_row.add_child(label_label)
 	
 	var delta = _stat_deltas.get(stat_key, 0.0)
@@ -305,7 +305,7 @@ func _build_stat_card(stat_key: String, icon: String, label: String, bar_color: 
 	delta_label.add_theme_color_override("font_color",
 		GameTheme.get_color("positive") if delta >= 0 else GameTheme.get_color("negative")
 	)
-	GameTheme.apply_font(delta_label, 13)  # Increased
+	GameTheme.apply_font(delta_label, 15)  # Increased
 	top_row.add_child(delta_label)
 	
 	# Progress bar
@@ -344,7 +344,7 @@ func _build_stat_card(stat_key: String, icon: String, label: String, bar_color: 
 	var value_label = Label.new()
 	value_label.text = str(value) + " / 100"
 	value_label.add_theme_color_override("font_color", GameTheme.get_color("text"))
-	GameTheme.apply_font(value_label, 13)  # Increased
+	GameTheme.apply_font(value_label, 15)  # Increased
 	value_row.add_child(value_label)
 	
 	return card

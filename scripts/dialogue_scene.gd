@@ -574,7 +574,8 @@ func _push_first_node(node: Dictionary) -> void:
 # =========================================
 # CALLBACKS
 # =========================================
-func _on_dialogue_node_changed(speaker: String, text: String) -> void:
+func _on_dialogue_node_changed(speaker: String, text: String, voice_id: String = "") -> void:
+	# Voice will be handled by dialogue_box.gd, not needed here
 	_is_transitioning = true
 
 	var node = DialogueManager.get_current_node()

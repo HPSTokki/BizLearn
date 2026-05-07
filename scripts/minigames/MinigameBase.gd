@@ -91,7 +91,7 @@ func _build_results_panel(result: Dictionary) -> void:
 	header.text = "MINI-GAME COMPLETE"
 	header.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	header.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(header, 8)
+	GameTheme.apply_font(header, 12)
 	vbox.add_child(header)
 
 	# Outcome label
@@ -99,7 +99,7 @@ func _build_results_panel(result: Dictionary) -> void:
 	outcome_lbl.text = result["label"].to_upper()
 	outcome_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	outcome_lbl.add_theme_color_override("font_color", Color(result["color"]))
-	GameTheme.apply_font(outcome_lbl, 20)
+	GameTheme.apply_font(outcome_lbl, 22)
 	vbox.add_child(outcome_lbl)
 
 	# Divider
@@ -114,7 +114,7 @@ func _build_results_panel(result: Dictionary) -> void:
 	bonus_header.text = "BONUSES EARNED"
 	bonus_header.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	bonus_header.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(bonus_header, 8)
+	GameTheme.apply_font(bonus_header, 12)
 	vbox.add_child(bonus_header)
 
 	# Stat bonus rows
@@ -140,7 +140,7 @@ func _build_results_panel(result: Dictionary) -> void:
 
 		var icon_lbl = Label.new()
 		icon_lbl.text = stat_icons.get(stat, "?")
-		GameTheme.apply_font(icon_lbl, 14)
+		GameTheme.apply_font(icon_lbl, 16)
 		icon_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		row.add_child(icon_lbl)
 
@@ -148,8 +148,8 @@ func _build_results_panel(result: Dictionary) -> void:
 		stat_lbl.text = stat.to_upper()
 		stat_lbl.custom_minimum_size = Vector2(100, 0)
 		stat_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		stat_lbl.add_theme_color_override("font_color", GameTheme.get_color("text"))
-		GameTheme.apply_font(stat_lbl, 10)
+		stat_lbl.add_theme_color_override("font_color", "#f2f2f2")
+		GameTheme.apply_font(stat_lbl, 14)
 		row.add_child(stat_lbl)
 
 		var val_lbl = Label.new()
@@ -160,7 +160,7 @@ func _build_results_panel(result: Dictionary) -> void:
 		val_lbl.add_theme_color_override("font_color",
 			GameTheme.get_color("positive") if val > 0 else GameTheme.get_color("negative")
 		)
-		GameTheme.apply_font(val_lbl, 12)
+		GameTheme.apply_font(val_lbl, 14)
 		row.add_child(val_lbl)
 
 		var spacer_r = Control.new()

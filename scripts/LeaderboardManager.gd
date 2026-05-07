@@ -1,13 +1,12 @@
 extends Node
 
 # =========================================
-# PSEUDO LEADERBOARD MANAGER
+# PSEUDO LEADERBOARD MANAGER - Simplified
 # Generates fake leaderboard entries mixed with real player data
 # =========================================
 
 signal leaderboard_updated
 
-# Leaderboard entry structure
 class LeaderboardEntry:
 	var rank: int
 	var player_name: String
@@ -19,13 +18,10 @@ class LeaderboardEntry:
 	var is_real: bool
 	var timestamp: String
 
-# Generated fake player names pool
 const FAKE_NAMES = [
 	"BizWizard", "CoinMaster", "ProfitGuru", "CashFlow", "MarketKing",
 	"VentureViking", "StartupStar", "TradeTitan", "WealthWarden", "CapitalCrafter",
-	"BizNinja", "ProfitPanda", "CoinCollector", "MarketMage", "VentureVirtuoso",
-	"BizBaron", "CashCzar", "TradeTycoon", "WealthWizard", "StartupSensei",
-	"BizBrigade", "ProfitPhoenix", "CoinCaptain", "MarketMaestro", "VentureValiant"
+	"BizNinja", "ProfitPanda", "CoinCollector", "MarketMage", "VentureVirtuoso"
 ]
 
 const FAKE_SURNAMES = [
@@ -56,14 +52,12 @@ const GRADE_SCORES = {
 	"D": 25
 }
 
-var _current_leaderboard: Array = []
 var _player_real_entries: Array = []
 
 func _ready() -> void:
 	_load_player_entries()
 
 func _load_player_entries() -> void:
-	"""Load all completed business runs from save slots"""
 	_player_real_entries.clear()
 	
 	for slot_index in range(SaveManager.SLOT_COUNT):
@@ -75,29 +69,23 @@ func _load_player_entries() -> void:
 			entry.business_id = slot.get("business_id", "laundromat")
 			entry.business_name = BUSINESS_NAMES.get(entry.business_id, "Business")
 			entry.grade = slot.get("grade", "D")
-			entry.score = _grade_to_score(entry.grade)
+			entry.score = GRADE_SCORES.get(entry.grade, 50)
 			entry.day = slot.get("current_day", 5)
 			entry.is_real = true
 			entry.timestamp = slot.get("timestamp", "")
 			_player_real_entries.append(entry)
 
-func _grade_to_score(grade: String) -> float:
-	return GRADE_SCORES.get(grade, 50)
-
 func _generate_fake_entry(index: int, business_id: String = "") -> LeaderboardEntry:
-	"""Generate a single fake leaderboard entry"""
 	var entry = LeaderboardEntry.new()
 	
-	# Generate random name
 	var name = FAKE_NAMES[index % FAKE_NAMES.size()]
 	if randf() > 0.6:
 		name += " " + FAKE_SURNAMES[index % FAKE_SURNAMES.size()]
 	
 	entry.player_name = name
-	entry.business_id = business_id if business_id != "" else _random_business()
-	entry.business_name = BUSINESS_NAMES.get(entry.business_id, "Business")
+	entry.business_id = business_id if business_id != "" else "laundromat"
+	entry.business_name = BUSINESS_NAMES.get(entry.business_id, "Laundromat")
 	
-	# Generate weighted grade (more B and C grades for realism)
 	var grade_roll = randf()
 	if grade_roll < 0.05:
 		entry.grade = "S"
@@ -110,7 +98,7 @@ func _generate_fake_entry(index: int, business_id: String = "") -> LeaderboardEn
 	else:
 		entry.grade = "D"
 	
-	entry.score = _grade_to_score(entry.grade) + randf_range(-5, 5)
+	entry.score = GRADE_SCORES.get(entry.grade, 50) + randf_range(-5, 5)
 	entry.score = clamp(entry.score, 0, 100)
 	entry.day = 5
 	entry.is_real = false
@@ -118,29 +106,14 @@ func _generate_fake_entry(index: int, business_id: String = "") -> LeaderboardEn
 	
 	return entry
 
-func _random_business() -> String:
-	var businesses = ["coffee_shop", "laundromat", "flower_shop", "tech_startup"]
-	var weights = [0.35, 0.35, 0.15, 0.15]  # Coffee shop and laundromat most common
-	var roll = randf()
-	var cumulative = 0.0
-	for i in range(businesses.size()):
-		cumulative += weights[i]
-		if roll <= cumulative:
-			return businesses[i]
-	return "coffee_shop"
-
 func _random_timestamp() -> String:
 	var days_ago = randi() % 30
-	var hours_ago = randi() % 24
-	return "%d days ago" % days_ago if days_ago > 0 else "%d hours ago" % hours_ago
+	return str(days_ago) + " days ago" if days_ago > 0 else "Just now"
 
 func get_leaderboard(business_filter: String = "") -> Array:
-	"""Get combined leaderboard with player entries + fake entries"""
 	var all_entries = []
 	
-	# Always include player's best runs if any exist
 	if _player_real_entries.is_empty():
-		# If no real runs, generate 1-3 "guest" entries
 		var guest_entry = LeaderboardEntry.new()
 		guest_entry.player_name = "GUEST"
 		guest_entry.business_id = "laundromat"
@@ -152,7 +125,6 @@ func get_leaderboard(business_filter: String = "") -> Array:
 		guest_entry.timestamp = "Just now"
 		all_entries.append(guest_entry)
 	else:
-		# Add player's best run per business
 		var best_per_business = {}
 		for entry in _player_real_entries:
 			if not best_per_business.has(entry.business_id) or entry.score > best_per_business[entry.business_id].score:
@@ -161,42 +133,28 @@ func get_leaderboard(business_filter: String = "") -> Array:
 		for entry in best_per_business.values():
 			all_entries.append(entry)
 	
-	# Add fake entries to reach 15-20 total entries
-	var target_count = 18
+	var target_count = 6
 	var fake_needed = target_count - all_entries.size()
 	
 	for i in range(fake_needed):
-		# If filtering by business, generate same business
-		var biz = business_filter if business_filter != "" else ""
+		var biz = business_filter if business_filter != "" else "laundromat"
 		all_entries.append(_generate_fake_entry(i, biz))
 	
-	# Sort by score (descending), then by timestamp for ties
 	all_entries.sort_custom(func(a, b): 
 		if abs(a.score - b.score) < 0.1:
-			return a.timestamp < b.timestamp  # More recent first
+			return a.timestamp < b.timestamp
 		return a.score > b.score
 	)
 	
-	# Assign ranks
 	for i in range(all_entries.size()):
 		all_entries[i].rank = i + 1
 	
-	# Filter by business if needed
 	if business_filter != "":
 		all_entries = all_entries.filter(func(e): return e.business_id == business_filter)
 	
 	return all_entries
 
-func get_player_best_rank(business_id: String = "") -> int:
-	"""Get player's best rank for a specific business"""
-	var leaderboard = get_leaderboard(business_id)
-	var player_entries = leaderboard.filter(func(e): return e.is_real)
-	if player_entries.is_empty():
-		return -1
-	return player_entries[0].rank if player_entries[0].rank <= 10 else -1
-
 func get_player_best_grade(business_id: String = "") -> String:
-	"""Get player's best grade for a specific business"""
 	var player_best = null
 	for entry in _player_real_entries:
 		if business_id == "" or entry.business_id == business_id:

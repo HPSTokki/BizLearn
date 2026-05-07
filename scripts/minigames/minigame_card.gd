@@ -170,13 +170,13 @@ func _build_ui() -> void:
 	title.text = "BUSINESS DECISIONS"
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	title.add_theme_color_override("font_color", GameTheme.get_color("accent"))
-	GameTheme.apply_font(title, 14)
+	GameTheme.apply_font(title, 24)
 	header_row.add_child(title)
 
 	score_lbl = Label.new()
 	score_lbl.text = "⭐ 0"
 	score_lbl.add_theme_color_override("font_color", GameTheme.get_color("accent"))
-	GameTheme.apply_font(score_lbl, 12)
+	GameTheme.apply_font(score_lbl, 16)
 	header_row.add_child(score_lbl)
 
 	# Progress
@@ -184,7 +184,7 @@ func _build_ui() -> void:
 	progress_lbl.text = "Decision 1 of " + str(CARDS_TOTAL)
 	progress_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	progress_lbl.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(progress_lbl, 9)
+	GameTheme.apply_font(progress_lbl, 13)
 	vbox.add_child(progress_lbl)
 
 	# Instruction
@@ -192,7 +192,7 @@ func _build_ui() -> void:
 	instr.text = "Make the best business decision for each situation."
 	instr.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	instr.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(instr, 9)
+	GameTheme.apply_font(instr, 13)
 	vbox.add_child(instr)
 
 	# Divider
@@ -229,7 +229,7 @@ func _build_ui() -> void:
 	situation_header.text = "SITUATION"
 	situation_header.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	situation_header.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(situation_header, 8)
+	GameTheme.apply_font(situation_header, 12)
 	card_inner.add_child(situation_header)
 
 	situation_lbl = Label.new()
@@ -238,8 +238,8 @@ func _build_ui() -> void:
 	situation_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	situation_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	situation_lbl.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	situation_lbl.add_theme_color_override("font_color", GameTheme.get_color("text"))
-	GameTheme.apply_font(situation_lbl, 13)
+	situation_lbl.add_theme_color_override("font_color", "#f2f2f2")
+	GameTheme.apply_font(situation_lbl, 15)
 	card_inner.add_child(situation_lbl)
 
 	# Hint label (shows after choice)
@@ -248,7 +248,7 @@ func _build_ui() -> void:
 	hint_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	hint_lbl.custom_minimum_size = Vector2(0, 24)
 	hint_lbl.modulate.a = 0.0
-	GameTheme.apply_font(hint_lbl, 9)
+	GameTheme.apply_font(hint_lbl, 13)
 	vbox.add_child(hint_lbl)
 
 	# Spacer
@@ -402,14 +402,14 @@ func _build_results_panel(result: Dictionary) -> void:
 	header.text = "DECISIONS COMPLETE"
 	header.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	header.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(header, 8)
+	GameTheme.apply_font(header, 12)
 	vbox.add_child(header)
 
 	var outcome_lbl = Label.new()
 	outcome_lbl.text = result["label"].to_upper()
 	outcome_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	outcome_lbl.add_theme_color_override("font_color", Color(result["color"]))
-	GameTheme.apply_font(outcome_lbl, 20)
+	GameTheme.apply_font(outcome_lbl, 24)
 	vbox.add_child(outcome_lbl)
 
 	var div = ColorRect.new()
@@ -422,7 +422,7 @@ func _build_results_panel(result: Dictionary) -> void:
 	bonus_header.text = "BONUSES EARNED"
 	bonus_header.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	bonus_header.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(bonus_header, 8)
+	GameTheme.apply_font(bonus_header, 12)
 	vbox.add_child(bonus_header)
 
 	var bonus_row = HBoxContainer.new()
@@ -440,7 +440,7 @@ func _build_results_panel(result: Dictionary) -> void:
 		b.add_theme_color_override("font_color",
 			GameTheme.get_color("positive") if val > 0 else GameTheme.get_color("negative")
 		)
-		GameTheme.apply_font(b, 12)
+		GameTheme.apply_font(b, 14)
 		bonus_row.add_child(b)
 
 	var spacer = Control.new()

@@ -26,6 +26,15 @@ const PARTICLE_COUNT = 25
 # LIFECYCLE
 # =========================================
 func _ready() -> void:
+	# Check age gate FIRST before anything else
+	if AgeManager.needs_age_check():
+		get_tree().change_scene_to_file("res://scenes/age_rate_scene.tscn")
+		return
+	
+	# Only build UI if age is already set
+	_init_main_menu()
+
+func _init_main_menu() -> void:
 	GameTheme.set_theme("laundromat")
 	screen_w = get_viewport().get_visible_rect().size.x
 	screen_h = get_viewport().get_visible_rect().size.y
@@ -37,12 +46,12 @@ func _ready() -> void:
 	_build_logo_section()
 	_build_buttons()
 	_build_version_label()
-	
 	AudioManager.play_music("menu_theme", 0.5)
 
 # =========================================
 # BUILD
 # =========================================
+
 func _build_canvas() -> void:
 	canvas = CanvasLayer.new()
 	add_child(canvas)
@@ -147,9 +156,9 @@ func _build_logo_section() -> void:
 	logo_main.text = "BIZLearn"
 	logo_main.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	logo_main.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	logo_main.add_theme_font_size_override("font_size", 44)
+	logo_main.add_theme_font_size_override("font_size", 60)
 	logo_main.add_theme_color_override("font_color", COLOR_ACCENT)
-	GameTheme.apply_font(logo_main, 44)
+	GameTheme.apply_font(logo_main, 60)
 	logo_container.add_child(logo_main)
 
 	var underline = ColorRect.new()
@@ -162,9 +171,9 @@ func _build_logo_section() -> void:
 	tagline.text = "Run it. Learn it. Own it."
 	tagline.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	tagline.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	tagline.add_theme_font_size_override("font_size", 10)
+	tagline.add_theme_font_size_override("font_size", 20)
 	tagline.add_theme_color_override("font_color", COLOR_DIM)
-	GameTheme.apply_font(tagline, 10)
+	GameTheme.apply_font(tagline, 20)
 	logo_container.add_child(tagline)
 
 func _build_buttons() -> void:

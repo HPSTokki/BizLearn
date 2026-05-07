@@ -98,20 +98,20 @@ func _build_ui() -> void:
 	title.text = "BUDGET ALLOCATION"
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	title.add_theme_color_override("font_color", GameTheme.get_color("accent"))
-	GameTheme.apply_font(title, 16)
+	GameTheme.apply_font(title, 26)
 	header_row.add_child(title)
 
 	timer_label = Label.new()
 	timer_label.text = "⏱ " + str(int(TIME_LIMIT)) + "s"
-	timer_label.add_theme_color_override("font_color", GameTheme.get_color("text"))
-	GameTheme.apply_font(timer_label, 14)
+	timer_label.add_theme_color_override("font_color", "#f2f2f2")
+	GameTheme.apply_font(timer_label, 18)
 	header_row.add_child(timer_label)
 
 	var instr = Label.new()
 	instr.text = "Allocate 100 points"
 	instr.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	instr.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(instr, 10)
+	GameTheme.apply_font(instr, 16)
 	vbox.add_child(instr)
 
 	# Remaining budget pill
@@ -131,13 +131,13 @@ func _build_ui() -> void:
 	var remaining_static = Label.new()
 	remaining_static.text = "REMAINING:"
 	remaining_static.add_theme_color_override("font_color", GameTheme.get_color("bg"))
-	GameTheme.apply_font(remaining_static, 12)
+	GameTheme.apply_font(remaining_static, 16)
 	remaining_row.add_child(remaining_static)
 
 	remaining_label = Label.new()
 	remaining_label.text = "100"
 	remaining_label.add_theme_color_override("font_color", GameTheme.get_color("bg"))
-	GameTheme.apply_font(remaining_label, 14)
+	GameTheme.apply_font(remaining_label, 18)
 	remaining_row.add_child(remaining_label)
 
 	# 2-COLUMN GRID for allocation rows
@@ -174,6 +174,7 @@ func _build_ui() -> void:
 	var submit_btn = GameTheme.build_button("✓  SUBMIT", true, 14)
 	submit_btn.custom_minimum_size = Vector2(0, 44)
 	GameTheme.connect_button(submit_btn, _submit)
+	submit_btn.add_theme_color_override("font_color", "#333333")
 	vbox.add_child(submit_btn)
 
 func _build_area_card(area: String) -> PanelContainer:
@@ -201,15 +202,15 @@ func _build_area_card(area: String) -> PanelContainer:
 
 	var icon_lbl = Label.new()
 	icon_lbl.text = AREA_ICONS[area]
-	GameTheme.apply_font(icon_lbl, 16)
+	GameTheme.apply_font(icon_lbl, 18)
 	name_row.add_child(icon_lbl)
 
 	var name_lbl = Label.new()
 	name_lbl.text = area
 	name_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	name_lbl.add_theme_color_override("font_color", GameTheme.get_color("text"))
-	GameTheme.apply_font(name_lbl, 11)
+	name_lbl.add_theme_color_override("font_color", "#f2f2f2")
+	GameTheme.apply_font(name_lbl, 15)
 	name_row.add_child(name_lbl)
 
 	# Value controls row
@@ -228,7 +229,7 @@ func _build_area_card(area: String) -> PanelContainer:
 	val_lbl.custom_minimum_size = Vector2(45, 0)
 	val_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	val_lbl.add_theme_color_override("font_color", Color(AREA_COLORS[area]))
-	GameTheme.apply_font(val_lbl, 18)
+	GameTheme.apply_font(val_lbl, 22)
 	control_row.add_child(val_lbl)
 
 	var plus_btn = GameTheme.build_button("+", false, 16)
@@ -329,7 +330,7 @@ func _build_results_panel(result: Dictionary) -> void:
 	outcome_lbl.text = result["label"].to_upper()
 	outcome_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	outcome_lbl.add_theme_color_override("font_color", Color(result["color"]))
-	GameTheme.apply_font(outcome_lbl, 20)
+	GameTheme.apply_font(outcome_lbl, 24)
 	vbox.add_child(outcome_lbl)
 
 	var div = ColorRect.new()
@@ -352,14 +353,14 @@ func _build_results_panel(result: Dictionary) -> void:
 		
 		var icon = Label.new()
 		icon.text = AREA_ICONS[area]
-		GameTheme.apply_font(icon, 12)
+		GameTheme.apply_font(icon, 16)
 		row_container.add_child(icon)
 
 		var name_l = Label.new()
 		name_l.text = area
 		name_l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		name_l.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-		GameTheme.apply_font(name_l, 10)
+		GameTheme.apply_font(name_l, 18)
 		row_container.add_child(name_l)
 
 		var yours = allocations[area]
@@ -370,7 +371,7 @@ func _build_results_panel(result: Dictionary) -> void:
 		yours_l.add_theme_color_override("font_color",
 			GameTheme.get_color("positive") if abs(yours - opt) <= 5 else GameTheme.get_color("negative")
 		)
-		GameTheme.apply_font(yours_l, 12)
+		GameTheme.apply_font(yours_l, 16)
 		row_container.add_child(yours_l)
 		
 		results_grid.add_child(row_container)
@@ -390,7 +391,7 @@ func _build_results_panel(result: Dictionary) -> void:
 		b_lbl.add_theme_color_override("font_color",
 			GameTheme.get_color("positive") if val > 0 else GameTheme.get_color("negative")
 		)
-		GameTheme.apply_font(b_lbl, 12)
+		GameTheme.apply_font(b_lbl, 16)
 		bonus_row.add_child(b_lbl)
 
 	var spacer = Control.new()

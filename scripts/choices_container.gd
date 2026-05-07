@@ -195,7 +195,7 @@ func _on_choices_updated(choices: Array) -> void:
 	
 	show_choices(choices)
 
-func _on_dialogue_updated(_speaker: String, _text: String) -> void:
+func _on_dialogue_updated(_speaker: String, _text: String, _voice_id: String = "") -> void:
 	print("Dialogue updated: ", _speaker, " - ", _text.substr(0, 30))
 	# Only hide if visible
 	if visible:

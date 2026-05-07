@@ -112,13 +112,13 @@ func _build_ui() -> void:
 	title.text = "BUDGET PUZZLE"
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	title.add_theme_color_override("font_color", GameTheme.get_color("accent"))
-	GameTheme.apply_font(title, 16)
+	GameTheme.apply_font(title, 20)
 	header_row.add_child(title)
 
 	timer_label = Label.new()
 	timer_label.text = "⏱ " + str(int(TIME_LIMIT)) + "s"
-	timer_label.add_theme_color_override("font_color", GameTheme.get_color("text"))
-	GameTheme.apply_font(timer_label, 14)
+	timer_label.add_theme_color_override("font_color", "#f2f2f2")
+	GameTheme.apply_font(timer_label, 18)
 	header_row.add_child(timer_label)
 
 	# Progress row
@@ -130,13 +130,13 @@ func _build_ui() -> void:
 	progress_label.text = "1 / " + str(CARDS_TOTAL)
 	progress_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	progress_label.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(progress_label, 11)
+	GameTheme.apply_font(progress_label, 15)
 	info_row.add_child(progress_label)
 
 	score_label = Label.new()
 	score_label.text = "✓ 0"
 	score_label.add_theme_color_override("font_color", GameTheme.get_color("positive"))
-	GameTheme.apply_font(score_label, 13)
+	GameTheme.apply_font(score_label, 17)
 	info_row.add_child(score_label)
 
 	# Expense card
@@ -161,7 +161,7 @@ func _build_ui() -> void:
 	expense_header.text = "EXPENSE"
 	expense_header.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	expense_header.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(expense_header, 9)
+	GameTheme.apply_font(expense_header, 13)
 	card_vbox.add_child(expense_header)
 
 	card_text_lbl = Label.new()
@@ -170,8 +170,8 @@ func _build_ui() -> void:
 	card_text_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	card_text_lbl.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	card_text_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	card_text_lbl.add_theme_color_override("font_color", GameTheme.get_color("text"))
-	GameTheme.apply_font(card_text_lbl, 16)
+	card_text_lbl.add_theme_color_override("font_color", "#f2f2f2")
+	GameTheme.apply_font(card_text_lbl, 20)
 	card_vbox.add_child(card_text_lbl)
 
 	# Feedback line
@@ -180,7 +180,7 @@ func _build_ui() -> void:
 	feedback_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	feedback_lbl.custom_minimum_size = Vector2(0, 28)
 	feedback_lbl.modulate.a = 0.0
-	GameTheme.apply_font(feedback_lbl, 11)
+	GameTheme.apply_font(feedback_lbl, 15)
 	vbox.add_child(feedback_lbl)
 
 	var spacer = Control.new()
@@ -231,7 +231,7 @@ func _build_category_btn(category: String) -> PanelContainer:
 	lbl.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	lbl.add_theme_color_override("font_color", color)
-	GameTheme.apply_font(lbl, 14)
+	GameTheme.apply_font(lbl, 18)
 	btn.add_child(lbl)
 
 	btn.gui_input.connect(func(event: InputEvent):
@@ -334,14 +334,14 @@ func _build_results_panel(result: Dictionary) -> void:
 	outcome_lbl.text = result["label"].to_upper()
 	outcome_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	outcome_lbl.add_theme_color_override("font_color", Color(result["color"]))
-	GameTheme.apply_font(outcome_lbl, 22)
+	GameTheme.apply_font(outcome_lbl, 26)
 	vbox.add_child(outcome_lbl)
 
 	var score_lbl = Label.new()
 	score_lbl.text = str(correct_count) + " / " + str(CARDS_TOTAL) + " correct"
 	score_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	score_lbl.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(score_lbl, 12)
+	GameTheme.apply_font(score_lbl, 14)
 	vbox.add_child(score_lbl)
 
 	var div = ColorRect.new()
@@ -354,7 +354,7 @@ func _build_results_panel(result: Dictionary) -> void:
 	bonus_header.text = "BONUSES"
 	bonus_header.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	bonus_header.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(bonus_header, 10)
+	GameTheme.apply_font(bonus_header, 14)
 	vbox.add_child(bonus_header)
 
 	var bonus_row = HBoxContainer.new()
@@ -372,7 +372,7 @@ func _build_results_panel(result: Dictionary) -> void:
 		b_lbl.add_theme_color_override("font_color",
 			GameTheme.get_color("positive") if val > 0 else GameTheme.get_color("negative")
 		)
-		GameTheme.apply_font(b_lbl, 13)
+		GameTheme.apply_font(b_lbl, 16)
 		bonus_row.add_child(b_lbl)
 
 	var spacer = Control.new()

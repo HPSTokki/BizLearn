@@ -20,6 +20,7 @@
 	"d1e1_first_customer": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
+	  "voice_id": "mentor_welcome",
 	  "background": "shop_day",
 	  "text": "Welcome to your laundromat! Your first customer just walked in carrying a heavy laundry bag. First impressions matter.",
 	  "choices": [],
@@ -83,6 +84,7 @@
 	"d1e1_result_good": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
+	  "voice_id": "mentor_d1e1_good",
 	  "background": "shop_day",
 	  "text": "Excellent! A warm welcome creates loyal customers. First impressions build lasting relationships.",
 	  "choices": [],
@@ -91,6 +93,7 @@
 	"d1e1_result_neutral": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
+	 "voice_id": "mentor_d1e1_neutral",
 	  "background": "shop_day",
 	  "text": "Not terrible, but proactive service could have turned that into a loyal regular.",
 	  "choices": [],
@@ -99,6 +102,7 @@
 	"d1e1_result_bad": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
+	 "voice_id": "mentor_d1e1_bad",
 	  "background": "shop_day",
 	  "text": "That customer is never coming back. In business, every person who walks in is an opportunity.",
 	  "choices": [],
@@ -184,6 +188,7 @@
 	"d1r_machine_result_calm": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
+	  "voice_id": "mentor_d1r_machine_calm",
 	  "background": "shop_day",
 	  "text": "People first, then problems. Calming the customer before solving the issue showed genuine care. That's leadership.",
 	  "choices": [],
@@ -192,6 +197,7 @@
 	"d1r_machine_result_fix": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
+	 "voice_id": "mentor_d1r_machine_fix",
 	  "background": "shop_day",
 	  "text": "You fixed the machine quickly, but the customer felt neglected. Technical skills matter, but people skills matter more.",
 	  "choices": [],
@@ -201,6 +207,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
+	 "voice_id": "mentor_d1r_machine_refund",
 	  "text": "Generous service recovery builds incredible loyalty. That customer will tell everyone about your generosity.",
 	  "choices": [],
 	  "next": "end"
@@ -209,6 +216,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
+	 "voice_id": "mentor_d1r_machine_ignore",
 	  "text": "Ignoring problems doesn't make them disappear. Acknowledging issues builds trust you can't buy.",
 	  "choices": [],
 	  "next": "end"
@@ -279,6 +287,7 @@
 	"d1r_spilled_result_together": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
+	 "voice_id": "mentor_d1r_spilled_together",
 	  "background": "shop_day",
 	  "text": "Teamwork during accidents builds community. You turned an embarrassing moment into a connection.",
 	  "choices": [],
@@ -287,6 +296,7 @@
 	"d1r_spilled_result_clean": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
+	 "voice_id": "mentor_d1r_spilled_clean",
 	  "background": "shop_day",
 	  "text": "Grace under pressure earns respect. That customer will remember how you made them feel, not the accident.",
 	  "choices": [],
@@ -296,6 +306,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
+	 "voice_id": "mentor_d1r_spilled_blame",
 	  "text": "Blaming customers for honest mistakes drives them away. A little empathy goes a long way.",
 	  "choices": [],
 	  "next": "end"
@@ -380,6 +391,7 @@
 	"d1r_kind_result_gift": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
+	  "voice_id": "mentor_d1r_kind_gift",
 	  "background": "shop_day",
 	  "text": "Generosity toward strangers creates powerful word of mouth. You just gained a brand ambassador.",
 	  "choices": [],
@@ -388,6 +400,7 @@
 	"d1r_kind_result_ask": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
+	 "voice_id": "mentor_d1r_kind_ask",
 	  "background": "shop_day",
 	  "text": "Genuine curiosity builds community. Understanding why people love your business helps you grow it.",
 	  "choices": [],
@@ -396,6 +409,7 @@
 	"d1r_kind_result_share": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
+	"voice_id": "mentor_d1r_kind_share",
 	  "background": "shop_day",
 	  "text": "Authentic stories travel further than any advertisement. Organic advocacy is the most credible marketing.",
 	  "choices": [],
@@ -404,6 +418,7 @@
 	"d1r_kind_result_brief": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
+	"voice_id": "mentor_d1r_kind_brief",
 	  "background": "shop_day",
 	  "text": "Efficiency matters, but human connection has compounding value. Sometimes slowing down briefly is the most productive thing you can do.",
 	  "choices": [],
@@ -413,6 +428,7 @@
 	"d1e3_supplier_call": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
+	"voice_id": "mentor_d1e3_supplier_start",
 	  "background": "office",
 	  "text": "Your detergent supplier just called. They're offering a bulk discount on laundry supplies.",
 	  "choices": [],
@@ -476,6 +492,7 @@
 	"d1e3_supplier_result_bulk": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
+	"voice_id": "mentor_d1e3_supplier_bulk",
 	  "background": "office",
 	  "text": "Bold move! Cash flow took a hit, but a fully stocked laundromat signals reliability to customers.",
 	  "choices": [],
@@ -484,6 +501,7 @@
 	"d1e3_supplier_result_safe": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
+	"voice_id": "mentor_d1e3_supplier_safe",
 	  "background": "office",
 	  "text": "Cautious but reasonable. Managing cash flow carefully is a real skill in business.",
 	  "choices": [],
@@ -492,6 +510,7 @@
 	"d1e3_supplier_result_skip": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
+	"voice_id": "mentor_d1e3_supplier_skip",
 	  "background": "office",
 	  "text": "Saving cash is tempting, but customers notice when you're out of basic supplies. Balance is key.",
 	  "choices": [],
@@ -501,6 +520,7 @@
 	"d1e4_staff_training": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
+	  "voice_id": "mentor_d1e4_training_start",
 	  "background": "shop_day",
 	  "text": "Your part-time staff member wants to learn how to handle machine maintenance. A great opportunity to build skills.",
 	  "choices": [],
@@ -564,6 +584,7 @@
 	"d1e4_staff_result_train": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
+	 "voice_id": "mentor_d1e4_training_train",
 	  "background": "shop_day",
 	  "text": "Investing in your team's growth builds loyalty and capability. A trained staff member is an asset.",
 	  "choices": [],
@@ -572,6 +593,7 @@
 	"d1e4_staff_result_watch": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
+	 "voice_id": "mentor_d1e4_training_watch",
 	  "background": "shop_day",
 	  "text": "Some training is better than none, but formal investment signals you value their development.",
 	  "choices": [],
@@ -580,6 +602,7 @@
 	"d1e4_staff_result_refuse": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
+	 "voice_id": "mentor_d1e4_training_refuse",
 	  "background": "shop_day",
 	  "text": "Neglecting staff development breeds resentment. Your team is your greatest resource — invest in them.",
 	  "choices": [],
@@ -589,6 +612,7 @@
 	"d1e5_day_end": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
+	 "voice_id": "mentor_d1e5_end_start",
 	  "background": "shop_evening",
 	  "text": "End of your first day! A regular customer wants to thank you for your service today.",
 	  "choices": [],
@@ -652,6 +676,7 @@
 	"d1e5_result_feedback": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
+	"voice_id": "mentor_d1e5_end_feedback",
 	  "background": "shop_evening",
 	  "text": "Actively seeking and accepting feedback builds trust. Customers feel valued when you listen. Great way to end day one!",
 	  "choices": [],
@@ -660,6 +685,7 @@
 	"d1e5_result_listen": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
+	"voice_id": "mentor_d1e5_end_listen",
 	  "background": "shop_evening",
 	  "text": "Listening is good, but engagement is better. Next time, show genuine interest in what they have to say.",
 	  "choices": [],
@@ -668,6 +694,7 @@
 	"d1e5_result_brush": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
+	"voice_id": "mentor_d1e5_end_brush",
 	  "background": "shop_evening",
 	  "text": "Dismissing loyal customers is dangerous. A moment of tiredness can undo weeks of good service.",
 	  "choices": [],

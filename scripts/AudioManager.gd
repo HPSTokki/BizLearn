@@ -1,11 +1,12 @@
 extends Node
 
 # =========================================
-# SIMPLE AUDIO MANAGER
+# SIMPLE AUDIO MANAGER with Voice Support
 # =========================================
 
 var music_player: AudioStreamPlayer = null
 var sfx_players: Array = []
+var voice_player: AudioStreamPlayer = null  # ← ADD THIS
 
 func _ready() -> void:
 	# Create music player
@@ -19,6 +20,11 @@ func _ready() -> void:
 		sfx.bus = "SFX"
 		add_child(sfx)
 		sfx_players.append(sfx)
+	
+	# ← ADD THIS: Create voice player
+	voice_player = AudioStreamPlayer.new()
+	voice_player.bus = "Voice"
+	add_child(voice_player)
 
 func play_music(music_name: String, fade_in: float = 0.0) -> void:
 	var path = "res://assets/audio/music/" + music_name + ".mp3"
@@ -56,6 +62,32 @@ func play_sfx(sfx_name: String) -> void:
 	sfx_players[0].stream = stream
 	sfx_players[0].play()
 
+# ← ADD THIS: Mentor voice function
+func play_mentor_voice(voice_id: String) -> void:
+	"""Play mentor voice line from assets/audio/voice/mentor/ folder"""
+	# Try .ogg first, then .wav
+	var path = "res://assets/audio/voice/mentor/" + voice_id + ".ogg"
+	if not ResourceLoader.exists(path):
+		path = "res://assets/audio/voice/mentor/" + voice_id + ".wav"
+	
+	if not ResourceLoader.exists(path):
+		# Silent fail - no voice file
+		return
+	
+	var stream = load(path) as AudioStream
+	
+	# Stop current voice if playing
+	if voice_player.playing:
+		voice_player.stop()
+	
+	voice_player.stream = stream
+	voice_player.play()
+
+# ← ADD THIS: Stop voice
+func stop_voice() -> void:
+	if voice_player.playing:
+		voice_player.stop()
+
 func stop_music(fade_out: float = 0.0) -> void:
 	if fade_out > 0:
 		var tween = create_tween()
@@ -70,3 +102,7 @@ func set_music_volume(value: float) -> void:
 func set_sfx_volume(value: float) -> void:
 	for player in sfx_players:
 		player.volume_db = linear_to_db(value / 100.0)
+
+# ← ADD THIS: Voice volume control
+func set_voice_volume(value: float) -> void:
+	voice_player.volume_db = linear_to_db(value / 100.0)

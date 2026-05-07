@@ -21,7 +21,7 @@ const THEMES = {
 		"bg":           Color("#2c2a2a"),      # Dark charcoal
 		"panel_dark":   Color("#3a3535"),      # Warm dark gray
 		"panel_mid":    Color("#4a4545"),      # Mid gray
-		"text":         Color("#f4e9d8"),      # Warm off-white
+		"text":         Color("#2c2a2a"),      # Warm off-white
 		"dim":          Color("#a39a8c"),      # Muted beige-gray
 		"positive":     Color("#8cb369"),      # Sage green
 		"negative":     Color("#bc4a4a"),      # Brick red

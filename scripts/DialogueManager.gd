@@ -3,7 +3,7 @@ extends Node
 # =========================================
 # SIGNALS
 # =========================================
-signal dialogue_updated(speaker: String, text: String)
+signal dialogue_updated(speaker: String, text: String, voice_id: String)
 signal choices_updated(choices: Array)
 signal stats_changed(stat_name: String, new_value: float)
 signal minigame_triggered(minigame_id: String)
@@ -504,8 +504,11 @@ func _load_node(node_id: String) -> void:
 	print("Next node: ", current_node.get("next", "MISSING"))
 
 	var speaker: String = current_node.get("speaker", "")
-	var text:    String = current_node.get("text", "")
-	emit_signal("dialogue_updated", speaker, text)
+	var text: String = current_node.get("text", "")
+	var voice_id: String = current_node.get("voice_id", "")  # ← ADD THIS
+	
+	# Emit with voice_id
+	emit_signal("dialogue_updated", speaker, text, voice_id)  # ← MODIFIED
 
 	# CRITICAL FIX: Only emit choices if there are ACTUAL choices AND we're not at the end
 	var choices: Array = current_node.get("choices", [])
@@ -517,7 +520,7 @@ func _load_node(node_id: String) -> void:
 		print("Emitting choices_updated for node: ", node_id)
 		emit_signal("choices_updated", choices)
 	else:
-		print("Node ", node_id, " has no choices or is a result node")  # DEBUG
+		print("Node ", node_id, " has no choices or is a result node")
 
 func load_node_direct(node_id: String) -> void:
 	if node_id == "" or node_id == "end":

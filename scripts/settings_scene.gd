@@ -116,7 +116,7 @@ func _build_ui() -> void:
 	title.text = "⚙️  SETTINGS"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_color_override("font_color", GameTheme.get_color("accent"))
-	GameTheme.apply_font(title, 16)
+	GameTheme.apply_font(title, 20)
 	vbox.add_child(title)
 
 	# Divider
@@ -157,14 +157,14 @@ func _build_ui() -> void:
 	btn_row.add_theme_constant_override("separation", 12)
 	vbox.add_child(btn_row)
 
-	var save_btn = GameTheme.build_button("✓  SAVE", true, 12)
-	save_btn.custom_minimum_size = Vector2(screen_w * 0.35, 40)
+	var save_btn = GameTheme.build_button("✓  SAVE", true, 16)
+	save_btn.custom_minimum_size = Vector2(screen_w * 0.30, 38)
 	save_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	GameTheme.connect_button(save_btn, _on_save_pressed)
 	btn_row.add_child(save_btn)
 
-	var back_btn = GameTheme.build_button("◂  BACK", false, 12)
-	back_btn.custom_minimum_size = Vector2(screen_w * 0.25, 40)
+	var back_btn = GameTheme.build_button("◂  BACK", false, 16)
+	back_btn.custom_minimum_size = Vector2(screen_w * 0.20, 38)
 	back_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	GameTheme.connect_button(back_btn, _on_back_pressed)
 	btn_row.add_child(back_btn)
@@ -185,8 +185,8 @@ func _build_tab_bar() -> HBoxContainer:
 	return bar
 
 func _build_tab_button(label: String, index: int) -> PanelContainer:
-	var btn = GameTheme.build_button(label, index == active_tab, 11)
-	btn.custom_minimum_size = Vector2(80, 34)
+	var btn = GameTheme.build_button(label, index == active_tab, 14)
+	btn.custom_minimum_size = Vector2(75, 33)
 	GameTheme.connect_button(btn, func(): _switch_tab(index))
 	return btn
 
@@ -254,7 +254,7 @@ func _build_section_header(text: String) -> Label:
 	lbl.text = "— " + text + " —"
 	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	lbl.add_theme_color_override("font_color", GameTheme.get_color("accent"))
-	GameTheme.apply_font(lbl, 9)
+	GameTheme.apply_font(lbl, 16)
 	lbl.custom_minimum_size = Vector2(0, 22)
 	return lbl
 
@@ -271,7 +271,7 @@ func _build_toggle_row(label: String, setting_key: String) -> HBoxContainer:
 	var lbl = Label.new()
 	lbl.text = label.to_upper()
 	lbl.add_theme_color_override("font_color", GameTheme.get_color("text"))
-	GameTheme.apply_font(lbl, 11)
+	GameTheme.apply_font(lbl, 15)
 	left.add_child(lbl)
 
 	var toggle = PanelContainer.new()
@@ -290,7 +290,7 @@ func _build_toggle_row(label: String, setting_key: String) -> HBoxContainer:
 	toggle_lbl.add_theme_color_override("font_color",
 		GameTheme.get_color("bg") if is_on else GameTheme.get_color("dim")
 	)
-	GameTheme.apply_font(toggle_lbl, 10)
+	GameTheme.apply_font(toggle_lbl, 14)
 	toggle.add_child(toggle_lbl)
 
 	toggle.gui_input.connect(func(event: InputEvent):
@@ -338,13 +338,13 @@ func _build_slider_row(label: String, setting_key: String) -> VBoxContainer:
 	lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	lbl.add_theme_color_override("font_color", GameTheme.get_color("text"))
-	GameTheme.apply_font(lbl, 11)
+	GameTheme.apply_font(lbl, 15)
 	top_row.add_child(lbl)
 
 	var val_lbl = Label.new()
 	val_lbl.text = str(settings.get(setting_key, 100)) + "%"
 	val_lbl.add_theme_color_override("font_color", GameTheme.get_color("accent"))
-	GameTheme.apply_font(val_lbl, 12)
+	GameTheme.apply_font(val_lbl, 16)
 	top_row.add_child(val_lbl)
 
 	var slider = HSlider.new()
@@ -404,7 +404,7 @@ func _build_option_row(label: String, setting_key: String, options: Array) -> VB
 	lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	lbl.add_theme_color_override("font_color", GameTheme.get_color("text"))
-	GameTheme.apply_font(lbl, 11)
+	GameTheme.apply_font(lbl, 15)
 	top_row.add_child(lbl)
 
 	var current_idx = settings.get(setting_key, 0)
@@ -414,8 +414,8 @@ func _build_option_row(label: String, setting_key: String, options: Array) -> VB
 	arrow_row.alignment = BoxContainer.ALIGNMENT_END
 	container.add_child(arrow_row)
 
-	var left_btn = GameTheme.build_button("◂", false, 14)
-	left_btn.custom_minimum_size = Vector2(40, 34)
+	var left_btn = GameTheme.build_button("◂", false, 16)
+	left_btn.custom_minimum_size = Vector2(38, 32)
 	arrow_row.add_child(left_btn)
 
 	var opt_container = PanelContainer.new()
@@ -429,12 +429,13 @@ func _build_option_row(label: String, setting_key: String, options: Array) -> VB
 	opt_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	opt_lbl.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	opt_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	opt_lbl.add_theme_color_override("font_color", GameTheme.get_color("accent"))
-	GameTheme.apply_font(opt_lbl, 11)
+	# FIX: Hardcode font color to white/light color
+	opt_lbl.add_theme_color_override("font_color", Color("#f4e9d8"))  # ← Changed to light off-white
+	GameTheme.apply_font(opt_lbl, 15)
 	opt_container.add_child(opt_lbl)
 
-	var right_btn = GameTheme.build_button("▸", false, 14)
-	right_btn.custom_minimum_size = Vector2(40, 34)
+	var right_btn = GameTheme.build_button("▸", false, 16)
+	right_btn.custom_minimum_size = Vector2(38, 32)
 	arrow_row.add_child(right_btn)
 
 	var idx = [current_idx]
