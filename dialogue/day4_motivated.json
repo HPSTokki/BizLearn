@@ -1,62 +1,75 @@
 {
   "day": 4,
-  "total_events": 3,
+  "total_events": 5,
   "events": [
-	{ "start": "d4m_e1_a" },
-	{ "start": "d4m_e2_a" },
-	{ "start": "d4m_e3_a" }
+	{ "start": "d4m_e1_team_creativity" },
+	{ "start": "d4m_e2_acquisition_offer" },
+	{ "start": "d4m_e3_community_impact" },
+	{
+	  "start": "random",
+	  "pool": [
+		"d4m_r_customer_appreciation",
+		"d4m_r_media_coverage",
+        "d4m_r_industry_award"
+	  ]
+	},
+	{ "start": "d4m_e5_momentum" }
   ],
   "nodes": {
 
-	"d4m_e1_a": {
+	"d4m_e1_team_creativity": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Day 4 and your team is on fire! High morale is infectious — customers feel it the moment they walk in. A team this motivated can achieve anything.",
+	  "text": "Day 4, and your team is on fire! High morale is infectious — customers feel it the moment they walk in. A team this motivated can achieve anything.",
 	  "choices": [],
-	  "next": "d4m_e1_b"
+	  "next": "d4m_e1_creativity_b"
 	},
-	"d4m_e1_b": {
+	"d4m_e1_creativity_b": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "shop_day",
-	  "text": "Boss! We have an idea. The team wants to create a signature item together — something that represents our shop's culture. Can we try it today?",
+	  "text": "Boss! We have an idea. The team wants to create a signature service package together — something that represents our laundromat's culture. Can we try it today?",
 	  "choices": [
 		{
 		  "text": "Give them full creative freedom",
 		  "effects": { "morale": 20, "reputation": 15, "money": 5 },
+		  "gold": 20,
 		  "minigame": null,
-		  "next": "d4m_e1_c_freedom"
+		  "next": "d4m_e1_freedom"
 		},
 		{
 		  "text": "Guide the process with some direction",
 		  "effects": { "morale": 15, "reputation": 10, "stress": -5 },
+		  "gold": 15,
 		  "minigame": null,
-		  "next": "d4m_e1_c_guide"
+		  "next": "d4m_e1_guide"
 		},
 		{
 		  "text": "Let them develop it but review before launch",
 		  "effects": { "morale": 12, "reputation": 8, "stress": -8 },
+		  "gold": 12,
 		  "minigame": null,
-		  "next": "d4m_e1_c_review"
+		  "next": "d4m_e1_review"
 		},
 		{
 		  "text": "Too risky today — stick to what works",
 		  "effects": { "morale": -10, "stress": -5 },
+		  "gold": 8,
 		  "minigame": null,
-		  "next": "d4m_e1_c_decline"
+		  "next": "d4m_e1_decline"
 		}
 	  ]
 	},
-	"d4m_e1_c_freedom": {
+	"d4m_e1_freedom": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "shop_day",
-	  "text": "We created something incredible! Customers are already asking about it. This feels like it could be our most popular item ever!",
+	  "text": "We created something incredible! Customers are already asking about our 'Premium Care Package.' This could be our most popular service ever!",
 	  "choices": [],
 	  "next": "d4m_e1_result_freedom"
 	},
-	"d4m_e1_c_guide": {
+	"d4m_e1_guide": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "shop_day",
@@ -64,19 +77,19 @@
 	  "choices": [],
 	  "next": "d4m_e1_result_guide"
 	},
-	"d4m_e1_c_review": {
+	"d4m_e1_review": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "shop_day",
-	  "text": "Your feedback refined it perfectly. It launched to amazing response. Customers love that it feels authentic to our shop.",
+	  "text": "Your feedback refined it perfectly. It launched to an amazing response!",
 	  "choices": [],
 	  "next": "d4m_e1_result_review"
 	},
-	"d4m_e1_c_decline": {
+	"d4m_e1_decline": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "shop_day",
-	  "text": "We understand but we are a little deflated. We had real energy behind this idea. Maybe another time.",
+	  "text": "We understand, but we're a little deflated. We had real energy behind this idea.",
 	  "choices": [],
 	  "next": "d4m_e1_result_decline"
 	},
@@ -84,7 +97,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "High morale teams given ownership produce remarkable results. Trust your people when they are motivated — it multiplies their energy.",
+	  "text": "High-morale teams given ownership produce remarkable results. Trust your people when they're motivated — it multiplies their energy.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -100,7 +113,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Quality control without stifling creativity is excellent leadership. Empowering people while maintaining standards is a difficult balance you managed well.",
+	  "text": "Quality control without stifling creativity is excellent leadership. Balancing empowerment with standards is a difficult skill you managed well.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -108,60 +121,64 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Caution has its place but dismissing motivated team initiatives dampens the very energy that drives your business forward. High morale is fragile — protect it.",
+	  "text": "Caution has its place, but dismissing motivated team initiatives dampens the very energy that drives your business forward. High morale is fragile — protect it.",
 	  "choices": [],
 	  "next": "end"
 	},
 
-	"d4m_e2_a": {
+	"d4m_e2_acquisition_offer": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Your motivated team has attracted attention. A larger company wants to acquire your shop outright. The offer is generous but the decision is life changing.",
+	  "text": "Your motivated team has attracted attention. A larger company wants to acquire your laundromat outright. The offer is generous, but the decision is life-changing.",
 	  "choices": [],
-	  "next": "d4m_e2_b"
+	  "next": "d4m_e2_acquisition_b"
 	},
-	"d4m_e2_b": {
+	"d4m_e2_acquisition_b": {
 	  "speaker": "Corporate Buyer",
 	  "speaker_id": "corporate",
 	  "background": "office",
-	  "text": "Your team culture and customer loyalty make this acquisition extremely attractive to us. We are offering full market value plus 20%. This is a rare offer.",
+	  "text": "Your team culture and customer loyalty make this acquisition extremely attractive. We're offering full market value plus 20%. This is a rare opportunity.",
 	  "choices": [
 		{
 		  "text": "Accept — a great offer is a great offer",
-		  "effects": { "money": 30, "morale": -10, "stress": 15 },
+		  "effects": { "money": 40, "morale": -10, "stress": 15 },
+		  "gold": 40,
 		  "minigame": null,
-		  "next": "d4m_e2_c_accept"
+		  "next": "d4m_e2_accept"
 		},
 		{
 		  "text": "Counter with a higher price",
-		  "effects": { "money": 20, "stress": 10, "reputation": 10 },
+		  "effects": { "money": 35, "stress": 10, "reputation": 10 },
+		  "gold": 35,
 		  "minigame": null,
-		  "next": "d4m_e2_c_counter"
+		  "next": "d4m_e2_counter"
 		},
 		{
-		  "text": "Decline — you built this and you keep it",
+		  "text": "Decline — you built this, and you keep it",
 		  "effects": { "morale": 25, "stress": -15, "reputation": 15 },
+		  "gold": 20,
 		  "minigame": null,
-		  "next": "d4m_e2_c_decline"
+		  "next": "d4m_e2_decline"
 		},
 		{
 		  "text": "Ask for a management role in the acquisition",
-		  "effects": { "money": 15, "morale": 10, "stress": 5 },
+		  "effects": { "money": 30, "morale": 10, "stress": 5 },
+		  "gold": 30,
 		  "minigame": null,
-		  "next": "d4m_e2_c_manage"
+		  "next": "d4m_e2_manage"
 		}
 	  ]
 	},
-	"d4m_e2_c_accept": {
+	"d4m_e2_accept": {
 	  "speaker": "Corporate Buyer",
 	  "speaker_id": "corporate",
 	  "background": "office",
-	  "text": "Excellent decision. The paperwork will be ready by end of week. You have built something genuinely impressive here.",
+	  "text": "Excellent decision. You've built something genuinely impressive here.",
 	  "choices": [],
 	  "next": "d4m_e2_result_accept"
 	},
-	"d4m_e2_c_counter": {
+	"d4m_e2_counter": {
 	  "speaker": "Corporate Buyer",
 	  "speaker_id": "corporate",
 	  "background": "office",
@@ -169,19 +186,19 @@
 	  "choices": [],
 	  "next": "d4m_e2_result_counter"
 	},
-	"d4m_e2_c_decline": {
+	"d4m_e2_decline": {
 	  "speaker": "Corporate Buyer",
 	  "speaker_id": "corporate",
 	  "background": "office",
-	  "text": "We respect that. The offer stands open for 30 days. What you have built here is special — protect it well.",
+	  "text": "We respect that. The offer stands open for 30 days. What you've built here is special — protect it well.",
 	  "choices": [],
 	  "next": "d4m_e2_result_decline"
 	},
-	"d4m_e2_c_manage": {
+	"d4m_e2_manage": {
 	  "speaker": "Corporate Buyer",
 	  "speaker_id": "corporate",
 	  "background": "office",
-	  "text": "A management role is actually appealing to us too. We want your culture preserved. Let us structure this as an acqui-hire.",
+	  "text": "A management role is actually appealing. We want your culture preserved. Let's structure this as an acqui-hire.",
 	  "choices": [],
 	  "next": "d4m_e2_result_manage"
 	},
@@ -189,7 +206,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Knowing when to exit is as important as knowing when to persist. A successful exit funds your next venture. This is not failure — it is graduation.",
+	  "text": "Knowing when to exit is as important as knowing when to persist. A successful exit funds your next venture. This isn't failure — it's graduation.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -205,7 +222,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Choosing independence over a lucrative offer takes real conviction. Make sure the decision is strategic not just emotional. Both are valid but know which it is.",
+	  "text": "Choosing independence over a lucrative offer takes real conviction. Make sure the decision is strategic, not just emotional.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -213,100 +230,448 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Creative deal structures often produce better outcomes than binary accept or reject decisions. Thinking beyond the standard offer shows business sophistication.",
+	  "text": "Creative deal structures often produce better outcomes than binary accept-or-reject decisions. Thinking beyond the standard offer shows business sophistication.",
 	  "choices": [],
 	  "next": "end"
 	},
 
-	"d4m_e3_a": {
+	"d4m_e3_community_impact": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Your success has ripple effects. The neighborhood association wants to recognize your laundromat's positive impact on the community.",
+	  "choices": [],
+	  "next": "d4m_e3_community_b"
+	},
+	"d4m_e3_community_b": {
+	  "speaker": "Community Leader",
+	  "speaker_id": "corporate",
+	  "background": "shop_day",
+	  "text": "Your laundromat has become more than a business — it's a community hub. People feel safe here. We want to present you with a Community Impact Award.",
+	  "choices": [
+		{
+		  "text": "Accept with gratitude",
+		  "effects": { "reputation": 20, "morale": 15, "money": 10 },
+		  "gold": 25,
+		  "minigame": null,
+		  "next": "d4m_e3_accept"
+		},
+		{
+		  "text": "Share credit with your team",
+		  "effects": { "reputation": 15, "morale": 25, "money": 5 },
+		  "gold": 20,
+		  "minigame": null,
+		  "next": "d4m_e3_credit"
+		},
+		{
+		  "text": "Use the moment to announce a community program",
+		  "effects": { "reputation": 25, "morale": 20, "money": -10 },
+		  "gold": 20,
+		  "minigame": null,
+		  "next": "d4m_e3_program"
+		}
+	  ]
+	},
+	"d4m_e3_accept": {
+	  "speaker": "Community Leader",
+	  "speaker_id": "corporate",
+	  "background": "shop_day",
+	  "text": "Thank you! Your laundromat has made a real difference here.",
+	  "choices": [],
+	  "next": "d4m_e3_result_accept"
+	},
+	"d4m_e3_credit": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_day",
+	  "text": "You're giving us credit? Best boss ever! This means so much.",
+	  "choices": [],
+	  "next": "d4m_e3_result_credit"
+	},
+	"d4m_e3_program": {
+	  "speaker": "Community Leader",
+	  "speaker_id": "corporate",
+	  "background": "shop_day",
+	  "text": "A free laundry day for families in need? That's incredible. You're a true community partner.",
+	  "choices": [],
+	  "next": "d4m_e3_result_program"
+	},
+	"d4m_e3_result_accept": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Accepting recognition graciously builds your reputation. Your success has created positive community impact — own it.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4m_e3_result_credit": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Sharing credit builds loyalty. Your team will work even harder for a leader who lifts them up.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4m_e3_result_program": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Using recognition as a platform for more impact is leadership at its best. Success shared is success multiplied.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d4m_r_customer_appreciation": {
+	  "speaker": "Regular Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "I've been coming here for months, and I just wanted to say — this place has changed my weekly routine for the better. Thank you.",
+	  "choices": [],
+	  "next": "d4m_r_appreciation_b"
+	},
+	"d4m_r_appreciation_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "shop_day",
+	  "text": "A heartfelt thank you from a loyal customer. How do you respond?",
+	  "choices": [
+		{
+		  "text": "Thank them sincerely and offer a loyalty reward",
+		  "effects": { "reputation": 15, "morale": 15, "money": -5 },
+		  "gold": 15,
+		  "minigame": null,
+		  "next": "d4m_r_appreciation_reward"
+		},
+		{
+		  "text": "Thank them and ask for a review",
+		  "effects": { "reputation": 10, "morale": 10 },
+		  "gold": 10,
+		  "minigame": null,
+		  "next": "d4m_r_appreciation_review"
+		},
+		{
+		  "text": "Thank them warmly and move on",
+		  "effects": { "reputation": 8, "morale": 8 },
+		  "gold": 8,
+		  "minigame": null,
+		  "next": "d4m_r_appreciation_thank"
+		}
+	  ]
+	},
+	"d4m_r_appreciation_reward": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "A loyalty reward? You really shouldn't have. I'll definitely keep coming back!",
+	  "choices": [],
+	  "next": "d4m_r_appreciation_result_reward"
+	},
+	"d4m_r_appreciation_review": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "Of course! I'll leave a review right now. You deserve it.",
+	  "choices": [],
+	  "next": "d4m_r_appreciation_result_review"
+	},
+	"d4m_r_appreciation_thank": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "You're welcome! Just wanted you to know how much we appreciate you.",
+	  "choices": [],
+	  "next": "d4m_r_appreciation_result_thank"
+	},
+	"d4m_r_appreciation_result_reward": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Rewarding loyalty strengthens it. Small gestures cost little but create customers for life.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4m_r_appreciation_result_review": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Asking for reviews from happy customers is smart reputation management. Leverage positive moments.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4m_r_appreciation_result_thank": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Gratitude alone is powerful. Sometimes just saying thank you genuinely is enough.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d4m_r_media_coverage": {
+	  "speaker": "Reporter",
+	  "speaker_id": "influencer",
+	  "background": "shop_day",
+	  "text": "I'm from the local news. We've heard amazing things about your laundromat and want to do a segment on your success. Would you be open to an interview?",
+	  "choices": [],
+	  "next": "d4m_r_media_b"
+	},
+	"d4m_r_media_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "shop_day",
+	  "text": "A news segment! How do you handle this opportunity?",
+	  "choices": [
+		{
+		  "text": "Accept immediately — free publicity!",
+		  "effects": { "reputation": 20, "morale": 15 },
+		  "gold": 20,
+		  "minigame": null,
+		  "next": "d4m_r_media_accept"
+		},
+		{
+		  "text": "Ask to review the segment before airing",
+		  "effects": { "reputation": 15, "stress": -5 },
+		  "gold": 15,
+		  "minigame": null,
+		  "next": "d4m_r_media_review"
+		},
+		{
+		  "text": "Prepare talking points in advance",
+		  "effects": { "reputation": 18, "stress": -10 },
+		  "gold": 15,
+		  "minigame": null,
+		  "next": "d4m_r_media_prepare"
+		}
+	  ]
+	},
+	"d4m_r_media_accept": {
+	  "speaker": "Reporter",
+	  "speaker_id": "influencer",
+	  "background": "shop_day",
+	  "text": "Wonderful! We'll air the segment this Friday. This is going to be great for your business.",
+	  "choices": [],
+	  "next": "d4m_r_media_result_accept"
+	},
+	"d4m_r_media_review": {
+	  "speaker": "Reporter",
+	  "speaker_id": "influencer",
+	  "background": "shop_day",
+	  "text": "Smart to ask. We're happy to share the draft before airing.",
+	  "choices": [],
+	  "next": "d4m_r_media_result_review"
+	},
+	"d4m_r_media_prepare": {
+	  "speaker": "Reporter",
+	  "speaker_id": "influencer",
+	  "background": "shop_day",
+	  "text": "Preparation shows professionalism. This will be a great segment.",
+	  "choices": [],
+	  "next": "d4m_r_media_result_prepare"
+	},
+	"d4m_r_media_result_accept": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Seizing media opportunities builds your brand. Your success story deserves to be told.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4m_r_media_result_review": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Review rights protect your brand. Never let others tell your story without your input.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4m_r_media_result_prepare": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Preparation before interviews reduces risk and improves outcomes. Smart move.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d4m_r_industry_award": {
+	  "speaker": "Association Rep",
+	  "speaker_id": "corporate",
+	  "background": "office",
+	  "text": "Congratulations! Your laundromat has been nominated for the Industry Excellence Award.",
+	  "choices": [],
+	  "next": "d4m_r_award_b"
+	},
+	"d4m_r_award_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "office",
+	  "text": "Industry recognition! How do you respond?",
+	  "choices": [
+		{
+		  "text": "Accept with excitement",
+		  "effects": { "reputation": 20, "morale": 15 },
+		  "gold": 20,
+		  "minigame": null,
+		  "next": "d4m_r_award_accept"
+		},
+		{
+		  "text": "Ask about the selection process",
+		  "effects": { "reputation": 12, "stress": -5 },
+		  "gold": 12,
+		  "minigame": null,
+		  "next": "d4m_r_award_ask"
+		},
+		{
+		  "text": "Humbly say you're honored",
+		  "effects": { "reputation": 15, "morale": 10 },
+		  "gold": 15,
+		  "minigame": null,
+		  "next": "d4m_r_award_humble"
+		}
+	  ]
+	},
+	"d4m_r_award_accept": {
+	  "speaker": "Association Rep",
+	  "speaker_id": "corporate",
+	  "background": "office",
+	  "text": "Wonderful! We'll announce the winner at the ceremony next month.",
+	  "choices": [],
+	  "next": "d4m_r_award_result_accept"
+	},
+	"d4m_r_award_ask": {
+	  "speaker": "Association Rep",
+	  "speaker_id": "corporate",
+	  "background": "office",
+	  "text": "Happy to explain. It's based on customer reviews, cleanliness, and community impact.",
+	  "choices": [],
+	  "next": "d4m_r_award_result_ask"
+	},
+	"d4m_r_award_humble": {
+	  "speaker": "Association Rep",
+	  "speaker_id": "corporate",
+	  "background": "office",
+	  "text": "Humility is admirable. Your nomination is well deserved.",
+	  "choices": [],
+	  "next": "d4m_r_award_result_humble"
+	},
+	"d4m_r_award_result_accept": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Industry recognition validates your hard work. Accepting awards graciously signals confidence.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4m_r_award_result_ask": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Understanding the criteria helps you replicate success. Smart to ask.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4m_r_award_result_humble": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Humility is a virtue, but don't be afraid to stand in your success. You've earned it.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d4m_e5_momentum": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "What a day! Your team is buzzing. End of day and the energy is incredible. How do you channel this momentum into tomorrow?",
+	  "text": "What a day! Your team is buzzing. End of the day, and the energy is incredible.",
 	  "choices": [],
-	  "next": "d4m_e3_b"
+	  "next": "d4m_e5_momentum_b"
 	},
-	"d4m_e3_b": {
+	"d4m_e5_momentum_b": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "shop_evening",
-	  "text": "Boss we are all feeling it today. The team wants to do something special tomorrow to keep this energy going. What do you think we should focus on?",
+	  "text": "Boss, we're all feeling it today. The team wants to do something special tomorrow to keep this energy going. What do you think we should focus on?",
 	  "choices": [
 		{
 		  "text": "Plan a customer appreciation event",
 		  "effects": { "reputation": 20, "morale": 15, "money": -10 },
+		  "gold": 20,
 		  "minigame": null,
-		  "next": "d4m_e3_c_event"
+		  "next": "d4m_e5_event"
 		},
 		{
 		  "text": "Channel energy into process improvements",
 		  "effects": { "morale": 15, "stress": -15, "money": 10 },
+		  "gold": 15,
 		  "minigame": null,
-		  "next": "d4m_e3_c_process"
+		  "next": "d4m_e5_process"
 		},
 		{
-		  "text": "Document what is working to replicate it",
+		  "text": "Document what's working to replicate it",
 		  "effects": { "morale": 10, "stress": -10, "reputation": 10 },
+		  "gold": 12,
 		  "minigame": null,
-		  "next": "d4m_e3_c_document"
+		  "next": "d4m_e5_document"
 		},
 		{
-		  "text": "Let the team choose — it is their energy",
+		  "text": "Let the team choose — it's their energy",
 		  "effects": { "morale": 20, "stress": -10, "reputation": 5 },
+		  "gold": 15,
 		  "minigame": null,
-		  "next": "d4m_e3_c_team"
+		  "next": "d4m_e5_team_choice"
 		}
 	  ]
 	},
-	"d4m_e3_c_event": {
+	"d4m_e5_event": {
 	  "speaker": "Customer",
 	  "speaker_id": "customer",
 	  "background": "shop_evening",
-	  "text": "A customer appreciation event?! This is why we love this place. You always make us feel like family here.",
+	  "text": "A customer appreciation event? This is why we love this place!",
 	  "choices": [],
-	  "next": "d4m_e3_result_event"
+	  "next": "d4m_e5_result_event"
 	},
-	"d4m_e3_c_process": {
+	"d4m_e5_process": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "shop_evening",
-	  "text": "Using this energy to fix our processes is brilliant. We identified three inefficiencies today that were costing us time and money every single shift.",
+	  "text": "Using this energy to fix our processes is brilliant. We identified three inefficiencies today!",
 	  "choices": [],
-	  "next": "d4m_e3_result_process"
+	  "next": "d4m_e5_result_process"
 	},
-	"d4m_e3_c_document": {
+	"d4m_e5_document": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "shop_evening",
-	  "text": "Writing down what makes today special is so smart. Now we have a blueprint for recreating this energy whenever we need it.",
+	  "text": "Writing down what makes today special is so smart. Now we have a blueprint.",
 	  "choices": [],
-	  "next": "d4m_e3_result_document"
+	  "next": "d4m_e5_result_document"
 	},
-	"d4m_e3_c_team": {
+	"d4m_e5_team_choice": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "shop_evening",
-	  "text": "You are giving us the decision?! That means everything. We chose to reach out personally to our top 20 customers tomorrow. Watch what happens.",
+	  "text": "You're giving us the decision? That means everything. We chose to reach out personally to our top 20 customers tomorrow.",
 	  "choices": [],
-	  "next": "d4m_e3_result_team"
+	  "next": "d4m_e5_result_team"
 	},
-	"d4m_e3_result_event": {
+	"d4m_e5_result_event": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "Converting internal momentum into customer experiences is powerful marketing. Your team energy became a customer memory — that is priceless.",
+	  "text": "Converting internal momentum into customer experiences is powerful marketing. Your team's energy became a customer memory — that's priceless.",
 	  "choices": [],
 	  "next": "end"
 	},
-	"d4m_e3_result_process": {
+	"d4m_e5_result_process": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "Using peak performance moments to fix systems is genius. High morale teams can tackle operational problems that feel impossible when spirits are low.",
+	  "text": "Using peak performance moments to fix systems is genius. High-morale teams can tackle problems that feel impossible when spirits are low.",
 	  "choices": [],
 	  "next": "end"
 	},
-	"d4m_e3_result_document": {
+	"d4m_e5_result_document": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
@@ -314,11 +679,11 @@
 	  "choices": [],
 	  "next": "end"
 	},
-	"d4m_e3_result_team": {
+	"d4m_e5_result_team": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "Ultimate trust in your team creates ultimate ownership. When people choose the direction they execute with a level of commitment that cannot be mandated.",
+	  "text": "Ultimate trust in your team creates ultimate ownership. When people choose the direction, they execute with a level of commitment that cannot be mandated.",
 	  "choices": [],
 	  "next": "end"
 	}

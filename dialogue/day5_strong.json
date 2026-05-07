@@ -1,70 +1,83 @@
 {
   "day": 5,
-  "total_events": 3,
+  "total_events": 5,
   "events": [
-	{ "start": "d5e1_a" },
-	{ "start": "d5e2_a" },
-	{ "start": "d5e3_a" }
+	{ "start": "d5e1_health_inspection" },
+	{ "start": "d5e2_pr_crisis" },
+	{ "start": "d5e3_final_partnership" },
+	{
+	  "start": "random",
+	  "pool": [
+		"d5r_last_minute_customer",
+		"d5r_employee_bonus_request",
+        "d5r_supplier_final_deal"
+	  ]
+	},
+	{ "start": "d5e5_reflection" }
   ],
   "nodes": {
 
-	"d5e1_a": {
+	"d5e1_health_inspection": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Day 5! Your final day. Everything you have built comes down to this. A health inspector arrives unannounced this morning. How prepared are you?",
+	  "text": "Day 5! Your final day. Everything you've built comes down to this. A health inspector arrives unannounced this morning. How prepared are you?",
 	  "choices": [],
-	  "next": "d5e1_b"
+	  "next": "d5e1_inspector_b"
 	},
-	"d5e1_b": {
+	"d5e1_inspector_b": {
 	  "speaker": "Health Inspector",
 	  "speaker_id": "inspector",
 	  "background": "shop_day",
-	  "text": "Good morning. We received a complaint about your establishment. I will need to do a full inspection right now. Are you ready?",
+	  "text": "Good morning. We received a complaint about your laundromat's cleanliness. I'll need to do a full inspection right now. Are you ready?",
 	  "choices": [
 		{
-		  "text": "Welcome them confidently — your shop is always inspection ready",
+		  "text": "Welcome them confidently — your laundromat is always inspection ready",
 		  "effects": { "reputation": 25, "morale": 15, "stress": -10 },
+		  "gold": 25,
 		  "minigame": null,
-		  "next": "d5e1_c_ready"
+		  "next": "d5e1_ready"
 		},
 		{
 		  "text": "Ask for a few minutes to tidy up quickly",
 		  "effects": { "reputation": -5, "stress": 15, "morale": -5 },
+		  "gold": 10,
 		  "minigame": null,
-		  "next": "d5e1_c_stall"
+		  "next": "d5e1_stall"
 		},
 		{
 		  "text": "Cooperate fully and answer all questions honestly",
 		  "effects": { "reputation": 20, "morale": 10, "stress": -5 },
+		  "gold": 20,
 		  "minigame": null,
-		  "next": "d5e1_c_cooperate"
+		  "next": "d5e1_cooperate"
 		},
 		{
-		  "text": "Ask to see their credentials and complaint details first",
+		  "text": "Ask to see their credentials first",
 		  "effects": { "reputation": 5, "stress": 5, "morale": 5 },
+		  "gold": 12,
 		  "minigame": null,
-		  "next": "d5e1_c_verify"
+		  "next": "d5e1_verify"
 		}
 	  ]
 	},
-	"d5e1_c_ready": {
+	"d5e1_ready": {
 	  "speaker": "Health Inspector",
 	  "speaker_id": "inspector",
 	  "background": "shop_day",
-	  "text": "Impressive. Everything is in order. Your standards are well above average. Consider this a passed inspection.",
+	  "text": "Impressive. Everything is spotless. Your standards are well above average. Consider this a passed inspection.",
 	  "choices": [],
 	  "next": "d5e1_result_ready"
 	},
-	"d5e1_c_stall": {
+	"d5e1_stall": {
 	  "speaker": "Health Inspector",
 	  "speaker_id": "inspector",
 	  "background": "shop_day",
-	  "text": "A few minutes? That is highly irregular. I am noting this hesitation in my report.",
+	  "text": "A few minutes? That's irregular. I'm noting this hesitation in my report.",
 	  "choices": [],
 	  "next": "d5e1_result_stall"
 	},
-	"d5e1_c_cooperate": {
+	"d5e1_cooperate": {
 	  "speaker": "Health Inspector",
 	  "speaker_id": "inspector",
 	  "background": "shop_day",
@@ -72,11 +85,11 @@
 	  "choices": [],
 	  "next": "d5e1_result_cooperate"
 	},
-	"d5e1_c_verify": {
+	"d5e1_verify": {
 	  "speaker": "Health Inspector",
 	  "speaker_id": "inspector",
 	  "background": "shop_day",
-	  "text": "Of course. Here are my credentials. The complaint was about food storage. Shall we proceed?",
+	  "text": "Of course. Here are my credentials. The complaint was about machine cleanliness. Shall we proceed?",
 	  "choices": [],
 	  "next": "d5e1_result_verify"
 	},
@@ -84,7 +97,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Maintaining standards every day not just before inspections is what separates great businesses from average ones. Well done.",
+	  "text": "Maintaining standards every day — not just for inspections — is what separates great laundromats from average ones. Well done.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -92,7 +105,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "If you need time to tidy up for an inspection your daily standards need work. Compliance should be a habit not a reaction.",
+	  "text": "If you need time to tidy up for an inspection, your daily standards need work. Cleanliness should be a habit, not a reaction.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -100,7 +113,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Transparency with regulators builds institutional trust. Honesty during inspections protects you far more than hiding problems.",
+	  "text": "Transparency with regulators builds institutional trust. Honesty during inspections protects you more than hiding problems ever could.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -113,83 +126,87 @@
 	  "next": "end"
 	},
 
-	"d5e2_a": {
+	"d5e2_pr_crisis": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Midday crisis! A social media post is going viral claiming your shop overcharged a customer. The post is spreading fast and your phone will not stop ringing. What do you do first?",
+	  "text": "Midday crisis! A social media post is going viral claiming your laundromat ruined a customer's expensive clothes. The post is spreading fast.",
 	  "choices": [],
-	  "next": "d5e2_b"
+	  "next": "d5e2_crisis_b"
 	},
-	"d5e2_b": {
+	"d5e2_crisis_b": {
 	  "speaker": "You",
 	  "speaker_id": "player",
 	  "background": "office",
-	  "text": "This is a full blown PR crisis. Every second I wait makes it worse. I need to act now...",
+	  "text": "This is a full-blown PR crisis. Every second I wait makes it worse. I need to act now...",
 	  "choices": [
 		{
-		  "text": "Release a public statement immediately addressing the issue",
+		  "text": "Release a public statement immediately",
 		  "effects": { "reputation": 20, "stress": -10, "morale": 10 },
+		  "gold": 15,
 		  "minigame": null,
-		  "next": "d5e2_c_statement"
+		  "next": "d5e2_statement"
 		},
 		{
-		  "text": "Investigate internally before saying anything publicly",
+		  "text": "Investigate internally before saying anything",
 		  "effects": { "reputation": -10, "stress": 15, "morale": -5 },
+		  "gold": 10,
 		  "minigame": null,
-		  "next": "d5e2_c_investigate"
+		  "next": "d5e2_investigate"
 		},
 		{
 		  "text": "Reach out directly to the customer who posted",
 		  "effects": { "reputation": 15, "stress": -5, "morale": 15 },
+		  "gold": 15,
 		  "minigame": null,
-		  "next": "d5e2_c_direct"
+		  "next": "d5e2_direct"
 		},
 		{
-		  "text": "Have a lawyer send a cease and desist letter",
-		  "effects": { "reputation": -25, "money": -20, "stress": 20 },
+		  "text": "Offer to replace the damaged clothes immediately",
+		  "effects": { "reputation": 18, "money": -15, "stress": -5 },
+		  "gold": 20,
 		  "minigame": null,
-		  "next": "d5e2_c_legal"
+		  "next": "d5e2_replace"
 		}
 	  ]
 	},
-	"d5e2_c_statement": {
-	  "speaker": "Follower Online",
-	  "speaker_id": "influencer",
+	"d5e2_statement": {
+	  "speaker": "Online User",
+	  "speaker_id": "customer",
 	  "background": "office",
-	  "text": "They addressed it immediately and took responsibility. That is actually really mature. Respect.",
+	  "text": "They addressed it immediately and took responsibility. That's actually really mature. Respect.",
 	  "choices": [],
 	  "next": "d5e2_result_statement"
 	},
-	"d5e2_c_investigate": {
-	  "speaker": "Follower Online",
-	  "speaker_id": "influencer",
+	"d5e2_investigate": {
+	  "speaker": "Online User",
+	  "speaker_id": "customer",
 	  "background": "office",
-	  "text": "It has been hours and they have not said anything. The silence is making them look guilty.",
+	  "text": "It's been hours and they haven't said anything. The silence is making them look guilty.",
 	  "choices": [],
 	  "next": "d5e2_result_investigate"
 	},
-	"d5e2_c_direct": {
-	  "speaker": "Customer Who Posted",
+	"d5e2_direct": {
+	  "speaker": "Customer",
 	  "speaker_id": "customer",
 	  "background": "office",
-	  "text": "Wow they actually messaged me personally. That took guts. I appreciate that more than a generic post.",
+	  "text": "They actually messaged me personally. That took guts. I appreciate that more than a generic post.",
 	  "choices": [],
 	  "next": "d5e2_result_direct"
 	},
-	"d5e2_c_legal": {
-	  "speaker": "Follower Online",
-	  "speaker_id": "influencer",
+	"d5e2_replace": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
 	  "background": "office",
-	  "text": "They sent a cease and desist to a customer?! That is insane. I am never going there. Sharing this everywhere.",
+	  "text": "They're replacing my clothes? That's above and beyond. I'm updating my post to say they made it right.",
 	  "choices": [],
-	  "next": "d5e2_result_legal"
+	  "next": "d5e2_result_replace"
 	},
 	"d5e2_result_statement": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Swift transparent communication during a crisis preserves trust. Silence lets others control the narrative about your business.",
+	  "text": "Swift, transparent communication during a crisis preserves trust. Silence lets others control the narrative about your business.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -197,7 +214,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Internal investigation is important but so is acknowledging the issue publicly while you look into it. Both can happen simultaneously.",
+	  "text": "Internal investigation is important, but so is acknowledging the issue publicly while you look into it. Both can happen simultaneously.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -209,84 +226,88 @@
 	  "choices": [],
 	  "next": "end"
 	},
-	"d5e2_result_legal": {
+	"d5e2_result_replace": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Legal threats against customers almost always backfire catastrophically. Reserve legal action for extreme cases not PR problems.",
+	  "text": "Generous service recovery turns a critic into an advocate. The cost hurts now but buys reputation that no marketing can replace.",
 	  "choices": [],
 	  "next": "end"
 	},
 
-	"d5e3_a": {
+	"d5e3_final_partnership": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "Final event! End of Day 5. You have come so far. A long time customer approaches you with a proposal to become a business partner and co-invest in expanding the shop. This is your biggest decision yet.",
+	  "text": "Final major event! A long-time customer approaches you with a proposal to become a business partner and co-invest in expanding your laundromat.",
 	  "choices": [],
-	  "next": "d5e3_b"
+	  "next": "d5e3_partner_b"
 	},
-	"d5e3_b": {
-	  "speaker": "Long Time Customer",
+	"d5e3_partner_b": {
+	  "speaker": "Long-Time Customer",
 	  "speaker_id": "customer",
 	  "background": "shop_evening",
-	  "text": "I have watched you grow this business with my own eyes. I want to invest and help you expand. I am talking a second location. What do you say?",
+	  "text": "I've watched you grow this laundromat with my own eyes. I want to invest and help you open a second location. What do you say?",
 	  "choices": [
 		{
-		  "text": "Accept enthusiastically — this is the opportunity you have been waiting for",
-		  "effects": { "money": 30, "reputation": 20, "stress": 20, "morale": 15 },
+		  "text": "Accept enthusiastically — this is the opportunity you've been waiting for",
+		  "effects": { "money": 35, "reputation": 20, "stress": 20, "morale": 15 },
+		  "gold": 40,
 		  "minigame": null,
-		  "next": "d5e3_c_accept"
+		  "next": "d5e3_accept"
 		},
 		{
-		  "text": "Ask for time to review a formal proposal first",
-		  "effects": { "money": 10, "reputation": 15, "stress": -10, "morale": 10 },
+		  "text": "Ask for a formal proposal first",
+		  "effects": { "money": 15, "reputation": 15, "stress": -10, "morale": 10 },
+		  "gold": 20,
 		  "minigame": null,
-		  "next": "d5e3_c_review"
+		  "next": "d5e3_review"
 		},
 		{
-		  "text": "Propose a smaller pilot expansion before fully committing",
-		  "effects": { "money": 15, "reputation": 10, "stress": -5, "morale": 20 },
+		  "text": "Propose a smaller pilot expansion first",
+		  "effects": { "money": 20, "reputation": 10, "stress": -5, "morale": 20 },
+		  "gold": 25,
 		  "minigame": null,
-		  "next": "d5e3_c_pilot"
+		  "next": "d5e3_pilot"
 		},
 		{
-		  "text": "Decline and focus on strengthening what you already have",
+		  "text": "Decline — focus on strengthening what you already have",
 		  "effects": { "reputation": 10, "morale": 25, "stress": -20 },
+		  "gold": 15,
 		  "minigame": null,
-		  "next": "d5e3_c_decline"
+		  "next": "d5e3_decline"
 		}
 	  ]
 	},
-	"d5e3_c_accept": {
-	  "speaker": "Long Time Customer",
+	"d5e3_accept": {
+	  "speaker": "Long-Time Customer",
 	  "speaker_id": "customer",
 	  "background": "shop_evening",
-	  "text": "Fantastic! This is going to be incredible. Let us change the game together. The city will know your name!",
+	  "text": "Fantastic! This is going to be incredible. Two laundromats — let's change the neighborhood together!",
 	  "choices": [],
 	  "next": "d5e3_result_accept"
 	},
-	"d5e3_c_review": {
-	  "speaker": "Long Time Customer",
+	"d5e3_review": {
+	  "speaker": "Long-Time Customer",
 	  "speaker_id": "customer",
 	  "background": "shop_evening",
-	  "text": "Of course! Smart thinking. I will have my team prepare a full proposal by end of week. Looking forward to it.",
+	  "text": "Smart thinking. I'll have my team prepare a full proposal by end of week.",
 	  "choices": [],
 	  "next": "d5e3_result_review"
 	},
-	"d5e3_c_pilot": {
-	  "speaker": "Long Time Customer",
+	"d5e3_pilot": {
+	  "speaker": "Long-Time Customer",
 	  "speaker_id": "customer",
 	  "background": "shop_evening",
-	  "text": "A pilot? I like that thinking. Test before you scale. You have learned a lot this week have you not?",
+	  "text": "A pilot? Test before you scale. You've learned a lot this week, haven't you?",
 	  "choices": [],
 	  "next": "d5e3_result_pilot"
 	},
-	"d5e3_c_decline": {
-	  "speaker": "Long Time Customer",
+	"d5e3_decline": {
+	  "speaker": "Long-Time Customer",
 	  "speaker_id": "customer",
 	  "background": "shop_evening",
-	  "text": "I respect that. Knowing when not to expand is just as important as knowing when to grow. The offer stands whenever you are ready.",
+	  "text": "I respect that. Knowing when not to expand is just as important as knowing when to grow.",
 	  "choices": [],
 	  "next": "d5e3_result_decline"
 	},
@@ -302,7 +323,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "Never let excitement override due diligence. Reviewing proposals carefully protects you from partnerships that look good but lack substance.",
+	  "text": "Never let excitement override due diligence. Reviewing proposals protects you from partnerships that look good but lack substance.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -310,7 +331,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "Testing before scaling is one of the most valuable lessons in business. You have truly grown this week. This is the right instinct.",
+	  "text": "Testing before scaling is one of the most valuable lessons in business. You've truly grown this week.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -318,10 +339,399 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "Sustainable growth beats reckless expansion every time. Consolidating your foundation before scaling is wisdom not fear.",
+	  "text": "Sustainable growth beats reckless expansion every time. Consolidating your foundation before scaling is wisdom, not fear.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d5r_last_minute_customer": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "I know you're closing soon, but I have an emergency. My washer broke at home and I have work clothes for tomorrow. Can you help?",
+	  "choices": [],
+	  "next": "d5r_customer_b"
+	},
+	"d5r_customer_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "shop_day",
+	  "text": "A last-minute customer on your final day. How do you respond?",
+	  "choices": [
+		{
+		  "text": "Stay late to help them — kindness matters",
+		  "effects": { "reputation": 15, "morale": 15, "stress": 10 },
+		  "gold": 15,
+		  "minigame": null,
+		  "next": "d5r_customer_help"
+		},
+		{
+		  "text": "Refer them to another laundromat",
+		  "effects": { "reputation": -5, "morale": -5 },
+		  "gold": 5,
+		  "minigame": null,
+		  "next": "d5r_customer_refer"
+		},
+		{
+		  "text": "Charge extra for after-hours service",
+		  "effects": { "reputation": -10, "money": 15, "morale": -5 },
+		  "gold": 15,
+		  "minigame": null,
+		  "next": "d5r_customer_extra"
+		}
+	  ]
+	},
+	"d5r_customer_help": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "You stayed late for me? You've earned a customer for life. Thank you so much.",
+	  "choices": [],
+	  "next": "d5r_customer_result_help"
+	},
+	"d5r_customer_refer": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "I drove all the way here. This is really disappointing.",
+	  "choices": [],
+	  "next": "d5r_customer_result_refer"
+	},
+	"d5r_customer_extra": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "Extra charge for staying late? I understand, but it doesn't feel great.",
+	  "choices": [],
+	  "next": "d5r_customer_result_extra"
+	},
+	"d5r_customer_result_help": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Going above and beyond on your final day leaves a lasting impression. That customer will tell everyone about your kindness.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5r_customer_result_refer": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Sending customers away on your last day misses a final chance to build loyalty. Sometimes the last interaction matters most.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5r_customer_result_extra": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Capitalizing on emergencies may profit today but cost you tomorrow. People remember when you helped them versus when you charged them.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d5r_employee_bonus_request": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "office",
+	  "text": "Boss, the team worked really hard this week. We were wondering if there's any chance of a bonus for the final day?",
+	  "choices": [],
+	  "next": "d5r_bonus_b"
+	},
+	"d5r_bonus_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "office",
+	  "text": "Your team has worked hard all week. How do you reward them?",
+	  "choices": [
+		{
+		  "text": "Give everyone a generous bonus",
+		  "effects": { "morale": 25, "money": -25, "reputation": 10 },
+		  "gold": 20,
+		  "minigame": null,
+		  "next": "d5r_bonus_generous"
+		},
+		{
+		  "text": "Give a modest bonus with thank-you notes",
+		  "effects": { "morale": 20, "money": -15, "reputation": 5 },
+		  "gold": 15,
+		  "minigame": null,
+		  "next": "d5r_bonus_modest"
+		},
+		{
+		  "text": "Promise a bonus after results are calculated",
+		  "effects": { "morale": 10, "money": -5 },
+		  "gold": 10,
+		  "minigame": null,
+		  "next": "d5r_bonus_promise"
+		},
+		{
+		  "text": "Thank them but no bonus this week",
+		  "effects": { "morale": -10, "money": 5 },
+		  "gold": 5,
+		  "minigame": null,
+		  "next": "d5r_bonus_none"
+		}
+	  ]
+	},
+	"d5r_bonus_generous": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "office",
+	  "text": "A generous bonus? You're the best boss. We'll never forget this.",
+	  "choices": [],
+	  "next": "d5r_bonus_result_generous"
+	},
+	"d5r_bonus_modest": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "office",
+	  "text": "A bonus AND handwritten notes? That's really thoughtful. Thank you.",
+	  "choices": [],
+	  "next": "d5r_bonus_result_modest"
+	},
+	"d5r_bonus_promise": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "office",
+	  "text": "We'll hold you to that promise. Looking forward to hearing the results.",
+	  "choices": [],
+	  "next": "d5r_bonus_result_promise"
+	},
+	"d5r_bonus_none": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "office",
+	  "text": "A simple thank you... we worked really hard this week. A little disappointing.",
+	  "choices": [],
+	  "next": "d5r_bonus_result_none"
+	},
+	"d5r_bonus_result_generous": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Generous rewards create loyal teams who will go above and beyond for you. The cost today buys commitment for the future.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5r_bonus_result_modest": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Modest rewards paired with genuine appreciation can be as meaningful as larger ones. The personal touch matters.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5r_bonus_result_promise": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Promises work only if you keep them. Make sure you follow through or you'll lose the trust you've built.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5r_bonus_result_none": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Failing to reward hard work, especially when you can afford it, demotivates your team. Recognition matters, even if small.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d5r_supplier_final_deal": {
+	  "speaker": "Supplier",
+	  "speaker_id": "supplier",
+	  "background": "office",
+	  "text": "Congrats on making it through the week! As a thank-you, we want to offer you a special bulk deal on premium detergent.",
+	  "choices": [],
+	  "next": "d5r_supplier_b"
+	},
+	"d5r_supplier_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "office",
+	  "text": "A final supplier offer. How do you handle this opportunity?",
+	  "choices": [
+		{
+		  "text": "Accept immediately — stock up for success",
+		  "effects": { "money": -20, "reputation": 10, "morale": 10 },
+		  "gold": 20,
+		  "minigame": null,
+		  "next": "d5r_supplier_accept"
+		},
+		{
+		  "text": "Negotiate an even better deal",
+		  "effects": { "money": -15, "reputation": 8, "stress": -5 },
+		  "gold": 18,
+		  "minigame": null,
+		  "next": "d5r_supplier_negotiate"
+		},
+		{
+		  "text": "Decline — you have enough supplies",
+		  "effects": { "money": 5, "reputation": -5 },
+		  "gold": 8,
+		  "minigame": null,
+		  "next": "d5r_supplier_decline"
+		}
+	  ]
+	},
+	"d5r_supplier_accept": {
+	  "speaker": "Supplier",
+	  "speaker_id": "supplier",
+	  "background": "office",
+	  "text": "Excellent! Your supply closet will be stocked for months. Pleasure doing business with you.",
+	  "choices": [],
+	  "next": "d5r_supplier_result_accept"
+	},
+	"d5r_supplier_negotiate": {
+	  "speaker": "Supplier",
+	  "speaker_id": "supplier",
+	  "background": "office",
+	  "text": "You drive a hard bargain. Deal! It's been great working with a smart business owner.",
+	  "choices": [],
+	  "next": "d5r_supplier_result_negotiate"
+	},
+	"d5r_supplier_decline": {
+	  "speaker": "Supplier",
+	  "speaker_id": "supplier",
+	  "background": "office",
+	  "text": "Fair enough. The offer stands if you change your mind. Good luck with everything!",
+	  "choices": [],
+	  "next": "d5r_supplier_result_decline"
+	},
+	"d5r_supplier_result_accept": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Seizing supplier opportunities when they come shows confidence in your future. Stocking up when you can is smart business.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5r_supplier_result_negotiate": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Negotiating even at the last minute shows you never stop looking for value. That mindset will serve you well.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5r_supplier_result_decline": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Knowing when you have enough is wisdom. Not every opportunity is right for every moment.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d5e5_reflection": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Final event. The week is over. You made it through all five days. Looking back, what's the most important lesson you'll take forward?",
+	  "choices": [],
+	  "next": "d5e5_reflection_b"
+	},
+	"d5e5_reflection_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "shop_evening",
+	  "text": "This week taught me so much about running a business. What should I focus on going forward?",
+	  "choices": [
+		{
+		  "text": "Building strong customer relationships",
+		  "effects": { "reputation": 25, "morale": 15 },
+		  "gold": 20,
+		  "minigame": null,
+		  "next": "d5e5_customers"
+		},
+		{
+		  "text": "Creating better operational systems",
+		  "effects": { "money": 20, "stress": -15 },
+		  "gold": 20,
+		  "minigame": null,
+		  "next": "d5e5_systems"
+		},
+		{
+		  "text": "Investing in my team's growth",
+		  "effects": { "morale": 30, "reputation": 10 },
+		  "gold": 20,
+		  "minigame": null,
+		  "next": "d5e5_team"
+		},
+		{
+		  "text": "Balancing work and personal wellbeing",
+		  "effects": { "stress": -25, "morale": 20 },
+		  "gold": 20,
+		  "minigame": null,
+		  "next": "d5e5_wellbeing"
+		}
+	  ]
+	},
+	"d5e5_customers": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Customer relationships are the foundation of any business. You've learned that people choose places where they feel valued. Keep that at the center.",
+	  "choices": [],
+	  "next": "d5e5_result_customers"
+	},
+	"d5e5_systems": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Good systems let you scale without burning out. You've seen how processes can save you during crisis. Build more of them.",
+	  "choices": [],
+	  "next": "d5e5_result_systems"
+	},
+	"d5e5_team": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Your team is your greatest asset. You've learned that investing in people pays returns you can't measure on a spreadsheet. Never stop developing them.",
+	  "choices": [],
+	  "next": "d5e5_result_team"
+	},
+	"d5e5_wellbeing": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "You can't pour from an empty cup. The entrepreneurs who last are the ones who learn to balance ambition with rest. Protect that insight.",
+	  "choices": [],
+	  "next": "d5e5_result_wellbeing"
+	},
+	"d5e5_result_customers": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "You've completed the week with wisdom that will serve you for years. Your business journey is just beginning. Well done.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5e5_result_systems": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "You've learned one of the most scalable lessons in business. Systems turn chaos into consistency. Your future self will thank you.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5e5_result_team": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Leaders who prioritize their people build businesses that last. You've learned the secret that many never figure out.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5e5_result_wellbeing": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "The most valuable lesson is learning to care for yourself. A burned-out owner cannot lead anyone. You've learned what matters most.",
 	  "choices": [],
 	  "next": "end"
 	}
-
   }
 }

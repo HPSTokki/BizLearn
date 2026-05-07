@@ -12,6 +12,7 @@ const SCRIPT_MAP = {
 	"resource_allocation": "res://scripts/minigames/minigame_resource.gd",
 	"budget_puzzle":       "res://scripts/minigames/minigame_budget.gd",
 	"card_decisions":      "res://scripts/minigames/minigame_card.gd",
+	"repair_puzzle":       "res://scripts/minigames/minigame_repair.gd",
 }
 
 const OUTCOME_BONUSES = {

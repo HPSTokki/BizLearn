@@ -106,6 +106,8 @@ func _ready() -> void:
 	# Add floating particles for visual flair
 	_add_ambient_particles()
 	
+	AudioManager.play_music("gameplay", 0.3)
+	
 	call_deferred("_start_dialogue")
 
 func _refresh_colors() -> void:

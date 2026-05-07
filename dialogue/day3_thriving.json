@@ -1,82 +1,95 @@
 {
   "day": 3,
-  "total_events": 3,
+  "total_events": 5,
   "events": [
-	{ "start": "d3t_e1_a" },
-	{ "start": "d3t_e2_a" },
-	{ "start": "d3t_e3_a" }
+	{ "start": "d3t_e1_investor" },
+	{
+	  "start": "random",
+	  "pool": [
+		"d3t_r_expansion_offer",
+		"d3t_r_award_nomination",
+        "d3t_r_partnership"
+	  ]
+	},
+	{ "start": "d3t_e3_staff_development" },
+	{ "start": "d3t_e4_premium_upgrade" },
+	{ "start": "d3t_e5_community_impact" }
   ],
   "nodes": {
 
-	"d3t_e1_a": {
+	"d3t_e1_investor": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Day 3 and business is booming! Your cash flow is healthy and people are noticing. A local investor walks in with a proposition that could change everything.",
+	  "text": "Day 3 and business is booming! Your cash flow is healthy, and people are noticing. A local investor just walked in.",
 	  "choices": [],
-	  "next": "d3t_e1_b"
+	  "next": "d3t_e1_investor_b"
 	},
-	"d3t_e1_b": {
+	"d3t_e1_investor_b": {
 	  "speaker": "Investor",
 	  "speaker_id": "corporate",
 	  "background": "shop_day",
-	  "text": "I have been watching your growth. Your numbers are impressive for a small shop. I want to offer you seed funding to expand. What do you think?",
+	  "text": "I've been watching your laundromat's growth. Your numbers are impressive. I want to offer you seed funding to expand. What do you think?",
 	  "choices": [
 		{
-		  "text": "Express strong interest and ask for details",
+		  "text": "Express strong interest — ask for details",
 		  "effects": { "money": 20, "reputation": 15, "stress": 10 },
+		  "gold": 25,
 		  "minigame": null,
-		  "next": "d3t_e1_c_interest"
+		  "next": "d3t_e1_interest"
 		},
 		{
 		  "text": "Ask what they want in return first",
 		  "effects": { "reputation": 10, "stress": -10, "morale": 5 },
+		  "gold": 20,
 		  "minigame": null,
-		  "next": "d3t_e1_c_terms"
+		  "next": "d3t_e1_terms"
 		},
 		{
-		  "text": "Thank them but say you prefer to grow organically",
+		  "text": "Thank them — prefer to grow organically",
 		  "effects": { "morale": 15, "stress": -15, "money": 5 },
+		  "gold": 15,
 		  "minigame": null,
-		  "next": "d3t_e1_c_organic"
+		  "next": "d3t_e1_organic"
 		},
 		{
-		  "text": "Ask for time to consult with your team first",
+		  "text": "Ask for time to consult your team",
 		  "effects": { "morale": 10, "stress": -5, "reputation": 5 },
+		  "gold": 18,
 		  "minigame": null,
-		  "next": "d3t_e1_c_consult"
+		  "next": "d3t_e1_consult"
 		}
 	  ]
 	},
-	"d3t_e1_c_interest": {
+	"d3t_e1_interest": {
 	  "speaker": "Investor",
 	  "speaker_id": "corporate",
 	  "background": "shop_day",
-	  "text": "Love the enthusiasm! Here is my proposal. Funding in exchange for 20% stake. Your growth potential is exactly what I look for.",
+	  "text": "Love the enthusiasm! Here's my proposal: funding in exchange for 20% stake. Your growth potential is exactly what I look for.",
 	  "choices": [],
 	  "next": "d3t_e1_result_interest"
 	},
-	"d3t_e1_c_terms": {
+	"d3t_e1_terms": {
 	  "speaker": "Investor",
 	  "speaker_id": "corporate",
 	  "background": "shop_day",
-	  "text": "Smart question. I want a 20% equity stake and a seat on your advisory board. In return you get capital and my network.",
+	  "text": "Smart question. I want 20% equity and a seat on your advisory board. In return, you get capital and my network.",
 	  "choices": [],
 	  "next": "d3t_e1_result_terms"
 	},
-	"d3t_e1_c_organic": {
+	"d3t_e1_organic": {
 	  "speaker": "Investor",
 	  "speaker_id": "corporate",
 	  "background": "shop_day",
-	  "text": "I respect that philosophy. Bootstrapped businesses have incredible character. My offer stands if you ever change your mind.",
+	  "text": "I respect that philosophy. Bootstrapped businesses have incredible character. My offer stands if you change your mind.",
 	  "choices": [],
 	  "next": "d3t_e1_result_organic"
 	},
-	"d3t_e1_c_consult": {
+	"d3t_e1_consult": {
 	  "speaker": "Investor",
 	  "speaker_id": "corporate",
 	  "background": "shop_day",
-	  "text": "Consulting your team before major decisions shows real leadership. Take the time you need. Here is my card.",
+	  "text": "Consulting your team before major decisions shows real leadership. Take the time you need. Here's my card.",
 	  "choices": [],
 	  "next": "d3t_e1_result_consult"
 	},
@@ -84,7 +97,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Strong financial performance attracts investors. Enthusiasm opens doors but make sure excitement does not override due diligence on the terms.",
+	  "text": "Strong financial performance attracts investors. Enthusiasm opens doors, but make sure excitement doesn't override due diligence.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -92,7 +105,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Understanding what you give up is as important as what you gain. Equity dilution is permanent — always know the full cost of capital.",
+	  "text": "Understanding what you give up is as important as what you gain. Equity dilution is permanent — know the full cost of capital.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -100,7 +113,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Organic growth preserves full ownership and control. It is slower but the business remains entirely yours. A valid long term strategy.",
+	  "text": "Organic growth preserves full ownership and control. It's slower, but the business remains entirely yours.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -108,217 +121,599 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Inclusive decision making on major moves builds team trust and often surfaces blind spots you would have missed alone.",
+	  "text": "Inclusive decision-making on major moves builds team trust and often surfaces blind spots you'd have missed alone.",
 	  "choices": [],
 	  "next": "end"
 	},
 
-	"d3t_e2_a": {
+	"d3t_r_expansion_offer": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "With strong finances you can now invest in staff development. A training program could significantly boost team performance and morale.",
+	  "text": "A real estate agent just called. A prime location nearby is available — perfect for a second laundromat.",
 	  "choices": [],
-	  "next": "d3t_e2_b"
+	  "next": "d3t_r_expansion_b"
 	},
-	"d3t_e2_b": {
+	"d3t_r_expansion_b": {
+	  "speaker": "Agent",
+	  "speaker_id": "corporate",
+	  "background": "office",
+	  "text": "Given your success, this space is perfect for you. First month free if you sign today. Interested?",
+	  "choices": [
+		{
+		  "text": "Sign immediately — seize the opportunity",
+		  "effects": { "money": -40, "reputation": 25, "stress": 20 },
+		  "gold": 35,
+		  "sets_flag": "expanded_early",
+		  "minigame": null,
+		  "next": "d3t_r_expansion_yes"
+		},
+		{
+		  "text": "Ask for 48 hours to think",
+		  "effects": { "stress": -10 },
+		  "gold": 10,
+		  "minigame": null,
+		  "next": "d3t_r_expansion_think"
+		},
+		{
+		  "text": "Negotiate a better deal",
+		  "effects": { "money": -30, "reputation": 15, "stress": 10 },
+		  "gold": 30,
+		  "minigame": null,
+		  "next": "d3t_r_expansion_negotiate"
+		},
+		{
+		  "text": "Pass — focus on current location",
+		  "effects": { "morale": 10, "stress": -15, "money": 10 },
+		  "gold": 15,
+		  "minigame": null,
+		  "next": "d3t_r_expansion_pass"
+		}
+	  ]
+	},
+	"d3t_r_expansion_yes": {
+	  "speaker": "Agent",
+	  "speaker_id": "corporate",
+	  "background": "office",
+	  "text": "Excellent decision! The space is yours. Bold moves separate growing businesses from stagnant ones.",
+	  "choices": [],
+	  "next": "d3t_r_expansion_result_yes"
+	},
+	"d3t_r_expansion_think": {
+	  "speaker": "Agent",
+	  "speaker_id": "corporate",
+	  "background": "office",
+	  "text": "Fair enough. 48 hours — after that, it's back on the market.",
+	  "choices": [],
+	  "next": "d3t_r_expansion_result_think"
+	},
+	"d3t_r_expansion_negotiate": {
+	  "speaker": "Agent",
+	  "speaker_id": "corporate",
+	  "background": "office",
+	  "text": "The owner is motivated. Your offer was accepted. Smart negotiating saved you capital.",
+	  "choices": [],
+	  "next": "d3t_r_expansion_result_negotiate"
+	},
+	"d3t_r_expansion_pass": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Consolidation before expansion is wise. Many businesses fail by growing too fast.",
+	  "choices": [],
+	  "next": "d3t_r_expansion_result_pass"
+	},
+	"d3t_r_expansion_result_yes": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Moving decisively on rare opportunities is a key entrepreneurial skill. Your success gave you this option.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3t_r_expansion_result_think": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Taking time under pressure shows discipline. Use the 48 hours wisely.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3t_r_expansion_result_negotiate": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Negotiating even in favorable markets is smart. Every peso saved can be reinvested.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3t_r_expansion_result_pass": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Depth before breadth. A perfect single location often outperforms two mediocre ones.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d3t_r_award_nomination": {
+	  "speaker": "Inspector",
+	  "speaker_id": "inspector",
+	  "background": "shop_day",
+	  "text": "I'm from the Local Business Association. Your laundromat has been nominated for 'Best Small Business of the Year!'",
+	  "choices": [],
+	  "next": "d3t_r_award_b"
+	},
+	"d3t_r_award_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "shop_day",
+	  "text": "An unexpected nomination! How do you respond?",
+	  "choices": [
+		{
+		  "text": "Accept graciously and thank them",
+		  "effects": { "reputation": 25, "morale": 20 },
+		  "gold": 25,
+		  "sets_flag": "accepted_award",
+		  "minigame": null,
+		  "next": "d3t_r_award_accept"
+		},
+		{
+		  "text": "Ask what the award entails",
+		  "effects": { "reputation": 15, "stress": -10 },
+		  "gold": 15,
+		  "minigame": null,
+		  "next": "d3t_r_award_ask"
+		},
+		{
+		  "text": "Humbly decline — too humble for awards",
+		  "effects": { "reputation": 10, "morale": 10 },
+		  "gold": 10,
+		  "sets_flag": "declined_award",
+		  "minigame": null,
+		  "next": "d3t_r_award_decline"
+		}
+	  ]
+	},
+	"d3t_r_award_accept": {
+	  "speaker": "Inspector",
+	  "speaker_id": "inspector",
+	  "background": "shop_day",
+	  "text": "Wonderful! Your dedication to cleanliness and service is an inspiration.",
+	  "choices": [],
+	  "next": "d3t_r_award_result_accept"
+	},
+	"d3t_r_award_ask": {
+	  "speaker": "Inspector",
+	  "speaker_id": "inspector",
+	  "background": "shop_day",
+	  "text": "Smart to ask! It's mostly a plaque and a feature in the local paper. No obligations.",
+	  "choices": [],
+	  "next": "d3t_r_award_result_ask"
+	},
+	"d3t_r_award_decline": {
+	  "speaker": "Inspector",
+	  "speaker_id": "inspector",
+	  "background": "shop_day",
+	  "text": "I respect your humility. The offer stands if you change your mind.",
+	  "choices": [],
+	  "next": "d3t_r_award_result_decline"
+	},
+	"d3t_r_award_result_accept": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Recognition builds reputation. Accepting awards graciously sends a signal of confidence.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3t_r_award_result_ask": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Due diligence before commitment is always wise. You got the full picture and made an informed decision.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3t_r_award_result_decline": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Humility is admirable, but recognition has value. Sometimes accepting praise is as important as earning it.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d3t_r_partnership": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "A nearby cafe owner wants to collaborate on a joint promotion. Your success has attracted attention.",
+	  "choices": [],
+	  "next": "d3t_r_partnership_b"
+	},
+	"d3t_r_partnership_b": {
+	  "speaker": "Cafe Owner",
+	  "speaker_id": "corporate",
+	  "background": "shop_day",
+	  "text": "Your laundromat is the busiest on the street. A joint promotion could double both our customer bases. Interested?",
+	  "choices": [
+		{
+		  "text": "Agree enthusiastically",
+		  "effects": { "reputation": 20, "money": 15, "morale": 20 },
+		  "gold": 30,
+		  "sets_flag": "cafe_partnership",
+		  "minigame": null,
+		  "next": "d3t_r_partnership_agree"
+		},
+		{
+		  "text": "Ask for details first",
+		  "effects": { "reputation": 12, "stress": -10 },
+		  "gold": 15,
+		  "minigame": null,
+		  "next": "d3t_r_partnership_details"
+		},
+		{
+		  "text": "Propose a pilot program first",
+		  "effects": { "reputation": 10, "money": 8, "stress": -8 },
+		  "gold": 20,
+		  "minigame": null,
+		  "next": "d3t_r_partnership_pilot"
+		}
+	  ]
+	},
+	"d3t_r_partnership_agree": {
+	  "speaker": "Cafe Owner",
+	  "speaker_id": "corporate",
+	  "background": "shop_day",
+	  "text": "Fantastic! 'Wash and Coffee' — I love it! This is going to be incredible.",
+	  "choices": [],
+	  "next": "d3t_r_partnership_result_agree"
+	},
+	"d3t_r_partnership_details": {
+	  "speaker": "Cafe Owner",
+	  "speaker_id": "corporate",
+	  "background": "shop_day",
+	  "text": "Due diligence is important. Let me walk you through the full plan.",
+	  "choices": [],
+	  "next": "d3t_r_partnership_result_details"
+	},
+	"d3t_r_partnership_pilot": {
+	  "speaker": "Cafe Owner",
+	  "speaker_id": "corporate",
+	  "background": "shop_day",
+	  "text": "A pilot is a brilliant idea. Test the waters before diving in.",
+	  "choices": [],
+	  "next": "d3t_r_partnership_result_pilot"
+	},
+	"d3t_r_partnership_result_agree": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Strategic partnerships multiply reach. Your success attracted this opportunity — now it's compounding.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3t_r_partnership_result_details": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Never commit without understanding the full picture. Asking for details protects your interests.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3t_r_partnership_result_pilot": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Pilots reduce risk. Testing compatibility before full commitment is one of the smartest moves.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d3t_e3_staff_development": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "With strong finances, you can now invest in staff development. A training program could boost team performance.",
+	  "choices": [],
+	  "next": "d3t_e3_staff_b"
+	},
+	"d3t_e3_staff_b": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "office",
-	  "text": "Boss, we heard you are doing well financially. Some of us were hoping for professional development opportunities. Would you consider investing in us?",
+	  "text": "Boss, we heard you're doing well. Some of us were hoping for professional development. Would you consider investing in us?",
 	  "choices": [
 		{
 		  "text": "Fund full external training program",
-		  "effects": { "money": -20, "morale": 25, "reputation": 10 },
+		  "effects": { "money": -25, "morale": 30, "reputation": 15 },
+		  "gold": 20,
+		  "sets_flag": "funded_training",
 		  "minigame": null,
-		  "next": "d3t_e2_c_full"
+		  "next": "d3t_e3_full"
 		},
 		{
 		  "text": "Run internal training sessions yourself",
-		  "effects": { "morale": 15, "stress": 10, "money": -5 },
+		  "effects": { "morale": 20, "stress": 10, "money": -10 },
+		  "gold": 15,
 		  "minigame": null,
-		  "next": "d3t_e2_c_internal"
+		  "next": "d3t_e3_internal"
 		},
 		{
-		  "text": "Sponsor one high performer for external training",
-		  "effects": { "morale": 10, "money": -10, "reputation": 5 },
+		  "text": "Sponsor one high performer",
+		  "effects": { "morale": 15, "money": -15, "reputation": 10 },
+		  "gold": 18,
 		  "minigame": null,
-		  "next": "d3t_e2_c_sponsor"
+		  "next": "d3t_e3_sponsor"
 		},
 		{
-		  "text": "Not yet — reinvest profits into the business first",
-		  "effects": { "morale": -10, "money": 10 },
+		  "text": "Not yet — reinvest profits first",
+		  "effects": { "morale": -15, "money": 15 },
+		  "gold": 10,
 		  "minigame": null,
-		  "next": "d3t_e2_c_decline"
+		  "next": "d3t_e3_decline"
 		}
 	  ]
 	},
-	"d3t_e2_c_full": {
+	"d3t_e3_full": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "office",
-	  "text": "This means so much to all of us! Investing in your team shows you see us as more than just workers. We will make you proud.",
+	  "text": "This means so much! Investing in your team shows you see us as more than just workers. We'll make you proud.",
 	  "choices": [],
-	  "next": "d3t_e2_result_full"
+	  "next": "d3t_e3_result_full"
 	},
-	"d3t_e2_c_internal": {
+	"d3t_e3_internal": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "office",
-	  "text": "Learning directly from you is actually really valuable. Your experience and understanding of this specific business is irreplaceable.",
+	  "text": "Learning directly from you is valuable. Your experience in this laundromat is irreplaceable.",
 	  "choices": [],
-	  "next": "d3t_e2_result_internal"
+	  "next": "d3t_e3_result_internal"
 	},
-	"d3t_e2_c_sponsor": {
+	"d3t_e3_sponsor": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "office",
-	  "text": "Choosing one person is tough but it is a start. The selected team member is overjoyed and the others see it as something to work toward.",
+	  "text": "Choosing one person is tough, but it's a start. The selected team member is overjoyed.",
 	  "choices": [],
-	  "next": "d3t_e2_result_sponsor"
+	  "next": "d3t_e3_result_sponsor"
 	},
-	"d3t_e2_c_decline": {
+	"d3t_e3_decline": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "office",
-	  "text": "We understand but it is a little disheartening. We hope the investment pays off and opportunities come for us too eventually.",
+	  "text": "We understand, but it's a little disheartening. We hope opportunities come for us eventually.",
 	  "choices": [],
-	  "next": "d3t_e2_result_decline"
+	  "next": "d3t_e3_result_decline"
 	},
-	"d3t_e2_result_full": {
+	"d3t_e3_result_full": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Team investment when finances allow creates compounding returns. Skilled motivated staff deliver better results and stay longer.",
+	  "text": "Team investment when finances allow creates compounding returns. Skilled, motivated staff deliver better results and stay longer.",
 	  "choices": [],
 	  "next": "end"
 	},
-	"d3t_e2_result_internal": {
+	"d3t_e3_result_internal": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Internal knowledge transfer is undervalued. Your specific business context cannot be taught externally — sharing it builds a uniquely capable team.",
+	  "text": "Internal knowledge transfer is undervalued. Your specific business context can't be taught externally.",
 	  "choices": [],
 	  "next": "end"
 	},
-	"d3t_e2_result_sponsor": {
+	"d3t_e3_result_sponsor": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Merit based development opportunities motivate the whole team even when only one benefits. Make the selection criteria clear and fair.",
+	  "text": "Merit-based development motivates the whole team, even when only one benefits. Make selection criteria clear.",
 	  "choices": [],
 	  "next": "end"
 	},
-	"d3t_e2_result_decline": {
+	"d3t_e3_result_decline": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Prioritizing business reinvestment over people investment has limits. Your team is your most important asset — neglecting them has long term costs.",
+	  "text": "Prioritizing business reinvestment over people has limits. Your team is your most important asset.",
 	  "choices": [],
 	  "next": "end"
 	},
 
-	"d3t_e3_a": {
+	"d3t_e4_premium_upgrade": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
-	  "background": "shop_evening",
-	  "text": "Strong finances give you options others do not have. A prime retail space just became available nearby at a good price. A rare opportunity.",
+	  "background": "shop_day",
+	  "text": "A premium equipment supplier is offering a deal on high-efficiency machines. They cost more upfront but save money long-term.",
 	  "choices": [],
-	  "next": "d3t_e3_b"
+	  "next": "d3t_e4_upgrade_b"
 	},
-	"d3t_e3_b": {
-	  "speaker": "Property Agent",
-	  "speaker_id": "corporate",
-	  "background": "shop_evening",
-	  "text": "This space will not last long. It is perfect for a second location or expansion. Given your financial position you could move on this now. Interested?",
+	"d3t_e4_upgrade_b": {
+	  "speaker": "Supplier",
+	  "speaker_id": "supplier",
+	  "background": "shop_day",
+	  "text": "These machines use 40% less water and energy. Higher upfront cost, but you'll save thousands over time. Interested?",
 	  "choices": [
 		{
-		  "text": "Move quickly — secure the space now",
-		  "effects": { "money": -30, "reputation": 20, "stress": 20 },
+		  "text": "Upgrade all machines immediately",
+		  "effects": { "money": -60, "reputation": 30, "morale": 15 },
+		  "gold": 40,
+		  "sets_flag": "premium_upgrade",
 		  "minigame": null,
-		  "next": "d3t_e3_c_quick"
+		  "next": "d3t_e4_full"
 		},
 		{
-		  "text": "Ask for 48 hours to think it over",
-		  "effects": { "stress": -10, "morale": 5 },
+		  "text": "Upgrade half the machines first",
+		  "effects": { "money": -30, "reputation": 15, "morale": 10 },
+		  "gold": 25,
 		  "minigame": null,
-		  "next": "d3t_e3_c_think"
+		  "next": "d3t_e4_half"
 		},
 		{
-		  "text": "Make a lower offer to test flexibility",
-		  "effects": { "money": -20, "reputation": 10, "stress": 5 },
+		  "text": "Ask for a trial period",
+		  "effects": { "money": -10, "reputation": 5, "stress": -10 },
+		  "gold": 15,
 		  "minigame": null,
-		  "next": "d3t_e3_c_offer"
+		  "next": "d3t_e4_trial"
 		},
 		{
-		  "text": "Pass — focus on perfecting the current shop",
-		  "effects": { "morale": 10, "stress": -15, "money": 10 },
+		  "text": "Decline — too expensive right now",
+		  "effects": { "money": 10, "reputation": -5 },
+		  "gold": 8,
 		  "minigame": null,
-		  "next": "d3t_e3_c_pass"
+		  "next": "d3t_e4_decline"
 		}
 	  ]
 	},
-	"d3t_e3_c_quick": {
-	  "speaker": "Property Agent",
-	  "speaker_id": "corporate",
-	  "background": "shop_evening",
-	  "text": "Excellent decision! The space is yours. Bold moves like this are what separate growing businesses from stagnant ones.",
+	"d3t_e4_full": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "These new machines are so quiet and fast! This is the best laundromat experience I've ever had.",
 	  "choices": [],
-	  "next": "d3t_e3_result_quick"
+	  "next": "d3t_e4_result_full"
 	},
-	"d3t_e3_c_think": {
-	  "speaker": "Property Agent",
-	  "speaker_id": "corporate",
-	  "background": "shop_evening",
-	  "text": "Fair enough. I can hold it for 48 hours but after that it goes back on the market. The clock is ticking.",
+	"d3t_e4_half": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "The new machines are great! Hope you upgrade the rest soon.",
 	  "choices": [],
-	  "next": "d3t_e3_result_think"
+	  "next": "d3t_e4_result_half"
 	},
-	"d3t_e3_c_offer": {
-	  "speaker": "Property Agent",
-	  "speaker_id": "corporate",
-	  "background": "shop_evening",
-	  "text": "The owner is motivated to sell quickly. Your lower offer was accepted. Smart negotiating saved you significant capital.",
+	"d3t_e4_trial": {
+	  "speaker": "Supplier",
+	  "speaker_id": "supplier",
+	  "background": "shop_day",
+	  "text": "Two-week trial period. You'll see the savings yourself.",
 	  "choices": [],
-	  "next": "d3t_e3_result_offer"
+	  "next": "d3t_e4_result_trial"
 	},
-	"d3t_e3_c_pass": {
+	"d3t_e4_decline": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
-	  "background": "shop_evening",
-	  "text": "Consolidation before expansion is wise. Many businesses fail by growing too fast. Mastering your current operation first is the right foundation.",
+	  "background": "shop_day",
+	  "text": "Short-term savings can mean long-term costs. Efficient machines pay for themselves eventually.",
 	  "choices": [],
-	  "next": "d3t_e3_result_pass"
+	  "next": "d3t_e4_result_decline"
 	},
-	"d3t_e3_result_quick": {
+	"d3t_e4_result_full": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
-	  "background": "shop_evening",
-	  "text": "Moving decisively on rare opportunities is a key entrepreneurial skill. Your financial strength gave you this option — you used it well.",
+	  "background": "shop_day",
+	  "text": "Bold investment in efficiency pays off. Lower operational costs and happier customers — a winning combination.",
 	  "choices": [],
 	  "next": "end"
 	},
-	"d3t_e3_result_think": {
+	"d3t_e4_result_half": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
-	  "background": "shop_evening",
-	  "text": "Taking time under pressure shows discipline. Rushed major decisions often have hidden costs. Use the 48 hours wisely.",
+	  "background": "shop_day",
+	  "text": "Phased upgrades balance cost and improvement. Smart way to manage cash flow while modernizing.",
 	  "choices": [],
 	  "next": "end"
 	},
-	"d3t_e3_result_offer": {
+	"d3t_e4_result_trial": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
-	  "background": "shop_evening",
-	  "text": "Negotiating even in favorable markets is smart. Every peso saved is a peso that can be reinvested. Never accept the first price without testing.",
+	  "background": "shop_day",
+	  "text": "Testing before committing is wise. Data will guide your decision.",
 	  "choices": [],
 	  "next": "end"
 	},
-	"d3t_e3_result_pass": {
+	"d3t_e4_result_decline": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Sometimes you need to spend money to save money. Don't let short-term thinking limit long-term gains.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d3t_e5_community_impact": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "Depth before breadth. A perfect single location often outperforms two mediocre ones. Knowing when not to expand is genuine business wisdom.",
+	  "text": "End of a successful day. The neighborhood association wants to honor your laundromat's positive impact.",
+	  "choices": [],
+	  "next": "d3t_e5_community_b"
+	},
+	"d3t_e5_community_b": {
+	  "speaker": "Community Leader",
+	  "speaker_id": "corporate",
+	  "background": "shop_evening",
+	  "text": "Your laundromat has become a neighborhood anchor. We want to present you with a Community Service Award.",
+	  "choices": [
+		{
+		  "text": "Accept with gratitude",
+		  "effects": { "reputation": 25, "morale": 20, "money": 10 },
+		  "gold": 25,
+		  "sets_flag": "community_award",
+		  "minigame": null,
+		  "next": "d3t_e5_accept"
+		},
+		{
+		  "text": "Share credit with your team",
+		  "effects": { "reputation": 20, "morale": 30, "money": 5 },
+		  "gold": 20,
+		  "minigame": null,
+		  "next": "d3t_e5_credit"
+		},
+		{
+		  "text": "Humbly accept but downplay it",
+		  "effects": { "reputation": 15, "morale": 10 },
+		  "gold": 15,
+		  "minigame": null,
+		  "next": "d3t_e5_humble"
+		}
+	  ]
+	},
+	"d3t_e5_accept": {
+	  "speaker": "Community Leader",
+	  "speaker_id": "corporate",
+	  "background": "shop_evening",
+	  "text": "Thank you! Your laundromat has made a real difference here.",
+	  "choices": [],
+	  "next": "d3t_e5_result_accept"
+	},
+	"d3t_e5_credit": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_evening",
+	  "text": "You're giving us credit? Best boss ever! This means so much.",
+	  "choices": [],
+	  "next": "d3t_e5_result_credit"
+	},
+	"d3t_e5_humble": {
+	  "speaker": "Community Leader",
+	  "speaker_id": "corporate",
+	  "background": "shop_evening",
+	  "text": "Your humility is admirable. The award is well deserved.",
+	  "choices": [],
+	  "next": "d3t_e5_result_humble"
+	},
+	"d3t_e5_result_accept": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Accepting recognition graciously builds your reputation. Your success has created positive community impact.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3t_e5_result_credit": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Sharing credit builds loyalty. Your team will work even harder for a leader who lifts them up.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3t_e5_result_humble": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Humility is a virtue, but don't be afraid to stand in your success. You've earned it.",
 	  "choices": [],
 	  "next": "end"
 	}

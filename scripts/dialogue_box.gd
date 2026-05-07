@@ -21,6 +21,8 @@ var _pulse_tween:      Tween  = null
 var _typewriter_tween: Tween  = null
 var _initialized:      bool   = false
 var _skip_cooldown:    bool   = false
+var _last_tap_time: float = 0.0
+const TAP_COOLDOWN: float = 0.3  # Minimum time between taps
 
 # =========================================
 # LIFECYCLE
@@ -143,6 +145,12 @@ func skip_typing() -> void:
 	_on_typewriter_finished()
 
 func on_screen_tapped() -> void:
+	# Throttle rapid taps
+	var current_time = Time.get_ticks_msec() / 1000.0
+	if current_time - _last_tap_time < TAP_COOLDOWN:
+		return
+	_last_tap_time = current_time
+	
 	if _skip_cooldown:
 		return
 	if _is_typing:

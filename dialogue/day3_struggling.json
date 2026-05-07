@@ -1,82 +1,96 @@
 {
   "day": 3,
-  "total_events": 3,
+  "total_events": 5,
   "events": [
-	{ "start": "d3s_e1_a" },
-	{ "start": "d3s_e2_a" },
-	{ "start": "d3s_e3_a" }
+	{ "start": "d3s_e1_cost_crisis" },
+	{
+	  "start": "random",
+	  "pool": [
+		"d3s_r_supplier_pressure",
+		"d3s_r_bad_review_viral",
+        "d3s_r_theft"
+	  ]
+	},
+	{ "start": "d3s_e3_accountant_finances" },
+	{ "start": "d3s_e4_staff_morale" },
+	{ "start": "d3s_e5_recovery_plan" }
   ],
   "nodes": {
 
-	"d3s_e1_a": {
+	"d3s_e1_cost_crisis": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Day 3 and cash is tight. You need to make smart financial decisions today or the business could be in real trouble. Every peso counts.",
+	  "text": "Day 3 and cash is tight. Your laundromat is struggling. You need to make smart financial decisions today or the business could be in real trouble.",
 	  "choices": [],
-	  "next": "d3s_e1_b"
+	  "next": "d3s_e1_cost_b"
 	},
-	"d3s_e1_b": {
+	"d3s_e1_cost_b": {
 	  "speaker": "You",
 	  "speaker_id": "player",
 	  "background": "shop_day",
-	  "text": "Bills are piling up and revenue is lower than expected. I need to cut costs somewhere without destroying what makes this place special.",
+	  "text": "Bills are piling up, and revenue is lower than expected. I need to cut costs somewhere without destroying what makes this place special.",
 	  "choices": [
 		{
 		  "text": "Reduce staff hours temporarily",
 		  "effects": { "money": 15, "morale": -15, "stress": 10 },
+		  "gold": 12,
 		  "minigame": null,
-		  "next": "d3s_e1_c_staff"
+		  "next": "d3s_e1_staff"
 		},
 		{
-		  "text": "Cut ingredient quality slightly to save costs",
+		  "text": "Use cheaper detergent to save costs",
 		  "effects": { "money": 10, "reputation": -15, "morale": -5 },
+		  "gold": 10,
 		  "minigame": null,
-		  "next": "d3s_e1_c_quality"
+		  "next": "d3s_e1_quality"
 		},
 		{
-		  "text": "Launch flash sale to generate quick cash",
+		  "text": "Launch a flash sale to generate quick cash",
 		  "effects": { "money": 15, "reputation": 5, "stress": 10 },
+		  "gold": 18,
 		  "minigame": null,
-		  "next": "d3s_e1_c_sale"
+		  "next": "d3s_e1_sale"
 		},
 		{
 		  "text": "Apply for a small business emergency loan",
-		  "effects": { "money": 25, "stress": 15, "morale": -5 },
+		  "effects": { "money": 30, "stress": 20, "morale": -5 },
+		  "gold": 25,
+		  "sets_flag": "took_loan",
 		  "minigame": null,
-		  "next": "d3s_e1_c_loan"
+		  "next": "d3s_e1_loan"
 		}
 	  ]
 	},
-	"d3s_e1_c_staff": {
+	"d3s_e1_staff": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "shop_day",
-	  "text": "Reduced hours means reduced pay. We understand the business is struggling but this puts real pressure on us personally.",
+	  "text": "Reduced hours mean reduced pay. We understand the business is struggling, but this puts real pressure on us personally.",
 	  "choices": [],
 	  "next": "d3s_e1_result_staff"
 	},
-	"d3s_e1_c_quality": {
+	"d3s_e1_quality": {
 	  "speaker": "Regular Customer",
 	  "speaker_id": "customer",
 	  "background": "shop_day",
-	  "text": "Something tastes different today. Not as good as usual. I hope standards are not dropping here.",
+	  "text": "Something's different. The detergent smells cheaper. I hope standards aren't dropping.",
 	  "choices": [],
 	  "next": "d3s_e1_result_quality"
 	},
-	"d3s_e1_c_sale": {
+	"d3s_e1_sale": {
 	  "speaker": "Customer",
 	  "speaker_id": "customer",
 	  "background": "shop_day",
-	  "text": "A flash sale! Perfect timing. I brought three friends along. You should do these more often!",
+	  "text": "A flash sale? Perfect timing! I brought three friends along. You should do these more often!",
 	  "choices": [],
 	  "next": "d3s_e1_result_sale"
 	},
-	"d3s_e1_c_loan": {
+	"d3s_e1_loan": {
 	  "speaker": "Bank Officer",
 	  "speaker_id": "corporate",
 	  "background": "office",
-	  "text": "Given your short operating history the loan comes with higher interest. But the funds are available within 24 hours if you need them.",
+	  "text": "Given your short operating history, the loan comes with higher interest. Funds are available within 24 hours.",
 	  "choices": [],
 	  "next": "d3s_e1_result_loan"
 	},
@@ -84,7 +98,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Cost cutting through labor is a double edged sword. It preserves cash but damages the team trust that carries you through hard times.",
+	  "text": "Cost cutting through labor is a double-edged sword. It preserves cash but damages the team trust that carries you through hard times.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -92,7 +106,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Quality cuts are visible to loyal customers immediately. Short term savings can trigger long term reputation damage that costs far more.",
+	  "text": "Quality cuts are visible to loyal customers immediately. Short-term savings can trigger long-term reputation damage.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -100,7 +114,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Flash sales generate immediate cash flow and foot traffic. Creative revenue generation beats cost cutting when protecting culture matters.",
+	  "text": "Flash sales generate immediate cash flow and foot traffic. Creative revenue generation beats cost-cutting when protecting culture matters.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -108,108 +122,442 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Debt financing buys time but adds future pressure. Use borrowed capital only for revenue generating activities not just covering operating costs.",
+	  "text": "Debt financing buys time but adds future pressure. Use borrowed capital only for revenue-generating activities.",
 	  "choices": [],
 	  "next": "end"
 	},
 
-	"d3s_e2_a": {
-	  "speaker": "Mentor",
-	  "speaker_id": "mentor",
+	"d3s_r_supplier_pressure": {
+	  "speaker": "Supplier",
+	  "speaker_id": "supplier",
 	  "background": "office",
-	  "text": "A difficult conversation is needed. Your accountant has reviewed the books and the numbers are concerning. You need a plan today.",
+	  "text": "I've noticed your orders are smaller lately. If you can't maintain volume, I'll have to increase your prices.",
 	  "choices": [],
-	  "next": "d3s_e2_b"
+	  "next": "d3s_r_supplier_b"
 	},
-	"d3s_e2_b": {
-	  "speaker": "Accountant",
-	  "speaker_id": "corporate",
+	"d3s_r_supplier_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
 	  "background": "office",
-	  "text": "At the current burn rate you have about three weeks of runway left. You need to either increase revenue by 30% or cut costs by 20%. What is your plan?",
+	  "text": "The supplier is threatening higher prices. How do you respond?",
 	  "choices": [
 		{
-		  "text": "Focus entirely on revenue growth",
-		  "effects": { "stress": 15, "morale": 10, "money": 10 },
+		  "text": "Explain your situation and ask for patience",
+		  "effects": { "reputation": 10, "stress": -5, "money": -5 },
+		  "gold": 10,
+		  "sets_flag": "honest_with_supplier",
 		  "minigame": null,
-		  "next": "d3s_e2_c_revenue"
+		  "next": "d3s_r_supplier_honest"
 		},
 		{
-		  "text": "Implement strict cost cutting immediately",
-		  "effects": { "money": 15, "morale": -15, "stress": 5 },
+		  "text": "Accept the price increase",
+		  "effects": { "money": -15, "stress": 10, "morale": -5 },
+		  "gold": 5,
 		  "minigame": null,
-		  "next": "d3s_e2_c_costs"
+		  "next": "d3s_r_supplier_accept"
 		},
 		{
-		  "text": "Do both — moderate cuts and moderate growth push",
-		  "effects": { "money": 12, "morale": -5, "stress": 10 },
+		  "text": "Look for a cheaper supplier",
+		  "effects": { "money": -10, "stress": 15, "reputation": -10 },
+		  "gold": 8,
 		  "minigame": null,
-		  "next": "d3s_e2_c_both"
+		  "next": "d3s_r_supplier_switch"
 		},
 		{
-		  "text": "Seek a business mentor or advisor for help",
-		  "effects": { "stress": -15, "morale": 15, "reputation": 5 },
+		  "text": "Promise to increase volume next month",
+		  "effects": { "stress": 10, "reputation": 5 },
+		  "gold": 5,
 		  "minigame": null,
-		  "next": "d3s_e2_c_mentor"
+		  "next": "d3s_r_supplier_promise"
 		}
 	  ]
 	},
-	"d3s_e2_c_revenue": {
+	"d3s_r_supplier_honest": {
+	  "speaker": "Supplier",
+	  "speaker_id": "supplier",
+	  "background": "office",
+	  "text": "I appreciate your honesty. I'll give you two months at current prices to turn things around.",
+	  "choices": [],
+	  "next": "d3s_r_supplier_result_honest"
+	},
+	"d3s_r_supplier_accept": {
+	  "speaker": "Supplier",
+	  "speaker_id": "supplier",
+	  "background": "office",
+	  "text": "Prices increased starting next order.",
+	  "choices": [],
+	  "next": "d3s_r_supplier_result_accept"
+	},
+	"d3s_r_supplier_switch": {
+	  "speaker": "New Supplier",
+	  "speaker_id": "supplier",
+	  "background": "office",
+	  "text": "We can supply you, but quality is lower. You get what you pay for.",
+	  "choices": [],
+	  "next": "d3s_r_supplier_result_switch"
+	},
+	"d3s_r_supplier_promise": {
+	  "speaker": "Supplier",
+	  "speaker_id": "supplier",
+	  "background": "office",
+	  "text": "I'll hold you to that. One month grace period.",
+	  "choices": [],
+	  "next": "d3s_r_supplier_result_promise"
+	},
+	"d3s_r_supplier_result_honest": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Transparency in tough times builds goodwill. People are more understanding than you think when you're honest.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3s_r_supplier_result_accept": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Accepting higher costs without negotiation hurts your margins. Always try to negotiate first.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3s_r_supplier_result_switch": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Cheaper suppliers often mean lower quality. Make sure you're not saving money at the expense of your reputation.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3s_r_supplier_result_promise": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Promises create pressure to deliver. Make sure you can keep them before committing.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d3s_r_bad_review_viral": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "A customer left a scathing online review about your laundromat. It's gaining traction.",
+	  "choices": [],
+	  "next": "d3s_r_review_b"
+	},
+	"d3s_r_review_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "office",
+	  "text": "The review complains about dirty machines and poor service. How do you respond?",
+	  "choices": [
+		{
+		  "text": "Respond publicly with an apology",
+		  "effects": { "reputation": 15, "stress": -10, "morale": 5 },
+		  "gold": 10,
+		  "minigame": null,
+		  "next": "d3s_r_review_public"
+		},
+		{
+		  "text": "Message them privately to resolve",
+		  "effects": { "reputation": 12, "money": -10, "morale": 8 },
+		  "gold": 8,
+		  "minigame": null,
+		  "next": "d3s_r_review_private"
+		},
+		{
+		  "text": "Ignore it — hope it goes away",
+		  "effects": { "reputation": -25, "stress": 25 },
+		  "gold": 0,
+		  "minigame": null,
+		  "next": "d3s_r_review_ignore"
+		},
+		{
+		  "text": "Ask happy customers to leave reviews",
+		  "effects": { "reputation": 10, "morale": 10, "stress": -5 },
+		  "gold": 5,
+		  "minigame": null,
+		  "next": "d3s_r_review_positive"
+		}
+	  ]
+	},
+	"d3s_r_review_public": {
+	  "speaker": "Online User",
+	  "speaker_id": "customer",
+	  "background": "office",
+	  "text": "The owner actually responded and apologized. Maybe it's worth another chance.",
+	  "choices": [],
+	  "next": "d3s_r_review_result_public"
+	},
+	"d3s_r_review_private": {
+	  "speaker": "Reviewer",
+	  "speaker_id": "customer",
+	  "background": "office",
+	  "text": "A personal message and an apology? I'll update my review.",
+	  "choices": [],
+	  "next": "d3s_r_review_result_private"
+	},
+	"d3s_r_review_ignore": {
+	  "speaker": "Potential Customer",
+	  "speaker_id": "customer",
+	  "background": "office",
+	  "text": "They never even replied. Doesn't say much about their customer service.",
+	  "choices": [],
+	  "next": "d3s_r_review_result_ignore"
+	},
+	"d3s_r_review_positive": {
+	  "speaker": "Happy Customer",
+	  "speaker_id": "customer",
+	  "background": "office",
+	  "text": "Of course! You've been great to us. Happy to share my experience!",
+	  "choices": [],
+	  "next": "d3s_r_review_result_positive"
+	},
+	"d3s_r_review_result_public": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Public responses show accountability. Others see how you handle criticism — that builds trust over time.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3s_r_review_result_private": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Personal outreach shows genuine care. Turning a critic into a fan is one of the best outcomes.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3s_r_review_result_ignore": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Silence reads as indifference online. Unaddressed negative reviews compound over time.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3s_r_review_result_positive": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Amplifying positive voices is smart. It balances the narrative while you work on improvements.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d3s_r_theft": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_day",
+	  "text": "Boss! Someone broke into the coin machine overnight. We lost a week's worth of coins, and the machine is damaged.",
+	  "choices": [],
+	  "next": "d3s_r_theft_b"
+	},
+	"d3s_r_theft_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "shop_day",
+	  "text": "A theft and damaged machine. Other customers are watching how you handle this.",
+	  "choices": [
+		{
+		  "text": "Call the police immediately",
+		  "effects": { "reputation": 10, "stress": 15, "money": -15 },
+		  "gold": 8,
+		  "minigame": null,
+		  "next": "d3s_r_theft_police"
+		},
+		{
+		  "text": "Repair the machine quietly",
+		  "effects": { "money": -25, "stress": 10, "reputation": -10 },
+		  "gold": 5,
+		  "minigame": null,
+		  "next": "d3s_r_theft_quiet"
+		},
+		{
+		  "text": "Post a warning sign and add cameras",
+		  "effects": { "money": -20, "reputation": 10, "stress": -10 },
+		  "gold": 10,
+		  "sets_flag": "added_security",
+		  "minigame": null,
+		  "next": "d3s_r_theft_security"
+		},
+		{
+		  "text": "Do nothing — hope it doesn't happen again",
+		  "effects": { "stress": 25, "reputation": -20 },
+		  "gold": 0,
+		  "minigame": null,
+		  "next": "d3s_r_theft_nothing"
+		}
+	  ]
+	},
+	"d3s_r_theft_police": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "Good that they called the police. At least they take security seriously.",
+	  "choices": [],
+	  "next": "d3s_r_theft_result_police"
+	},
+	"d3s_r_theft_quiet": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "Did something happen? They're being weird about that machine.",
+	  "choices": [],
+	  "next": "d3s_r_theft_result_quiet"
+	},
+	"d3s_r_theft_security": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "New cameras and signs? They're taking safety seriously now.",
+	  "choices": [],
+	  "next": "d3s_r_theft_result_security"
+	},
+	"d3s_r_theft_nothing": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "That broken machine has been like that all day. Don't they care?",
+	  "choices": [],
+	  "next": "d3s_r_theft_result_nothing"
+	},
+	"d3s_r_theft_result_police": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Calling authorities shows you take security seriously. Transparency builds trust even in hard times.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3s_r_theft_result_quiet": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Hiding problems doesn't make them disappear. Customers notice when something's off.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3s_r_theft_result_security": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Visible security measures reassure customers. Proactive protection is good business even when money is tight.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3s_r_theft_result_nothing": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Inaction during a crisis erodes trust. Customers want to feel safe in your business.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d3s_e3_accountant_finances": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "A difficult conversation is needed. Your accountant has reviewed the books, and the numbers are concerning.",
+	  "choices": [],
+	  "next": "d3s_e3_accountant_b"
+	},
+	"d3s_e3_accountant_b": {
 	  "speaker": "Accountant",
 	  "speaker_id": "corporate",
 	  "background": "office",
-	  "text": "Aggressive revenue focus is high risk high reward. If it works you come out stronger. If it does not you burn through what little runway you have left.",
-	  "choices": [],
-	  "next": "d3s_e2_result_revenue"
+	  "text": "At your current burn rate, you have about three weeks of runway left. You need to increase revenue by 30% or cut costs by 20%. What's your plan?",
+	  "choices": [
+		{
+		  "text": "Focus entirely on revenue growth",
+		  "effects": { "stress": 20, "morale": 10, "money": 15 },
+		  "gold": 12,
+		  "minigame": null,
+		  "next": "d3s_e3_revenue"
+		},
+		{
+		  "text": "Implement strict cost cutting",
+		  "effects": { "money": 20, "morale": -20, "stress": 10 },
+		  "gold": 15,
+		  "minigame": null,
+		  "next": "d3s_e3_costs"
+		},
+		{
+		  "text": "Do both — moderate cuts and growth",
+		  "effects": { "money": 18, "morale": -10, "stress": 15 },
+		  "gold": 14,
+		  "minigame": null,
+		  "next": "d3s_e3_both"
+		},
+		{
+		  "text": "Seek a business mentor for help",
+		  "effects": { "stress": -15, "morale": 20, "reputation": 10 },
+		  "gold": 10,
+		  "sets_flag": "sought_mentor",
+		  "minigame": null,
+		  "next": "d3s_e3_mentor"
+		}
+	  ]
 	},
-	"d3s_e2_c_costs": {
+	"d3s_e3_revenue": {
 	  "speaker": "Accountant",
 	  "speaker_id": "corporate",
 	  "background": "office",
-	  "text": "Cost cutting extends runway but does not solve the fundamental revenue problem. Make sure you are not cutting things that generate income.",
+	  "text": "Aggressive revenue focus is high-risk, high-reward. If it works, you come out stronger.",
 	  "choices": [],
-	  "next": "d3s_e2_result_costs"
+	  "next": "d3s_e3_result_revenue"
 	},
-	"d3s_e2_c_both": {
+	"d3s_e3_costs": {
 	  "speaker": "Accountant",
 	  "speaker_id": "corporate",
 	  "background": "office",
-	  "text": "A balanced approach is pragmatic. Neither fully solves the problem but together they buy you meaningful time to find a sustainable solution.",
+	  "text": "Cost cutting extends runway but doesn't solve the revenue problem. Don't cut things that generate income.",
 	  "choices": [],
-	  "next": "d3s_e2_result_both"
+	  "next": "d3s_e3_result_costs"
 	},
-	"d3s_e2_c_mentor": {
+	"d3s_e3_both": {
+	  "speaker": "Accountant",
+	  "speaker_id": "corporate",
+	  "background": "office",
+	  "text": "A balanced approach is pragmatic. Neither fully solves the problem, but together they buy you time.",
+	  "choices": [],
+	  "next": "d3s_e3_result_both"
+	},
+	"d3s_e3_mentor": {
 	  "speaker": "Business Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Smart move seeking help! I have seen this situation before. Three specific changes can turn this around within two weeks. Let me show you.",
+	  "text": "Smart move seeking help! I've seen this before. Three specific changes can turn this around within two weeks.",
 	  "choices": [],
-	  "next": "d3s_e2_result_mentor"
+	  "next": "d3s_e3_result_mentor"
 	},
-	"d3s_e2_result_revenue": {
+	"d3s_e3_result_revenue": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Betting on growth during a cash crisis takes courage. It can work but requires laser focus and flawless execution under pressure.",
+	  "text": "Betting on growth during a cash crisis takes courage. It can work but requires flawless execution under pressure.",
 	  "choices": [],
 	  "next": "end"
 	},
-	"d3s_e2_result_costs": {
+	"d3s_e3_result_costs": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Cost control without revenue growth is a slow decline. It buys time — use that time to build revenue not just to survive.",
+	  "text": "Cost control without revenue growth is a slow decline. Use the time you buy to build revenue.",
 	  "choices": [],
 	  "next": "end"
 	},
-	"d3s_e2_result_both": {
+	"d3s_e3_result_both": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Balance under pressure is mature financial thinking. You are not solving everything but you are moving in the right direction on multiple fronts.",
+	  "text": "Balance under pressure is mature financial thinking. You're moving in the right direction on multiple fronts.",
 	  "choices": [],
 	  "next": "end"
 	},
-	"d3s_e2_result_mentor": {
+	"d3s_e3_result_mentor": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
@@ -218,107 +566,221 @@
 	  "next": "end"
 	},
 
-	"d3s_e3_a": {
+	"d3s_e4_staff_morale": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
-	  "background": "shop_evening",
-	  "text": "Despite the financial pressure your team has been incredible. End of day and you need to decide how to keep morale alive without spending much.",
+	  "background": "shop_day",
+	  "text": "Despite the financial pressure, your team has been incredible. But morale is suffering.",
 	  "choices": [],
-	  "next": "d3s_e3_b"
+	  "next": "d3s_e4_staff_b"
 	},
-	"d3s_e3_b": {
+	"d3s_e4_staff_b": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
-	  "background": "shop_evening",
-	  "text": "We know things are tight boss. We are still here and still giving our best. We just want to know you see us and appreciate what we are doing.",
+	  "background": "shop_day",
+	  "text": "We know things are tight, boss. We're still here and still giving our best. We just want to know you see us.",
 	  "choices": [
 		{
-		  "text": "Express genuine heartfelt gratitude personally",
-		  "effects": { "morale": 20, "stress": -10 },
+		  "text": "Express genuine heartfelt gratitude",
+		  "effects": { "morale": 25, "stress": -10 },
+		  "gold": 10,
 		  "minigame": null,
-		  "next": "d3s_e3_c_gratitude"
+		  "next": "d3s_e4_gratitude"
 		},
 		{
-		  "text": "Promise better times ahead with a specific plan",
-		  "effects": { "morale": 15, "stress": -5, "reputation": 5 },
+		  "text": "Promise better times with a specific plan",
+		  "effects": { "morale": 20, "stress": -5, "reputation": 5 },
+		  "gold": 12,
 		  "minigame": null,
-		  "next": "d3s_e3_c_promise"
+		  "next": "d3s_e4_promise"
 		},
 		{
 		  "text": "Offer a small gesture — team meal on you",
-		  "effects": { "morale": 18, "money": -5, "stress": -8 },
+		  "effects": { "morale": 22, "money": -8, "stress": -8 },
+		  "gold": 15,
 		  "minigame": null,
-		  "next": "d3s_e3_c_meal"
+		  "next": "d3s_e4_meal"
 		},
 		{
-		  "text": "Be honest about how serious the situation is",
-		  "effects": { "morale": 10, "stress": 10, "reputation": 8 },
+		  "text": "Be honest about how serious it is",
+		  "effects": { "morale": 15, "stress": 15, "reputation": 10 },
+		  "gold": 8,
 		  "minigame": null,
-		  "next": "d3s_e3_c_honest"
+		  "next": "d3s_e4_honest"
 		}
 	  ]
 	},
-	"d3s_e3_c_gratitude": {
+	"d3s_e4_gratitude": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
-	  "background": "shop_evening",
-	  "text": "That genuinely means a lot. Sometimes just being seen and acknowledged is enough to keep going. We are with you through this.",
+	  "background": "shop_day",
+	  "text": "That genuinely means a lot. Sometimes just being seen is enough to keep going.",
 	  "choices": [],
-	  "next": "d3s_e3_result_gratitude"
+	  "next": "d3s_e4_result_gratitude"
 	},
-	"d3s_e3_c_promise": {
+	"d3s_e4_promise": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
-	  "background": "shop_evening",
-	  "text": "A specific plan gives us something to hold on to. We can handle hard times when we know there is a real path forward.",
+	  "background": "shop_day",
+	  "text": "A specific plan gives us something to hold on to. We can handle hard times when we see a path forward.",
 	  "choices": [],
-	  "next": "d3s_e3_result_promise"
+	  "next": "d3s_e4_result_promise"
 	},
-	"d3s_e3_c_meal": {
+	"d3s_e4_meal": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
-	  "background": "shop_evening",
-	  "text": "A team meal during tough times! It is such a small thing but it means so much. You put us first even when money is tight.",
+	  "background": "shop_day",
+	  "text": "A team meal during tough times! It's such a small thing but means so much.",
 	  "choices": [],
-	  "next": "d3s_e3_result_meal"
+	  "next": "d3s_e4_result_meal"
 	},
-	"d3s_e3_c_honest": {
+	"d3s_e4_honest": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
-	  "background": "shop_evening",
-	  "text": "We appreciate you being straight with us. It is scary to hear but we would rather know the truth than be kept in the dark.",
+	  "background": "shop_day",
+	  "text": "We appreciate you being straight with us. It's scary, but we'd rather know the truth.",
 	  "choices": [],
-	  "next": "d3s_e3_result_honest"
+	  "next": "d3s_e4_result_honest"
 	},
-	"d3s_e3_result_gratitude": {
+	"d3s_e4_result_gratitude": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
-	  "background": "shop_evening",
-	  "text": "Authentic appreciation costs nothing but means everything. The best leaders make their people feel valued especially when resources are scarce.",
+	  "background": "shop_day",
+	  "text": "Authentic appreciation costs nothing but means everything. The best leaders make their people feel valued, especially when resources are scarce.",
 	  "choices": [],
 	  "next": "end"
 	},
-	"d3s_e3_result_promise": {
+	"d3s_e4_result_promise": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
-	  "background": "shop_evening",
-	  "text": "Hope with a plan is leadership. Hope without a plan is just wishful thinking. Your team needs both the vision and the roadmap.",
+	  "background": "shop_day",
+	  "text": "Hope with a plan is leadership. Hope without a plan is just wishful thinking.",
 	  "choices": [],
 	  "next": "end"
 	},
-	"d3s_e3_result_meal": {
+	"d3s_e4_result_meal": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
-	  "background": "shop_evening",
-	  "text": "Small gestures during hard times have disproportionate impact. The memory of being cared for in difficulty outlasts any bonus given in good times.",
+	  "background": "shop_day",
+	  "text": "Small gestures during hard times have disproportionate impact. The memory of being cared for outlasts any bonus.",
 	  "choices": [],
 	  "next": "end"
 	},
-	"d3s_e3_result_honest": {
+	"d3s_e4_result_honest": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Radical transparency builds deep trust. Teams that face hard truths together develop resilience.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d3s_e5_recovery_plan": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "Radical transparency builds deep trust. Teams that face hard truths together develop resilience that carries them through any crisis.",
+	  "text": "End of day 3. Despite the struggles, you've made it through. Now you need a recovery plan.",
+	  "choices": [],
+	  "next": "d3s_e5_plan_b"
+	},
+	"d3s_e5_plan_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "shop_evening",
+	  "text": "Tomorrow is a new day. What's your focus for recovery?",
+	  "choices": [
+		{
+		  "text": "Focus on customer retention",
+		  "effects": { "reputation": 15, "morale": 10, "money": 5 },
+		  "gold": 15,
+		  "sets_flag": "focus_retention",
+		  "minigame": null,
+		  "next": "d3s_e5_retention"
+		},
+		{
+		  "text": "Focus on cost reduction",
+		  "effects": { "money": 15, "morale": -5, "stress": -10 },
+		  "gold": 12,
+		  "minigame": null,
+		  "next": "d3s_e5_costs"
+		},
+		{
+		  "text": "Focus on team motivation",
+		  "effects": { "morale": 20, "reputation": 5, "stress": -5 },
+		  "gold": 10,
+		  "minigame": null,
+		  "next": "d3s_e5_team"
+		},
+		{
+		  "text": "Focus on marketing and promotion",
+		  "effects": { "money": -10, "reputation": 20, "stress": 10 },
+		  "gold": 18,
+		  "minigame": null,
+		  "next": "d3s_e5_marketing"
+		}
+	  ]
+	},
+	"d3s_e5_retention": {
+	  "speaker": "Regular Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_evening",
+	  "text": "I noticed you really trying today. I'll stick with you.",
+	  "choices": [],
+	  "next": "d3s_e5_result_retention"
+	},
+	"d3s_e5_costs": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Cost control buys time. Use that time wisely to rebuild revenue.",
+	  "choices": [],
+	  "next": "d3s_e5_result_costs"
+	},
+	"d3s_e5_team": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_evening",
+	  "text": "Thank you for believing in us. We've got your back, boss.",
+	  "choices": [],
+	  "next": "d3s_e5_result_team"
+	},
+	"d3s_e5_marketing": {
+	  "speaker": "New Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_evening",
+	  "text": "I came because of the promotion. This place is great!",
+	  "choices": [],
+	  "next": "d3s_e5_result_marketing"
+	},
+	"d3s_e5_result_retention": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Keeping existing customers is cheaper than finding new ones. Smart focus during hard times.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3s_e5_result_costs": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Cost cutting without revenue growth is a slow death. Make sure you're also building income.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3s_e5_result_team": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Your team is your greatest asset. Investing in them during tough times builds loyalty that pays back tenfold.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d3s_e5_result_marketing": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Marketing during a downturn is bold. New customers now could become regulars for years.",
 	  "choices": [],
 	  "next": "end"
 	}

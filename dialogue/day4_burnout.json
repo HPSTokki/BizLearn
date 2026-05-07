@@ -1,82 +1,95 @@
 {
   "day": 4,
-  "total_events": 3,
+  "total_events": 5,
   "events": [
-	{ "start": "d4b_e1_a" },
-	{ "start": "d4b_e2_a" },
-	{ "start": "d4b_e3_a" }
+	{ "start": "d4b_e1_team_crisis" },
+	{ "start": "d4b_e2_bad_review" },
+	{ "start": "d4b_e3_customer_complaint" },
+	{
+	  "start": "random",
+	  "pool": [
+		"d4b_r_staff_sick",
+		"d4b_r_machine_vandalism",
+        "d4b_r_utility_outage"
+	  ]
+	},
+	{ "start": "d4b_e5_turning_point" }
   ],
   "nodes": {
 
-	"d4b_e1_a": {
+	"d4b_e1_team_crisis": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Day 4 and your team is running on empty. Low morale has become visible to customers and it is starting to affect everything. This needs urgent attention.",
+	  "text": "Day 4, and your team is running on empty. Low morale has become visible to customers, and it's starting to affect everything.",
 	  "choices": [],
-	  "next": "d4b_e1_b"
+	  "next": "d4b_e1_crisis_b"
 	},
-	"d4b_e1_b": {
+	"d4b_e1_crisis_b": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "shop_day",
-	  "text": "I need to be honest with you. Two team members are thinking of quitting. The pressure and low morale have become too much. We need something to change today.",
+	  "text": "Boss, I need to be honest. Two team members are thinking of quitting. The pressure and low morale have become too much. We need something to change today.",
 	  "choices": [
 		{
 		  "text": "Have an immediate one-on-one with each person",
 		  "effects": { "morale": 20, "stress": 10, "reputation": 5 },
+		  "gold": 10,
 		  "minigame": null,
-		  "next": "d4b_e1_c_oneonone"
+		  "next": "d4b_e1_oneonone"
 		},
 		{
-		  "text": "Offer immediate pay increase to retain them",
+		  "text": "Offer immediate pay increases to retain them",
 		  "effects": { "morale": 15, "money": -20, "stress": 5 },
+		  "gold": 15,
 		  "minigame": null,
-		  "next": "d4b_e1_c_pay"
+		  "next": "d4b_e1_pay"
 		},
 		{
 		  "text": "Restructure responsibilities to reduce pressure",
 		  "effects": { "morale": 18, "stress": -15, "money": -5 },
+		  "gold": 10,
 		  "minigame": null,
-		  "next": "d4b_e1_c_restructure"
+		  "next": "d4b_e1_restructure"
 		},
 		{
 		  "text": "Tell them you understand if they need to leave",
 		  "effects": { "morale": 10, "stress": -20, "reputation": -5 },
+		  "gold": 5,
 		  "minigame": null,
-		  "next": "d4b_e1_c_leave"
+		  "next": "d4b_e1_leave"
 		}
 	  ]
 	},
-	"d4b_e1_c_oneonone": {
+	"d4b_e1_oneonone": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "shop_day",
-	  "text": "Just having you sit down and listen made a huge difference. I feel heard for the first time in weeks. I am willing to give it another chance.",
+	  "text": "Just having you sit down and listen made a huge difference. I feel heard for the first time in weeks.",
 	  "choices": [],
 	  "next": "d4b_e1_result_oneonone"
 	},
-	"d4b_e1_c_pay": {
+	"d4b_e1_pay": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "shop_day",
-	  "text": "The pay increase helps but honestly it is not just about money. We hope things change because the financial fix cannot be the only solution.",
+	  "text": "The pay increase helps, but honestly, it's not just about money. We hope things change.",
 	  "choices": [],
 	  "next": "d4b_e1_result_pay"
 	},
-	"d4b_e1_c_restructure": {
+	"d4b_e1_restructure": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "shop_day",
-	  "text": "Changing the structure actually makes a real difference. The pressure points were specific and you addressed them directly. Thank you for listening.",
+	  "text": "Changing the structure actually makes a real difference. You addressed the specific pressure points. Thank you.",
 	  "choices": [],
 	  "next": "d4b_e1_result_restructure"
 	},
-	"d4b_e1_c_leave": {
+	"d4b_e1_leave": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "shop_day",
-	  "text": "You actually mean that? It is hard to hear but also kind of a relief. One of them decided to stay. The other is putting in notice tomorrow.",
+	  "text": "You actually mean that? One decided to stay. The other is putting in notice tomorrow.",
 	  "choices": [],
 	  "next": "d4b_e1_result_leave"
 	},
@@ -84,7 +97,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Direct personal attention is the most powerful retention tool available to a small business leader. People leave managers not companies.",
+	  "text": "Direct personal attention is the most powerful retention tool. People leave managers, not companies.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -92,7 +105,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Compensation addresses symptoms but rarely the root cause of burnout. Use the time it buys to fix the underlying culture and workload issues.",
+	  "text": "Compensation addresses symptoms but rarely the root cause of burnout. Use the time it buys to fix underlying issues.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -100,7 +113,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Addressing root causes rather than symptoms is exceptional leadership. Burnout is usually a systems problem not a people problem.",
+	  "text": "Addressing root causes rather than symptoms is exceptional leadership. Burnout is usually a systems problem.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -108,80 +121,84 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Graceful exits preserve dignity and relationships. The one who stayed chose to — that voluntary commitment is more valuable than reluctant presence.",
+	  "text": "Graceful exits preserve dignity. The one who stayed chose to — that voluntary commitment is more valuable than reluctant presence.",
 	  "choices": [],
 	  "next": "end"
 	},
 
-	"d4b_e2_a": {
+	"d4b_e2_bad_review": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Burnout does not stay internal — it leaks into customer experience. A customer left a detailed review describing staff as disengaged and robotic.",
+	  "text": "The internal struggles are now public. A customer left a detailed review describing staff as disengaged and the place as unwelcoming.",
 	  "choices": [],
-	  "next": "d4b_e2_b"
+	  "next": "d4b_e2_review_b"
 	},
-	"d4b_e2_b": {
+	"d4b_e2_review_b": {
 	  "speaker": "You",
 	  "speaker_id": "player",
 	  "background": "office",
-	  "text": "The review is spreading. It describes exactly what I feared — that our internal struggles are now visible to customers. I need to act on both fronts.",
+	  "text": "The review is spreading. It describes exactly what I feared — our internal struggles are now visible to customers. I need to act on both fronts.",
 	  "choices": [
 		{
-		  "text": "Respond to the review and fix the team issue simultaneously",
+		  "text": "Respond to the review AND fix team issues simultaneously",
 		  "effects": { "reputation": 15, "morale": 10, "stress": 15 },
+		  "gold": 15,
 		  "minigame": null,
-		  "next": "d4b_e2_c_both"
+		  "next": "d4b_e2_both"
 		},
 		{
 		  "text": "Fix the team first — customers come second today",
 		  "effects": { "morale": 20, "stress": -5, "reputation": -5 },
+		  "gold": 10,
 		  "minigame": null,
-		  "next": "d4b_e2_c_team"
+		  "next": "d4b_e2_team"
 		},
 		{
 		  "text": "Address the public review first — protect the brand",
 		  "effects": { "reputation": 15, "morale": -5, "stress": 10 },
+		  "gold": 12,
 		  "minigame": null,
-		  "next": "d4b_e2_c_review"
+		  "next": "d4b_e2_review"
 		},
 		{
 		  "text": "Bring in a consultant to assess the situation",
 		  "effects": { "stress": -15, "morale": 10, "money": -10 },
+		  "gold": 8,
 		  "minigame": null,
-		  "next": "d4b_e2_c_consult"
+		  "next": "d4b_e2_consult"
 		}
 	  ]
 	},
-	"d4b_e2_c_both": {
+	"d4b_e2_both": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "office",
-	  "text": "You are juggling a lot right now but the fact that you are addressing us AND the public issue simultaneously shows real commitment to solving this properly.",
+	  "text": "You're juggling a lot, but addressing us AND the public issue simultaneously shows real commitment.",
 	  "choices": [],
 	  "next": "d4b_e2_result_both"
 	},
-	"d4b_e2_c_team": {
+	"d4b_e2_team": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "office",
-	  "text": "Choosing us over the public image means everything. We will work twice as hard knowing you prioritize your people over appearances.",
+	  "text": "Choosing us over the public image means everything. We'll work twice as hard knowing you prioritize your people.",
 	  "choices": [],
 	  "next": "d4b_e2_result_team"
 	},
-	"d4b_e2_c_review": {
+	"d4b_e2_review": {
 	  "speaker": "Customer Online",
 	  "speaker_id": "customer",
 	  "background": "office",
-	  "text": "I saw your professional response to my review. It was thoughtful and genuine. I hope things improve internally too — the product is still great.",
+	  "text": "I saw your professional response to my review. It was thoughtful. I hope things improve internally too.",
 	  "choices": [],
 	  "next": "d4b_e2_result_review"
 	},
-	"d4b_e2_c_consult": {
+	"d4b_e2_consult": {
 	  "speaker": "Consultant",
 	  "speaker_id": "corporate",
 	  "background": "office",
-	  "text": "After reviewing the situation the core issue is unclear role expectations and insufficient recognition systems. Both are fixable within a week.",
+	  "text": "After reviewing the situation, the core issue is unclear role expectations and insufficient recognition. Both are fixable within a week.",
 	  "choices": [],
 	  "next": "d4b_e2_result_consult"
 	},
@@ -189,7 +206,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Managing internal and external crises simultaneously is exhausting but necessary. Great leaders do not get to choose which fire to fight — they manage all of them.",
+	  "text": "Managing internal and external crises simultaneously is exhausting but necessary. Great leaders don't get to choose which fire to fight.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -197,7 +214,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "People first leadership has a cost in the short term but builds the kind of loyalty that recovers reputations faster than any PR strategy.",
+	  "text": "People-first leadership has short-term costs but builds loyalty that recovers reputations faster than any PR strategy.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -205,7 +222,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Brand protection buys time but is not a solution. Use the goodwill you rebuild externally to create space for genuine internal change.",
+	  "text": "Brand protection buys time but isn't a solution. Use the goodwill you rebuild to create space for genuine internal change.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -213,112 +230,460 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "External perspective on internal problems can break the blind spots that develop when you are too close to a situation. Asking for help is wisdom.",
+	  "text": "External perspective on internal problems breaks blind spots. Asking for help is wisdom, not weakness.",
 	  "choices": [],
 	  "next": "end"
 	},
 
-	"d4b_e3_a": {
+	"d4b_e3_customer_complaint": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "A frustrated customer is at the counter. Their laundry was damaged in one of your machines.",
+	  "choices": [],
+	  "next": "d4b_e3_complaint_b"
+	},
+	"d4b_e3_complaint_b": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "This is my favorite shirt, and your machine ruined it! What are you going to do about this?",
+	  "choices": [
+		{
+		  "text": "Apologize sincerely and offer full compensation",
+		  "effects": { "reputation": 15, "money": -15, "stress": -5 },
+		  "gold": 15,
+		  "minigame": null,
+		  "next": "d4b_e3_compensate"
+		},
+		{
+		  "text": "Offer a discount on future services only",
+		  "effects": { "reputation": 5, "money": -10, "stress": 10 },
+		  "gold": 10,
+		  "minigame": null,
+		  "next": "d4b_e3_discount"
+		},
+		{
+		  "text": "Blame the machine and offer nothing",
+		  "effects": { "reputation": -20, "stress": 20, "morale": -10 },
+		  "gold": 0,
+		  "minigame": null,
+		  "next": "d4b_e3_blame"
+		}
+	  ]
+	},
+	"d4b_e3_compensate": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "Thank you for making it right. I'll give you another chance.",
+	  "choices": [],
+	  "next": "d4b_e3_result_compensate"
+	},
+	"d4b_e3_discount": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "A discount on future services? That doesn't help me replace my shirt today.",
+	  "choices": [],
+	  "next": "d4b_e3_result_discount"
+	},
+	"d4b_e3_blame": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "I'm never coming back here. And I'm telling everyone about this.",
+	  "choices": [],
+	  "next": "d4b_e3_result_blame"
+	},
+	"d4b_e3_result_compensate": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Full ownership of mistakes builds trust that lasts. The cost hurts now but buys loyalty for years.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4b_e3_result_discount": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Partial solutions for problems you caused rarely satisfy. Customers want the problem fixed, not a coupon.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4b_e3_result_blame": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Deflecting blame when you're at fault destroys reputation completely. Accountability is always better than excuses.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d4b_r_staff_sick": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_day",
+	  "text": "Boss, two people called in sick today. We're already short-staffed. This is going to be rough.",
+	  "choices": [],
+	  "next": "d4b_r_sick_b"
+	},
+	"d4b_r_sick_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "shop_day",
+	  "text": "A skeleton crew on an already tough day. How do you handle it?",
+	  "choices": [
+		{
+		  "text": "Work alongside the team to cover shifts",
+		  "effects": { "morale": 20, "stress": 15, "reputation": 10 },
+		  "gold": 10,
+		  "minigame": null,
+		  "next": "d4b_r_sick_work"
+		},
+		{
+		  "text": "Close early today",
+		  "effects": { "reputation": -10, "stress": -10, "money": -15 },
+		  "gold": 5,
+		  "minigame": null,
+		  "next": "d4b_r_sick_close"
+		},
+		{
+		  "text": "Call in a temp worker",
+		  "effects": { "money": -15, "stress": -5, "reputation": 5 },
+		  "gold": 8,
+		  "minigame": null,
+		  "next": "d4b_r_sick_temp"
+		}
+	  ]
+	},
+	"d4b_r_sick_work": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_day",
+	  "text": "You working alongside us? That's huge. We'll get through this together.",
+	  "choices": [],
+	  "next": "d4b_r_sick_result_work"
+	},
+	"d4b_r_sick_close": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "Closed early again? This is the second time this week.",
+	  "choices": [],
+	  "next": "d4b_r_sick_result_close"
+	},
+	"d4b_r_sick_temp": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_day",
+	  "text": "The temp is helping, but training them slows us down. Still, better than nothing.",
+	  "choices": [],
+	  "next": "d4b_r_sick_result_temp"
+	},
+	"d4b_r_sick_result_work": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Leading from the front during crises builds team respect. Your willingness to get your hands dirty sets the culture.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4b_r_sick_result_close": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Closing early protects your team but frustrates customers. Communicate clearly when you have to do it.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4b_r_sick_result_temp": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Temporary solutions have temporary costs. They buy time but don't solve underlying staffing issues.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d4b_r_machine_vandalism": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_day",
+	  "text": "Boss! Someone spray-painted graffiti on the outside wall overnight. Customers are noticing.",
+	  "choices": [],
+	  "next": "d4b_r_vandal_b"
+	},
+	"d4b_r_vandal_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "shop_day",
+	  "text": "Vandalism on top of everything else. How do you respond?",
+	  "choices": [
+		{
+		  "text": "Clean it immediately and file a police report",
+		  "effects": { "reputation": 10, "money": -10, "stress": 10 },
+		  "gold": 8,
+		  "minigame": null,
+		  "next": "d4b_r_vandal_clean"
+		},
+		{
+		  "text": "Leave it as a reminder of the area",
+		  "effects": { "reputation": -15, "stress": 5 },
+		  "gold": 0,
+		  "minigame": null,
+		  "next": "d4b_r_vandal_leave"
+		},
+		{
+		  "text": "Turn it into art with a mural",
+		  "effects": { "reputation": 15, "money": -15, "morale": 15 },
+		  "gold": 10,
+		  "minigame": null,
+		  "next": "d4b_r_vandal_mural"
+		}
+	  ]
+	},
+	"d4b_r_vandal_clean": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "They cleaned it up fast. At least they care about how the place looks.",
+	  "choices": [],
+	  "next": "d4b_r_vandal_result_clean"
+	},
+	"d4b_r_vandal_leave": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "They're not even cleaning that graffiti? Doesn't say much about their standards.",
+	  "choices": [],
+	  "next": "d4b_r_vandal_result_leave"
+	},
+	"d4b_r_vandal_mural": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "They turned it into a beautiful mural! This place just keeps getting better.",
+	  "choices": [],
+	  "next": "d4b_r_vandal_result_mural"
+	},
+	"d4b_r_vandal_result_clean": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Quick response to problems shows you care. Customers notice how you handle setbacks.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4b_r_vandal_result_leave": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Leaving problems visible sends the wrong message. Your space reflects your standards.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4b_r_vandal_result_mural": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Turning obstacles into opportunities is creative leadership. You transformed a problem into an asset.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d4b_r_utility_outage": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_day",
+	  "text": "Boss! The power just went out. No machines are running, and customers are waiting.",
+	  "choices": [],
+	  "next": "d4b_r_utility_b"
+	},
+	"d4b_r_utility_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "shop_day",
+	  "text": "A power outage on an already difficult day. How do you handle the waiting customers?",
+	  "choices": [
+		{
+		  "text": "Apologize and offer refunds or vouchers",
+		  "effects": { "reputation": 15, "money": -15, "stress": -5 },
+		  "gold": 12,
+		  "minigame": null,
+		  "next": "d4b_r_utility_refund"
+		},
+		{
+		  "text": "Ask customers to wait — power should return soon",
+		  "effects": { "reputation": -10, "stress": 15 },
+		  "gold": 5,
+		  "minigame": null,
+		  "next": "d4b_r_utility_wait"
+		},
+		{
+		  "text": "Close temporarily until power returns",
+		  "effects": { "reputation": -5, "money": -10, "stress": -5 },
+		  "gold": 5,
+		  "minigame": null,
+		  "next": "d4b_r_utility_close"
+		}
+	  ]
+	},
+	"d4b_r_utility_refund": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "A refund and a voucher? That's generous. Power outages happen — you handled it well.",
+	  "choices": [],
+	  "next": "d4b_r_utility_result_refund"
+	},
+	"d4b_r_utility_wait": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "We've been waiting 20 minutes. Any update? This is frustrating.",
+	  "choices": [],
+	  "next": "d4b_r_utility_result_wait"
+	},
+	"d4b_r_utility_close": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "Closed? I drove all the way here for nothing.",
+	  "choices": [],
+	  "next": "d4b_r_utility_result_close"
+	},
+	"d4b_r_utility_result_refund": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Generous service recovery during uncontrollable problems builds incredible loyalty. People remember how you treat them when things go wrong.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4b_r_utility_result_wait": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Asking people to wait without compensation or communication damages trust. Keep customers informed even when you can't fix the problem.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4b_r_utility_result_close": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Closing is sometimes necessary, but communicate clearly. A note on the door and social media post can save customer frustration.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d4b_e5_turning_point": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "Despite everything today was a turning point. End of day and you have a chance to set a new standard — a reset moment for the whole team.",
+	  "text": "Despite everything, today was a turning point. End of day, and you have a chance to set a new standard — a reset moment for the whole team.",
 	  "choices": [],
-	  "next": "d4b_e3_b"
+	  "next": "d4b_e5_reset_b"
 	},
-	"d4b_e3_b": {
+	"d4b_e5_reset_b": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "shop_evening",
-	  "text": "Things felt different today. Difficult but different. Like we are finally being honest about what needs to change. What happens from here boss?",
+	  "text": "Things felt different today. Difficult, but different. Like we're finally being honest about what needs to change. What happens from here, boss?",
 	  "choices": [
 		{
-		  "text": "Announce a formal recovery plan with clear milestones",
+		  "text": "Announce a formal recovery plan with milestones",
 		  "effects": { "morale": 20, "stress": -10, "reputation": 10 },
+		  "gold": 10,
 		  "minigame": null,
-		  "next": "d4b_e3_c_plan"
+		  "next": "d4b_e5_plan"
 		},
 		{
-		  "text": "Declare today a reset and start fresh tomorrow",
+		  "text": "Declare today a reset — start fresh tomorrow",
 		  "effects": { "morale": 18, "stress": -15, "money": -5 },
+		  "gold": 8,
 		  "minigame": null,
-		  "next": "d4b_e3_c_reset"
+		  "next": "d4b_e5_reset"
 		},
 		{
 		  "text": "Ask the team what they need to move forward",
 		  "effects": { "morale": 22, "stress": -8, "reputation": 5 },
+		  "gold": 10,
 		  "minigame": null,
-		  "next": "d4b_e3_c_ask"
+		  "next": "d4b_e5_ask"
 		},
 		{
-		  "text": "Acknowledge what went wrong and commit to doing better",
+		  "text": "Acknowledge mistakes and commit to doing better",
 		  "effects": { "morale": 15, "stress": -12, "reputation": 8 },
+		  "gold": 8,
 		  "minigame": null,
-		  "next": "d4b_e3_c_acknowledge"
+		  "next": "d4b_e5_acknowledge"
 		}
 	  ]
 	},
-	"d4b_e3_c_plan": {
+	"d4b_e5_plan": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "shop_evening",
-	  "text": "A real plan with real milestones. Finally something concrete to work toward. The team is cautiously optimistic for the first time in days.",
+	  "text": "A real plan with real milestones. Finally, something concrete to work toward.",
 	  "choices": [],
-	  "next": "d4b_e3_result_plan"
+	  "next": "d4b_e5_result_plan"
 	},
-	"d4b_e3_c_reset": {
+	"d4b_e5_reset": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "shop_evening",
-	  "text": "A clean slate. Sometimes that is exactly what is needed. The symbolism of a genuine reset matters almost as much as the practical changes.",
+	  "text": "A clean slate. Sometimes that's exactly what's needed. Thank you.",
 	  "choices": [],
-	  "next": "d4b_e3_result_reset"
+	  "next": "d4b_e5_result_reset"
 	},
-	"d4b_e3_c_ask": {
+	"d4b_e5_ask": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "shop_evening",
-	  "text": "You are asking us? That alone changes everything. We have ideas we have been sitting on for weeks. Thank you for finally opening the floor.",
+	  "text": "You're asking us? That alone changes everything. We have ideas we've been sitting on for weeks.",
 	  "choices": [],
-	  "next": "d4b_e3_result_ask"
+	  "next": "d4b_e5_result_ask"
 	},
-	"d4b_e3_c_acknowledge": {
+	"d4b_e5_acknowledge": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "shop_evening",
-	  "text": "Hearing you acknowledge what went wrong means more than any bonus or plan. We needed to know you saw it too. That changes everything.",
+	  "text": "Hearing you acknowledge what went wrong means more than any bonus or plan.",
 	  "choices": [],
-	  "next": "d4b_e3_result_acknowledge"
+	  "next": "d4b_e5_result_acknowledge"
 	},
-	"d4b_e3_result_plan": {
+	"d4b_e5_result_plan": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "Recovery plans with clear measurable milestones convert vague hope into trackable progress. Teams need to see the path not just hear about the destination.",
+	  "text": "Recovery plans with clear milestones convert vague hope into trackable progress. Teams need to see the path, not just hear about the destination.",
 	  "choices": [],
 	  "next": "end"
 	},
-	"d4b_e3_result_reset": {
+	"d4b_e5_result_reset": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "Symbolic resets matter in team culture. The ritual of declaring a fresh start releases accumulated tension and creates permission to behave differently.",
+	  "text": "Symbolic resets matter in team culture. The ritual of declaring a fresh start releases tension and creates permission to behave differently.",
 	  "choices": [],
 	  "next": "end"
 	},
-	"d4b_e3_result_ask": {
+	"d4b_e5_result_ask": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "The answers to most business problems already exist within your team. Leaders who ask unlock that wisdom. Leaders who do not keep solving the same problems alone.",
+	  "text": "The answers to most business problems already exist within your team. Leaders who ask unlock that wisdom.",
 	  "choices": [],
 	  "next": "end"
 	},
-	"d4b_e3_result_acknowledge": {
+	"d4b_e5_result_acknowledge": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "Accountability without defensiveness is rare leadership. When people see their leader own mistakes it gives them permission to be honest too.",
+	  "text": "Accountability without defensiveness is rare leadership. When people see their leader own mistakes, it gives them permission to be honest too.",
 	  "choices": [],
 	  "next": "end"
 	}

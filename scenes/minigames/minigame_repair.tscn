@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bhcua5thk10y0"]
+
+[ext_resource type="Script" uid="uid://cp677egwttihl" path="res://scripts/minigames/minigame_repair.gd" id="1_5pu6n"]
+
+[node name="MinigameRepair" type="Node2D" unique_id=1308496578]
+script = ExtResource("1_5pu6n")

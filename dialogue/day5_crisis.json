@@ -1,78 +1,91 @@
 {
   "day": 5,
-  "total_events": 3,
+  "total_events": 5,
   "events": [
-	{ "start": "d5c_e1_a" },
-	{ "start": "d5c_e2_a" },
-	{ "start": "d5c_e3_a" }
+	{ "start": "d5c_e1_chaos_morning" },
+	{ "start": "d5c_e2_stress_decision" },
+	{ "start": "d5c_e3_customer_final" },
+	{
+	  "start": "random",
+	  "pool": [
+		"d5c_r_equipment_failure",
+		"d5c_r_staff_walkout",
+        "d5c_r_last_minute_refund"
+	  ]
+	},
+	{ "start": "d5c_e5_recovery_lesson" }
   ],
   "nodes": {
 
-	"d5c_e1_a": {
+	"d5c_e1_chaos_morning": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Final day and you are running on fumes. High stress has been accumulating and today of all days everything seems to hit at once. How you handle this defines you.",
+	  "text": "Final day, and you're running on fumes. High stress has been accumulating, and today of all days, everything seems to hit at once. How you handle this defines you.",
 	  "choices": [],
-	  "next": "d5c_e1_b"
+	  "next": "d5c_e1_chaos_b"
 	},
-	"d5c_e1_b": {
+	"d5c_e1_chaos_b": {
 	  "speaker": "You",
 	  "speaker_id": "player",
 	  "background": "shop_day",
-	  "text": "Health inspector at the door. Angry customer on the phone. Staff member called in sick. All at the same moment. I have to prioritize right now.",
+	  "text": "Health inspector at the door. Angry customer on the phone. Staff member called in sick. Machines are backing up. All at the same moment. I have to prioritize right now.",
 	  "choices": [
 		{
 		  "text": "Handle the health inspector first — compliance is critical",
 		  "effects": { "reputation": 20, "stress": 15, "morale": -5 },
+		  "gold": 15,
 		  "minigame": null,
-		  "next": "d5c_e1_c_inspector"
+		  "next": "d5c_e1_inspector"
 		},
 		{
 		  "text": "Address the angry customer first — retention matters",
 		  "effects": { "reputation": 15, "morale": 5, "stress": 10 },
+		  "gold": 12,
 		  "minigame": null,
-		  "next": "d5c_e1_c_customer"
+		  "next": "d5c_e1_customer"
 		},
 		{
-		  "text": "Delegate — assign team to each issue",
+		  "text": "Delegate — assign each issue to a team member",
 		  "effects": { "morale": 15, "stress": -15, "reputation": 10 },
+		  "gold": 15,
 		  "minigame": null,
-		  "next": "d5c_e1_c_delegate"
+		  "next": "d5c_e1_delegate"
 		},
 		{
 		  "text": "Take five minutes to breathe and think clearly first",
 		  "effects": { "stress": -20, "morale": 10, "reputation": 5 },
+		  "gold": 10,
 		  "minigame": null,
-		  "next": "d5c_e1_c_breathe"
+		  "next": "d5c_e1_breathe"
 		}
 	  ]
 	},
-	"d5c_e1_c_inspector": {
+	"d5c_e1_inspector": {
 	  "speaker": "Health Inspector",
 	  "speaker_id": "inspector",
 	  "background": "shop_day",
-	  "text": "Good. You prioritized the official inspection. Everything checks out. You handled the pressure professionally under difficult circumstances.",
+	  "text": "You prioritized the official inspection despite the chaos. Everything checks out. You handled the pressure professionally.",
 	  "choices": [],
 	  "next": "d5c_e1_result_inspector"
 	},
-	"d5c_e1_c_customer": {
+	"d5c_e1_customer": {
 	  "speaker": "Angry Customer",
 	  "speaker_id": "customer",
 	  "background": "shop_day",
-	  "text": "I appreciate you taking my call immediately despite obviously being busy. That actually means a lot. Issue resolved — I will be back.",
+	  "text": "I appreciate you taking my call despite being obviously busy. That actually means a lot. I'll give you another chance.",
 	  "choices": [],
 	  "next": "d5c_e1_result_customer"
 	},
-	"d5c_e1_c_delegate": {
+	"d5c_e1_delegate": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "shop_day",
-	  "text": "You trusted us with real responsibility and we delivered! All three situations handled simultaneously. This is what a real team looks like.",
+	  "text": "You trusted us with real responsibility, and we delivered! All three situations handled. This is what a real team looks like.",
 	  "choices": [],
 	  "next": "d5c_e1_result_delegate"
 	},
-	"d5c_e1_c_breathe": {
+	"d5c_e1_breathe": {
 	  "speaker": "You",
 	  "speaker_id": "player",
 	  "background": "shop_day",
@@ -84,7 +97,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Under crisis pressure you correctly identified the highest stakes issue. Regulatory compliance failure can close a business — everything else is recoverable.",
+	  "text": "Under crisis pressure, you correctly identified the highest-stakes issue. Regulatory compliance failure can close a business — everything else is recoverable.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -92,7 +105,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Customer retention under pressure is a high value choice. Converting an angry customer to a loyal one during a crisis is exceptional relationship management.",
+	  "text": "Customer retention under pressure is a high-value choice. Converting an angry customer during a crisis is exceptional relationship management.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -100,7 +113,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Crisis reveals true organizational strength. A leader who can delegate effectively during chaos has built something genuinely resilient.",
+	  "text": "Crisis reveals true organizational strength. A leader who can delegate during chaos has built something genuinely resilient.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -108,80 +121,84 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Pausing under pressure is counterintuitive but powerful. Clear decisions made calmly outperform reactive decisions made frantically every single time.",
+	  "text": "Pausing under pressure is counterintuitive but powerful. Clear decisions made calmly outperform reactive decisions made frantically every time.",
 	  "choices": [],
 	  "next": "end"
 	},
 
-	"d5c_e2_a": {
+	"d5c_e2_stress_decision": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Midday crisis. The accumulated stress of the week has caught up with you physically. You are not at your best and a major decision cannot wait.",
+	  "text": "The accumulated stress of the week has caught up with you physically. You're not at your best, and a major business decision cannot wait.",
 	  "choices": [],
-	  "next": "d5c_e2_b"
+	  "next": "d5c_e2_decision_b"
 	},
-	"d5c_e2_b": {
+	"d5c_e2_decision_b": {
 	  "speaker": "Business Partner",
 	  "speaker_id": "corporate",
 	  "background": "office",
-	  "text": "We need a decision today on the contract renewal. It is a significant commitment. I know you are under pressure but this cannot be delayed further.",
+	  "text": "We need a decision today on the equipment lease renewal. It's a significant commitment. I know you're under pressure, but this can't be delayed.",
 	  "choices": [
 		{
-		  "text": "Make the decision now — business does not pause for burnout",
+		  "text": "Make the decision now — business doesn't pause for burnout",
 		  "effects": { "money": 20, "stress": 15, "morale": -5 },
+		  "gold": 20,
 		  "minigame": null,
-		  "next": "d5c_e2_c_now"
+		  "next": "d5c_e2_now"
 		},
 		{
-		  "text": "Request a 24 hour extension — one day will not hurt",
+		  "text": "Request a 24-hour extension — one day won't hurt",
 		  "effects": { "stress": -15, "morale": 10, "money": 5 },
+		  "gold": 12,
 		  "minigame": null,
-		  "next": "d5c_e2_c_extension"
+		  "next": "d5c_e2_extension"
 		},
 		{
 		  "text": "Delegate the decision to your most trusted staff",
 		  "effects": { "morale": 20, "stress": -10, "money": 10 },
+		  "gold": 15,
 		  "minigame": null,
-		  "next": "d5c_e2_c_delegate"
+		  "next": "d5c_e2_delegate"
 		},
 		{
-		  "text": "Be honest — tell them you are not in the right state",
+		  "text": "Be honest — tell them you're not in the right state",
 		  "effects": { "reputation": 15, "stress": -15, "morale": 10 },
+		  "gold": 15,
 		  "minigame": null,
-		  "next": "d5c_e2_c_honest"
+		  "next": "d5c_e2_honest"
 		}
 	  ]
 	},
-	"d5c_e2_c_now": {
+	"d5c_e2_now": {
 	  "speaker": "Business Partner",
 	  "speaker_id": "corporate",
 	  "background": "office",
-	  "text": "Decision made. Signed and done. I respect the commitment. Now please take care of yourself — your business needs you healthy.",
+	  "text": "Decision made. Signed. Now please take care of yourself — your business needs you healthy.",
 	  "choices": [],
 	  "next": "d5c_e2_result_now"
 	},
-	"d5c_e2_c_extension": {
+	"d5c_e2_extension": {
 	  "speaker": "Business Partner",
 	  "speaker_id": "corporate",
 	  "background": "office",
-	  "text": "One day is fine. A rested clear headed decision is better for both of us. See you tomorrow morning.",
+	  "text": "One day is fine. A rested, clear-headed decision is better for both of us.",
 	  "choices": [],
 	  "next": "d5c_e2_result_extension"
 	},
-	"d5c_e2_c_delegate": {
+	"d5c_e2_delegate": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "office",
-	  "text": "You are trusting me with this? I will not let you down. I reviewed everything and made the call. I hope I made you proud.",
+	  "text": "You're trusting me with this? I reviewed everything and made the call. I hope I made you proud.",
 	  "choices": [],
 	  "next": "d5c_e2_result_delegate"
 	},
-	"d5c_e2_c_honest": {
+	"d5c_e2_honest": {
 	  "speaker": "Business Partner",
 	  "speaker_id": "corporate",
 	  "background": "office",
-	  "text": "I genuinely respect that honesty. A person who knows their limits and communicates them is far more trustworthy than one who pretends everything is fine.",
+	  "text": "I genuinely respect that honesty. A person who knows their limits is far more trustworthy than one who pretends everything is fine.",
 	  "choices": [],
 	  "next": "d5c_e2_result_honest"
 	},
@@ -189,7 +206,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Pushing through when necessary shows resilience. But make this a warning — decisions made under extreme stress carry hidden risks. Build recovery time into your schedule.",
+	  "text": "Pushing through when necessary shows resilience. But make this a warning — decisions made under extreme stress carry hidden risks.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -197,7 +214,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Knowing your decision making quality suffers under extreme stress is self awareness. Protecting the quality of your thinking is protecting your business.",
+	  "text": "Knowing your decision quality suffers under extreme stress is self-awareness. Protecting the quality of your thinking is protecting your business.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -205,7 +222,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Leaders who delegate strategically during their own limitations build organizations that are stronger than any individual. That is true leverage.",
+	  "text": "Leaders who delegate during their own limitations build organizations that are stronger than any individual. That's true leverage.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -213,84 +230,455 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Vulnerability and honesty in business relationships is increasingly rare and valued. The trust you built by admitting your limits is worth more than any single decision.",
+	  "text": "Vulnerability and honesty in business is increasingly rare and valued. The trust you built by admitting your limits is worth more than any single decision.",
 	  "choices": [],
 	  "next": "end"
 	},
 
-	"d5c_e3_a": {
+	"d5c_e3_customer_final": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
-	  "background": "shop_evening",
-	  "text": "Final event. You made it through the hardest week. Despite the crisis and the stress you are still standing. This last decision defines your legacy for this chapter.",
+	  "background": "shop_day",
+	  "text": "A customer's clothes were damaged in one of your machines. This is the third complaint this week, and they're demanding compensation.",
 	  "choices": [],
-	  "next": "d5c_e3_b"
+	  "next": "d5c_e3_damage_b"
 	},
-	"d5c_e3_b": {
+	"d5c_e3_damage_b": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "This is the third time this week! My clothes are ruined. What are you going to do about this?",
+	  "choices": [
+		{
+		  "text": "Apologize and offer full compensation plus a free month of service",
+		  "effects": { "reputation": 15, "money": -20, "stress": -5 },
+		  "gold": 20,
+		  "minigame": null,
+		  "next": "d5c_e3_compensate"
+		},
+		{
+		  "text": "Offer to replace the damaged clothes only",
+		  "effects": { "reputation": 10, "money": -15, "stress": 5 },
+		  "gold": 15,
+		  "minigame": null,
+		  "next": "d5c_e3_replace"
+		},
+		{
+		  "text": "Apologize but explain it's a machine issue beyond your control",
+		  "effects": { "reputation": -5, "stress": 15 },
+		  "gold": 8,
+		  "minigame": null,
+		  "next": "d5c_e3_explain"
+		},
+		{
+		  "text": "Blame the customer for improper loading",
+		  "effects": { "reputation": -20, "stress": 20, "morale": -10 },
+		  "gold": 5,
+		  "minigame": null,
+		  "next": "d5c_e3_blame"
+		}
+	  ]
+	},
+	"d5c_e3_compensate": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "A free month of service? That's more than fair. I appreciate you making this right.",
+	  "choices": [],
+	  "next": "d5c_e3_result_compensate"
+	},
+	"d5c_e3_replace": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "Replacing the clothes is the least you can do. I hope this doesn't happen again.",
+	  "choices": [],
+	  "next": "d5c_e3_result_replace"
+	},
+	"d5c_e3_explain": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "\"Beyond your control\"? You're the owner! This is not acceptable.",
+	  "choices": [],
+	  "next": "d5c_e3_result_explain"
+	},
+	"d5c_e3_blame": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "You're blaming me? I'm never coming back here. And I'm telling everyone about this.",
+	  "choices": [],
+	  "next": "d5c_e3_result_blame"
+	},
+	"d5c_e3_result_compensate": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Generous service recovery during repeated failures shows genuine accountability. The cost hurts but protects your reputation.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5c_e3_result_replace": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Meeting expectations is the minimum. When problems are repeated, you need to exceed expectations to restore trust.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5c_e3_result_explain": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Deflecting responsibility when you're at fault destroys credibility. Customers expect owners to own problems, not explain them away.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5c_e3_result_blame": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Blaming customers for your equipment failures is leadership failure. Every lost customer tells others about their experience.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d5c_r_equipment_failure": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_day",
+	  "text": "Boss! Two machines just stopped working at the same time. Customers are getting frustrated.",
+	  "choices": [],
+	  "next": "d5c_r_equipment_b"
+	},
+	"d5c_r_equipment_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "shop_day",
+	  "text": "Equipment failure on the final day. How do you handle the waiting customers?",
+	  "choices": [
+		{
+		  "text": "Apologize and offer refunds or vouchers",
+		  "effects": { "reputation": 10, "money": -15, "stress": -5 },
+		  "gold": 12,
+		  "minigame": null,
+		  "next": "d5c_r_equipment_refund"
+		},
+		{
+		  "text": "Ask customers to wait for repairs",
+		  "effects": { "reputation": -10, "stress": 15 },
+		  "gold": 5,
+		  "minigame": null,
+		  "next": "d5c_r_equipment_wait"
+		},
+		{
+		  "text": "Redirect them to nearby laundromats",
+		  "effects": { "reputation": -5, "money": -5, "stress": -5 },
+		  "gold": 5,
+		  "minigame": null,
+		  "next": "d5c_r_equipment_redirect"
+		}
+	  ]
+	},
+	"d5c_r_equipment_refund": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "A refund and a voucher? That's generous. Equipment breaks — you handled it well.",
+	  "choices": [],
+	  "next": "d5c_r_equipment_result_refund"
+	},
+	"d5c_r_equipment_wait": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "We've been waiting twenty minutes. Any update? This is frustrating.",
+	  "choices": [],
+	  "next": "d5c_r_equipment_result_wait"
+	},
+	"d5c_r_equipment_redirect": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "You're sending us elsewhere? I guess that's helpful, but still annoying.",
+	  "choices": [],
+	  "next": "d5c_r_equipment_result_redirect"
+	},
+	"d5c_r_equipment_result_refund": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Generous recovery during problems builds loyalty. People remember how you treat them when things go wrong.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5c_r_equipment_result_wait": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Asking people to wait without communication damages trust. Keep customers informed even when you can't fix the problem.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5c_r_equipment_result_redirect": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Sending customers elsewhere solves their immediate need but signals you can't serve them. Better than nothing, but not ideal.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d5c_r_staff_walkout": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "office",
+	  "text": "Boss, two staff members just walked out. They said the stress this week was too much. We're shorthanded on the final day.",
+	  "choices": [],
+	  "next": "d5c_r_walkout_b"
+	},
+	"d5c_r_walkout_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "office",
+	  "text": "Staff walked out on the final day. How do you keep things running?",
+	  "choices": [
+		{
+		  "text": "Work extra hours to cover their shifts yourself",
+		  "effects": { "morale": 10, "stress": 25, "money": 5 },
+		  "gold": 10,
+		  "minigame": null,
+		  "next": "d5c_r_walkout_work"
+		},
+		{
+		  "text": "Offer overtime pay to remaining staff",
+		  "effects": { "morale": 15, "money": -15, "stress": -5 },
+		  "gold": 12,
+		  "minigame": null,
+		  "next": "d5c_r_walkout_overtime"
+		},
+		{
+		  "text": "Close early today",
+		  "effects": { "reputation": -10, "stress": -10, "money": -10 },
+		  "gold": 5,
+		  "minigame": null,
+		  "next": "d5c_r_walkout_close"
+		}
+	  ]
+	},
+	"d5c_r_walkout_work": {
+	  "speaker": "Remaining Staff",
+	  "speaker_id": "staff",
+	  "background": "office",
+	  "text": "You're covering their shifts yourself? That's dedication. We'll push through together.",
+	  "choices": [],
+	  "next": "d5c_r_walkout_result_work"
+	},
+	"d5c_r_walkout_overtime": {
+	  "speaker": "Remaining Staff",
+	  "speaker_id": "staff",
+	  "background": "office",
+	  "text": "Overtime pay helps, but we're exhausted too. We'll do our best.",
+	  "choices": [],
+	  "next": "d5c_r_walkout_result_overtime"
+	},
+	"d5c_r_walkout_close": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "office",
+	  "text": "Closed early? I drove all the way here. Very disappointing.",
+	  "choices": [],
+	  "next": "d5c_r_walkout_result_close"
+	},
+	"d5c_r_walkout_result_work": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Burning yourself out isn't sustainable, but during a crisis, leading from the front shows your commitment. Just don't make it a habit.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5c_r_walkout_result_overtime": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Pay alone won't solve burnout, but during a crisis, it shows you value their effort. Use the time you buy to address root causes.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5c_r_walkout_result_close": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Closing protects your team but frustrates customers. When you have to do it, communicate clearly and apologize sincerely.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d5c_r_last_minute_refund": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_evening",
+	  "text": "I know you're closing soon, but my clothes aren't dry. The dryer didn't work properly. I need a refund.",
+	  "choices": [],
+	  "next": "d5c_r_refund_b"
+	},
+	"d5c_r_refund_b": {
 	  "speaker": "You",
 	  "speaker_id": "player",
 	  "background": "shop_evening",
-	  "text": "Looking back at this week I realize stress was the real enemy. Not the competition, not the difficult customers, not the cash flow. What do I take from all of this?",
+	  "text": "A last-minute refund request on your final day. How do you handle it?",
+	  "choices": [
+		{
+		  "text": "Apologize and give a full refund",
+		  "effects": { "reputation": 10, "money": -10, "stress": -5 },
+		  "gold": 10,
+		  "minigame": null,
+		  "next": "d5c_r_refund_full"
+		},
+		{
+		  "text": "Offer to re-dry the clothes for free",
+		  "effects": { "reputation": 8, "money": -2, "stress": -5 },
+		  "gold": 8,
+		  "minigame": null,
+		  "next": "d5c_r_refund_redry"
+		},
+		{
+		  "text": "Decline — it's closing time",
+		  "effects": { "reputation": -10, "stress": 5 },
+		  "gold": 0,
+		  "minigame": null,
+		  "next": "d5c_r_refund_decline"
+		}
+	  ]
+	},
+	"d5c_r_refund_full": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_evening",
+	  "text": "Thank you for making it right. I'll still come back — I know this was an off day.",
+	  "choices": [],
+	  "next": "d5c_r_refund_result_full"
+	},
+	"d5c_r_refund_redry": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_evening",
+	  "text": "Re-drying them for free is fair. Thanks for staying a bit later.",
+	  "choices": [],
+	  "next": "d5c_r_refund_result_redry"
+	},
+	"d5c_r_refund_decline": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_evening",
+	  "text": "So my clothes are still wet, and you're closing? Not coming back here.",
+	  "choices": [],
+	  "next": "d5c_r_refund_result_decline"
+	},
+	"d5c_r_refund_result_full": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Ending on a generous note, even after a hard week, preserves goodwill. That customer will remember how you finished.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5c_r_refund_result_redry": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Solving the problem without a refund shows resourcefulness. The customer leaves with dry clothes and respect for your effort.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d5c_r_refund_result_decline": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Ending the week by disappointing a customer leaves a sour final impression. Sometimes a small loss protects a larger reputation.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d5c_e5_recovery_lesson": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Final event. You made it through the hardest week. Despite the crisis and the stress, you're still standing. This last decision defines your legacy for this chapter.",
+	  "choices": [],
+	  "next": "d5c_e5_lesson_b"
+	},
+	"d5c_e5_lesson_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "shop_evening",
+	  "text": "Looking back at this week, I realize stress was the real enemy. Not the competition, not the difficult customers, not the cash flow. What do I take from all of this?",
 	  "choices": [
 		{
 		  "text": "Commit to building better stress management systems",
 		  "effects": { "stress": -25, "morale": 20, "reputation": 10 },
+		  "gold": 15,
 		  "minigame": null,
-		  "next": "d5c_e3_c_systems"
+		  "next": "d5c_e5_systems"
 		},
 		{
 		  "text": "Hire support staff to distribute the pressure",
 		  "effects": { "stress": -20, "money": -15, "morale": 15 },
+		  "gold": 10,
 		  "minigame": null,
-		  "next": "d5c_e3_c_hire"
+		  "next": "d5c_e5_hire"
 		},
 		{
-		  "text": "Redefine success — profit is not everything",
+		  "text": "Redefine success — profit isn't everything",
 		  "effects": { "stress": -20, "morale": 25, "reputation": 5 },
+		  "gold": 12,
 		  "minigame": null,
-		  "next": "d5c_e3_c_redefine"
+		  "next": "d5c_e5_redefine"
 		},
 		{
 		  "text": "Accept that high stress is the price of ambition",
 		  "effects": { "stress": 10, "money": 10, "reputation": 5 },
+		  "gold": 10,
 		  "minigame": null,
-		  "next": "d5c_e3_c_accept"
+		  "next": "d5c_e5_accept"
 		}
 	  ]
 	},
-	"d5c_e3_c_systems": {
+	"d5c_e5_systems": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "The most important business system you can build is one that does not depend on you running at 110% all the time. That is sustainable growth.",
+	  "text": "The most important business system you can build is one that doesn't depend on you running at 110% all the time. That's sustainable growth.",
 	  "choices": [],
-	  "next": "d5c_e3_result_systems"
+	  "next": "d5c_e5_result_systems"
 	},
-	"d5c_e3_c_hire": {
-	  "speaker": "Staff",
-	  "speaker_id": "staff",
-	  "background": "shop_evening",
-	  "text": "The new hire takes real pressure off everyone. The investment in people always pays dividends in ways that cannot be measured on a spreadsheet.",
-	  "choices": [],
-	  "next": "d5c_e3_result_hire"
-	},
-	"d5c_e3_c_redefine": {
+	"d5c_e5_hire": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "Redefining success to include your own wellbeing is not weakness. A business that destroys its founder is not a success regardless of the numbers.",
+	  "text": "Investing in people to protect your capacity to lead is one of the most leveraged decisions a business owner can make.",
 	  "choices": [],
-	  "next": "d5c_e3_result_redefine"
+	  "next": "d5c_e5_result_hire"
 	},
-	"d5c_e3_c_accept": {
+	"d5c_e5_redefine": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "Some stress is inevitable in business. But chronic high stress is a warning sign not a badge of honor. Make sure ambition is not slowly burning you out.",
+	  "text": "The most successful entrepreneurs define success on their own terms. You've learned something this week that many business owners never do.",
 	  "choices": [],
-	  "next": "d5c_e3_result_accept"
+	  "next": "d5c_e5_result_redefine"
 	},
-	"d5c_e3_result_systems": {
+	"d5c_e5_accept": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Resilience under pressure is admirable. Just make sure acceptance doesn't become resignation. The goal is a business that challenges you without consuming you.",
+	  "choices": [],
+	  "next": "d5c_e5_result_accept"
+	},
+	"d5c_e5_result_systems": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
@@ -298,27 +686,27 @@
 	  "choices": [],
 	  "next": "end"
 	},
-	"d5c_e3_result_hire": {
+	"d5c_e5_result_hire": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "Investing in people to protect your capacity to lead is one of the most leveraged decisions a business owner can make. Well done for seeing it.",
+	  "text": "Protecting your capacity to lead through delegation and hiring is not weakness. It's the only way to scale beyond yourself.",
 	  "choices": [],
 	  "next": "end"
 	},
-	"d5c_e3_result_redefine": {
+	"d5c_e5_result_redefine": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "The most successful entrepreneurs define success on their own terms. You have learned something this week that many business owners never do. Protect that insight.",
+	  "text": "Knowing what truly matters, beyond profit, is the deepest lesson business can teach. You've learned it in five intense days.",
 	  "choices": [],
 	  "next": "end"
 	},
-	"d5c_e3_result_accept": {
+	"d5c_e5_result_accept": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "Resilience under pressure is admirable. Just make sure acceptance does not become resignation. The goal is a business that challenges you without consuming you.",
+	  "text": "Some stress is inevitable. But chronic high stress is a warning, not a badge of honor. Make sure ambition isn't slowly burning you out.",
 	  "choices": [],
 	  "next": "end"
 	}

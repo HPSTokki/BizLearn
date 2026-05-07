@@ -1,84 +1,97 @@
 {
   "day": 2,
-  "total_events": 3,
+  "total_events": 5,
   "events": [
-	{ "start": "d2hr_e1_a" },
-	{ "start": "d2hr_e2_a" },
-	{ "start": "d2hr_e3_a" }
+	{ "start": "d2hr_e1_media_coverage" },
+	{
+	  "start": "random",
+	  "pool": [
+		"d2hr_r_referral",
+		"d2hr_r_cleanliness_award",
+        "d2hr_r_community_event"
+	  ]
+	},
+	{ "start": "d2hr_e3_premium_supplier" },
+	{ "start": "d2hr_e4_expansion_offer" },
+	{ "start": "d2hr_e5_partnership" }
   ],
   "nodes": {
 
-	"d2hr_e1_a": {
+	"d2hr_e1_media_coverage": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Word is spreading fast! Your reputation is drawing attention. A food blogger just walked in wanting to feature your shop. This could be huge!",
+	  "text": "Word is spreading fast! Your excellent service is drawing attention. A local news reporter wants to feature your laundromat.",
 	  "choices": [],
-	  "next": "d2hr_e1_b"
+	  "next": "d2hr_e1_reporter"
 	},
-	"d2hr_e1_b": {
-	  "speaker": "Blogger",
+	"d2hr_e1_reporter": {
+	  "speaker": "Reporter",
 	  "speaker_id": "influencer",
 	  "background": "shop_day",
-	  "text": "I heard amazing things about this place! I would love to do a full feature. Can I spend the morning here and interview you?",
+	  "text": "I heard amazing things about this place! Your reputation for clean machines and friendly service is legendary. Can I do a feature?",
 	  "choices": [
 		{
-		  "text": "Welcome them wholeheartedly",
+		  "text": "Welcome them enthusiastically",
 		  "effects": { "reputation": 15, "morale": 10 },
-		  "sets_flag": "welcomed_blogger",
+		  "gold": 25,
+		  "sets_flag": "welcomed_media",
 		  "minigame": null,
-		  "next": "d2hr_e1_c_welcome"
+		  "next": "d2hr_e1_welcome"
 		},
 		{
-		  "text": "Allow it but set some ground rules",
+		  "text": "Allow it but set ground rules",
 		  "effects": { "reputation": 10, "morale": 5, "stress": -5 },
+		  "gold": 20,
 		  "minigame": null,
-		  "next": "d2hr_e1_c_rules"
+		  "next": "d2hr_e1_rules"
 		},
 		{
-		  "text": "Ask for editorial approval first",
+		  "text": "Ask to review the article first",
 		  "effects": { "reputation": 5, "stress": -10 },
+		  "gold": 18,
 		  "sets_flag": "controlled_media",
 		  "minigame": null,
-		  "next": "d2hr_e1_c_approval"
+		  "next": "d2hr_e1_approval"
 		},
 		{
-		  "text": "Decline — too busy today",
-		  "effects": { "reputation": -5, "morale": -5 },
+		  "text": "Decline — too busy",
+		  "effects": { "reputation": -10, "morale": -5 },
+		  "gold": 5,
 		  "minigame": null,
-		  "next": "d2hr_e1_c_decline"
+		  "next": "d2hr_e1_decline"
 		}
 	  ]
 	},
-	"d2hr_e1_c_welcome": {
-	  "speaker": "Blogger",
+	"d2hr_e1_welcome": {
+	  "speaker": "Reporter",
 	  "speaker_id": "influencer",
 	  "background": "shop_day",
-	  "text": "You are so open and genuine! This is exactly the kind of story my readers love. Your authenticity shines through everything here.",
+	  "text": "You're so open and genuine! This is exactly the kind of story my audience loves. Your authenticity shines.",
 	  "choices": [],
 	  "next": "d2hr_e1_result_welcome"
 	},
-	"d2hr_e1_c_rules": {
-	  "speaker": "Blogger",
+	"d2hr_e1_rules": {
+	  "speaker": "Reporter",
 	  "speaker_id": "influencer",
 	  "background": "shop_day",
-	  "text": "That is completely fair! Setting boundaries shows professionalism. I respect that. Let us make this work for both of us.",
+	  "text": "Setting boundaries shows professionalism. I respect that. Let's make this work for both of us.",
 	  "choices": [],
 	  "next": "d2hr_e1_result_rules"
 	},
-	"d2hr_e1_c_approval": {
-	  "speaker": "Blogger",
+	"d2hr_e1_approval": {
+	  "speaker": "Reporter",
 	  "speaker_id": "influencer",
 	  "background": "shop_day",
-	  "text": "Smart thinking! Most business owners never ask that. I am happy to share the draft before publishing.",
+	  "text": "Smart thinking! Most business owners never ask. Happy to share the draft before publishing.",
 	  "choices": [],
 	  "next": "d2hr_e1_result_approval"
 	},
-	"d2hr_e1_c_decline": {
-	  "speaker": "Blogger",
+	"d2hr_e1_decline": {
+	  "speaker": "Reporter",
 	  "speaker_id": "influencer",
 	  "background": "shop_day",
-	  "text": "Oh. Okay, I understand. Maybe another time then. I hope the shop continues to do well.",
+	  "text": "Oh, okay. Maybe another time then. I hope your laundromat continues to do well.",
 	  "choices": [],
 	  "next": "d2hr_e1_result_decline"
 	},
@@ -86,7 +99,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Openness builds powerful media relationships. Your reputation earned you this opportunity — now you are amplifying it further.",
+	  "text": "Openness builds powerful media relationships. Your reputation earned this opportunity — now you're amplifying it further.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -94,7 +107,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Setting boundaries with media is professional and smart. You protected your operations while still seizing the opportunity.",
+	  "text": "Setting boundaries with media is professional. You protected your operations while seizing the opportunity.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -102,7 +115,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Requesting editorial control protects your brand. Never let others define your story without your input.",
+	  "text": "Review rights protect your brand. Never let others define your story without your input.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -110,108 +123,400 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Missed opportunities rarely come back. Your reputation opened this door but declining closed it. Balance busyness with growth.",
+	  "text": "Missed opportunities rarely come back. Your reputation opened this door — balance busyness with growth.",
 	  "choices": [],
 	  "next": "end"
 	},
 
-	"d2hr_e2_a": {
+	"d2hr_r_referral": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
-	  "background": "office",
-	  "text": "Your growing reputation has attracted a premium supplier offering higher quality ingredients at a premium price. This could elevate your product significantly.",
+	  "background": "shop_day",
+	  "text": "A regular customer sent their entire family to do laundry here today. Word-of-mouth is working!",
 	  "choices": [],
-	  "next": "d2hr_e2_b"
+	  "next": "d2hr_r_referral_b"
 	},
-	"d2hr_e2_b": {
-	  "speaker": "Supplier",
-	  "speaker_id": "supplier",
-	  "background": "office",
-	  "text": "We only work with shops that have a strong reputation. Yours qualifies. Our ingredients cost 40% more but your customers will taste the difference immediately.",
+	"d2hr_r_referral_b": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "My sister told me this place is the best. Clean machines, great service. I brought the whole family!",
 	  "choices": [
 		{
-		  "text": "Switch to premium ingredients fully",
-		  "effects": { "money": -25, "reputation": 20, "morale": 15 },
+		  "text": "Offer them a family discount",
+		  "effects": { "reputation": 20, "money": -10, "morale": 15 },
+		  "gold": 25,
+		  "sets_flag": "family_discount",
 		  "minigame": null,
-		  "next": "d2hr_e2_c_full"
+		  "next": "d2hr_r_referral_discount"
 		},
 		{
-		  "text": "Use premium for signature items only",
-		  "effects": { "money": -10, "reputation": 10, "morale": 10 },
+		  "text": "Thank them warmly with no discount",
+		  "effects": { "reputation": 15, "morale": 10 },
+		  "gold": 18,
 		  "minigame": null,
-		  "next": "d2hr_e2_c_partial"
+		  "next": "d2hr_r_referral_thanks"
 		},
 		{
-		  "text": "Negotiate a trial period first",
-		  "effects": { "money": -5, "reputation": 5, "stress": -5 },
+		  "text": "Just process their laundry normally",
+		  "effects": { "reputation": 8, "morale": 5 },
+		  "gold": 10,
 		  "minigame": null,
-		  "next": "d2hr_e2_c_trial"
-		},
-		{
-		  "text": "Decline — current supplier is fine",
-		  "effects": { "morale": 5, "money": 5 },
-		  "minigame": null,
-		  "next": "d2hr_e2_c_decline"
+		  "next": "d2hr_r_referral_normal"
 		}
 	  ]
 	},
-	"d2hr_e2_c_full": {
+	"d2hr_r_referral_discount": {
 	  "speaker": "Customer",
 	  "speaker_id": "customer",
 	  "background": "shop_day",
-	  "text": "Oh wow this tastes completely different! So much richer. I am telling everyone about this upgrade!",
+	  "text": "A family discount? No wonder my sister raves about this place! We're all coming back.",
 	  "choices": [],
-	  "next": "d2hr_e2_result_full"
+	  "next": "d2hr_r_referral_result_discount"
 	},
-	"d2hr_e2_c_partial": {
+	"d2hr_r_referral_thanks": {
 	  "speaker": "Customer",
 	  "speaker_id": "customer",
 	  "background": "shop_day",
-	  "text": "The signature items taste incredible! The quality jump is noticeable. Worth every extra peso.",
+	  "text": "The warm welcome alone is worth it. We'll definitely be regulars.",
 	  "choices": [],
-	  "next": "d2hr_e2_result_partial"
+	  "next": "d2hr_r_referral_result_thanks"
 	},
-	"d2hr_e2_c_trial": {
+	"d2hr_r_referral_normal": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "The machines are clean. We'll be back.",
+	  "choices": [],
+	  "next": "d2hr_r_referral_result_normal"
+	},
+	"d2hr_r_referral_result_discount": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Rewarding referrals creates a loyalty loop. Small discounts now can bring large returns later.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2hr_r_referral_result_thanks": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Gratitude costs nothing but means everything. Warmth creates ambassadors.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2hr_r_referral_result_normal": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Basic service retains, but exceptional service grows. Word-of-mouth is powerful — nurture it.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d2hr_r_cleanliness_award": {
+	  "speaker": "Inspector",
+	  "speaker_id": "inspector",
+	  "background": "shop_day",
+	  "text": "I'm from the Local Business Association. Your laundromat has been nominated for the Neighborhood Cleanliness Award!",
+	  "choices": [],
+	  "next": "d2hr_r_cleanliness_b"
+	},
+	"d2hr_r_cleanliness_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "shop_day",
+	  "text": "An unexpected nomination! How do you respond?",
+	  "choices": [
+		{
+		  "text": "Accept graciously and thank them",
+		  "effects": { "reputation": 20, "morale": 15 },
+		  "gold": 25,
+		  "sets_flag": "accepted_award",
+		  "minigame": null,
+		  "next": "d2hr_r_cleanliness_accept"
+		},
+		{
+		  "text": "Ask what the award entails first",
+		  "effects": { "reputation": 10, "stress": -10 },
+		  "gold": 15,
+		  "minigame": null,
+		  "next": "d2hr_r_cleanliness_ask"
+		},
+		{
+		  "text": "Humbly decline — too humble for awards",
+		  "effects": { "reputation": 5, "morale": 5 },
+		  "gold": 10,
+		  "sets_flag": "declined_award",
+		  "minigame": null,
+		  "next": "d2hr_r_cleanliness_decline"
+		}
+	  ]
+	},
+	"d2hr_r_cleanliness_accept": {
+	  "speaker": "Inspector",
+	  "speaker_id": "inspector",
+	  "background": "shop_day",
+	  "text": "Wonderful! Your dedication to cleanliness is an inspiration to other local businesses.",
+	  "choices": [],
+	  "next": "d2hr_r_cleanliness_result_accept"
+	},
+	"d2hr_r_cleanliness_ask": {
+	  "speaker": "Inspector",
+	  "speaker_id": "inspector",
+	  "background": "shop_day",
+	  "text": "Smart to ask! It's mostly a plaque and a feature in the local paper. No obligations.",
+	  "choices": [],
+	  "next": "d2hr_r_cleanliness_result_ask"
+	},
+	"d2hr_r_cleanliness_decline": {
+	  "speaker": "Inspector",
+	  "speaker_id": "inspector",
+	  "background": "shop_day",
+	  "text": "I respect your humility. The offer stands if you change your mind.",
+	  "choices": [],
+	  "next": "d2hr_r_cleanliness_result_decline"
+	},
+	"d2hr_r_cleanliness_result_accept": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Recognition builds reputation. Accepting awards graciously sends a signal of confidence.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2hr_r_cleanliness_result_ask": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Due diligence before commitment is always wise. You got the full picture and made an informed decision.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2hr_r_cleanliness_result_decline": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Humility is admirable, but recognition has value. Sometimes accepting praise is as important as earning it.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d2hr_r_community_event": {
+	  "speaker": "Community Leader",
+	  "speaker_id": "corporate",
+	  "background": "shop_day",
+	  "text": "Your laundromat has become a neighborhood anchor. Would you sponsor the upcoming block party?",
+	  "choices": [],
+	  "next": "d2hr_r_community_b"
+	},
+	"d2hr_r_community_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "shop_day",
+	  "text": "A chance to give back to the community that supports you.",
+	  "choices": [
+		{
+		  "text": "Sponsor generously",
+		  "effects": { "reputation": 25, "money": -20, "morale": 20 },
+		  "gold": 30,
+		  "sets_flag": "community_sponsor",
+		  "minigame": null,
+		  "next": "d2hr_r_community_generous"
+		},
+		{
+		  "text": "Sponsor modestly",
+		  "effects": { "reputation": 15, "money": -10, "morale": 10 },
+		  "gold": 20,
+		  "minigame": null,
+		  "next": "d2hr_r_community_modest"
+		},
+		{
+		  "text": "Offer to donate laundry services instead",
+		  "effects": { "reputation": 20, "money": -5, "morale": 15 },
+		  "gold": 18,
+		  "sets_flag": "donated_services",
+		  "minigame": null,
+		  "next": "d2hr_r_community_services"
+		},
+		{
+		  "text": "Politely decline",
+		  "effects": { "reputation": -5, "morale": -5 },
+		  "gold": 5,
+		  "minigame": null,
+		  "next": "d2hr_r_community_decline"
+		}
+	  ]
+	},
+	"d2hr_r_community_generous": {
+	  "speaker": "Community Leader",
+	  "speaker_id": "corporate",
+	  "background": "shop_day",
+	  "text": "Wow, this is incredibly generous! The whole neighborhood will know your name.",
+	  "choices": [],
+	  "next": "d2hr_r_community_result_generous"
+	},
+	"d2hr_r_community_modest": {
+	  "speaker": "Community Leader",
+	  "speaker_id": "corporate",
+	  "background": "shop_day",
+	  "text": "Every bit helps! Thank you for supporting the community.",
+	  "choices": [],
+	  "next": "d2hr_r_community_result_modest"
+	},
+	"d2hr_r_community_services": {
+	  "speaker": "Community Leader",
+	  "speaker_id": "corporate",
+	  "background": "shop_day",
+	  "text": "Free laundry for the event volunteers? That's a creative and thoughtful contribution!",
+	  "choices": [],
+	  "next": "d2hr_r_community_result_services"
+	},
+	"d2hr_r_community_decline": {
+	  "speaker": "Community Leader",
+	  "speaker_id": "corporate",
+	  "background": "shop_day",
+	  "text": "I understand. Maybe next time.",
+	  "choices": [],
+	  "next": "d2hr_r_community_result_decline"
+	},
+	"d2hr_r_community_result_generous": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Generosity builds community goodwill that no marketing budget can buy. Smart long-term investment.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2hr_r_community_result_modest": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Every contribution matters. Being part of the community is about showing up, not just how much you give.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2hr_r_community_result_services": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Creative giving often has more impact than cash. Your services are your superpower — use them!",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2hr_r_community_result_decline": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Sometimes you can't give, but make sure it's not a pattern. Community relationships need nurturing.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d2hr_e3_premium_supplier": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Your excellent reputation has attracted a premium supplier. They offer eco-friendly, high-quality detergent.",
+	  "choices": [],
+	  "next": "d2hr_e3_supplier"
+	},
+	"d2hr_e3_supplier": {
 	  "speaker": "Supplier",
 	  "speaker_id": "supplier",
 	  "background": "office",
-	  "text": "A trial period is reasonable. Two weeks at reduced cost so you can measure customer response. Smart approach.",
-	  "choices": [],
-	  "next": "d2hr_e2_result_trial"
+	  "text": "We only partner with businesses that have a strong reputation. Yours qualifies. Our detergent costs 40% more, but customers will notice the difference.",
+	  "choices": [
+		{
+		  "text": "Switch to premium detergent fully",
+		  "effects": { "money": -30, "reputation": 25, "morale": 15 },
+		  "gold": 25,
+		  "sets_flag": "premium_detergent",
+		  "minigame": null,
+		  "next": "d2hr_e3_full"
+		},
+		{
+		  "text": "Use premium for VIP customers only",
+		  "effects": { "money": -15, "reputation": 15, "morale": 10 },
+		  "gold": 20,
+		  "minigame": null,
+		  "next": "d2hr_e3_partial"
+		},
+		{
+		  "text": "Request a trial period first",
+		  "effects": { "money": -10, "reputation": 10, "stress": -5 },
+		  "gold": 15,
+		  "minigame": null,
+		  "next": "d2hr_e3_trial"
+		},
+		{
+		  "text": "Decline — current detergent is fine",
+		  "effects": { "morale": 5, "money": 5 },
+		  "gold": 8,
+		  "sets_flag": "declined_premium",
+		  "minigame": null,
+		  "next": "d2hr_e3_decline"
+		}
+	  ]
 	},
-	"d2hr_e2_c_decline": {
+	"d2hr_e3_full": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "Wow, our clothes have never smelled this fresh! What detergent are you using?",
+	  "choices": [],
+	  "next": "d2hr_e3_result_full"
+	},
+	"d2hr_e3_partial": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "The premium service is amazing! The clothes feel softer and smell incredible.",
+	  "choices": [],
+	  "next": "d2hr_e3_result_partial"
+	},
+	"d2hr_e3_trial": {
+	  "speaker": "Supplier",
+	  "speaker_id": "supplier",
+	  "background": "office",
+	  "text": "A trial period is reasonable. Two weeks at reduced cost so you can measure customer response.",
+	  "choices": [],
+	  "next": "d2hr_e3_result_trial"
+	},
+	"d2hr_e3_decline": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Loyalty to your current setup is valid but premium opportunities at this stage are rare. Make sure you are not leaving growth on the table.",
+	  "text": "Loyalty to your current setup is valid, but premium opportunities at this stage are rare.",
 	  "choices": [],
-	  "next": "d2hr_e2_result_decline"
+	  "next": "d2hr_e3_result_decline"
 	},
-	"d2hr_e2_result_full": {
+	"d2hr_e3_result_full": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Premium positioning is a powerful strategy. Higher costs but higher perceived value — your reputation justifies the price increase.",
+	  "text": "Premium positioning is powerful. Higher costs but higher perceived value — your reputation justifies it.",
 	  "choices": [],
 	  "next": "end"
 	},
-	"d2hr_e2_result_partial": {
+	"d2hr_e3_result_partial": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Selective premiumization is smart business. Flagship products carry the brand while keeping costs manageable.",
+	  "text": "Selective premiumization is smart business. Flagship services carry the brand while keeping costs manageable.",
 	  "choices": [],
 	  "next": "end"
 	},
-	"d2hr_e2_result_trial": {
+	"d2hr_e3_result_trial": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Data before commitment is always wise. A trial lets you measure real customer response before locking in higher costs.",
+	  "text": "Data before commitment is always wise. Measure real customer response before locking in higher costs.",
 	  "choices": [],
 	  "next": "end"
 	},
-	"d2hr_e2_result_decline": {
+	"d2hr_e3_result_decline": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
@@ -220,109 +525,225 @@
 	  "next": "end"
 	},
 
-	"d2hr_e3_a": {
+	"d2hr_e4_expansion_offer": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "A real estate agent just called. A prime location nearby is available — perfect for a second laundromat.",
+	  "choices": [],
+	  "next": "d2hr_e4_agent"
+	},
+	"d2hr_e4_agent": {
+	  "speaker": "Agent",
+	  "speaker_id": "corporate",
+	  "background": "office",
+	  "text": "This space won't last long. Given your reputation, you could expand now. Interested?",
+	  "choices": [
+		{
+		  "text": "Move quickly — secure the space",
+		  "effects": { "money": -50, "reputation": 30, "stress": 25 },
+		  "gold": 40,
+		  "sets_flag": "expanded_early",
+		  "minigame": null,
+		  "next": "d2hr_e4_quick"
+		},
+		{
+		  "text": "Ask for 48 hours to think",
+		  "effects": { "stress": -10, "morale": 5 },
+		  "gold": 10,
+		  "minigame": null,
+		  "next": "d2hr_e4_think"
+		},
+		{
+		  "text": "Make a lower offer",
+		  "effects": { "money": -40, "reputation": 20, "stress": 15 },
+		  "gold": 30,
+		  "sets_flag": "negotiated_space",
+		  "minigame": null,
+		  "next": "d2hr_e4_negotiate"
+		},
+		{
+		  "text": "Pass — focus on current location",
+		  "effects": { "morale": 10, "stress": -15, "money": 10 },
+		  "gold": 15,
+		  "minigame": null,
+		  "next": "d2hr_e4_pass"
+		}
+	  ]
+	},
+	"d2hr_e4_quick": {
+	  "speaker": "Agent",
+	  "speaker_id": "corporate",
+	  "background": "office",
+	  "text": "Excellent decision! The space is yours. Bold moves like this separate growing businesses from stagnant ones.",
+	  "choices": [],
+	  "next": "d2hr_e4_result_quick"
+	},
+	"d2hr_e4_think": {
+	  "speaker": "Agent",
+	  "speaker_id": "corporate",
+	  "background": "office",
+	  "text": "Fair enough. 48 hours — after that, it's back on the market.",
+	  "choices": [],
+	  "next": "d2hr_e4_result_think"
+	},
+	"d2hr_e4_negotiate": {
+	  "speaker": "Agent",
+	  "speaker_id": "corporate",
+	  "background": "office",
+	  "text": "The owner is motivated. Your lower offer was accepted. Smart negotiating saved you capital.",
+	  "choices": [],
+	  "next": "d2hr_e4_result_negotiate"
+	},
+	"d2hr_e4_pass": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Consolidation before expansion is wise. Many businesses fail by growing too fast.",
+	  "choices": [],
+	  "next": "d2hr_e4_result_pass"
+	},
+	"d2hr_e4_result_quick": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Moving decisively on rare opportunities is a key skill. Your reputation gave you this option.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2hr_e4_result_think": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Taking time under pressure shows discipline. Use the 48 hours wisely.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2hr_e4_result_negotiate": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Negotiating even in favorable markets is smart. Every peso saved can be reinvested.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d2hr_e4_result_pass": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Depth before breadth. A perfect single location often outperforms two mediocre ones.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d2hr_e5_partnership": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "End of a great day! A nearby business owner approaches wanting to collaborate on a joint promotion. Your reputation made you their first choice.",
+	  "text": "End of a great day! A nearby cafe owner wants to collaborate on a joint promotion.",
 	  "choices": [],
-	  "next": "d2hr_e3_b"
+	  "next": "d2hr_e5_owner"
 	},
-	"d2hr_e3_b": {
-	  "speaker": "Business Owner",
+	"d2hr_e5_owner": {
+	  "speaker": "Cafe Owner",
 	  "speaker_id": "corporate",
 	  "background": "shop_evening",
-	  "text": "Your shop has the best reputation on this street. A joint promotion between our businesses could double both our customer bases. Interested?",
+	  "text": "Your laundromat has the best reputation on this street. A joint promotion could double both our customer bases. Interested?",
 	  "choices": [
 		{
 		  "text": "Agree enthusiastically",
-		  "effects": { "reputation": 15, "money": 10, "morale": 15 },
-		  "sets_flag": "formed_partnership",
+		  "effects": { "reputation": 20, "money": 15, "morale": 20 },
+		  "gold": 30,
+		  "sets_flag": "cafe_partnership",
 		  "minigame": null,
-		  "next": "d2hr_e3_c_agree"
+		  "next": "d2hr_e5_agree"
 		},
 		{
-		  "text": "Ask for details before committing",
-		  "effects": { "reputation": 10, "stress": -10 },
+		  "text": "Ask for details first",
+		  "effects": { "reputation": 12, "stress": -10 },
+		  "gold": 15,
 		  "minigame": null,
-		  "next": "d2hr_e3_c_details"
+		  "next": "d2hr_e5_details"
 		},
 		{
-		  "text": "Propose a smaller pilot first",
-		  "effects": { "reputation": 8, "money": 5, "stress": -5 },
+		  "text": "Propose a pilot program first",
+		  "effects": { "reputation": 10, "money": 8, "stress": -8 },
+		  "gold": 20,
+		  "sets_flag": "pilot_partnership",
 		  "minigame": null,
-		  "next": "d2hr_e3_c_pilot"
+		  "next": "d2hr_e5_pilot"
 		},
 		{
 		  "text": "Decline — focus on your own brand",
 		  "effects": { "morale": 5, "stress": -10 },
+		  "gold": 8,
 		  "sets_flag": "declined_partnership",
 		  "minigame": null,
-		  "next": "d2hr_e3_c_decline"
+		  "next": "d2hr_e5_decline"
 		}
 	  ]
 	},
-	"d2hr_e3_c_agree": {
-	  "speaker": "Business Owner",
+	"d2hr_e5_agree": {
+	  "speaker": "Cafe Owner",
 	  "speaker_id": "corporate",
 	  "background": "shop_evening",
-	  "text": "Fantastic! This partnership is going to be incredible. Our customers are going to love both of us even more.",
+	  "text": "Fantastic! This partnership is going to be incredible. 'Wash and Coffee' — I love it!",
 	  "choices": [],
-	  "next": "d2hr_e3_result_agree"
+	  "next": "d2hr_e5_result_agree"
 	},
-	"d2hr_e3_c_details": {
-	  "speaker": "Business Owner",
+	"d2hr_e5_details": {
+	  "speaker": "Cafe Owner",
 	  "speaker_id": "corporate",
 	  "background": "shop_evening",
-	  "text": "Of course! Due diligence is important. Let me walk you through the full plan before we shake hands on anything.",
+	  "text": "Due diligence is important. Let me walk you through the full plan.",
 	  "choices": [],
-	  "next": "d2hr_e3_result_details"
+	  "next": "d2hr_e5_result_details"
 	},
-	"d2hr_e3_c_pilot": {
-	  "speaker": "Business Owner",
+	"d2hr_e5_pilot": {
+	  "speaker": "Cafe Owner",
 	  "speaker_id": "corporate",
 	  "background": "shop_evening",
-	  "text": "A pilot is actually a brilliant idea. Test the waters before diving in. I like how you think.",
+	  "text": "A pilot is a brilliant idea. Test the waters before diving in.",
 	  "choices": [],
-	  "next": "d2hr_e3_result_pilot"
+	  "next": "d2hr_e5_result_pilot"
 	},
-	"d2hr_e3_c_decline": {
-	  "speaker": "Business Owner",
+	"d2hr_e5_decline": {
+	  "speaker": "Cafe Owner",
 	  "speaker_id": "corporate",
 	  "background": "shop_evening",
-	  "text": "I respect that. Building your own brand first is a solid strategy. The offer stands if you change your mind.",
+	  "text": "I respect that. The offer stands if you change your mind.",
 	  "choices": [],
-	  "next": "d2hr_e3_result_decline"
+	  "next": "d2hr_e5_result_decline"
 	},
-	"d2hr_e3_result_agree": {
+	"d2hr_e5_result_agree": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "Strategic partnerships multiply reach. Your reputation attracted this opportunity — now it is compounding through collaboration.",
+	  "text": "Strategic partnerships multiply reach. Your reputation attracted this opportunity — now it's compounding.",
 	  "choices": [],
 	  "next": "end"
 	},
-	"d2hr_e3_result_details": {
+	"d2hr_e5_result_details": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "Never commit without understanding the full picture. Asking for details before agreeing is professional and protects your interests.",
+	  "text": "Never commit without understanding the full picture. Asking for details protects your interests.",
 	  "choices": [],
 	  "next": "end"
 	},
-	"d2hr_e3_result_pilot": {
+	"d2hr_e5_result_pilot": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "Pilots reduce risk in partnerships. Testing compatibility before full commitment is one of the smartest moves in collaborative business.",
+	  "text": "Pilots reduce risk. Testing compatibility before full commitment is one of the smartest moves.",
 	  "choices": [],
 	  "next": "end"
 	},
-	"d2hr_e3_result_decline": {
+	"d2hr_e5_result_decline": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "Brand focus is valid but partnerships can accelerate growth significantly. Make sure independence is a strategy not just comfort.",
+	  "text": "Brand focus is valid, but partnerships can accelerate growth significantly. Make sure independence is a strategy, not comfort.",
 	  "choices": [],
 	  "next": "end"
 	}

@@ -228,15 +228,22 @@ func load_dialogue(file_name: String) -> void:
 	if file == null:
 		push_error("DialogueManager: Could not open file at " + path)
 		return
-	var json  = JSON.new()
+	var json = JSON.new()
 	var error = json.parse(file.get_as_text())
 	file.close()
 	if error != OK:
 		push_error("DialogueManager: JSON parse error in " + path)
 		return
+	
 	dialogue_data = json.get_data()
-	total_events  = dialogue_data.get("total_events", 0)
+	total_events = dialogue_data.get("total_events", 0)
 	current_event = 0
+	
+	# CRITICAL FIX: Clear random event data when loading a new day
+	# Random events are day-specific, so old ones won't exist in the new day's JSON
+	used_random_events = []
+	random_event_map = {}
+	
 	_take_stat_snapshot()
 	_load_event(current_event)
 
@@ -254,25 +261,28 @@ func load_dialogue(file_name: String) -> void:
 #   Fix: set_flag runs before trigger_minigame.
 # =========================================
 func advance(choice_index: int = -1) -> void:
+	print("=== advance() called ===")
+	
 	if current_node.is_empty():
 		push_error("DialogueManager: No current node loaded")
 		return
 
 	var choices: Array = current_node.get("choices", [])
+	print("choices size: ", choices.size())
 
-	# ── No-choice node: tap advances to next ──────────────────
 	if choices.size() == 0:
 		var next_id: String = current_node.get("next", "")
+		print("No choices, advancing to next: ", next_id)
 		_load_node(next_id)
 		return
 
-	# ── Choice node: validate index ───────────────────────────
 	if choice_index < 0 or choice_index >= choices.size():
-		push_error("DialogueManager: Invalid choice_index " + str(choice_index)
-			+ " for node with " + str(choices.size()) + " choices")
+		push_error("DialogueManager: Invalid choice_index ", choice_index)
 		return
 
 	var chosen: Dictionary = choices[choice_index]
+	print("Chosen option: ", chosen.get("text", ""))
+	print("Next node from choice: ", chosen.get("next", "MISSING!!!"))  # <-- CRITICAL DEBUG
 
 	# Apply stat effects
 	_apply_effects(chosen.get("effects", {}))
@@ -280,21 +290,19 @@ func advance(choice_index: int = -1) -> void:
 	# Award gold
 	earn_gold_from_choice(chosen)
 
-	# Set flag BEFORE anything else so it is saved even if
-	# the next step is a minigame scene change
 	var flag = chosen.get("sets_flag", "")
 	if flag != "":
 		set_flag(flag)
 
-	# Check for minigame trigger
 	var minigame = chosen.get("minigame", null)
 	if minigame != null and minigame != "null" and minigame != "":
 		var next_id: String = chosen.get("next", "")
+		print("Triggering minigame: ", minigame, " next: ", next_id)
 		MinigameManager.trigger_minigame(minigame, next_id)
 		return
 
-	# Normal advance
 	var next_id: String = chosen.get("next", "")
+	print("Loading next node: ", next_id)
 	_load_node(next_id)
 
 
@@ -413,9 +421,12 @@ func _pick_random_event(pool: Array, event_index: int) -> String:
 	# Check if we already picked one for this event index (from saved game)
 	if random_event_map.has(event_index):
 		var saved_pick = random_event_map[event_index]
-		if saved_pick != "":
+		# Verify the saved pick still exists in the current day's pool
+		if saved_pick != "" and pool.has(saved_pick):
 			print("Using saved random pick: ", saved_pick)
 			return saved_pick
+		else:
+			print("Saved random pick ", saved_pick, " not in current pool, picking new")
 	
 	var available = pool.filter(func(id):
 		return not used_random_events.has(id)
@@ -473,7 +484,10 @@ func get_all_flags() -> Array:
 
 
 func _load_node(node_id: String) -> void:
+	print("Loading node: ", node_id)
+	
 	if node_id == "" or node_id == "end":
+		print("Node is end - calling _on_event_end()")
 		current_node_id = ""
 		_on_event_end()
 		return
@@ -485,14 +499,25 @@ func _load_node(node_id: String) -> void:
 	
 	current_node_id = node_id
 	current_node = nodes[node_id]
+	
+	print("Node text: ", current_node.get("text", "").substr(0, 50))
+	print("Next node: ", current_node.get("next", "MISSING"))
 
 	var speaker: String = current_node.get("speaker", "")
 	var text:    String = current_node.get("text", "")
 	emit_signal("dialogue_updated", speaker, text)
 
+	# CRITICAL FIX: Only emit choices if there are ACTUAL choices AND we're not at the end
 	var choices: Array = current_node.get("choices", [])
-	if choices.size() > 0:
+	
+	# Additional check: If this node has a "next" field, it's not a choice node
+	var has_next = current_node.has("next") and current_node.get("next", "") != ""
+	
+	if choices.size() > 0 and not has_next:
+		print("Emitting choices_updated for node: ", node_id)
 		emit_signal("choices_updated", choices)
+	else:
+		print("Node ", node_id, " has no choices or is a result node")  # DEBUG
 
 func load_node_direct(node_id: String) -> void:
 	if node_id == "" or node_id == "end":

@@ -29,10 +29,10 @@ const THEMES = {
 		"reputation":   Color("#c9ada7"),      # Dusty rose
 		"morale":       Color("#8cb369"),      # Sage green
 		"stress":       Color("#bc4a4a"),      # Brick red
-		"button_text_primary":         Color("#2c2a2a"),
-		"button_text_primary_hover":   Color("#f4e9d8"),
-		"button_text_secondary":       Color("#a39a8c"),
-		"button_text_secondary_hover": Color("#f4e9d8"),
+		"button_text_primary":         Color("#f4e9d8"), #2c2a2a
+		"button_text_primary_hover":   Color("#ffffff"), #1a1818
+		"button_text_secondary":       Color("#2c2a2a"), #f4e9d8
+		"button_text_secondary_hover": Color("#1a1818"), #ffffff
 		"bg_tints": {
 			"shop_day":     Color("#2c2a2a"),
 			"shop_evening": Color("#1a1818"),

@@ -15,6 +15,10 @@ run/main_scene="uid://cg10hr2368h27"
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://b2wxagdfmvacm"
+
 [autoload]
 
 DialogueManager="*uid://cmy7f30y74p3r"
@@ -22,6 +26,7 @@ GameTheme="*uid://vxley8jd7l04"
 MinigameManager="*uid://ydpkdoukubto"
 SaveManager="*uid://d26b0k6kc4v5p"
 LeaderboardManager="*uid://5tvo3wixmpo8"
+AudioManager="*uid://cwmow3waepyrk"
 
 [display]
 

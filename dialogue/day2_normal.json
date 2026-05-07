@@ -2,91 +2,95 @@
   "day": 2,
   "total_events": 3,
   "events": [
-	{ "start": "d2e1_a" },
-	{ "start": "d2e2_a" },
-	{ "start": "d2e3_a" }
+	{ "start": "d2e1_hire_candidate" },
+	{ "start": "d2e2_competitor" },
+	{ "start": "d2e3_customer_request" }
   ],
   "nodes": {
 
-	"d2e1_a": {
+	"d2e1_hire_candidate": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Day 2! Your shop is getting some attention. A new employee candidate just walked in unannounced asking for a job. How do you handle it?",
+	  "text": "Day 2! Your laundromat is getting some attention. A job seeker just walked in asking about work. How do you handle it?",
 	  "choices": [],
-	  "next": "d2e1_b"
+	  "next": "d2e1_candidate_talk"
 	},
-	"d2e1_b": {
+	"d2e1_candidate_talk": {
 	  "speaker": "Candidate",
 	  "speaker_id": "candidate",
 	  "background": "shop_day",
-	  "text": "Hi! I heard your shop is doing well. I have experience in retail and I am a hard worker. Any openings?",
+	  "text": "Hi! I heard your laundromat is doing well. I have experience in retail and I'm a hard worker. Any openings?",
 	  "choices": [
 		{
-		  "text": "Hire them on the spot — you need the help",
+		  "text": "Hire them on the spot",
 		  "effects": { "money": -15, "morale": 15, "stress": -10 },
+		  "gold": 15,
 		  "sets_flag": "hired_candidate",
 		  "minigame": null,
-		  "next": "d2e1_c_hire"
+		  "next": "d2e1_hire_yes"
 		},
 		{
-		  "text": "Ask for a resume and schedule a proper interview",
+		  "text": "Ask for a resume and schedule interview",
 		  "effects": { "morale": 5, "stress": -5 },
+		  "gold": 10,
 		  "sets_flag": "interviewed_candidate",
 		  "minigame": null,
-		  "next": "d2e1_c_interview"
+		  "next": "d2e1_hire_interview"
 		},
 		{
-		  "text": "Politely decline — you are not ready to hire yet",
+		  "text": "Politely decline — not ready to hire",
 		  "effects": { "stress": 5 },
+		  "gold": 5,
 		  "minigame": null,
-		  "next": "d2e1_c_decline"
+		  "next": "d2e1_hire_decline"
 		},
 		{
-		  "text": "Ask them to work a free trial day first",
+		  "text": "Offer a paid trial day first",
 		  "effects": { "morale": 10, "stress": -5, "reputation": 5 },
+		  "gold": 12,
 		  "minigame": null,
-		  "next": "d2e1_c_trial"
+		  "next": "d2e1_hire_trial"
 		}
 	  ]
 	},
-	"d2e1_c_hire": {
+	"d2e1_hire_yes": {
 	  "speaker": "Candidate",
 	  "speaker_id": "candidate",
 	  "background": "shop_day",
-	  "text": "Really?! Thank you so much! I will start right away and give it my all!",
+	  "text": "Really?! Thank you so much! I'll start right away and help with the laundry!",
 	  "choices": [],
-	  "next": "d2e1_result_hire"
+	  "next": "d2e1_result_yes"
 	},
-	"d2e1_c_interview": {
+	"d2e1_hire_interview": {
 	  "speaker": "Candidate",
 	  "speaker_id": "candidate",
 	  "background": "shop_day",
-	  "text": "Of course! That is very professional of you. I will send my resume right away.",
+	  "text": "Of course! That's very professional. I'll send my resume right away.",
 	  "choices": [],
 	  "next": "d2e1_result_interview"
 	},
-	"d2e1_c_decline": {
+	"d2e1_hire_decline": {
 	  "speaker": "Candidate",
 	  "speaker_id": "candidate",
 	  "background": "shop_day",
-	  "text": "Oh, I understand. Good luck with your business! Maybe another time.",
+	  "text": "Oh, I understand. Good luck with your laundromat! Maybe another time.",
 	  "choices": [],
 	  "next": "d2e1_result_decline"
 	},
-	"d2e1_c_trial": {
+	"d2e1_hire_trial": {
 	  "speaker": "Candidate",
 	  "speaker_id": "candidate",
 	  "background": "shop_day",
-	  "text": "A trial day? Sure, I am confident in my skills. When do I start?",
+	  "text": "A paid trial day? Sure, I'm confident in my skills. When do I start?",
 	  "choices": [],
 	  "next": "d2e1_result_trial"
 	},
-	"d2e1_result_hire": {
+	"d2e1_result_yes": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Bold but risky! Hiring without screening can lead to mismatches. Always have a process even if simple.",
+	  "text": "Bold but risky! Hiring without screening can lead to mismatches. Always have a process, even if simple.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -94,7 +98,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Smart move! A proper hiring process protects your business and respects the candidate.",
+	  "text": "Smart move! A proper hiring process protects your laundromat and respects the candidate.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -102,7 +106,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Knowing your limits is wisdom. Hiring before you are ready creates more problems than it solves.",
+	  "text": "Knowing your limits is wisdom. Hiring before you're ready creates more problems than it solves.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -110,81 +114,86 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Creative approach! Trial periods let both sides assess fit before committing. Low risk, high reward.",
+	  "text": "Creative approach! Paid trial periods let both sides assess fit before committing. Low risk, high reward.",
 	  "choices": [],
 	  "next": "end"
 	},
-	"d2e2_a": {
+
+	"d2e2_competitor": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "street",
-	  "text": "Midday! A competitor opened a shop nearby and is offering lower prices. Customers are noticing. What is your response?",
+	  "text": "Midday! A new laundromat just opened two blocks away, advertising lower prices. Some customers are noticing.",
 	  "choices": [],
-	  "next": "d2e2_b"
+	  "next": "d2e2_competitor_choice"
 	},
-	"d2e2_b": {
+	"d2e2_competitor_choice": {
 	  "speaker": "You",
 	  "speaker_id": "player",
 	  "background": "street",
-	  "text": "A price war could hurt my margins but doing nothing feels wrong...",
+	  "text": "A price war could hurt my margins, but doing nothing feels wrong...",
 	  "choices": [
 		{
 		  "text": "Match their prices immediately",
 		  "effects": { "money": -20, "reputation": 5, "stress": 15 },
-		  "sets_flag": "matched_competitor",
+		  "gold": 15,
+		  "sets_flag": "matched_prices",
 		  "minigame": null,
-		  "next": "d2e2_c_match"
+		  "next": "d2e2_match"
 		},
 		{
-		  "text": "Focus on quality and service instead of price",
+		  "text": "Focus on cleaner machines and better service",
 		  "effects": { "reputation": 15, "morale": 10, "stress": -5 },
-		  "sets_flag": "quality_over_price",
+		  "gold": 20,
+		  "sets_flag": "quality_focus",
 		  "minigame": null,
-		  "next": "d2e2_c_quality"
+		  "next": "d2e2_quality"
 		},
 		{
-		  "text": "Launch a limited time promotion to retain customers",
+		  "text": "Launch a loyalty card promotion",
 		  "effects": { "money": -10, "reputation": 10, "morale": 5 },
+		  "gold": 15,
 		  "minigame": null,
-		  "next": "d2e2_c_promo"
+		  "next": "d2e2_promo"
 		},
 		{
-		  "text": "Ignore them and stay the course",
+		  "text": "Ignore them — stay the course",
 		  "effects": { "reputation": -10, "money": -5 },
+		  "gold": 5,
 		  "minigame": null,
-		  "next": "d2e2_c_ignore"
+		  "next": "d2e2_ignore"
 		}
 	  ]
 	},
-	"d2e2_c_match": {
+	"d2e2_match": {
 	  "speaker": "Regular Customer",
 	  "speaker_id": "customer",
 	  "background": "street",
-	  "text": "Oh nice, same price as the new place! But I still prefer coming here honestly.",
+	  "text": "Oh nice, same price as the new place! But I still prefer your machines honestly.",
 	  "choices": [],
 	  "next": "d2e2_result_match"
 	},
-	"d2e2_c_quality": {
+	"d2e2_quality": {
 	  "speaker": "Regular Customer",
 	  "speaker_id": "customer",
 	  "background": "street",
-	  "text": "I tried the new place but honestly the service here is so much better. Worth every extra peso!",
+	  "text": "I tried the new place, but your machines are cleaner and the detergent smells better. Worth every extra peso!",
 	  "choices": [],
 	  "next": "d2e2_result_quality"
 	},
-	"d2e2_c_promo": {
+	"d2e2_promo": {
 	  "speaker": "Regular Customer",
 	  "speaker_id": "customer",
 	  "background": "street",
-	  "text": "A promotion? Perfect timing! I was thinking of trying the new place but this keeps me here.",
+	  "text": "A loyalty card? Perfect timing! I was thinking of trying the new place, but this keeps me here.",
 	  "choices": [],
 	  "next": "d2e2_result_promo"
 	},
-	"d2e2_c_ignore": {
+	"d2e2_ignore": {
 	  "speaker": "Regular Customer",
 	  "speaker_id": "customer",
 	  "background": "street",
-	  "text": "Hey, the place next door is cheaper. Are you going to do anything about that?",
+	  "text": "Hey, the new place is cheaper. Are you going to do anything about that?",
 	  "choices": [],
 	  "next": "d2e2_result_ignore"
 	},
@@ -200,7 +209,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "street",
-	  "text": "Excellent instinct! Differentiation through quality and service is a powerful competitive advantage.",
+	  "text": "Excellent instinct! Differentiation through clean machines and better service is a powerful advantage.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -208,7 +217,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "street",
-	  "text": "Smart tactical move! Short term promotions can retain customers without permanently cutting margins.",
+	  "text": "Smart tactical move! Short-term promotions can retain customers without permanently cutting margins.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -221,93 +230,98 @@
 	  "next": "end"
 	},
 
-	"d2e3_a": {
+	"d2e3_customer_request": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "Late afternoon. Your best selling item just sold out and a customer really wants it. You could restock overnight for extra cost. What do you do?",
+	  "text": "Late afternoon. Your largest washing machine just broke down, and a customer with a big load really needs it.",
 	  "choices": [],
-	  "next": "d2e3_b"
+	  "next": "d2e3_request"
 	},
-	"d2e3_b": {
+	"d2e3_request": {
 	  "speaker": "Customer",
 	  "speaker_id": "customer",
 	  "background": "shop_evening",
-	  "text": "I specifically came here for that item. Is there any way you can get it for me?",
+	  "text": "I have a huge comforter that only fits in that machine. Is there any way you can help me?",
 	  "choices": [
 		{
-		  "text": "Pay for overnight restock — keep the customer happy",
-		  "effects": { "money": -15, "reputation": 20, "morale": 10 },
-		  "sets_flag": "overnight_restocked",
+		  "text": "Call a repair service immediately",
+		  "effects": { "money": -20, "reputation": 20, "morale": 10 },
+		  "gold": 20,
+		  "sets_flag": "quick_repair",
 		  "minigame": null,
-		  "next": "d2e3_c_restock"
+		  "next": "d2e3_repair"
 		},
 		{
-		  "text": "Offer a similar alternative item",
-		  "effects": { "reputation": 10, "morale": 5 },
+		  "text": "Suggest they try the laundromat down the street",
+		  "effects": { "reputation": -5, "morale": -5 },
+		  "gold": 5,
 		  "minigame": null,
-		  "next": "d2e3_c_alternative"
+		  "next": "d2e3_suggest"
 		},
 		{
-		  "text": "Take their contact and notify when restocked",
+		  "text": "Take their number and call when fixed",
 		  "effects": { "reputation": 15, "morale": 10, "stress": -5 },
-		  "sets_flag": "built_customer_contact",
+		  "gold": 12,
+		  "sets_flag": "customer_contact",
 		  "minigame": null,
-		  "next": "d2e3_c_notify"
+		  "next": "d2e3_notify"
 		},
 		{
-		  "text": "Apologize and send them away",
-		  "effects": { "reputation": -15, "morale": -10 },
+		  "text": "Offer to hand-wash it yourself",
+		  "effects": { "reputation": 25, "money": -10, "stress": 15 },
+		  "gold": 15,
+		  "sets_flag": "went_above",
 		  "minigame": null,
-		  "next": "d2e3_c_sendaway"
+		  "next": "d2e3_handwash"
 		}
 	  ]
 	},
-	"d2e3_c_restock": {
+	"d2e3_repair": {
 	  "speaker": "Customer",
 	  "speaker_id": "customer",
 	  "background": "shop_evening",
-	  "text": "You would do that for me? That is incredible service! I will wait and tell everyone about this shop!",
+	  "text": "You called someone right away? That's incredible service! I'll wait and tell everyone about this place.",
 	  "choices": [],
-	  "next": "d2e3_result_restock"
+	  "next": "d2e3_result_repair"
 	},
-	"d2e3_c_alternative": {
-	  "speaker": "Customer",
-	  "speaker_id": "customer",
-	  "background": "shop_evening",
-	  "text": "Hmm, it is not exactly what I wanted but it could work. Thank you for not just turning me away.",
-	  "choices": [],
-	  "next": "d2e3_result_alternative"
-	},
-	"d2e3_c_notify": {
-	  "speaker": "Customer",
-	  "speaker_id": "customer",
-	  "background": "shop_evening",
-	  "text": "Oh that is so thoughtful! Yes please, here is my number. I appreciate the personal touch!",
-	  "choices": [],
-	  "next": "d2e3_result_notify"
-	},
-	"d2e3_c_sendaway": {
+	"d2e3_suggest": {
 	  "speaker": "Customer",
 	  "speaker_id": "customer",
 	  "background": "shop_evening",
 	  "text": "Really? Just like that? I drove all the way here. Very disappointing.",
 	  "choices": [],
-	  "next": "d2e3_result_sendaway"
+	  "next": "d2e3_result_suggest"
 	},
-	"d2e3_result_restock": {
+	"d2e3_notify": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_evening",
+	  "text": "Oh, that's so thoughtful! Yes please, here's my number. I appreciate the personal touch!",
+	  "choices": [],
+	  "next": "d2e3_result_notify"
+	},
+	"d2e3_handwash": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_evening",
+	  "text": "You'd hand-wash it yourself? That's above and beyond! I'm definitely coming back and bringing friends.",
+	  "choices": [],
+	  "next": "d2e3_result_handwash"
+	},
+	"d2e3_result_repair": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "Going above and beyond creates loyal customers. The cost was real but so is the word of mouth you just earned.",
+	  "text": "Taking immediate action builds trust. The cost was real, but so is the word-of-mouth you just earned.",
 	  "choices": [],
 	  "next": "end"
 	},
-	"d2e3_result_alternative": {
+	"d2e3_result_suggest": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "Good recovery! Suggesting alternatives shows resourcefulness and keeps the sale alive.",
+	  "text": "Sending customers to competitors is never a good strategy. Always offer alternatives, even imperfect ones.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -319,13 +333,13 @@
 	  "choices": [],
 	  "next": "end"
 	},
-	"d2e3_result_sendaway": {
+	"d2e3_result_handwash": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_evening",
-	  "text": "A lost customer rarely returns. Even a small gesture of effort leaves a better impression than nothing.",
+	  "text": "Going above and beyond creates legendary service stories. That customer will never forget what you did.",
 	  "choices": [],
 	  "next": "end"
-	},
+	}
   }
 }

@@ -1,82 +1,95 @@
 {
   "day": 4,
-  "total_events": 3,
+  "total_events": 5,
   "events": [
-	{ "start": "d4e1_a" },
-	{ "start": "d4e2_a" },
-	{ "start": "d4e3_a" }
+	{ "start": "d4e1_influencer" },
+	{ "start": "d4e2_staff_discount" },
+	{ "start": "d4e3_corporate_buyer" },
+	{
+	  "start": "random",
+	  "pool": [
+		"d4r_equipment_break",
+		"d4r_supplier_delay",
+        "d4r_customer_compliment"
+	  ]
+	},
+	{ "start": "d4e5_day_review" }
   ],
   "nodes": {
 
-	"d4e1_a": {
+	"d4e1_influencer": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Day 4! Your business is getting noticed. A local influencer walks in and offers to promote your shop online in exchange for free products. How do you handle it?",
+	  "text": "Day 4! Your laundromat is getting noticed. A local social media influencer walks in and offers to promote your shop online in exchange for free laundry services.",
 	  "choices": [],
-	  "next": "d4e1_b"
+	  "next": "d4e1_influencer_b"
 	},
-	"d4e1_b": {
+	"d4e1_influencer_b": {
 	  "speaker": "Influencer",
 	  "speaker_id": "influencer",
 	  "background": "shop_day",
-	  "text": "Hey! I have about 50,000 followers and I love your shop. I could feature it if you give me some free products. What do you say?",
+	  "text": "Hey! I have about 50,000 followers and I love this laundromat. I could feature it if you give me free washes. What do you say?",
 	  "choices": [
 		{
 		  "text": "Agree immediately — free exposure sounds great",
 		  "effects": { "money": -10, "reputation": 25, "morale": 10 },
+		  "gold": 20,
 		  "minigame": null,
-		  "next": "d4e1_c_agree"
+		  "next": "d4e1_agree"
 		},
 		{
-		  "text": "Negotiate — offer a discount instead of free products",
+		  "text": "Negotiate — offer a discount instead of free",
 		  "effects": { "money": -5, "reputation": 15, "morale": 5 },
+		  "gold": 15,
 		  "minigame": null,
-		  "next": "d4e1_c_negotiate"
+		  "next": "d4e1_negotiate"
 		},
 		{
 		  "text": "Ask to see their engagement stats first",
 		  "effects": { "reputation": 10, "stress": -5, "morale": 5 },
+		  "gold": 10,
 		  "minigame": null,
-		  "next": "d4e1_c_verify"
+		  "next": "d4e1_verify"
 		},
 		{
-		  "text": "Decline politely — you prefer organic growth",
+		  "text": "Decline politely — prefer organic growth",
 		  "effects": { "reputation": -5, "morale": 5, "money": 5 },
+		  "gold": 8,
 		  "minigame": null,
-		  "next": "d4e1_c_decline"
+		  "next": "d4e1_decline"
 		}
 	  ]
 	},
-	"d4e1_c_agree": {
+	"d4e1_agree": {
 	  "speaker": "Influencer",
 	  "speaker_id": "influencer",
 	  "background": "shop_day",
-	  "text": "Amazing! I will post about this today. Your shop is going to blow up online trust me!",
+	  "text": "Amazing! I'll post about this today. Your laundromat is going to blow up online, trust me!",
 	  "choices": [],
 	  "next": "d4e1_result_agree"
 	},
-	"d4e1_c_negotiate": {
+	"d4e1_negotiate": {
 	  "speaker": "Influencer",
 	  "speaker_id": "influencer",
 	  "background": "shop_day",
-	  "text": "A discount instead? Hmm, fair enough. I respect the business mindset. Deal!",
+	  "text": "A discount instead of free? Fair enough. I respect the business mindset. Deal!",
 	  "choices": [],
 	  "next": "d4e1_result_negotiate"
 	},
-	"d4e1_c_verify": {
+	"d4e1_verify": {
 	  "speaker": "Influencer",
 	  "speaker_id": "influencer",
 	  "background": "shop_day",
-	  "text": "Sure! Here are my analytics. Most followers are local and highly engaged. Pretty solid numbers right?",
+	  "text": "Sure! Here are my analytics. Most followers are local and highly engaged. Pretty solid numbers, right?",
 	  "choices": [],
 	  "next": "d4e1_result_verify"
 	},
-	"d4e1_c_decline": {
+	"d4e1_decline": {
 	  "speaker": "Influencer",
 	  "speaker_id": "influencer",
 	  "background": "shop_day",
-	  "text": "Oh okay, no worries. Your loss I guess. Good luck with the shop though!",
+	  "text": "Oh, okay. No worries. Your loss, I guess. Good luck with the laundromat though!",
 	  "choices": [],
 	  "next": "d4e1_result_decline"
 	},
@@ -84,7 +97,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Influencer marketing can be powerful but always set clear expectations upfront. A verbal agreement is not enough.",
+	  "text": "Influencer marketing can be powerful, but always set clear expectations upfront. A verbal agreement isn't enough.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -108,76 +121,80 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "shop_day",
-	  "text": "Organic growth is valid but do not dismiss partnerships outright. Evaluate each opportunity on its own merits.",
+	  "text": "Organic growth is valid, but don't dismiss partnerships outright. Evaluate each opportunity on its own merits.",
 	  "choices": [],
 	  "next": "end"
 	},
 
-	"d4e2_a": {
+	"d4e2_staff_discount": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Midday. You discover one of your staff members has been giving unauthorized discounts to their friends. Sales are slightly lower because of it. What do you do?",
+	  "text": "Midday. You discover one of your staff members has been giving unauthorized discounts to their friends. Revenue is slightly lower because of it.",
 	  "choices": [],
-	  "next": "d4e2_b"
+	  "next": "d4e2_staff_b"
 	},
-	"d4e2_b": {
+	"d4e2_staff_b": {
 	  "speaker": "You",
 	  "speaker_id": "player",
 	  "background": "office",
 	  "text": "This is a trust issue. How I handle this will set the tone for how my team operates...",
 	  "choices": [
 		{
-		  "text": "Have a private calm conversation and set clear boundaries",
+		  "text": "Have a private, calm conversation and set boundaries",
 		  "effects": { "morale": 10, "money": 5, "stress": -10 },
+		  "gold": 12,
 		  "minigame": null,
-		  "next": "d4e2_c_talk"
+		  "next": "d4e2_talk"
 		},
 		{
 		  "text": "Issue a formal written warning",
 		  "effects": { "morale": -10, "stress": -5, "money": 5 },
+		  "gold": 8,
 		  "minigame": null,
-		  "next": "d4e2_c_warning"
+		  "next": "d4e2_warning"
 		},
 		{
 		  "text": "Dismiss them immediately for breach of trust",
 		  "effects": { "morale": -20, "stress": 10, "money": 10 },
+		  "gold": 5,
 		  "minigame": null,
-		  "next": "d4e2_c_dismiss"
+		  "next": "d4e2_dismiss"
 		},
 		{
 		  "text": "Gather more evidence before acting",
 		  "effects": { "stress": 10, "morale": -5 },
+		  "gold": 5,
 		  "minigame": null,
-		  "next": "d4e2_c_evidence"
+		  "next": "d4e2_evidence"
 		}
 	  ]
 	},
-	"d4e2_c_talk": {
+	"d4e2_talk": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "office",
-	  "text": "I am really sorry. I did not think it was a big deal but I understand now. It will not happen again.",
+	  "text": "I'm really sorry. I didn't think it was a big deal, but I understand now. It won't happen again.",
 	  "choices": [],
 	  "next": "d4e2_result_talk"
 	},
-	"d4e2_c_warning": {
+	"d4e2_warning": {
 	  "speaker": "Staff",
 	  "speaker_id": "staff",
 	  "background": "office",
-	  "text": "A written warning? I understand. I will make sure this never happens again.",
+	  "text": "A written warning? I understand. I'll make sure this never happens again.",
 	  "choices": [],
 	  "next": "d4e2_result_warning"
 	},
-	"d4e2_c_dismiss": {
+	"d4e2_dismiss": {
 	  "speaker": "Other Staff",
 	  "speaker_id": "staff",
 	  "background": "office",
-	  "text": "Wow they got fired just like that? I had no idea that was such a serious offense. Everyone is a bit shaken.",
+	  "text": "Wow, they got fired just like that? I had no idea it was such a serious offense. Everyone's a bit shaken.",
 	  "choices": [],
 	  "next": "d4e2_result_dismiss"
 	},
-	"d4e2_c_evidence": {
+	"d4e2_evidence": {
 	  "speaker": "You",
 	  "speaker_id": "player",
 	  "background": "office",
@@ -189,7 +206,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Direct honest communication resolves most workplace issues. People often make mistakes without realizing the full impact.",
+	  "text": "Direct, honest communication resolves most workplace issues. People often make mistakes without realizing the full impact.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -197,7 +214,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Formal warnings create paper trails and signal seriousness. Good for repeat offenses but may feel heavy handed for a first incident.",
+	  "text": "Formal warnings create paper trails and signal seriousness. Good for repeat offenses but may feel heavy-handed for a first incident.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -218,75 +235,79 @@
 	  "next": "end"
 	},
 
-	"d4e3_a": {
+	"d4e3_corporate_buyer": {
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Late afternoon. A corporate buyer approaches you with a bulk purchase order worth a lot of money but they want a 30% discount and faster delivery than you can normally manage. What do you do?",
+	  "text": "Late afternoon. A corporate buyer wants to partner with your laundromat for bulk laundry services — a big contract, but they want a discount and faster turnaround.",
 	  "choices": [],
-	  "next": "d4e3_b"
+	  "next": "d4e3_corporate_b"
 	},
-	"d4e3_b": {
+	"d4e3_corporate_b": {
 	  "speaker": "Corporate Buyer",
 	  "speaker_id": "corporate",
 	  "background": "office",
-	  "text": "We want 200 units by Friday at a 30% discount. This could be a recurring order if you deliver. Can you make it happen?",
+	  "text": "We need 500 pounds of laundry processed by Friday at a 30% discount. This could be a recurring contract if you deliver. Can you make it happen?",
 	  "choices": [
 		{
-		  "text": "Accept the deal — big order is big revenue",
-		  "effects": { "money": 20, "stress": 20, "morale": -10 },
+		  "text": "Accept the deal — big contract is big revenue",
+		  "effects": { "money": 25, "stress": 25, "morale": -10 },
+		  "gold": 30,
 		  "minigame": null,
-		  "next": "d4e3_c_accept"
+		  "next": "d4e3_accept"
 		},
 		{
 		  "text": "Negotiate the discount down to 15%",
-		  "effects": { "money": 25, "stress": 10, "reputation": 10 },
+		  "effects": { "money": 30, "stress": 15, "reputation": 10 },
+		  "gold": 25,
 		  "minigame": null,
-		  "next": "d4e3_c_negotiate"
+		  "next": "d4e3_negotiate"
 		},
 		{
-		  "text": "Accept the discount but push the delivery to next week",
-		  "effects": { "money": 15, "stress": -5, "reputation": 5 },
+		  "text": "Accept the discount but push delivery to next week",
+		  "effects": { "money": 20, "stress": -5, "reputation": 5 },
+		  "gold": 20,
 		  "minigame": null,
-		  "next": "d4e3_c_delay"
+		  "next": "d4e3_delay"
 		},
 		{
-		  "text": "Decline — you cannot compromise quality for speed",
+		  "text": "Decline — cannot compromise quality for speed",
 		  "effects": { "reputation": 10, "morale": 10, "stress": -10 },
+		  "gold": 10,
 		  "minigame": null,
-		  "next": "d4e3_c_decline"
+		  "next": "d4e3_decline"
 		}
 	  ]
 	},
-	"d4e3_c_accept": {
+	"d4e3_accept": {
 	  "speaker": "Corporate Buyer",
 	  "speaker_id": "corporate",
 	  "background": "office",
-	  "text": "Excellent! We will send the contract over. Make sure you deliver on time or the deal is off.",
+	  "text": "Excellent! We'll send the contract over. Make sure you deliver on time, or the deal is off.",
 	  "choices": [],
 	  "next": "d4e3_result_accept"
 	},
-	"d4e3_c_negotiate": {
+	"d4e3_negotiate": {
 	  "speaker": "Corporate Buyer",
 	  "speaker_id": "corporate",
 	  "background": "office",
-	  "text": "Fifteen percent? You drive a hard bargain. But I respect that. Let us meet at 20% and call it a deal.",
+	  "text": "Fifteen percent? You drive a hard bargain. Let's meet at 20% and call it a deal.",
 	  "choices": [],
 	  "next": "d4e3_result_negotiate"
 	},
-	"d4e3_c_delay": {
+	"d4e3_delay": {
 	  "speaker": "Corporate Buyer",
 	  "speaker_id": "corporate",
 	  "background": "office",
-	  "text": "Next week works actually. Quality matters more than speed to us. We appreciate the honesty.",
+	  "text": "Next week works, actually. Quality matters more than speed to us. We appreciate the honesty.",
 	  "choices": [],
 	  "next": "d4e3_result_delay"
 	},
-	"d4e3_c_decline": {
+	"d4e3_decline": {
 	  "speaker": "Corporate Buyer",
 	  "speaker_id": "corporate",
 	  "background": "office",
-	  "text": "I understand. Perhaps we can revisit when your capacity grows. Here is my card.",
+	  "text": "I understand. Perhaps we can revisit when your capacity grows.",
 	  "choices": [],
 	  "next": "d4e3_result_decline"
 	},
@@ -294,7 +315,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Big orders under pressure test your operations. Overcommitting can harm quality and burn out your team even if the revenue looks good.",
+	  "text": "Big orders under pressure test your operations. Overcommitting can harm quality and burn out your team, even if the revenue looks good.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -310,7 +331,7 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Honest communication about your capacity builds long term trust. A realistic promise kept beats an ambitious one broken.",
+	  "text": "Honest communication about your capacity builds long-term trust. A realistic promise kept beats an ambitious one broken.",
 	  "choices": [],
 	  "next": "end"
 	},
@@ -318,10 +339,354 @@
 	  "speaker": "Mentor",
 	  "speaker_id": "mentor",
 	  "background": "office",
-	  "text": "Knowing your limits is strength not weakness. Protecting quality and team wellbeing keeps your business sustainable.",
+	  "text": "Knowing your limits is strength, not weakness. Protecting quality and team wellbeing keeps your business sustainable.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d4r_equipment_break": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_day",
+	  "text": "Boss! Machine #2 just stopped working mid-cycle. A customer's clothes are trapped inside, and there's water leaking.",
+	  "choices": [],
+	  "next": "d4r_equipment_b"
+	},
+	"d4r_equipment_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "shop_day",
+	  "text": "A machine breakdown during a busy day. How do you handle the frustrated customer?",
+	  "choices": [
+		{
+		  "text": "Apologize, offer a free wash, and call repair immediately",
+		  "effects": { "reputation": 15, "money": -10, "stress": 5 },
+		  "gold": 15,
+		  "minigame": null,
+		  "next": "d4r_equipment_apologize"
+		},
+		{
+		  "text": "Fix it yourself to save money",
+		  "effects": { "reputation": 5, "money": 10, "stress": 20 },
+		  "gold": 10,
+		  "minigame": null,
+		  "next": "d4r_equipment_self"
+		},
+		{
+		  "text": "Redirect customer to another machine and deal later",
+		  "effects": { "reputation": -10, "stress": 10 },
+		  "gold": 5,
+		  "minigame": null,
+		  "next": "d4r_equipment_redirect"
+		}
+	  ]
+	},
+	"d4r_equipment_apologize": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "Thank you for being so helpful. Accidents happen, and you handled it really well.",
+	  "choices": [],
+	  "next": "d4r_equipment_result_apologize"
+	},
+	"d4r_equipment_self": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_day",
+	  "text": "You fixed it, but it took two hours and stressed out the whole team.",
+	  "choices": [],
+	  "next": "d4r_equipment_result_self"
+	},
+	"d4r_equipment_redirect": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "So you're just going to ignore the broken machine? Not a good look.",
+	  "choices": [],
+	  "next": "d4r_equipment_result_redirect"
+	},
+	"d4r_equipment_result_apologize": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Good service recovery turns problems into loyalty opportunities. The cost was worth the trust you built.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4r_equipment_result_self": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "DIY repairs save money but cost time and team energy. Know when to call a professional.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4r_equipment_result_redirect": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Avoiding problems doesn't make them disappear. Customers expect you to fix issues, not hide them.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d4r_supplier_delay": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Your detergent supplier just called. Their shipment is delayed by three days due to a logistics issue.",
+	  "choices": [],
+	  "next": "d4r_supplier_b"
+	},
+	"d4r_supplier_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "office",
+	  "text": "Running low on detergent during a busy week is a real problem. What do you do?",
+	  "choices": [
+		{
+		  "text": "Buy from a more expensive local supplier temporarily",
+		  "effects": { "money": -15, "reputation": 10, "stress": -5 },
+		  "gold": 10,
+		  "minigame": null,
+		  "next": "d4r_supplier_local"
+		},
+		{
+		  "text": "Ration existing supplies and hope for the best",
+		  "effects": { "money": 5, "reputation": -10, "stress": 15 },
+		  "gold": 8,
+		  "minigame": null,
+		  "next": "d4r_supplier_ration"
+		},
+		{
+		  "text": "Ask customers to bring their own detergent",
+		  "effects": { "reputation": -15, "stress": 5, "morale": -5 },
+		  "gold": 10,
+		  "minigame": null,
+		  "next": "d4r_supplier_bring"
+		}
+	  ]
+	},
+	"d4r_supplier_local": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "Your detergent smells great today! Whatever you changed, keep it up.",
+	  "choices": [],
+	  "next": "d4r_supplier_result_local"
+	},
+	"d4r_supplier_ration": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "The machines seem to be using less detergent. My clothes don't feel as clean.",
+	  "choices": [],
+	  "next": "d4r_supplier_result_ration"
+	},
+	"d4r_supplier_bring": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "I have to bring my own detergent? That's inconvenient. I might go elsewhere.",
+	  "choices": [],
+	  "next": "d4r_supplier_result_bring"
+	},
+	"d4r_supplier_result_local": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Paying a premium to keep operations running is sometimes necessary. Customer trust is worth the temporary cost.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4r_supplier_result_ration": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Cutting corners on quality is visible to customers. Short-term savings can lead to long-term reputation damage.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4r_supplier_result_bring": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "office",
+	  "text": "Shifting problems to customers damages loyalty. They come to you for convenience — make sure you provide it.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d4r_customer_compliment": {
+	  "speaker": "Regular Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "I just wanted to say — this is the cleanest laundromat in the neighborhood. You're doing amazing work.",
+	  "choices": [],
+	  "next": "d4r_compliment_b"
+	},
+	"d4r_compliment_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "shop_day",
+	  "text": "A genuine compliment from a regular customer. How do you respond?",
+	  "choices": [
+		{
+		  "text": "Thank them warmly and share the credit with your team",
+		  "effects": { "reputation": 15, "morale": 20, "stress": -5 },
+		  "gold": 15,
+		  "minigame": null,
+		  "next": "d4r_compliment_share"
+		},
+		{
+		  "text": "Thank them graciously and move on",
+		  "effects": { "reputation": 10, "morale": 10 },
+		  "gold": 10,
+		  "minigame": null,
+		  "next": "d4r_compliment_thank"
+		},
+		{
+		  "text": "Downplay it and get back to work",
+		  "effects": { "reputation": 5, "morale": 5, "stress": -5 },
+		  "gold": 8,
+		  "minigame": null,
+		  "next": "d4r_compliment_downplay"
+		}
+	  ]
+	},
+	"d4r_compliment_share": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_day",
+	  "text": "You told the customer it was a team effort? That means so much to all of us.",
+	  "choices": [],
+	  "next": "d4r_compliment_result_share"
+	},
+	"d4r_compliment_thank": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "You're welcome! Just wanted you to know your hard work is noticed.",
+	  "choices": [],
+	  "next": "d4r_compliment_result_thank"
+	},
+	"d4r_compliment_downplay": {
+	  "speaker": "Customer",
+	  "speaker_id": "customer",
+	  "background": "shop_day",
+	  "text": "Oh, okay. Just thought you should know.",
+	  "choices": [],
+	  "next": "d4r_compliment_result_downplay"
+	},
+	"d4r_compliment_result_share": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Sharing credit builds team loyalty. A leader who lifts others up gets lifted higher in return.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4r_compliment_result_thank": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Gratitude is always welcome, but sharing the love costs nothing and builds culture.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4r_compliment_result_downplay": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_day",
+	  "text": "Humility is fine, but accepting praise graciously is also a skill. People want to feel heard.",
+	  "choices": [],
+	  "next": "end"
+	},
+
+	"d4e5_day_review": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "End of Day 4. You've faced challenges and made real progress. How do you want to approach Day 5?",
+	  "choices": [],
+	  "next": "d4e5_review_b"
+	},
+	"d4e5_review_b": {
+	  "speaker": "You",
+	  "speaker_id": "player",
+	  "background": "shop_evening",
+	  "text": "The final day is tomorrow. What's your focus for the home stretch?",
+	  "choices": [
+		{
+		  "text": "Go all out — pull out all the stops",
+		  "effects": { "reputation": 15, "morale": 15, "money": -10 },
+		  "gold": 20,
+		  "sets_flag": "final_push",
+		  "minigame": null,
+		  "next": "d4e5_allout"
+		},
+		{
+		  "text": "Stay steady — do what's been working",
+		  "effects": { "reputation": 10, "morale": 10, "money": 5 },
+		  "gold": 15,
+		  "minigame": null,
+		  "next": "d4e5_steady"
+		},
+		{
+		  "text": "Conserve energy and resources",
+		  "effects": { "money": 10, "stress": -10 },
+		  "gold": 10,
+		  "minigame": null,
+		  "next": "d4e5_conserve"
+		}
+	  ]
+	},
+	"d4e5_allout": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_evening",
+	  "text": "All out tomorrow? We're ready! Let's finish this week strong!",
+	  "choices": [],
+	  "next": "d4e5_result_allout"
+	},
+	"d4e5_steady": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_evening",
+	  "text": "Steady and reliable. We can do that. Let's finish strong.",
+	  "choices": [],
+	  "next": "d4e5_result_steady"
+	},
+	"d4e5_conserve": {
+	  "speaker": "Staff",
+	  "speaker_id": "staff",
+	  "background": "shop_evening",
+	  "text": "Taking it easy tomorrow? We'll do our best with what we have.",
+	  "choices": [],
+	  "next": "d4e5_result_conserve"
+	},
+	"d4e5_result_allout": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Finishing strong matters. Tomorrow is your final chance to impact your grade. Make it count.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4e5_result_steady": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Consistency wins many races. What you've built over four days is solid — tomorrow seals it.",
+	  "choices": [],
+	  "next": "end"
+	},
+	"d4e5_result_conserve": {
+	  "speaker": "Mentor",
+	  "speaker_id": "mentor",
+	  "background": "shop_evening",
+	  "text": "Preserving energy is valid, but don't coast on the final day. Every decision still matters.",
 	  "choices": [],
 	  "next": "end"
 	}
-
   }
 }
