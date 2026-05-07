@@ -28,27 +28,22 @@ const TAB_CONTENT = {
 	"TEAM": [
 		{"role": "DEVELOPED BY", "name": "Group 2 — SBIT3N", "icon": "💻"},
 		{"role": "GAME DESIGN", "name": "Group 2 — SBIT3N", "icon": "🎮"},
-		{"role": "PROGRAMMING", "name": "Group 2 — SBIT3N", "icon": "⚙️"},
-		{"role": "PROJECT LEAD", "name": "TBA", "icon": "👑"},
-		{"role": "TESTING", "name": "Classmates", "icon": "🐛"},
+		{"role": "PROGRAMMING", "name": "Rain Alexander Aguirre", "icon": "⚙️"},
+		{"role": "PROJECT LEAD", "name": "Carille Tutaan", "icon": "👑"},
 	],
 	"ART": [
-		{"role": "UI DESIGN", "name": "TBA", "icon": "🎨"},
-		{"role": "CHARACTER ART", "name": "TBA", "icon": "👤"},
-		{"role": "BACKGROUNDS", "name": "TBA", "icon": "🌆"},
-		{"role": "PIXEL ART", "name": "TBA", "icon": "🖼️"},
-		{"role": "ANIMATION", "name": "TBA", "icon": "🎬"},
+		{"role": "UI DESIGN", "name": "Carille Tutaan, Jaymee Cayabyab, Alyssa Verdan, Maria Hannah Labajo, Nigel Keil Serrano, Lawrence Galang", "icon": "🎨"},
+		{"role": "CHARACTER ART", "name": "Pixel Art Online", "icon": "👤"},
+		{"role": "PIXEL ART", "name": "Princess Jasmine Crescencio, Rain Alexander Aguirre", "icon": "🖼️"},
 	],
 	"SFX": [
-		{"role": "MUSIC", "name": "TBA", "icon": "🎵"},
-		{"role": "SOUND EFFECTS", "name": "TBA", "icon": "🔊"},
-		{"role": "VOICE", "name": "TBA", "icon": "🎙️"},
-		{"role": "MIXING", "name": "TBA", "icon": "🎚️"},
+		{"role": "MUSIC", "name": "Sakura Girl, Amechi", "icon": "🎵"},
+		{"role": "SOUND EFFECTS", "name": "Royalty Free SFXs", "icon": "🔊"},
+		{"role": "VOICE", "name": "Rain Alexander Aguirre", "icon": "🎙️"},
 	],
 	"THANKS": [
 		{"role": "PROFESSOR", "name": "Dr. Mary Jean M. Jayobo", "icon": "👩‍🏫"},
-		{"role": "CLASSMATES", "name": "SBIT3N - QCU", "icon": "👥"},
-		{"role": "TOOLS", "name": "Godot 4, Aseprite", "icon": "🛠️"},
+		{"role": "TOOLS", "name": "Godot 4, Aseprite, FL Studio", "icon": "🛠️"},
 		{"role": "FONTS", "name": "Monogram", "icon": "🔤"},
 		{"role": "INSPIRATION", "name": "Lapse", "icon": "✨"},
 	],
@@ -112,7 +107,7 @@ func _build_ui() -> void:
 	title.text = "CREDITS"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_color_override("font_color", GameTheme.get_color("accent"))
-	GameTheme.apply_font(title, 16)
+	GameTheme.apply_font(title, 24)
 	title_row.add_child(title)
 	
 	var star_right = Label.new()
@@ -140,11 +135,11 @@ func _build_ui() -> void:
 	game_sub.text = "Run it. Learn it. Own it."
 	game_sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	game_sub.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(game_sub, 9)
+	GameTheme.apply_font(game_sub, 20)
 	vbox.add_child(game_sub)
 
 	var spacer = Control.new()
-	spacer.custom_minimum_size = Vector2(0, 6)
+	spacer.custom_minimum_size = Vector2(0, 4)
 	vbox.add_child(spacer)
 
 	# Tab bar
@@ -157,7 +152,7 @@ func _build_ui() -> void:
 	vbox.add_child(tab_divider)
 
 	var gap = Control.new()
-	gap.custom_minimum_size = Vector2(0, 6)
+	gap.custom_minimum_size = Vector2(0, 4)
 	vbox.add_child(gap)
 
 	# Content area (NO SCROLL - uses grid)
@@ -168,15 +163,15 @@ func _build_ui() -> void:
 	vbox.add_child(content_area)
 
 	var gap2 = Control.new()
-	gap2.custom_minimum_size = Vector2(0, 6)
+	gap2.custom_minimum_size = Vector2(0, 4)
 	vbox.add_child(gap2)
 
 	# Version
 	var version = Label.new()
-	version.text = "v1.0 — Laundromat Release"
+	version.text = "v1.5 - Laundromat Voice Update"
 	version.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	version.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(version, 8)
+	GameTheme.apply_font(version, 18)
 	vbox.add_child(version)
 
 	var gap3 = Control.new()
@@ -185,7 +180,7 @@ func _build_ui() -> void:
 
 	# Back button
 	var back_btn = GameTheme.build_button("◂  BACK", true, 13)
-	back_btn.custom_minimum_size = Vector2(screen_w * 0.35, 38)
+	back_btn.custom_minimum_size = Vector2(screen_w * 0.35, 36)
 	back_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	GameTheme.connect_button(back_btn, _on_back_pressed)
 	vbox.add_child(back_btn)
@@ -247,7 +242,8 @@ func _switch_tab(index: int) -> void:
 
 func _build_credit_card(credit: Dictionary) -> PanelContainer:
 	var card = PanelContainer.new()
-	card.custom_minimum_size = Vector2(0, 65)
+	# Increase minimum height to accommodate wrapped text
+	card.custom_minimum_size = Vector2(0, 0)  # Let it auto-size
 	card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	card.add_theme_stylebox_override("panel",
 		GameTheme.make_panel_style("mid", 1)
@@ -279,19 +275,21 @@ func _build_credit_card(credit: Dictionary) -> PanelContainer:
 	var role_label = Label.new()
 	role_label.text = credit["role"]
 	role_label.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(role_label, 12)
+	GameTheme.apply_font(role_label, 16)
 	text_vbox.add_child(role_label)
 
 	var name_label = Label.new()
 	name_label.text = credit["name"]
+	name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART  # Enable word wrap
+	name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	
 	# Highlight "Group 2" entries
 	if credit["name"].contains("Group 2"):
 		name_label.add_theme_color_override("font_color", GameTheme.get_color("accent"))
-		GameTheme.apply_font(name_label, 10)
+		GameTheme.apply_font(name_label, 14)
 	else:
-		name_label.add_theme_color_override("font_color", GameTheme.get_color("text"))
-		GameTheme.apply_font(name_label, 9)
+		name_label.add_theme_color_override("font_color", "#f2f2f2")
+		GameTheme.apply_font(name_label, 14)
 	
 	text_vbox.add_child(name_label)
 

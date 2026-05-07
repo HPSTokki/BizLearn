@@ -1,7 +1,7 @@
 extends Node
 
 # =========================================
-# SIMPLE AGE GATE - Monogram-Friendly, Centered
+# SIMPLE AGE GATE - Fixed Persistence
 # =========================================
 
 var canvas: CanvasLayer = null
@@ -31,7 +31,7 @@ func _build_ui() -> void:
 	canvas.add_child(center)
 
 	var panel = PanelContainer.new()
-	panel.custom_minimum_size = Vector2(screen_w * 0.7, screen_h * 0.5)
+	panel.custom_minimum_size = Vector2(screen_w * 0.7, screen_h * 0.45)
 	panel.add_theme_stylebox_override("panel",
 		GameTheme.make_panel_style("dark", GameTheme.DIALOGUE_BORDER_W)
 	)
@@ -39,11 +39,11 @@ func _build_ui() -> void:
 
 	var vbox = VBoxContainer.new()
 	vbox.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	vbox.add_theme_constant_override("separation", 8)
-	vbox.add_theme_constant_override("margin_left", 12)
-	vbox.add_theme_constant_override("margin_right", 12)
-	vbox.add_theme_constant_override("margin_top", 16)
-	vbox.add_theme_constant_override("margin_bottom", 16)
+	vbox.add_theme_constant_override("separation", 10)
+	vbox.add_theme_constant_override("margin_left", 16)
+	vbox.add_theme_constant_override("margin_right", 16)
+	vbox.add_theme_constant_override("margin_top", 20)
+	vbox.add_theme_constant_override("margin_bottom", 20)
 	panel.add_child(vbox)
 
 	# Title
@@ -51,7 +51,7 @@ func _build_ui() -> void:
 	title.text = "AGE VERIFICATION"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_color_override("font_color", GameTheme.get_color("accent"))
-	GameTheme.apply_font(title, 14)
+	GameTheme.apply_font(title, 16)
 	vbox.add_child(title)
 
 	# Divider
@@ -66,7 +66,7 @@ func _build_ui() -> void:
 	desc.text = "Enter your age to continue"
 	desc.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	desc.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(desc, 10)
+	GameTheme.apply_font(desc, 11)
 	vbox.add_child(desc)
 
 	# Age input - centered
@@ -90,24 +90,21 @@ func _build_ui() -> void:
 	# Number pad
 	var number_pad = GridContainer.new()
 	number_pad.columns = 3
-	number_pad.add_theme_constant_override("h_separation", 6)
-	number_pad.add_theme_constant_override("v_separation", 4)
+	number_pad.add_theme_constant_override("h_separation", 8)
+	number_pad.add_theme_constant_override("v_separation", 6)
 	number_pad.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	vbox.add_child(number_pad)
 
-	# Number buttons 1-9
 	for i in range(1, 10):
-		var btn = _build_small_button(str(i))
+		var btn = _build_number_button(str(i))
 		GameTheme.connect_button(btn, func(): _append_number(str(i)))
 		number_pad.add_child(btn)
 	
-	# 0 button
-	var zero_btn = _build_small_button("0")
+	var zero_btn = _build_number_button("0")
 	GameTheme.connect_button(zero_btn, func(): _append_number("0"))
 	number_pad.add_child(zero_btn)
 
-	# Backspace button
-	var back_btn = _build_small_button("⌫")
+	var back_btn = _build_number_button("⌫")
 	GameTheme.connect_button(back_btn, _backspace)
 	number_pad.add_child(back_btn)
 
@@ -116,20 +113,20 @@ func _build_ui() -> void:
 	error_label.text = ""
 	error_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	error_label.add_theme_color_override("font_color", GameTheme.get_color("negative"))
-	GameTheme.apply_font(error_label, 9)
-	error_label.custom_minimum_size = Vector2(0, 20)
+	GameTheme.apply_font(error_label, 10)
+	error_label.custom_minimum_size = Vector2(0, 24)
 	vbox.add_child(error_label)
 
 	# Confirm button
-	var confirm_btn = GameTheme.build_button("CONTINUE", true, 12)
-	confirm_btn.custom_minimum_size = Vector2(screen_w * 0.4, 38)
+	var confirm_btn = GameTheme.build_button("CONTINUE", true, 13)
+	confirm_btn.custom_minimum_size = Vector2(screen_w * 0.4, 40)
 	confirm_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	GameTheme.connect_button(confirm_btn, _on_confirm)
 	vbox.add_child(confirm_btn)
 
-func _build_small_button(text: String) -> PanelContainer:
-	var btn = GameTheme.build_button(text, false, 12)
-	btn.custom_minimum_size = Vector2(36, 36)
+func _build_number_button(text: String) -> PanelContainer:
+	var btn = GameTheme.build_button(text, false, 14)
+	btn.custom_minimum_size = Vector2(44, 44)
 	return btn
 
 func _append_number(num: String) -> void:
@@ -155,7 +152,10 @@ func _on_confirm() -> void:
 		error_label.text = "Enter valid age (1-120)"
 		return
 	
+	# Save age and immediately change scene
 	_save_age(age)
+	
+	# Force scene change
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 
 func _save_age(age: int) -> void:
@@ -166,4 +166,4 @@ func _save_age(age: int) -> void:
 	config.set_value("User", "date_set", Time.get_datetime_dict_from_system())
 	config.save("user://user_data.cfg")
 	
-	print("Age saved: ", age)
+	print("✅ Age saved: ", age)

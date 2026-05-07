@@ -26,12 +26,15 @@ const PARTICLE_COUNT = 25
 # LIFECYCLE
 # =========================================
 func _ready() -> void:
-	# Check age gate FIRST before anything else
+	# Use call_deferred to avoid scene change during _ready
+	call_deferred("_check_age_and_start")
+
+func _check_age_and_start() -> void:
 	if AgeManager.needs_age_check():
-		get_tree().change_scene_to_file("res://scenes/age_rate_scene.tscn")
+		get_tree().change_scene_to_file("res://scenes/age_gate_scene.tscn")
 		return
 	
-	# Only build UI if age is already set
+	# Rest of main menu initialization
 	_init_main_menu()
 
 func _init_main_menu() -> void:
