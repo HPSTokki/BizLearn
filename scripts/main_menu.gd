@@ -49,6 +49,7 @@ func _init_main_menu() -> void:
 	_build_logo_section()
 	_build_buttons()
 	_build_version_label()
+	_apply_saved_settings()
 	AudioManager.play_music("menu_theme", 0.5)
 
 # =========================================
@@ -259,6 +260,50 @@ func _process(delta: float) -> void:
 # =========================================
 # CALLBACKS
 # =========================================
+
+# Add this new function to load and apply settings
+func _apply_saved_settings() -> void:
+	var settings_file = "user://settings.cfg"
+	if not FileAccess.file_exists(settings_file):
+		return  # No saved settings yet, use defaults
+	
+	var file = FileAccess.open(settings_file, FileAccess.READ)
+	if file:
+		var json = JSON.new()
+		var error = json.parse(file.get_as_text())
+		file.close()
+		
+		if error == OK:
+			var settings = json.get_data()
+			
+			# Apply audio settings
+			if settings.has("music_volume"):
+				var bus = AudioServer.get_bus_index("Music")
+				if bus >= 0:
+					AudioServer.set_bus_volume_db(bus, linear_to_db(settings["music_volume"] / 100.0))
+				if AudioManager:
+					AudioManager.set_music_volume(settings["music_volume"])
+			
+			if settings.has("sfx_volume"):
+				var bus = AudioServer.get_bus_index("SFX")
+				if bus >= 0:
+					AudioServer.set_bus_volume_db(bus, linear_to_db(settings["sfx_volume"] / 100.0))
+				if AudioManager:
+					AudioManager.set_sfx_volume(settings["sfx_volume"])
+			
+			if settings.has("master_volume"):
+				var bus = AudioServer.get_bus_index("Master")
+				if bus >= 0:
+					AudioServer.set_bus_volume_db(bus, linear_to_db(settings["master_volume"] / 100.0))
+			
+			# Apply other settings if needed
+			if settings.has("text_speed") and GameTheme:
+				var TEXT_SPEEDS = [0.06, 0.03, 0.01]
+				GameTheme.set_text_speed(TEXT_SPEEDS[settings["text_speed"]])
+			
+			if settings.has("vibration") and GameTheme:
+				GameTheme.set_vibration(settings["vibration"])
+
 func _on_new_game_pressed() -> void:
 	AudioManager.play_sfx("click")
 	var scene = load("res://scenes/save_slot_screen.tscn").instantiate()

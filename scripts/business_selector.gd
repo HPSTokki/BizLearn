@@ -87,38 +87,22 @@ func _build_ui() -> void:
 	# Decorative top bar
 	var top_decoration = HBoxContainer.new()
 	top_decoration.alignment = BoxContainer.ALIGNMENT_CENTER
-	top_decoration.add_theme_constant_override("separation", 4)
+	top_decoration.add_theme_constant_override("separation", 2)
 	vbox.add_child(top_decoration)
-	
-	var left_line = ColorRect.new()
-	left_line.color = GameTheme.get_color("accent")
-	left_line.custom_minimum_size = Vector2(40, 1)
-	top_decoration.add_child(left_line)
-	
-	var star_icon = Label.new()
-	star_icon.text = "✦"
-	star_icon.add_theme_font_size_override("font_size", 12)
-	star_icon.add_theme_color_override("font_color", GameTheme.get_color("accent"))
-	top_decoration.add_child(star_icon)
-	
-	var right_line = ColorRect.new()
-	right_line.color = GameTheme.get_color("accent")
-	right_line.custom_minimum_size = Vector2(40, 1)
-	top_decoration.add_child(right_line)
 
 	# Header
 	var title = Label.new()
 	title.text = "CHOOSE YOUR BUSINESS"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_color_override("font_color", GameTheme.get_color("accent"))
-	GameTheme.apply_font(title, 16)
+	GameTheme.apply_font(title, 26)
 	vbox.add_child(title)
 
 	var sub = Label.new()
 	sub.text = "Slot " + str(_slot_index + 1) + "  —  Swipe to browse"
 	sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	sub.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(sub, 9)
+	GameTheme.apply_font(sub, 18)
 	vbox.add_child(sub)
 
 	# Divider
@@ -129,7 +113,7 @@ func _build_ui() -> void:
 	vbox.add_child(div)
 
 	var sp1 = Control.new()
-	sp1.custom_minimum_size = Vector2(0, 8)
+	sp1.custom_minimum_size = Vector2(0, 4)
 	vbox.add_child(sp1)
 
 	# Carousel area
@@ -176,15 +160,15 @@ func _build_ui() -> void:
 	lock_notice.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	lock_notice.custom_minimum_size = Vector2(0, 24)
 	lock_notice.add_theme_color_override("font_color", GameTheme.get_color("negative"))
-	GameTheme.apply_font(lock_notice, 9)
+	GameTheme.apply_font(lock_notice, 16)
 	vbox.add_child(lock_notice)
 
 	# Select button with pulsing animation when unlocked
-	select_btn = GameTheme.build_button("✨  START HERE  ✨", true, 16)
+	select_btn = GameTheme.build_button("✨  START HERE  ✨", true, 18)
 	GameTheme.connect_button(select_btn, _on_select_pressed)
 	vbox.add_child(select_btn)
 
-	var back_btn = GameTheme.build_button("◂  BACK", false, 12)
+	var back_btn = GameTheme.build_button("◂  BACK", false, 16)
 	back_btn.custom_minimum_size = Vector2(120, 40)
 	back_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	GameTheme.connect_button(back_btn, _on_back_pressed)
@@ -193,23 +177,9 @@ func _build_ui() -> void:
 	clip.gui_input.connect(_on_clip_input)
 
 func _build_arrow_button(arrow_text: String, is_left: bool) -> PanelContainer:
-	var btn = GameTheme.build_button(arrow_text, false, 24)
-	btn.custom_minimum_size = Vector2(56, 56)
+	var btn = GameTheme.build_button(arrow_text, false, 28)
+	btn.custom_minimum_size = Vector2(45, 45)
 	btn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	
-	# Make arrow button circular
-	var style = StyleBoxFlat.new()
-	style.bg_color = GameTheme.get_color("panel_dark")
-	style.border_width_top = 2
-	style.border_width_bottom = 2
-	style.border_width_left = 2
-	style.border_width_right = 2
-	style.border_color = GameTheme.get_color("accent")
-	style.corner_radius_top_left = 28
-	style.corner_radius_top_right = 28
-	style.corner_radius_bottom_left = 28
-	style.corner_radius_bottom_right = 28
-	btn.add_theme_stylebox_override("panel", style)
 	
 	# Center the label
 	var lbl = btn.get_child(0) as Label
@@ -289,7 +259,7 @@ func _build_business_card(biz: Dictionary, index: int) -> Control:
 	name_lbl.add_theme_color_override("font_color",
 		GameTheme.get_color("accent") if not locked else GameTheme.get_color("dim")
 	)
-	GameTheme.apply_font(name_lbl, 18)
+	GameTheme.apply_font(name_lbl, 20)
 	inner.add_child(name_lbl)
 
 	# Tagline
@@ -298,7 +268,7 @@ func _build_business_card(biz: Dictionary, index: int) -> Control:
 	tagline.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	tagline.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	tagline.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(tagline, 10)
+	GameTheme.apply_font(tagline, 16)
 	inner.add_child(tagline)
 
 	# Difficulty stars with visual flair
@@ -319,7 +289,7 @@ func _build_business_card(biz: Dictionary, index: int) -> Control:
 
 	var div = ColorRect.new()
 	div.color = GameTheme.get_color("panel_dark")
-	div.custom_minimum_size = Vector2(0, 1)
+	div.custom_minimum_size = Vector2(0, 2)
 	div.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	inner.add_child(div)
 

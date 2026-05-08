@@ -30,6 +30,9 @@ func _ready() -> void:
 	AudioManager.play_sfx("day_end")
 	DialogueManager.save_game()
 
+func _exit_tree() -> void:
+	AudioManager.stop_all_audio()
+
 # =========================================
 # DATA
 # =========================================
@@ -408,9 +411,12 @@ func _on_burger_pressed() -> void:
 # =========================================
 func _on_next_pressed() -> void:
 	if _current_day >= TOTAL_DAYS:
+		AudioManager.fade_out_and_stop(0.3)
+		await get_tree().create_timer(0.3).timeout
 		get_tree().change_scene_to_file("res://scenes/final_result_screen.tscn")
 	else:
 		DialogueManager.load_next_day()
+		# Don't stop audio here - next day will start new music
 		get_tree().change_scene_to_file("res://scenes/dialogue_scene.tscn")
 
 func _on_shop_pressed() -> void:

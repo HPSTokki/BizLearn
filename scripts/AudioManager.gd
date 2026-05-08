@@ -83,6 +83,27 @@ func play_mentor_voice(voice_id: String) -> void:
 	voice_player.stream = stream
 	voice_player.play()
 
+func stop_all_audio() -> void:
+	"""Stop all audio playback"""
+	stop_music(0.0)  # Instant stop
+	stop_all_sfx()
+	stop_voice()
+
+func stop_all_sfx() -> void:
+	"""Stop all SFX players"""
+	for player in sfx_players:
+		if player.playing:
+			player.stop()
+
+func fade_out_and_stop(duration: float = 0.5) -> void:
+	"""Fade out music and stop all audio"""
+	if music_player.playing:
+		var tween = create_tween()
+		tween.tween_property(music_player, "volume_db", -80, duration)
+		tween.tween_callback(stop_all_audio)
+	else:
+		stop_all_audio()
+
 # ← ADD THIS: Stop voice
 func stop_voice() -> void:
 	if voice_player.playing:

@@ -231,8 +231,6 @@ func _build_game_tab() -> void:
 	content_area.add_child(_build_section_header("GAMEPLAY"))
 	content_area.add_child(_build_option_row("Text Speed", "text_speed", TEXT_SPEED_LABELS))
 	content_area.add_child(_build_divider_row())
-	content_area.add_child(_build_section_header("MOBILE"))
-	content_area.add_child(_build_toggle_row("Notifications", "notifications"))
 	content_area.add_child(_build_divider_row())
 	content_area.add_child(_build_section_header("LANGUAGE"))
 	content_area.add_child(_build_option_row("Language", "language", LANGUAGE_OPTIONS))

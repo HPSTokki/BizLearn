@@ -55,9 +55,9 @@ func _ready() -> void:
 	_build_canvas()
 	_build_ui()
 	_start_confetti()
-	AudioManager.play_music("difficulty_end", 0.3)
 	DialogueManager.save_game()
 	SaveManager.complete_business(_grade, _stats)
+	AudioManager.play_music("difficulty_end_2", 0.3)
 
 func _receive_data() -> void:
 	_stats = DialogueManager.get_all_stats()

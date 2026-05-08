@@ -48,7 +48,7 @@ func _build_ui() -> void:
 	# Main panel - cleaner, more elegant
 	var panel = PanelContainer.new()
 	panel.position = Vector2(screen_w * 0.1, screen_h * 0.08)
-	panel.size = Vector2(screen_w * 0.8, screen_h * 0.84)  # was 0.92
+	panel.size = Vector2(screen_w * 0.8, screen_h * 0.80)  # was 0.92
 	panel.custom_minimum_size = panel.size
 	
 	var panel_style = StyleBoxFlat.new()
@@ -77,32 +77,16 @@ func _build_ui() -> void:
 	# Decorative top bar
 	var top_decoration = HBoxContainer.new()
 	top_decoration.alignment = BoxContainer.ALIGNMENT_CENTER
-	top_decoration.add_theme_constant_override("separation", 8)
+	top_decoration.add_theme_constant_override("separation", 5)
 	vbox.add_child(top_decoration)
-	
-	var left_line = ColorRect.new()
-	left_line.color = GameTheme.get_color("accent")
-	left_line.custom_minimum_size = Vector2(50, 1)
-	top_decoration.add_child(left_line)
-	
-	var diamond = Label.new()
-	diamond.text = "◆"
-	diamond.add_theme_font_size_override("font_size", 10)
-	diamond.add_theme_color_override("font_color", GameTheme.get_color("accent"))
-	top_decoration.add_child(diamond)
-	
-	var right_line = ColorRect.new()
-	right_line.color = GameTheme.get_color("accent")
-	right_line.custom_minimum_size = Vector2(50, 1)
-	top_decoration.add_child(right_line)
 
 	# Title
-	var title_text = "⚡ SAVE SLOT ⚡" if mode == "new_game" else "📂 LOAD SAVE"
+	var title_text = "SAVE SLOT" if mode == "new_game" else "📂 LOAD SAVE"
 	var title = Label.new()
 	title.text = title_text
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_color_override("font_color", GameTheme.get_color("accent"))
-	GameTheme.apply_font(title, 16)
+	GameTheme.apply_font(title, 26)
 	vbox.add_child(title)
 
 	# Subtitle
@@ -112,18 +96,18 @@ func _build_ui() -> void:
 	sub.text = sub_text
 	sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	sub.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(sub, 9)
+	GameTheme.apply_font(sub, 14)
 	vbox.add_child(sub)
 
 	# Divider with icon
 	var div_container = HBoxContainer.new()
 	div_container.alignment = BoxContainer.ALIGNMENT_CENTER
-	div_container.add_theme_constant_override("separation", 8)
+	div_container.add_theme_constant_override("separation", 3)
 	vbox.add_child(div_container)
 	
 	var left_div = ColorRect.new()
 	left_div.color = GameTheme.get_color("accent")
-	left_div.custom_minimum_size = Vector2(80, 1)
+	left_div.custom_minimum_size = Vector2(40, 1)
 	left_div.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	div_container.add_child(left_div)
 	
@@ -135,7 +119,7 @@ func _build_ui() -> void:
 	
 	var right_div = ColorRect.new()
 	right_div.color = GameTheme.get_color("accent")
-	right_div.custom_minimum_size = Vector2(80, 1)
+	right_div.custom_minimum_size = Vector2(40, 1)
 	right_div.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	div_container.add_child(right_div)
 
@@ -145,7 +129,7 @@ func _build_ui() -> void:
 
 	# Slot cards
 	var slots_container = VBoxContainer.new()
-	slots_container.add_theme_constant_override("separation", 16)
+	slots_container.add_theme_constant_override("separation", 12)
 	slots_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	slots_container.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	vbox.add_child(slots_container)
@@ -159,11 +143,15 @@ func _build_ui() -> void:
 	vbox.add_child(spacer)
 
 	# Back button
-	var back_btn = GameTheme.build_button("◂  BACK", false, 14)
-	back_btn.custom_minimum_size = Vector2(140, 44)
+	var back_btn = GameTheme.build_button("◂  BACK", false, 16)
+	back_btn.custom_minimum_size = Vector2(130, 33)
 	back_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	GameTheme.connect_button(back_btn, _on_back_pressed)
 	vbox.add_child(back_btn)
+	
+	var spacer_2 = Control.new()
+	spacer_2.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	vbox.add_child(spacer_2)
 
 func _create_gradient_material() -> ShaderMaterial:
 	var shader_code = """
@@ -249,13 +237,13 @@ func _build_slot_card(slot: Dictionary) -> Control:
 	hbox.add_theme_constant_override("separation", 10)  # Reduced from 14
 	hbox.add_theme_constant_override("margin_left", 12)  # Reduced from 16
 	hbox.add_theme_constant_override("margin_right", 12) # Reduced from 16
-	hbox.add_theme_constant_override("margin_top", 10)   # Reduced from 14
+	hbox.add_theme_constant_override("margin_top", 12)   # Reduced from 14
 	hbox.add_theme_constant_override("margin_bottom", 10)# Reduced from 14
 	card.add_child(hbox)
 
 	# Slot number badge - smaller
 	var badge_container = CenterContainer.new()
-	badge_container.custom_minimum_size = Vector2(46, 46)
+	badge_container.custom_minimum_size = Vector2(42, 42)
 	hbox.add_child(badge_container)
 	
 	var badge = PanelContainer.new()
@@ -276,7 +264,7 @@ func _build_slot_card(slot: Dictionary) -> Control:
 	badge_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	badge_lbl.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	badge_lbl.add_theme_color_override("font_color", GameTheme.get_color("bg"))
-	GameTheme.apply_font(badge_lbl, 16)  # Reduced from 18
+	GameTheme.apply_font(badge_lbl, 20)  # Reduced from 18
 	badge.add_child(badge_lbl)
 
 	# Info column - compact
@@ -293,7 +281,7 @@ func _build_slot_card(slot: Dictionary) -> Control:
 		
 		var empty_icon = Label.new()
 		empty_icon.text = "📭"
-		GameTheme.apply_font(empty_icon, 18)  # Reduced from 24
+		GameTheme.apply_font(empty_icon, 22)  # Reduced from 24
 		empty_container.add_child(empty_icon)
 		
 		var empty_lbl = Label.new()
@@ -302,14 +290,14 @@ func _build_slot_card(slot: Dictionary) -> Control:
 			GameTheme.get_color("dim") if mode == "new_game"
 			else GameTheme.get_color("panel_mid")
 		)
-		GameTheme.apply_font(empty_lbl, 10)  # Reduced from 12
+		GameTheme.apply_font(empty_lbl, 14)  # Reduced from 12
 		empty_container.add_child(empty_lbl)
 
 		if mode == "new_game":
 			var new_lbl = Label.new()
 			new_lbl.text = "Tap to start →"
 			new_lbl.add_theme_color_override("font_color", GameTheme.get_color("accent"))
-			GameTheme.apply_font(new_lbl, 8)  # Reduced from 9
+			GameTheme.apply_font(new_lbl, 14)  # Reduced from 9
 			info_vbox.add_child(new_lbl)
 	else:
 		# Occupied slot - compact layout
@@ -331,7 +319,7 @@ func _build_slot_card(slot: Dictionary) -> Control:
 		biz_name_lbl.text = biz_name.to_upper()
 		biz_name_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		biz_name_lbl.add_theme_color_override("font_color", GameTheme.get_color("accent"))
-		GameTheme.apply_font(biz_name_lbl, 11)  # Reduced from 13
+		GameTheme.apply_font(biz_name_lbl, 18)  # Reduced from 13
 		biz_row.add_child(biz_name_lbl)
 		
 		# Progress bar row - compact
@@ -350,7 +338,7 @@ func _build_slot_card(slot: Dictionary) -> Control:
 		progress_bar.value = current_day
 		progress_bar.show_percentage = false
 		progress_bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		progress_bar.custom_minimum_size = Vector2(0, 6)  # Reduced from 8
+		progress_bar.custom_minimum_size = Vector2(0, 8)  # Reduced from 8
 		
 		var fill_style = StyleBoxFlat.new()
 		fill_style.bg_color = GameTheme.get_color("accent")
@@ -372,7 +360,7 @@ func _build_slot_card(slot: Dictionary) -> Control:
 		var day_text = Label.new()
 		day_text.text = str(current_day) + "/5"
 		day_text.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-		GameTheme.apply_font(day_text, 8)  # Reduced from 9
+		GameTheme.apply_font(day_text, 14)  # Reduced from 9
 		progress_row.add_child(day_text)
 		
 		# Timestamp - compact
@@ -388,7 +376,7 @@ func _build_slot_card(slot: Dictionary) -> Control:
 		var ts_lbl = Label.new()
 		ts_lbl.text = slot.get("timestamp", "Just now")
 		ts_lbl.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-		GameTheme.apply_font(ts_lbl, 7)  # Reduced from 8
+		GameTheme.apply_font(ts_lbl, 14)  # Reduced from 8
 		ts_row.add_child(ts_lbl)
 		
 		# Completion badge (if completed) - compact
@@ -495,7 +483,7 @@ func _build_mini_stat_row(stats: Dictionary) -> HBoxContainer:
 		var val_lbl = Label.new()
 		val_lbl.text = str(int(val))
 		val_lbl.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-		GameTheme.apply_font(val_lbl, 8)
+		GameTheme.apply_font(val_lbl, 11)
 		stat_container.add_child(val_lbl)
 		
 		row.add_child(stat_container)
@@ -564,6 +552,10 @@ func _show_overwrite_confirm(slot_index: int) -> void:
 	vbox.add_theme_constant_override("margin_top", 24)
 	vbox.add_theme_constant_override("margin_bottom", 24)
 	panel.add_child(vbox)
+	
+	var spacer_1 = Container.new()
+	spacer_1.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	vbox.add_child(spacer_1)
 
 	var warning_icon = Label.new()
 	warning_icon.text = "⚠️"
@@ -575,7 +567,7 @@ func _show_overwrite_confirm(slot_index: int) -> void:
 	warning.text = "OVERWRITE SAVE?"
 	warning.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	warning.add_theme_color_override("font_color", GameTheme.get_color("negative"))
-	GameTheme.apply_font(warning, 16)
+	GameTheme.apply_font(warning, 28)
 	vbox.add_child(warning)
 
 	var slot = SaveManager.get_slot(slot_index)
@@ -585,7 +577,7 @@ func _show_overwrite_confirm(slot_index: int) -> void:
 	desc.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	desc.add_theme_color_override("font_color", GameTheme.get_color("dim"))
-	GameTheme.apply_font(desc, 10)
+	GameTheme.apply_font(desc, 18)
 	vbox.add_child(desc)
 
 	var spacer = Control.new()
@@ -594,12 +586,11 @@ func _show_overwrite_confirm(slot_index: int) -> void:
 
 	var btn_row = HBoxContainer.new()
 	btn_row.alignment = BoxContainer.ALIGNMENT_CENTER
-	btn_row.add_theme_constant_override("separation", 16)
-	btn_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	btn_row.add_theme_constant_override("separation", 12)
 	vbox.add_child(btn_row)
 
-	var confirm_btn = GameTheme.build_button("⚠️  OVERWRITE", true, 12)
-	confirm_btn.custom_minimum_size = Vector2(140, 44)
+	var confirm_btn = GameTheme.build_button("⚠️  OVERWRITE", true, 16)
+	confirm_btn.custom_minimum_size = Vector2(120, 40)
 	GameTheme.connect_button(confirm_btn, func():
 		overlay.queue_free()
 		panel.queue_free()
@@ -607,8 +598,8 @@ func _show_overwrite_confirm(slot_index: int) -> void:
 	)
 	btn_row.add_child(confirm_btn)
 
-	var cancel_btn = GameTheme.build_button("CANCEL", false, 12)
-	cancel_btn.custom_minimum_size = Vector2(120, 44)
+	var cancel_btn = GameTheme.build_button("CANCEL", false, 16)
+	cancel_btn.custom_minimum_size = Vector2(90, 44)
 	GameTheme.connect_button(cancel_btn, func():
 		overlay.queue_free()
 		panel.queue_free()

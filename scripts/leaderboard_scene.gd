@@ -117,10 +117,25 @@ func _build_ui() -> void:
 	_refresh_leaderboard()
 
 func _refresh_leaderboard() -> void:
+	# Debug: Print all occupied slots
+	print("=== Checking save slots ===")
+	for i in range(SaveManager.SLOT_COUNT):
+		var slot = SaveManager.get_slot(i)
+		if slot.get("occupied", false):
+			print("Slot ", i, " - Business: ", slot.get("business_name"), 
+				" | Completed: ", slot.get("completed", false),
+				" | Day: ", slot.get("current_day", 0))
+		else:
+			print("Slot ", i, " - Empty")
+	
+	# Then refresh the leaderboard as normal
 	for child in leaderboard_grid.get_children():
 		child.queue_free()
 	
 	var entries = LeaderboardManager.get_leaderboard(current_business_id)
+	print("Found ", entries.size(), " entries for leaderboard")
+	
+	# ... rest of the function
 	var top_entries = entries.slice(0, min(12, entries.size()))
 	
 	for entry in top_entries:

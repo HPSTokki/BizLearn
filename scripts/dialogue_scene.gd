@@ -110,6 +110,9 @@ func _ready() -> void:
 	
 	call_deferred("_start_dialogue")
 
+func _exit_tree() -> void:
+	AudioManager.fade_out_and_stop(0.3)
+
 func _refresh_colors() -> void:
 	"""Refresh all colors from current theme"""
 	COLOR_BG         = GameTheme.get_color("bg")
@@ -181,10 +184,10 @@ func _build_shop_sprite_host() -> void:
 	var slot_h := GameTheme.SCENE_SPRITE_DISPLAY_SIZE.y
 	shop_sprite_host = Control.new()
 	shop_sprite_host.position = Vector2(
-		(SCREEN_W - slot_w) * 0.5,
-		SPRITE_AREA_H - slot_h
+		(SCREEN_W - slot_w) * 0.45,
+		SPRITE_AREA_H - slot_h - 30
 	)
-	shop_sprite_host.size = Vector2(slot_w, slot_h)
+	shop_sprite_host.size = Vector2(slot_w + 50, slot_h + 50)
 	shop_sprite_host.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	shop_sprite_host.visible = false
 	sprite_area.add_child(shop_sprite_host)
@@ -220,7 +223,7 @@ func _build_npc_placeholder() -> void:
 	
 	# Sprite container with FIXED size
 	var npc_sprite_container = PanelContainer.new()
-	npc_sprite_container.custom_minimum_size = Vector2(100, 120)
+	npc_sprite_container.custom_minimum_size = Vector2(100, 130)
 	npc_sprite_container.size = Vector2(100, 120)
 	npc_sprite_container.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	npc_sprite_container.size_flags_vertical = Control.SIZE_SHRINK_CENTER
@@ -243,9 +246,9 @@ func _build_npc_placeholder() -> void:
 	var npc_name_label = Label.new()
 	npc_name_label.text = ""
 	npc_name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	npc_name_label.add_theme_font_size_override("font_size", 10)
+	npc_name_label.add_theme_font_size_override("font_size", 18)
 	npc_name_label.add_theme_color_override("font_color", COLOR_ACCENT)
-	GameTheme.apply_font(npc_name_label, 10)
+	GameTheme.apply_font(npc_name_label, 18)
 	npc_container.add_child(npc_name_label)
 	
 	# Store references
@@ -287,9 +290,9 @@ func _build_player_placeholder() -> void:
 	var player_name_label = Label.new()
 	player_name_label.text = "YOU"
 	player_name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	player_name_label.add_theme_font_size_override("font_size", 10)
+	player_name_label.add_theme_font_size_override("font_size", 18)
 	player_name_label.add_theme_color_override("font_color", COLOR_ACCENT)
-	GameTheme.apply_font(player_name_label, 10)
+	GameTheme.apply_font(player_name_label, 18)
 	player_container.add_child(player_name_label)
 	
 	# Store references
@@ -298,7 +301,7 @@ func _build_player_placeholder() -> void:
 
 func _build_choices_container() -> void:
 	choices_container = VBoxContainer.new()
-	choices_container.position = Vector2(0, SCREEN_H - DIALOGUEBOX_H - 10)
+	choices_container.position = Vector2(0, SCREEN_H - DIALOGUEBOX_H - 30)
 	choices_container.size = Vector2(SCREEN_W, 0)
 	canvas.add_child(choices_container)
 	choices_container.set_script(load("res://scripts/choices_container.gd"))
@@ -614,6 +617,8 @@ func _on_event_completed(_current_event: int, _total_events: int) -> void:
 func _on_day_ended(_day: int, _stat_deltas: Dictionary) -> void:
 	_is_transitioning = true
 	await get_tree().create_timer(1.0).timeout
+	AudioManager.fade_out_and_stop(0.3)
+	await get_tree().create_timer(0.5).timeout
 	get_tree().change_scene_to_file("res://scenes/analytics_scene.tscn")
 
 # =========================================
